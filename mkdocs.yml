@@ -1,7 +1,7 @@
 # Site info.
 site_name: abookworm's Wiki
 site_author: Aaron Loong
-site_url: wiki.abookworm.site
+site_url: https://wiki.abookworm.site
 
 # Repository
 repo_name: abookworm-site/WikiPage
@@ -12,5 +12,5 @@ docs_dir: wiki
 # Site Nav
 nav:
 - 首页: 'index.md'
-- 200 Working Business: 
-- 250 Working Coding:
+- 编程: 'index.md'
+
