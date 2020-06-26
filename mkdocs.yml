@@ -7,11 +7,16 @@ site_url: https://wiki.abookworm.site
 repo_name: abookworm-site/WikiPage
 repo_url: https://github.com/abookworm-site/WikiPage
 
+# Site Pre
+# pip3 install mkdocs
+# pip3 install mkdocs-material
+
 docs_dir: wiki
 
+
 # Site theme
-# theme:
-#  name: 'material'
+theme:
+  name: 'material'
 
 
 # Site Nav
