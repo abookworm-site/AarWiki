@@ -17,9 +17,7 @@ docs_dir: wiki
 
 # Site theme
 theme:
-  name: null
-  custom_dir: mkdocs-material/material
-
+  name: 'material'
   language: 'zh'
 
   palette:
