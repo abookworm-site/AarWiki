@@ -2,20 +2,22 @@
 
 ## 简介
 
-1. Git是一个免费，开源的分布式版本控制系统
+Git是一个免费，开源的**分布式版本控制系统**
 
 
 
-## 版本控制
+### 版本控制
 
-概念：
-一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统
+概念：一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统
+
 - 回溯之前的文件状态，甚至退回到过去某个时间点状态
 - 比较文件变化细节，查找问题出现的原因
 - 文件内容恢复
 
 分类：
-1. 集中化的版本控制系统
+
+1， 集中化的版本控制系统
+
 - 一个单一的集中管理的服务器保存所有文件的修订版本，而协同工作人员都通过客户端到这台服务器取出最新的文件或提交更新。
 - 优势：
 	- 每个人都可以一定程度上了解项目的进度
@@ -23,7 +25,8 @@
 - 缺点：
 	- 中央服务器的单点故障
 
-2. 分布式版本控制系统
+2， 分布式版本控制系统
+
 - 去中心化，所有客户端都保存完整的代码仓库内容。
 - 可指定若干不同的远端代码仓库后，可在同一个项目中于不同工作小组的人相互协作
 - 分布式的版本控制系统在管理项目时，存放的不是项目版本与版本之间的差异，而是索引。
@@ -49,7 +52,7 @@
 
 ### 团队内部协作
 
-![630bd8862a4dbc6261bbd7277222e3dc.png](resource/Git%20&%20Github/7f591e78cfbb49d5a1f1c931d438c5c7-1593184787469.png)
+![630bd8862a4dbc6261bbd7277222e3dc.png](_resource/Git%20&%20Github/7f591e78cfbb49d5a1f1c931d438c5c7-1593184787469.png)
 
 - 管理员创建本地库， 并推送远程库
 - 开发人员克隆远程库，开发后，推送远程库（此时需要加入团队）
@@ -57,7 +60,7 @@
 
 ### 跨团队协作
 
-![93d0b21c1039357cafce63771720d96b.png](resource/Git%20&%20Github/7e1cdab2939f4fb89ac461c97593ee5d.png)
+![93d0b21c1039357cafce63771720d96b.png](_resource/Git%20&%20Github/7e1cdab2939f4fb89ac461c97593ee5d.png)
 
 
 ### 托管中心种类
@@ -69,24 +72,31 @@
 
 ## Git 命令
 
-初始化本地仓库
+1， 本地仓库初始化
+
 - git init
 
-提交代码
+
+
+2， 本地仓库提交代码
+
 - git add
 	- git add .
 	- git add --all
 - git commit -m "comments"
 
-查看状态
+
+
+3， 本地仓库查看，更改状态
+
 - git status
 
 - git log:
 	- 使用Key-values进行版本历史记录管理
-	- key: log_id
-	- values: 版本内容
-- git log --pretty=online
-- git log --oneline
+	    - key: log_id
+	    - values: 版本内容
+	- git log --pretty=online
+	- git log --oneline
 - git reflog
 	- 查看历史版本
 	- 并显示当前指针退回历史版本时，需要回退的步数
@@ -95,7 +105,7 @@
 	- `mixed`: 本地库指针移动，并同步更新暂存区，但是工作区不动
 	- `soft`: 本地库指针移动，暂存区和工作区都不动
 
-![d358c1dbd3b072fdfe90fddd9ff9d7f7.png](resource/Git%20&%20Github/90da1ef7e4a04b2eb072f5ba1220a116.png)
+![d358c1dbd3b072fdfe90fddd9ff9d7f7.png](_resource/Git%20&%20Github/90da1ef7e4a04b2eb072f5ba1220a116.png)
 
 
 - git diff [file]
@@ -106,7 +116,7 @@
 
 
 
-## 分支
+## Git 分支
 
 命令：
 查看分支
@@ -126,12 +136,14 @@
 
 
 
-# 团队内部协作
+## Git 场景应用
 
-## Github
+### 团队内部协作
+
+#### 1. Github使用
 - 邮箱注册时，163邮箱有可能接受不到注册信息。
 
-### 关联本地库
+#### 2. 关联本地库
 ```
 # 查看别名
 git remote -v
@@ -153,29 +165,44 @@ git push origin master
 	- `origin`: 别名
 	- `master`: 需要推送的分支
 
+#### 3. 克隆远程库
 
-### 克隆远程库
+若使用已有仓库进行操作，则需要克隆远程库
+
 ```
 # 克隆远程库
 git clone https://github.com/abookwrom-site/xxxx.git
 ```
 - 克隆之后，已经自动设置好了远程仓库别名`origin`
+- 只有克隆 **自己的GitHub仓库** 或者 **拥有团队协作权限的远程库** 才可以直接推送
 
-### 远程提交操作
 
-Windows 凭据：
-- 单台电脑拥有Win 凭据，会跳过团队提交申请。
 
-![69e66c1d6bf20e781e210545e14d2484.png](resource/Git%20&%20Github/1f83b40a1f524609af5c0a42452a38d6.png)
+#### 4. 远程提交操作
 
-加入团队：
-- 必须加入团队后才可以提交仓库
+1， Windows 凭据：
+
+- 单台电脑拥有Win 凭据，会跳过使用不同账户的团队提交申请。
+
+![69e66c1d6bf20e781e210545e14d2484.png](_resource/Git%20&%20Github/1f83b40a1f524609af5c0a42452a38d6.png)
+
+
+
+2， 加入团队：
+
+- 必须加入团队后才可以提交远程库
 - 邀请人：`Settings` ---> `Manager access` ---> `Invite a collaborator` ---> 生成邀请链接 to 被邀请人
 - 被邀请人：访问邀请链接，接收邀请即可。
 
-推送本地库
 
-### 拉取操作
+
+3， 推送本地库
+
+- 一般而言，请**先拉取远程库，无冲突后再推送远程库**
+
+
+
+### 内部协作 - 拉取操作
 
 1. 分 fetch + merge 两步操作
 
@@ -205,39 +232,59 @@ git pull origin master
 - `fetch + merge`: 慎重起见
 - `pull`:简单方便
 
-### 冲突解决
+
+
+### 内部协作 - 冲突解决
 
 在远程库发生冲突的时候，必须先拉取`pull`修改冲突，之后再推送到远程服务器。
 - 在解决冲突后的本地提交，不能加文件名称。
 
-# 跨团队协作
 
-### pull requests
+
+### 跨团队协作
+
+> 跨团队协作，属于非主开发团队
+
+#### 1. fork 主开发团队仓库
+
+#### 2. 内部团队协作，完成开发任务
+
+#### 3. pull requests
+
 - 申请人：fork修改后 ---> `new pull requests` ---> 修改的详细内容
 - 拥有人：查看`pull requests`
 	- 留言给申请人，相互沟通
 	- 查看更改：`Files changed`
 	- 合并，或者拒绝
 
+> 跨团队协作时，若是主开发团队成员，仅需要在内部协作操作之后，审核其他开发团队的 **pull requests** 即可。
 
 
-# SSH免密登录
 
-### 生成密钥
+
+
+## Github SSH免密登录
+
+### 1. 生成密钥
 ```
+# 进入家目录
 cd ~
-
+# 生成密钥
 ssh-keygen -t rsa -C chenmoxxx@outlook.com
 ```
 - 邮箱为Github注册邮箱
 
-### 关联Gihub账户密钥
 
-1. 复制生成的密钥：`~/.ssh/id_rad.pub`文件内容
+
+### 2. 关联Gihub账户密钥
+
+1. 复制生成的密钥内容：`~/.ssh/id_rad.pub`
 2. 登录账户，并增加`New SSHkey`: `Settings` ---> `SSH and GPG keys` ---> `New SSHkey`
-3. 新增即可。
+3. 新增密钥：密钥名称见名知意即可。
 
-### 免密推送
+
+
+## Github 免密推送
 
 ```
 # 添加别名
@@ -255,7 +302,7 @@ git push origin_name master:branch_name
 
 
 
-# IDEA 集成 GIT
+## IDEA 集成 GIT
 
 1. IDEA 集成 Git：
 - `Settings` ---> `Version Control` ---> `Git`
@@ -284,7 +331,7 @@ git push origin_name master:branch_name
 
 
 
-# 关联不相关的远程库和本地库
+## 关联不相关的远程库和本地库
 
 1. 拉取远程库，并设置不相关历史合并
 ```
@@ -303,7 +350,7 @@ git push -u origin master -f
 
 
 
-# 如何尽量避免冲突
+## 如何尽量避免冲突
 
 1. 团队开发中，避免在一个文件中修改代码
 2. 在修改文件时，先Pull操作， 再Push操作
