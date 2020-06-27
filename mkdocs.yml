@@ -21,21 +21,20 @@ theme:
   language: 'zh'
 
   palette:
-    primary: 'Light Green'
+    primary: 'Light Blue'
     accent: 'Blue'
   favicon: '/favicon.ico'
-  feature:
-    tabs: false
+  #feature:
+    #tabs: false
   #font:
     #text: 'Ubuntu'
     #code: 'Ubuntu Mono'
 
-  include_search_page: false
-  search_index_only: true
+  #include_search_page: false
+  #search_index_only: true
   #icon:
     #logo: material/library
     #repo: fontawesome/brands/git-alt
-
 
 
 # mkdocs extension
