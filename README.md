@@ -7,7 +7,25 @@ Here is for my wiki documents : [wiki.abookworm.site](https://wiki.abookworm.sit
 
 
 
-```
+```bash
+# Site info.
+site_name: abookworm's Wiki
+site_author: Aaron Loong
+site_url: https://wiki.abookworm.site
+
+# Repository
+repo_name: abookworm-site/WikiPage
+repo_url: https://github.com/abookworm-site/WikiPage
+
+# Files info
+.
+├── .git
+├── .gitignore
+├── README.md			# repo README
+├── CNAME				# 修改自定义域名
+├── mkdocs.yml			# mkdocs config
+├── .travis.yml			# Travis config, which is for auto deploy
+└── wiki				# Content of abookworm's wiki
 
 ```
 
