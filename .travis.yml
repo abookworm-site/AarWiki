@@ -9,7 +9,6 @@ install:
   - echo -e "machine github.com\n  login ${GITHUB_TOKEN}" > ~/.netrc
 
 script:
-  - mkdocs gh-deploy --force --clean
   - mkdocs build --clean
 
 branches:
