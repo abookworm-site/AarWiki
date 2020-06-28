@@ -1,0 +1,1283 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Git%20%26%20Github/Git%20%26%20Github/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Git & Github - abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Git & Github
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Git & Github
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Git & Github" class="md-nav__link md-nav__link--active">
+      Git & Github
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    简介
+  </a>
+  
+    <nav class="md-nav" aria-label="简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    版本控制
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_1" class="md-nav__link">
+    GIT 本地结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    代码托管中心
+  </a>
+  
+    <nav class="md-nav" aria-label="代码托管中心">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    团队内部协作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    跨团队协作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    托管中心种类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_2" class="md-nav__link">
+    Git 命令
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_3" class="md-nav__link">
+    Git 分支
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_4" class="md-nav__link">
+    Git 场景应用
+  </a>
+  
+    <nav class="md-nav" aria-label="Git 场景应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    团队内部协作
+  </a>
+  
+    <nav class="md-nav" aria-label="团队内部协作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-github" class="md-nav__link">
+    1. Github使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 关联本地库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 克隆远程库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 远程提交操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    内部协作 - 拉取操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_1" class="md-nav__link">
+    内部协作 - 冲突解决
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    跨团队协作
+  </a>
+  
+    <nav class="md-nav" aria-label="跨团队协作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-fork" class="md-nav__link">
+    1. fork 主开发团队仓库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 内部团队协作，完成开发任务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pull-requests" class="md-nav__link">
+    3. pull requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-ssh" class="md-nav__link">
+    Github SSH免密登录
+  </a>
+  
+    <nav class="md-nav" aria-label="Github SSH免密登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 生成密钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gihub" class="md-nav__link">
+    2. 关联Gihub账户密钥
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github" class="md-nav__link">
+    Github 免密推送
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idea-git" class="md-nav__link">
+    IDEA 集成 GIT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    关联不相关的远程库和本地库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    如何尽量避免冲突
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Docker 与 K8s 最佳实践
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 最佳实践" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 最佳实践
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Docker%20%E4%B8%8E%20K8s%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/K8s%20%E5%AE%89%E8%A3%85%E6%8C%87%E5%BC%95/" title="K8s 安装指引" class="md-nav__link">
+      K8s 安装指引
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Docker%20%E4%B8%8E%20K8s%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/K8s%20%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%B7%A5%E5%85%B7%20rinetd%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%8C%87%E5%BC%95/" title="K8s 端口转发工具 rinetd 安装配置指引" class="md-nav__link">
+      K8s 端口转发工具 rinetd 安装配置指引
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      Coding with C
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Coding with C" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Coding with C
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Coding%20with%20C/" title="目录" class="md-nav__link">
+      目录
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    简介
+  </a>
+  
+    <nav class="md-nav" aria-label="简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    版本控制
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_1" class="md-nav__link">
+    GIT 本地结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    代码托管中心
+  </a>
+  
+    <nav class="md-nav" aria-label="代码托管中心">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    团队内部协作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    跨团队协作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    托管中心种类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_2" class="md-nav__link">
+    Git 命令
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_3" class="md-nav__link">
+    Git 分支
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_4" class="md-nav__link">
+    Git 场景应用
+  </a>
+  
+    <nav class="md-nav" aria-label="Git 场景应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    团队内部协作
+  </a>
+  
+    <nav class="md-nav" aria-label="团队内部协作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-github" class="md-nav__link">
+    1. Github使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 关联本地库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 克隆远程库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 远程提交操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    内部协作 - 拉取操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-_1" class="md-nav__link">
+    内部协作 - 冲突解决
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    跨团队协作
+  </a>
+  
+    <nav class="md-nav" aria-label="跨团队协作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-fork" class="md-nav__link">
+    1. fork 主开发团队仓库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 内部团队协作，完成开发任务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pull-requests" class="md-nav__link">
+    3. pull requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-ssh" class="md-nav__link">
+    Github SSH免密登录
+  </a>
+  
+    <nav class="md-nav" aria-label="Github SSH免密登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 生成密钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gihub" class="md-nav__link">
+    2. 关联Gihub账户密钥
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github" class="md-nav__link">
+    Github 免密推送
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idea-git" class="md-nav__link">
+    IDEA 集成 GIT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    关联不相关的远程库和本地库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    如何尽量避免冲突
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/250 Working Coding/Git & Github/Git & Github.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="git">Git: 公司必备，一定要会<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
+<h2 id="_1">简介<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Git是一个免费，开源的**分布式版本控制系统**</p>
+<h3 id="_2">版本控制<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>概念：一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统</p>
+<ul>
+<li>回溯之前的文件状态，甚至退回到过去某个时间点状态</li>
+<li>比较文件变化细节，查找问题出现的原因</li>
+<li>文件内容恢复</li>
+</ul>
+<p>分类：</p>
+<p>1， 集中化的版本控制系统</p>
+<ul>
+<li>一个单一的集中管理的服务器保存所有文件的修订版本，而协同工作人员都通过客户端到这台服务器取出最新的文件或提交更新。</li>
+<li>优势：<ul>
+<li>每个人都可以一定程度上了解项目的进度</li>
+<li>管理员可以轻松掌握每个开发者的权限，并管理一个集中化的版本控制系统</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>中央服务器的单点故障</li>
+</ul>
+</li>
+</ul>
+<p>2， 分布式版本控制系统</p>
+<ul>
+<li>去中心化，所有客户端都保存完整的代码仓库内容。</li>
+<li>可指定若干不同的远端代码仓库后，可在同一个项目中于不同工作小组的人相互协作</li>
+<li>分布式的版本控制系统在管理项目时，存放的不是项目版本与版本之间的差异，而是索引。<ul>
+<li>集中化版本控制系统存储项目内容</li>
+<li>而分布式版本控制系统采用极致的压缩算法和解压算法，存储索引</li>
+<li>索引所占磁盘空间很少，所以每个客户端都可以放下整个项目的历史记录</li>
+</ul>
+</li>
+</ul>
+<h2 id="git_1">GIT 本地结构<a class="headerlink" href="#git_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>本地库</li>
+<li>暂存区</li>
+<li>工作区</li>
+</ol>
+<h2 id="_3">代码托管中心<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>任务：</p>
+<h3 id="_4">团队内部协作<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><img alt="630bd8862a4dbc6261bbd7277222e3dc.png" src="../_resource/Git%20%26%20Github/7f591e78cfbb49d5a1f1c931d438c5c7-1593184787469.png" /></p>
+<ul>
+<li>管理员创建本地库， 并推送远程库</li>
+<li>开发人员克隆远程库，开发后，推送远程库（此时需要加入团队）</li>
+<li>管理员拉取远程库到本地</li>
+</ul>
+<h3 id="_5">跨团队协作<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><img alt="93d0b21c1039357cafce63771720d96b.png" src="../_resource/Git%20%26%20Github/7e1cdab2939f4fb89ac461c97593ee5d.png" /></p>
+<h3 id="_6">托管中心种类<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ol>
+<li>局域网：可以搭建GitLab服务器作为代码托管中心。</li>
+<li>外网环境：GitHub/Gitee</li>
+</ol>
+<h2 id="git_2">Git 命令<a class="headerlink" href="#git_2" title="Permanent link">&para;</a></h2>
+<p>1， 本地仓库初始化</p>
+<ul>
+<li>git init</li>
+</ul>
+<p>2， 本地仓库提交代码</p>
+<ul>
+<li>git add<ul>
+<li>git add .</li>
+<li>git add --all</li>
+</ul>
+</li>
+<li>git commit -m "comments"</li>
+</ul>
+<p>3， 本地仓库查看，更改状态</p>
+<ul>
+<li>
+<p>git status</p>
+</li>
+<li>
+<p>git log:</p>
+<ul>
+<li>使用Key-values进行版本历史记录管理<ul>
+<li>key: log_id</li>
+<li>values: 版本内容</li>
+</ul>
+</li>
+<li>git log --pretty=online</li>
+<li>git log --oneline</li>
+</ul>
+</li>
+<li>git reflog<ul>
+<li>查看历史版本</li>
+<li>并显示当前指针退回历史版本时，需要回退的步数</li>
+</ul>
+</li>
+<li>git reset --hard version_id<ul>
+<li><code>hard</code>: 本地库指针移动，并同步更新暂存区，工作区</li>
+<li><code>mixed</code>: 本地库指针移动，并同步更新暂存区，但是工作区不动</li>
+<li><code>soft</code>: 本地库指针移动，暂存区和工作区都不动</li>
+</ul>
+</li>
+</ul>
+<p><img alt="d358c1dbd3b072fdfe90fddd9ff9d7f7.png" src="../_resource/Git%20%26%20Github/90da1ef7e4a04b2eb072f5ba1220a116.png" /></p>
+<ul>
+<li>git diff [file]<ul>
+<li>比较暂存区和工作区的所有内容差异：可添加文件限定</li>
+<li>Git 按照行为单位进行数据管理：即会删除一行，增加一行</li>
+</ul>
+</li>
+<li>git diff HEAD(version_id) [file]<ul>
+<li>比较暂存区和本地库的所有内容差异：可添加文件限定</li>
+</ul>
+</li>
+</ul>
+<h2 id="git_3">Git 分支<a class="headerlink" href="#git_3" title="Permanent link">&para;</a></h2>
+<p>命令：
+查看分支
+- gir branch -v</p>
+<p>创建新分支
+- git branch hot_fix</p>
+<p>切换分支：
+- git checkout hot_fix</p>
+<p>合并分支
+- 切换为主分支
+- git merge
+- 分支名称显示 <strong>(master|MERGING)</strong>
+- 冲突解决后，需要再次提交修改后的内容</p>
+<h2 id="git_4">Git 场景应用<a class="headerlink" href="#git_4" title="Permanent link">&para;</a></h2>
+<h3 id="_7">团队内部协作<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h4 id="1-github">1. Github使用<a class="headerlink" href="#1-github" title="Permanent link">&para;</a></h4>
+<ul>
+<li>邮箱注册时，163邮箱有可能接受不到注册信息。</li>
+</ul>
+<h4 id="2">2. 关联本地库<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code># 查看别名
+git remote -v
+
+# 设置别名：origin。
+# 别名可以随意根据需求设置
+git remote add origin https://github.com/abookwrom-site/xxxx.git
+
+# 查看远程仓库
+git remote -v
+
+# 推送本地仓库
+git push origin master
+</code></pre></div>
+- <code>git remote -v</code>查看远程仓库
+    - <code>fetch</code>: 可从远程仓库拉取数据
+    - <code>push</code>: 可从本地仓库推送数据
+- <code>git push origin master</code>推送本地仓库
+    - <code>origin</code>: 别名
+    - <code>master</code>: 需要推送的分支</p>
+<h4 id="3">3. 克隆远程库<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p>若使用已有仓库进行操作，则需要克隆远程库</p>
+<p><div class="highlight"><pre><span></span><code># 克隆远程库
+git clone https://github.com/abookwrom-site/xxxx.git
+</code></pre></div>
+- 克隆之后，已经自动设置好了远程仓库别名<code>origin</code>
+- 只有克隆 <strong>自己的GitHub仓库</strong> 或者 <strong>拥有团队协作权限的远程库</strong> 才可以直接推送</p>
+<h4 id="4">4. 远程提交操作<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<p>1， Windows 凭据：</p>
+<ul>
+<li>单台电脑拥有Win 凭据，会跳过使用不同账户的团队提交申请。</li>
+</ul>
+<p><img alt="69e66c1d6bf20e781e210545e14d2484.png" src="../_resource/Git%20%26%20Github/1f83b40a1f524609af5c0a42452a38d6.png" /></p>
+<p>2， 加入团队：</p>
+<ul>
+<li>必须加入团队后才可以提交远程库</li>
+<li>邀请人：<code>Settings</code> ---&gt; <code>Manager access</code> ---&gt; <code>Invite a collaborator</code> ---&gt; 生成邀请链接 to 被邀请人</li>
+<li>被邀请人：访问邀请链接，接收邀请即可。</li>
+</ul>
+<p>3， 推送本地库</p>
+<ul>
+<li>一般而言，请**先拉取远程库，无冲突后再推送远程库**</li>
+</ul>
+<h3 id="-">内部协作 - 拉取操作<a class="headerlink" href="#-" title="Permanent link">&para;</a></h3>
+<ol>
+<li>分 fetch + merge 两步操作</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># 抓取远程库内容</span>
+git fetch origin master
+
+<span class="c1"># 查看远程库内容</span>
+git checkout origin/master
+
+<span class="c1"># 切换本地分支</span>
+git checkout master
+
+<span class="c1"># 合并本地内容</span>
+git merge origin/master
+</code></pre></div>
+- 抓取操作后，仅仅只是将远程库下载到本地，而工作区的内容并不会更新。</p>
+<ol>
+<li>直接利用pull操作
+<div class="highlight"><pre><span></span><code>git pull origin master
+</code></pre></div></li>
+<li>
+<p>此处，所有内容都会更新到远程操作内容</p>
+</li>
+<li>
+<p>两种操作比较：</p>
+</li>
+<li><code>fetch + merge</code>: 慎重起见</li>
+<li><code>pull</code>:简单方便</li>
+</ol>
+<h3 id="-_1">内部协作 - 冲突解决<a class="headerlink" href="#-_1" title="Permanent link">&para;</a></h3>
+<p>在远程库发生冲突的时候，必须先拉取<code>pull</code>修改冲突，之后再推送到远程服务器。
+- 在解决冲突后的本地提交，不能加文件名称。</p>
+<h3 id="_8">跨团队协作<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>跨团队协作，属于非主开发团队</p>
+</blockquote>
+<h4 id="1-fork">1. fork 主开发团队仓库<a class="headerlink" href="#1-fork" title="Permanent link">&para;</a></h4>
+<h4 id="2_1">2. 内部团队协作，完成开发任务<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h4>
+<h4 id="3-pull-requests">3. pull requests<a class="headerlink" href="#3-pull-requests" title="Permanent link">&para;</a></h4>
+<ul>
+<li>申请人：fork修改后 ---&gt; <code>new pull requests</code> ---&gt; 修改的详细内容</li>
+<li>拥有人：查看<code>pull requests</code><ul>
+<li>留言给申请人，相互沟通</li>
+<li>查看更改：<code>Files changed</code></li>
+<li>合并，或者拒绝</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>跨团队协作时，若是主开发团队成员，仅需要在内部协作操作之后，审核其他开发团队的 <strong>pull requests</strong> 即可。</p>
+</blockquote>
+<h2 id="github-ssh">Github SSH免密登录<a class="headerlink" href="#github-ssh" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 生成密钥<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code># 进入家目录
+cd ~
+# 生成密钥
+ssh-keygen -t rsa -C chenmoxxx@outlook.com
+</code></pre></div>
+- 邮箱为Github注册邮箱</p>
+<h3 id="2-gihub">2. 关联Gihub账户密钥<a class="headerlink" href="#2-gihub" title="Permanent link">&para;</a></h3>
+<ol>
+<li>复制生成的密钥内容：<code>~/.ssh/id_rad.pub</code></li>
+<li>登录账户，并增加<code>New SSHkey</code>: <code>Settings</code> ---&gt; <code>SSH and GPG keys</code> ---&gt; <code>New SSHkey</code></li>
+<li>新增密钥：密钥名称见名知意即可。</li>
+</ol>
+<h2 id="github">Github 免密推送<a class="headerlink" href="#github" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code># 添加别名
+git remote add origin_name https://github.com/abookworm-site/xxxx.git
+
+# 查看别名
+git remote -v
+
+# 提交到主
+git push origin_name master
+
+# 提交到远程新分支
+git push origin_name master:branch_name
+</code></pre></div>
+
+<h2 id="idea-git">IDEA 集成 GIT<a class="headerlink" href="#idea-git" title="Permanent link">&para;</a></h2>
+<ol>
+<li>IDEA 集成 Git：</li>
+<li><code>Settings</code> ---&gt; <code>Version Control</code> ---&gt; <code>Git</code></li>
+<li>
+<p><code>Path to Git executable</code>: <code>c:\Program Files\Git\cmd\git.exe</code></p>
+</li>
+<li>
+<p>初始化本地库</p>
+</li>
+<li>
+<p><code>VCS</code> ---&gt; <code>Import into Version Control</code> ---&gt; <code>Create Git Repository...</code></p>
+</li>
+<li>
+<p>提交更改到本地库</p>
+</li>
+<li>右击文件 ---&gt; <code>Git</code> ---&gt; <code>Add</code></li>
+<li>右击文件 ---&gt; <code>Git</code> ---&gt; <code>Commit</code></li>
+<li>
+<p>其他操作</p>
+</li>
+<li>
+<p>推送到远程库</p>
+</li>
+<li><code>Git</code> ---&gt; <code>Repository</code> ---&gt; <code>Push</code> ---&gt; <code>Define remote</code><ul>
+<li><code>Name</code>: 设置别名</li>
+<li><code>URL</code>: 远程仓库地址</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>注意：开发中，一般我们先拉取远程库，再提交我们的修改代码。以避免提交失败。</p>
+</blockquote>
+<ol>
+<li>远程库克隆</li>
+<li><code>File</code> ---&gt; <code>New</code> ---&gt; <code>Project from Version Control...</code></li>
+<li><code>Repository URL</code><ul>
+<li><code>URL</code>:远程仓库地址</li>
+<li><code>Directory</code>: 本地仓库路径</li>
+</ul>
+</li>
+</ol>
+<h2 id="_9">关联不相关的远程库和本地库<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ol>
+<li>拉取远程库，并设置不相关历史合并
+<div class="highlight"><pre><span></span><code>git remote -v
+git remote add origin http://github.com/abook......git
+
+git pull origin master --allow-unrelated-histories
+</code></pre></div></li>
+<li>此时，仅仅拉取了远程仓库内容到本地</li>
+<li>
+<p>如果本地仓库和远程仓库有冲突内容，需要解决冲突</p>
+</li>
+<li>
+<p>推送拉取后的本地库到远程库master
+<div class="highlight"><pre><span></span><code>git push -u origin master -f
+</code></pre></div></p>
+</li>
+</ol>
+<h2 id="_10">如何尽量避免冲突<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ol>
+<li>团队开发中，避免在一个文件中修改代码</li>
+<li>在修改文件时，先Pull操作， 再Push操作</li>
+</ol>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../.." title="Home" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../Docker%20%E4%B8%8E%20K8s%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/K8s%20%E5%AE%89%E8%A3%85%E6%8C%87%E5%BC%95/" title="K8s 安装指引" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                K8s 安装指引
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
-     <loc>None</loc>
-     <lastmod>2020-06-14</lastmod>
+     <loc>https://wiki.abookworm.site/</loc>
+     <lastmod>2020-06-28</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://wiki.abookworm.site/250%20Working%20Coding/Git%20%26%20Github/Git%20%26%20Github/</loc>
+     <lastmod>2020-06-28</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://wiki.abookworm.site/250%20Working%20Coding/Docker%20%E4%B8%8E%20K8s%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/K8s%20%E5%AE%89%E8%A3%85%E6%8C%87%E5%BC%95/</loc>
+     <lastmod>2020-06-28</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://wiki.abookworm.site/250%20Working%20Coding/Docker%20%E4%B8%8E%20K8s%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/K8s%20%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%B7%A5%E5%85%B7%20rinetd%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%8C%87%E5%BC%95/</loc>
+     <lastmod>2020-06-28</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://wiki.abookworm.site/250%20Working%20Coding/Coding%20with%20C/</loc>
+     <lastmod>2020-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
