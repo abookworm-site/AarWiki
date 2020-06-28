@@ -22,10 +22,10 @@ repo_url: https://github.com/abookworm-site/WikiPage
 ├── .git
 ├── .gitignore
 ├── README.md			# repo README
-├── CNAME				# 修改自定义域名
+├── CNAME			# 修改自定义域名
 ├── mkdocs.yml			# mkdocs config
 ├── .travis.yml			# Travis config, which is for auto deploy
-└── wiki				# Content of abookworm's wiki
+└── wiki			# Content of abookworm's wiki
 
 ```
 
