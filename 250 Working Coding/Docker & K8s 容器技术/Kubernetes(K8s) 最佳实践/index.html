@@ -1,0 +1,1544 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Kubernetes(K8s) 最佳实践 - abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kubernetesk8s" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Kubernetes(K8s) 最佳实践
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      230 Working Talent Development
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="230 Working Talent Development" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        230 Working Talent Development
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../230%20Working%20Talent%20Development/" title="Content" class="md-nav__link">
+      Content
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      数据库操作与配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作与配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作与配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="Content" class="md-nav__link">
+      Content
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4" checked>
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Kubernetes(K8s) 最佳实践
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Kubernetes(K8s) 最佳实践" class="md-nav__link md-nav__link--active">
+      Kubernetes(K8s) 最佳实践
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#k8s" class="md-nav__link">
+    一、容器编排及K8s介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes" class="md-nav__link">
+    Kubernetes 功能职责
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k8s_1" class="md-nav__link">
+    K8s 基本概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes_1" class="md-nav__link">
+    Kubernetes 安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    重启服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-ui-dashboard" class="md-nav__link">
+    启用Web UI Dashboard
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboardtomcat" class="md-nav__link">
+    案例：Dashboard部署Tomcat集群
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-tomcat" class="md-nav__link">
+    Deployment 脚本部署 Tomcat 集群
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tomcat" class="md-nav__link">
+    外部访问Tomcat 集群
+  </a>
+  
+    <nav class="md-nav" aria-label="外部访问Tomcat 集群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfs" class="md-nav__link">
+    基于NFS文件文件集群共享
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rinetdservice" class="md-nav__link">
+    利用Rinetd实现Service 负载均衡
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k8s_2" class="md-nav__link">
+    K8s 部署调整命令
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k8s_3" class="md-nav__link">
+    项目实战：K8s构建贝亲婴童商城
+  </a>
+  
+    <nav class="md-nav" aria-label="项目实战：K8s构建贝亲婴童商城">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 挂载共享文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 部署并初始化数据库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    部署web应用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#app-service" class="md-nav__link">
+    配置 app service
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    配置 外部访问
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../K8s%20%E5%AE%89%E8%A3%85%E6%8C%87%E5%BC%95/" title="K8s 安装指引" class="md-nav__link">
+      K8s 安装指引
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../K8s%20%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%B7%A5%E5%85%B7%20rinetd%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%8C%87%E5%BC%95/" title="K8s 端口转发工具 rinetd 安装配置指引" class="md-nav__link">
+      K8s 端口转发工具 rinetd 安装配置指引
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      环境安装与配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="环境安装与配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        环境安装与配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="Content" class="md-nav__link">
+      Content
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#k8s" class="md-nav__link">
+    一、容器编排及K8s介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes" class="md-nav__link">
+    Kubernetes 功能职责
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k8s_1" class="md-nav__link">
+    K8s 基本概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes_1" class="md-nav__link">
+    Kubernetes 安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    重启服务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-ui-dashboard" class="md-nav__link">
+    启用Web UI Dashboard
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboardtomcat" class="md-nav__link">
+    案例：Dashboard部署Tomcat集群
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-tomcat" class="md-nav__link">
+    Deployment 脚本部署 Tomcat 集群
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tomcat" class="md-nav__link">
+    外部访问Tomcat 集群
+  </a>
+  
+    <nav class="md-nav" aria-label="外部访问Tomcat 集群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfs" class="md-nav__link">
+    基于NFS文件文件集群共享
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rinetdservice" class="md-nav__link">
+    利用Rinetd实现Service 负载均衡
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k8s_2" class="md-nav__link">
+    K8s 部署调整命令
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k8s_3" class="md-nav__link">
+    项目实战：K8s构建贝亲婴童商城
+  </a>
+  
+    <nav class="md-nav" aria-label="项目实战：K8s构建贝亲婴童商城">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 挂载共享文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 部署并初始化数据库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    部署web应用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#app-service" class="md-nav__link">
+    配置 app service
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    配置 外部访问
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/250 Working Coding/Docker & K8s 容器技术/Kubernetes(K8s) 最佳实践.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="kubernetesk8s">Kubernetes(K8s) 最佳实践<a class="headerlink" href="#kubernetesk8s" title="Permanent link">&para;</a></h1>
+<h2 id="k8s">一、容器编排及K8s介绍<a class="headerlink" href="#k8s" title="Permanent link">&para;</a></h2>
+<p>容器编排：
+- 在哪些宿主机上安装什么容器，以及这些容器以什么样的方式进行通讯和被管理</p>
+<p>单机编排工具：
+- docker compose</p>
+<p>集群编排工具：
+- docker swarm
+- kubernetes</p>
+<h2 id="kubernetes">Kubernetes 功能职责<a class="headerlink" href="#kubernetes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>自动化容器的部署和复制</li>
+<li>随时扩展或收缩容器规模</li>
+<li>容器分组Group，并且提供容器间的负载均衡</li>
+<li>实时监控, 即时故障发现, 自动替换</li>
+</ul>
+<h2 id="k8s_1">K8s 基本概念<a class="headerlink" href="#k8s_1" title="Permanent link">&para;</a></h2>
+<p><img alt="02a2478080477cf263c76ad4fed394ad.png" src="../_resource/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/0b021a05b17c40b781939f945d41778a.png" /></p>
+<ol>
+<li>Kubernetes Master(K8s 主节点)</li>
+<li>集群管理者，主服务器</li>
+<li>向其他节点发送指令：创建容器，自动部署，自动发布...</li>
+<li>
+<p>接受外部请求，并分发到各个子节点</p>
+</li>
+<li>
+<p>Node</p>
+</li>
+<li>K8s 子节点，可是独立的物理机，也可是虚拟机</li>
+<li>
+<p>负责执行主节点发送过来的指令</p>
+</li>
+<li>
+<p>POD</p>
+</li>
+<li>K8s 控制的最小可部署单元,一个POD就是一个进程，拥有独立资源。</li>
+<li>POD 是”容器”的容器,可以包含多个”Container”</li>
+<li>POD 内部容器网络互通,每个POD都有独立虚拟IP，并由K8s统一管理<ul>
+<li>其内部实现通过 Service 进行通讯实现</li>
+</ul>
+</li>
+<li>
+<p>不同业务POD的分隔粒度不同</p>
+<ul>
+<li>POD 部署完整的应用或模块</li>
+<li>POD 部署某一个职能</li>
+</ul>
+</li>
+<li>
+<p>Pause容器（POD内部)</p>
+</li>
+<li>提供共享匿名空间：<ul>
+<li>而后应用访问之间可以直接采用 localhost:port 形式完成彼此访问</li>
+<li>不同应用之间仅有不同的端口加以区分</li>
+</ul>
+</li>
+<li>
+<p>提供共享挂载数据卷 volume</p>
+<ul>
+<li>容器内部共享数据卷</li>
+</ul>
+</li>
+<li>
+<p>Lable</p>
+</li>
+<li>说明性的标签</li>
+<li>
+<p>每一个POD的别名</p>
+</li>
+<li>
+<p>Replication Controller 复制控制器</p>
+</li>
+<li>
+<p>Pod实施响应，并自动控制节点数量</p>
+</li>
+<li>
+<p>应用底层</p>
+</li>
+<li>Kubernete： K8s 的核心指令控制</li>
+<li>kuber-proxy<ul>
+<li>多主机之间的通讯</li>
+</ul>
+</li>
+<li>docker</li>
+</ol>
+<h2 id="kubernetes_1">Kubernetes 安装<a class="headerlink" href="#kubernetes_1" title="Permanent link">&para;</a></h2>
+<p>国内安装的四种途径：
+- 使用kubeadmin通过离线镜像安装 ---&gt; 推荐
+- 使用阿里公有云平台k8s,钞能力 ---&gt; 购买
+- 通过yum官方仓库安装,上古版本 ---&gt; 版本旧
+- 二进制包的形式进行安装,kubeasz (github) ---&gt; 第三方，非官方</p>
+<p>环境准备：
+- Centos 7 Master * 1
+   - Master: 192.168.163.132
+- Centos 7 Node * 2
+   - Node1: 192.168.163.133
+   - Node2: 192.168.163.137</p>
+<h2 id="_1">重启服务<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>kubeadm/kubelet/kubectl区别</p>
+<ul>
+<li>kubeadm 是kubernetes集群快速构建工具</li>
+<li>kubelet 运行在所有节点上,负责启动POD和容器,以系统服务形式出现</li>
+<li>kubectl: kubectl是kubenetes命令行工具,提供指令</li>
+</ul>
+<p>启动节点命令
+- 启动节点的K8S服务：<code>systemctl start kubelet</code>
+- 设置开机启动：<code>systemctl enable kubelet</code></p>
+<h2 id="web-ui-dashboard">启用Web UI Dashboard<a class="headerlink" href="#web-ui-dashboard" title="Permanent link">&para;</a></h2>
+<p>配置文件：
+- <code>kubernetes-dashboard.yaml</code>：仪表盘的配置，基础配置
+- <code>admin-role.yaml</code>：管理员角色职能
+- <code>kubernetes-dashboard-admin.rbao.yaml</code>：基于角色的访问控制</p>
+<p>开启仪表盘
+<div class="highlight"><pre><span></span><code>kubectl apply -f kubernetes-dashboard.yaml
+kubectl apply -f admin-role.yaml
+kubectl apply -f kubernetes-dashboard-admin.rbac.yaml
+</code></pre></div></p>
+<p>访问仪表盘控制台
+<div class="highlight"><pre><span></span><code>kubectl -n kube-system get svc
+</code></pre></div>
+- 访问地址：<a href="http://192.168.163.132:32000">http://192.168.163.132:32000</a></p>
+<h2 id="dashboardtomcat">案例：Dashboard部署Tomcat集群<a class="headerlink" href="#dashboardtomcat" title="Permanent link">&para;</a></h2>
+<ol>
+<li>定义各个节点的阿里云镜像服务</li>
+<li>仪表盘工作负载：</li>
+</ol>
+<h2 id="deployment-tomcat">Deployment 脚本部署 Tomcat 集群<a class="headerlink" href="#deployment-tomcat" title="Permanent link">&para;</a></h2>
+<p>Deployment(部署)
+- 部署是指Kubernetes向Node节点发送指令，创建容器的过程
+- Kubernetes支持yml格式的部署脚本
+<div class="highlight"><pre><span></span><code>#创建部署
+kubectl create -f 部署yml文件
+</code></pre></div></p>
+<p>Deployment 部署脚本
+<div class="highlight"><pre><span></span><code>apiVersion:extensions/vlbetal               # 版本，一般固定
+kind:Deployment                             # 用途：部署
+metadata:
+    name:tomcat-deploy                      # 名称
+spec:
+    replicas:2                              # 部署数量
+    template:
+        metadata:
+        labels:
+            app:tomcat-cluster
+        spec:
+            containers:
+            - name:tomcat-cluster           # 一般与app同名
+              image:tomcat                  # 镜像来源
+              ports:
+              - containerPort:8080          # 暴露端口
+</code></pre></div></p>
+<p>部署相关命令：</p>
+<div class="highlight"><pre><span></span><code># 创建部署
+kubectl create -f 部署yml文件
+# 更新部署配置
+kubectl apply -f 部署yml文件
+# 查看已部署pod
+kubectl get pod [-o wide]
+# 查看Pod详细信息
+kubectl describe pod pod名称
+# 查看pod输出日志
+kubectl logs [-f] pod名称
+</code></pre></div>
+
+<blockquote>
+<p>tomcat-deploy.yml
+<div class="highlight"><pre><span></span><code>apiVersion: extensions/v1beta1
+king:Deployment
+metadata:
+  name: tomcat-deploy
+spec:
+  replicas:2
+  template:
+    metadata:
+      labels:
+        app: tomcat-cluster
+    spec:
+      containers:
+      - name: tomcat-cluster
+        image: tomcat:latest
+        ports:
+        - containerPort: 8080
+</code></pre></div></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code># 创建部署
+kubectl create -f ./tomcat-deploy.yml
+
+# 查看部署情况
+kubectl get deployment
+
+# 列出所有POD，
+kebectl get pod -o wide
+
+# 查看pod详细信息
+kubectl describe pod pod_name
+
+# 查看日志内容
+kubectl logs po_name
+</code></pre></div>
+
+<h2 id="tomcat">外部访问Tomcat 集群<a class="headerlink" href="#tomcat" title="Permanent link">&para;</a></h2>
+<p>Service 服务用于对外暴露应用：</p>
+<p><img alt="5e2a3531f1df1f6fc7e11107c0df1435.png" src="../_resource/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/6a3b395981b04ce9a2d2c6780f2ecbfc.png" /></p>
+<ol>
+<li>使用集群对宿主机暴露的端口统一访问</li>
+<li>宿主机的IP访问，此时集群负载均衡功能失效</li>
+</ol>
+<p>通过宿主机IP访问：
+1. 创建YML脚本</p>
+<blockquote>
+<p>tomcat-service.yml
+<div class="highlight"><pre><span></span><code>apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-service              # 显示
+  labels:
+    app: tomcat-service             # POD 选择
+spec:
+  type: NodePort
+  selector:
+    app: tomcat-cluster             # 绑定部署的 tomcat-cluster 标签
+  ports:
+  - port: 8000                      # 对外访问port
+    targetPort: 8080                # 容器端口映射
+    nodePort: 32500                 # 宿主机node端口映射
+</code></pre></div>
+2. 创建对应服务，并提供Node宿主机访问
+<div class="highlight"><pre><span></span><code>kubectl create -f ./tomcat-service.yml
+
+kubectl get service
+
+kubectl describe service tomcat-service
+</code></pre></div></p>
+</blockquote>
+<h3 id="nfs">基于NFS文件文件集群共享<a class="headerlink" href="#nfs" title="Permanent link">&para;</a></h3>
+<p>NFS ：Network File System
+- SUN 公司研发的文件传输协议
+- 主要采用远程过程调用RPC机制实现文件传输</p>
+<p>安装NFS
+<div class="highlight"><pre><span></span><code>yum install -y nfs-utils rpcbind
+</code></pre></div></p>
+<p>集群文件共享</p>
+<p><img alt="a235bcaa28b5c2a5168577de88ba21f1.png" src="../_resource/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/fe7dd4f26de14b29ab94cf4f1049806b.png" /></p>
+<p>共享宿主机设置</p>
+<ol>
+<li>
+<p>设置对外共享文件夹
+<div class="highlight"><pre><span></span><code>vim /etc/exports
+</code></pre></div></p>
+<blockquote>
+<p>exports
+<div class="highlight"><pre><span></span><code># 设置共享文件夹位置，IP，权限，以及同步写
+/usr/local/data/xxx IP/24(rw, sync)
+</code></pre></div></p>
+</blockquote>
+</li>
+<li>
+<p>启动相应服务并设置开机启动
+<div class="highlight"><pre><span></span><code># 启动NFS服务
+systemctl start nfs.service
+# 启动RPC服务
+systemctl start rpcbind.service
+# 设置开机启动
+systemctl enable nfs.service
+systemctl enable rpcbind.service
+
+# 查看共享文件夹设置内容：位置 + IP/port
+exportfs
+</code></pre></div></p>
+</li>
+</ol>
+<p>POD 节点共享文件夹设置</p>
+<ol>
+<li>
+<p>安装nfs工具集
+<div class="highlight"><pre><span></span><code>yum install -y nfs-utils
+</code></pre></div></p>
+</li>
+<li>
+<p>查看可访问的共享文件夹
+<div class="highlight"><pre><span></span><code>showmount -e 192.168.163.132
+</code></pre></div></p>
+</li>
+<li>挂在到 <code>/mnt</code>
+<div class="highlight"><pre><span></span><code>mount 192.168.163.132:/usr/local/data/xxx /mnt
+</code></pre></div></li>
+<li>设置开机启动
+<div class="highlight"><pre><span></span><code>systemctl enable nfs.service
+</code></pre></div></li>
+</ol>
+<p>将 POD 节点文件夹映射到 NODE 节点文件夹</p>
+<div class="highlight"><pre><span></span><code># 查看集群部署
+kubectl get deployment
+
+# 删除集群部署
+kubectl delete deployment tomcat-deploy
+
+# 查看节点信息
+kubectl get pod
+
+# 查看集群服务
+kubectl get service
+
+# 删除集群服务
+kubectl delete service
+</code></pre></div>
+
+<blockquote>
+<p>tomcat-deploy.yml
+<div class="highlight"><pre><span></span><code>apiVersion: extension/v1beta1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+spce:
+  replicas:2
+  template:
+    metadata:
+      labels:
+        app: tomcat-cluster
+    spec:
+      volumes:
+      - name: web-app
+        hostPath:
+          path: /mnt
+      containers:
+      - name: tomcat-cluster
+        image:tomcat:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: web-app
+          mountPath: /usr/local/tomcat/webapps              # 挂载地址
+</code></pre></div>
+部署主节点：
+<div class="highlight"><pre><span></span><code>kubectl create -f tomcat-deploy.yml
+
+kubectl get deloyment
+
+
+kubectl get pod -o wide
+</code></pre></div></p>
+</blockquote>
+<p>验证是否部署成功：
+1. 进入Node节点，并查看Node节点中挂在的文档
+<div class="highlight"><pre><span></span><code>docker ps
+
+
+docker exec -it image_id /bin/bash
+
+ls
+
+cd webapps/
+
+ls
+
+cat file.txt
+</code></pre></div></p>
+<ol>
+<li>直接在 Master 中进入节点内容进行验证</li>
+</ol>
+<div class="highlight"><pre><span></span><code># 获取pod_name
+kubectl get pod -o wide
+
+# 进入
+kubectl exec -it pod_name /bin/bash
+</code></pre></div>
+
+<h3 id="rinetdservice">利用Rinetd实现Service 负载均衡<a class="headerlink" href="#rinetdservice" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code># 查看目前的服务
+kubectl get service
+
+# 
+# kubectl delete service tomcat-service
+</code></pre></div>
+
+<blockquote>
+<p>tomcat-service
+<div class="highlight"><pre><span></span><code>apiVersion:v1
+kind: Service
+metadata:
+  name: tomcat-service
+  labels:
+    app: tomcat-service
+spec:
+  # type: NodePort
+  selector:
+    app: tomcat-cluster
+  ports:
+  - port: 8000
+    targetPort: 8080
+    # nodePort:32500
+</code></pre></div></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>kubectl create -f tomcat-service.yml
+
+
+kubectl get service
+
+kubectl describe service tomcat-service
+
+curl IP:8000
+
+kubectl get service
+</code></pre></div>
+
+<p>设置 端口 转发</p>
+<p>端口转发工具 Rinetd</p>
+<p>链接跳转：</p>
+<h3 id="k8s_2">K8s 部署调整命令<a class="headerlink" href="#k8s_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code># 更新集群配置
+kubect apply -f yum文件路径
+
+# 删除部署及服务
+kubectl delete deployment/service
+</code></pre></div>
+
+<p>资源限定</p>
+<div class="highlight"><pre><span></span><code>containers:
+  - name: tomcat-cluster
+    image: tomcat:latest
+    resources:
+      requests:                     # 最低需求
+        cpu:1                       # CPU资源可以为0.5，单位为核
+        memory:500Mi
+      limits:                       # 最多使用资源
+        cpu:2
+        memory:1024Mi
+</code></pre></div>
+
+<p>更新</p>
+<blockquote>
+<p>tomcat-deploy.yml
+<div class="highlight"><pre><span></span><code>apiVersion: extension/v1beta1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+spce:
+  replicas:3
+  template:
+    metadata:
+      labels:
+        app: tomcat-cluster
+    spec:
+      volumes:
+      - name: web-app
+        hostPath:
+          path: /mnt
+      containers:
+      - name: tomcat-cluster
+        image:tomcat:latest
+        resources:
+          requests:
+            cpu: 0.5
+            memory: 200Mi
+          limites:
+            cpu: 1
+            memory: 512Mi
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: web-app
+          mountPath: /usr/local/tomcat/webapps              # 挂载地址
+</code></pre></div></p>
+</blockquote>
+<p>更新配置
+<div class="highlight"><pre><span></span><code>kubectl get deployment
+
+kubectl apply -f tomcat-service.yml
+
+kubectl get pod -o wide
+</code></pre></div>
+- K8s在分配资源的时候，采用**可用资源优先**的原则。即那个服务器的负载低，就部署在那个POD上
+- 当然，我们也可以制定在那个POD上分配容器</p>
+<h2 id="k8s_3">项目实战：K8s构建贝亲婴童商城<a class="headerlink" href="#k8s_3" title="Permanent link">&para;</a></h2>
+<p>项目拓扑结构：</p>
+<p><img alt="d6b280c7a5d7bedaca9b62f6e7a8f648.png" src="../_resource/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/edd31f2afc324570bc29c09c65b9448f.png" /></p>
+<h3 id="1">1. 挂载共享文件<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h3 id="2">2. 部署并初始化数据库<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>beiqin-db-deploy.yml
+<div class="highlight"><pre><span></span><code>apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: beiqin-db-deploy
+spec:
+  replicas:1
+  template:
+    metadata:
+      labels:
+        app: beiqin-db-deploy
+    spec:
+      volumes:
+      - name: beiqin-db-deploy
+        hostPath:
+          path: /usr/local/beiqin-sql
+      containers:
+      - name: beiqin-db-deploy
+        image: mysql:5.7
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: &quot;root&quot;
+        volumeMounts:
+        - name: beiqin-db-volume
+          mountPath: /docker-entrypoint-initdb.d
+</code></pre></div></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>kubectl create -f beiqin-db-deploy.yml
+
+kubectl get pod
+
+kubectl exec -it xxxx_name /bin/bash
+
+# 进入数据库
+mysql -uroot -p
+
+show databases
+
+use beinqin;
+
+show tables;
+
+....
+##############
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>vim beiqin-db-service.yml
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>apiVersion: v1
+kind: Service
+metadata:
+  name: beiqin-db-service
+  label:
+    app: beiqin-db-service
+spec:
+  selector:
+    app: beiqin-db-deploy
+  ports:
+  - port: 3310
+    targetPort: 3306
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>kubectl create -f beqin-db-service.yml
+
+# kubectl get service
+kubectl get svc
+
+kubectl describe service beiqin-db-service
+</code></pre></div>
+
+<h3 id="web">部署web应用<a class="headerlink" href="#web" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>kubectl get service
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>vim beiqin-app-deploy.yml
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: beiqin-app-deploy
+spec:
+  replicas:2
+  template:
+    metadata:
+      labels:
+        app: beiqin-app-deploy
+    spec:
+      volumes:
+      - name: beiqin-app-deploy
+        hostPath:
+          path: /usr/local/beiqin-dist
+      containers:
+      - name: beiqin-app-deploy
+        image: openjdk:8u222-jre
+        command: [&quot;/bin/sh&quot;]
+        args: [&quot;-c&quot;, &quot;cd /usr/local/beiqin-dist; java -jar beiqin-app.jar&quot;]
+        volumesMounts:
+        - name: beiqin-app-volume
+          mountPath: /usr/local/beiqin-dist
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>kubectl create -f beiqin-app-deploy.yml
+
+kubectl get pod
+
+kubectl logs xxxx_name
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>kubectl get pod -o wide
+
+curl IP:88/goods?gid=1788
+
+vim /usr/local/beiqin/dist/application.yml
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>server:
+  port: 80
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://beiqin-db-service:3310/beiqin?useUnicode=true&amp;characterEncodeing=utf-8&amp;useSSL=false
+    username:root
+    password:root
+  mvc:
+    favicon:
+      enabled: false
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case:true
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>kubectl delete deployment beiqin-app-deploy.yml
+
+kubectl create -f beiqin-app-deploy.yml
+
+kubectl get pod -o wide
+</code></pre></div>
+
+<h2 id="app-service">配置 app service<a class="headerlink" href="#app-service" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>vim beiqin-app-service.yml
+</code></pre></div>
+
+<blockquote>
+<p>beiqin-app-serive.yml
+<div class="highlight"><pre><span></span><code>
+</code></pre></div></p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code>kube create -f beiqin-app-service.yml
+
+
+kubectl describe service beiqin-app-service
+</code></pre></div>
+- 查看对外IP</p>
+<h2 id="_2">配置 外部访问<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>vim /etc/rinetd.cnf
+</code></pre></div>
+
+<blockquote>
+<p>rinetd.cnf
+<div class="highlight"><pre><span></span><code>0.0.0.0 80 IP 80
+</code></pre></div></p>
+</blockquote>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                Docker 最佳实践
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../K8s%20%E5%AE%89%E8%A3%85%E6%8C%87%E5%BC%95/" title="K8s 安装指引" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                K8s 安装指引
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

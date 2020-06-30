@@ -1,0 +1,1845 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Docker 最佳实践 - abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#docker" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Docker 最佳实践
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      230 Working Talent Development
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="230 Working Talent Development" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        230 Working Talent Development
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../230%20Working%20Talent%20Development/" title="Content" class="md-nav__link">
+      Content
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      数据库操作与配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作与配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作与配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="Content" class="md-nav__link">
+      Content
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4" checked>
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Docker 最佳实践
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Docker 最佳实践" class="md-nav__link md-nav__link--active">
+      Docker 最佳实践
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#content" class="md-nav__link">
+    Content
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、容器化技术
+  </a>
+  
+    <nav class="md-nav" aria-label="一、容器化技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 物理机时代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 虚拟化时代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 容器化时代
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" class="md-nav__link">
+    二、初识Docker
+  </a>
+  
+    <nav class="md-nav" aria-label="二、初识Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1. 基本介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 发展过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-centos" class="md-nav__link">
+    3. 基于 CentOS 的安装
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 基于 CentOS 的安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    安装步骤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    配置阿里云加速服务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    网络测试
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_2" class="md-nav__link">
+    三、Docker 基本概念
+  </a>
+  
+    <nav class="md-nav" aria-label="三、Docker 基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1. 容器化平台
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-docker" class="md-nav__link">
+    2. Docker 系统结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-docker" class="md-nav__link">
+    3. Docker 执行流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcoker" class="md-nav__link">
+    四、Dcoker 常用命令
+  </a>
+  
+    <nav class="md-nav" aria-label="四、Dcoker 常用命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" class="md-nav__link">
+    Docker 宿主机与容器通讯
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    五、容器内部结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    六、容器生命周期
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dockerfile" class="md-nav__link">
+    七、Dockerfile 构件镜像
+  </a>
+  
+    <nav class="md-nav" aria-label="七、Dockerfile 构件镜像">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-dockerfile" class="md-nav__link">
+    1. Dockerfile镜像描述文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-layer" class="md-nav__link">
+    2. 镜像分层（Layer)概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dockerfile" class="md-nav__link">
+    3. Dockerfile 基础命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dockerfile" class="md-nav__link">
+    4. Dockerfile 执行命令
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Dockerfile 执行命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-" class="md-nav__link">
+    RUN - 构建时运行
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entrypoint" class="md-nav__link">
+    ENTRYPOINT 启动命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmd" class="md-nav__link">
+    CMD 默认命令
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    八、案例：构建Redis镜像
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    九、 容器间通讯
+  </a>
+  
+    <nav class="md-nav" aria-label="九、 容器间通讯">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-link" class="md-nav__link">
+    1. 容器间Link单向通讯
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-bridge" class="md-nav__link">
+    2. Bridge网桥双向通信
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Bridge网桥双向通信">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    网桥实现原理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-volume" class="md-nav__link">
+    3. Volume 容器间共享数据
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Volume 容器间共享数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    数据共享的需要
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volume" class="md-nav__link">
+    Volume 挂载操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../K8s%20%E5%AE%89%E8%A3%85%E6%8C%87%E5%BC%95/" title="K8s 安装指引" class="md-nav__link">
+      K8s 安装指引
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../K8s%20%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%B7%A5%E5%85%B7%20rinetd%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%8C%87%E5%BC%95/" title="K8s 端口转发工具 rinetd 安装配置指引" class="md-nav__link">
+      K8s 端口转发工具 rinetd 安装配置指引
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      环境安装与配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="环境安装与配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        环境安装与配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="Content" class="md-nav__link">
+      Content
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#content" class="md-nav__link">
+    Content
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、容器化技术
+  </a>
+  
+    <nav class="md-nav" aria-label="一、容器化技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 物理机时代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 虚拟化时代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 容器化时代
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_1" class="md-nav__link">
+    二、初识Docker
+  </a>
+  
+    <nav class="md-nav" aria-label="二、初识Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1. 基本介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 发展过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-centos" class="md-nav__link">
+    3. 基于 CentOS 的安装
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 基于 CentOS 的安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    安装步骤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    配置阿里云加速服务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    网络测试
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker_2" class="md-nav__link">
+    三、Docker 基本概念
+  </a>
+  
+    <nav class="md-nav" aria-label="三、Docker 基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1. 容器化平台
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-docker" class="md-nav__link">
+    2. Docker 系统结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-docker" class="md-nav__link">
+    3. Docker 执行流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcoker" class="md-nav__link">
+    四、Dcoker 常用命令
+  </a>
+  
+    <nav class="md-nav" aria-label="四、Dcoker 常用命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker_3" class="md-nav__link">
+    Docker 宿主机与容器通讯
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    五、容器内部结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    六、容器生命周期
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dockerfile" class="md-nav__link">
+    七、Dockerfile 构件镜像
+  </a>
+  
+    <nav class="md-nav" aria-label="七、Dockerfile 构件镜像">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-dockerfile" class="md-nav__link">
+    1. Dockerfile镜像描述文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-layer" class="md-nav__link">
+    2. 镜像分层（Layer)概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dockerfile" class="md-nav__link">
+    3. Dockerfile 基础命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dockerfile" class="md-nav__link">
+    4. Dockerfile 执行命令
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Dockerfile 执行命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-" class="md-nav__link">
+    RUN - 构建时运行
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entrypoint" class="md-nav__link">
+    ENTRYPOINT 启动命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmd" class="md-nav__link">
+    CMD 默认命令
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    八、案例：构建Redis镜像
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    九、 容器间通讯
+  </a>
+  
+    <nav class="md-nav" aria-label="九、 容器间通讯">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-link" class="md-nav__link">
+    1. 容器间Link单向通讯
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-bridge" class="md-nav__link">
+    2. Bridge网桥双向通信
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Bridge网桥双向通信">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    网桥实现原理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-volume" class="md-nav__link">
+    3. Volume 容器间共享数据
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Volume 容器间共享数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    数据共享的需要
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volume" class="md-nav__link">
+    Volume 挂载操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/250 Working Coding/Docker & K8s 容器技术/Docker 最佳实践.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="docker">Docker 最佳实践<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h1>
+<h2 id="content">Content<a class="headerlink" href="#content" title="Permanent link">&para;</a></h2>
+<ul>
+<li>讲解Docker原理与执行命令</li>
+<li>讲解Docker-Compose快速部署Docker应用</li>
+</ul>
+<h2 id="_1">一、容器化技术<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>历史演化： 物理机时代 ---&gt; 虚拟机时代 ---&gt; 容器化时代</p>
+<h3 id="1">1. 物理机时代<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p><img alt="e47b53614e5ca362c93f4270dc98efce.png" src="../_resource/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/c313996ec5c046f09ab19b0b57550649.png" /></p>
+<ul>
+<li>部署非常慢</li>
+<li>成本很高</li>
+<li>资源浪费</li>
+<li>难于扩展与迁移</li>
+<li>受制于硬件</li>
+</ul>
+<h3 id="2">2. 虚拟化时代<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p><img alt="6b507c744054d0ef1a11134cf614d8d1.png" src="../_resource/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/392c83f3f9fe4293bd9e166b0b8e8772.png" /></p>
+<p>优点：
+- 多部署
+- 资源池：硬件资源
+- 资源隔离
+- 很容易扩展</p>
+<p>问题：
+- VM需要安装操作系统：在操作系统层面浪费了资源</p>
+<h3 id="3">3. 容器化时代<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p><img alt="35db00d9b04989b8a9d9cf753a5ff2d4.png" src="../_resource/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/ad0ab581112243efa7c2221c33e2f0be.png" /></p>
+<p>所解决的问题
+- 打破开发与运维之间的资源配置链接
+- 标准化地应用打包</p>
+<p>应用场景
+- 标准化的迁移方式
+- 统一的参数配置
+- 自动化部署
+- 应用集群监控
+- 开发与运维之间的沟通桥梁</p>
+<p>阿里云/腾讯云的容器化应用</p>
+<p><img alt="f76c4b0cb374dafd071e4a1d957e53ee.png" src="../_resource/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/b92d1f2f6e8c4dfe9da521604a45cc9f.png" /></p>
+<h2 id="docker_1">二、初识Docker<a class="headerlink" href="#docker_1" title="Permanent link">&para;</a></h2>
+<h3 id="1_1">1. 基本介绍<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>开源的应用容器引擎，基于 Go 语言开发</li>
+<li>容器是完全使用沙箱机制,容器开销极低</li>
+<li>Docker就是容器化技术的代名词 </li>
+<li>Docker也具备一定虚拟化职能</li>
+</ul>
+<h3 id="2_1">2. 发展过程<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p>。。。</p>
+<h3 id="3-centos">3. 基于 CentOS 的安装<a class="headerlink" href="#3-centos" title="Permanent link">&para;</a></h3>
+<h4 id="_2">安装步骤<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<ol>
+<li>安装工具包及必要组建
+<div class="highlight"><pre><span></span><code>yum install -y yum-utils device-mapper-persistent-data lvm2
+</code></pre></div></li>
+<li><code>yum-utils</code>: yum工具安装包，简化安装过程中安装源的配置过程</li>
+<li>
+<p><code>device-mapper-persistent-data</code> &amp;&amp; <code>lvm2</code>: Docker 所使用的数据存储驱动。</p>
+</li>
+<li>
+<p>设置安装软件源信息
+<div class="highlight"><pre><span></span><code>yum-config-manager --add-repo http://mirrors.aliyun.com/docker-cn/linux/centos/docker-ce.repo
+</code></pre></div></p>
+</li>
+<li>
+<p><code>yum-config-manager</code>: <code>yum-utils</code>所提供的修改安装源工具</p>
+</li>
+<li>
+<p>快速缓存下载
+<div class="highlight"><pre><span></span><code>yum makecache fast
+</code></pre></div></p>
+</li>
+<li>安装Docker
+<div class="highlight"><pre><span></span><code>yum -y install docker-ce
+</code></pre></div></li>
+<li>Docker 服务启动
+<div class="highlight"><pre><span></span><code>service docker start
+</code></pre></div></li>
+<li>查看版本
+<div class="highlight"><pre><span></span><code>docker version
+</code></pre></div></li>
+<li>参考文档<ul>
+<li><a href="https://developer.aliyun.com/mirror/docker-ce?spm=a2c6h.13651102.0.0.3e221b11MoovBQ">阿里云 Docker CE 镜像</a></li>
+</ul>
+</li>
+</ol>
+<h4 id="_3">配置阿里云加速服务<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>一、登录阿里云，进入**容器镜像服务 - 管理控制台**。</p>
+<p>二、镜像加速器
+<div class="highlight"><pre><span></span><code>https://16yagsawkrt.mirror.aliyuncs.com
+</code></pre></div>
+- 每个人的镜像加速器不同，请不要出示
+- 此处已进行混淆处理，请勿使用该字符</p>
+<p>三、操作文档 CentOS</p>
+<ol>
+<li>安装/升级Docker客户端</li>
+<li>配置镜像加速器</li>
+</ol>
+<div class="highlight"><pre><span></span><code># 创建文件夹
+sudo mkdir -p /etc/docker
+
+# 写入加速器地址
+sudo tee /etc/docker/daemon.json &lt;&lt;-&#39;EOF&#39;
+{
+  &quot;registry-mirrors&quot;: [&quot;https://16yagsawkrt.mirror.aliyuncs.com&quot;]
+}
+EOF
+# 重载
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+</code></pre></div>
+
+<h4 id="_4">网络测试<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code># 拉取
+docker pull hello-world
+
+# 运行
+docker run hello-world
+</code></pre></div>
+
+<h2 id="docker_2">三、Docker 基本概念<a class="headerlink" href="#docker_2" title="Permanent link">&para;</a></h2>
+<h3 id="1_2">1. 容器化平台<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<p>Docker 提供应用打包，部署与运行应用的容器化平台</p>
+<ol>
+<li>应用程序</li>
+<li>Docker Engine</li>
+<li>可用资源（物理机/虚拟机）</li>
+</ol>
+<h3 id="2-docker">2. Docker 系统结构<a class="headerlink" href="#2-docker" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Server - docker daemon</li>
+<li>REST API</li>
+<li>Clent - docker CLI<ul>
+<li>2 &amp;&amp; 3 采用标准http协议</li>
+<li>CS 优势</li>
+</ul>
+</li>
+</ol>
+<p>容器与镜像</p>
+<ul>
+<li>镜像：镜像是只读的文件。提供了运行程序完整的软硬件资源，是应用程序的“集装箱”。</li>
+<li>容器：容器是镜像的实例。由Docker负责创建，容器之间彼此隔离。</li>
+</ul>
+<h3 id="3-docker">3. Docker 执行流程<a class="headerlink" href="#3-docker" title="Permanent link">&para;</a></h3>
+<p><img alt="4947b0623fb035b81c3e993b11ed2317.png" src="../_resource/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/b3f612e530084ad7b85ad5e93e566ffd.png" /></p>
+<ul>
+<li>docker client: 发送命令</li>
+<li>docker host: 接受命令并处理</li>
+<li>
+<p>docker registry: 注册中心提供大量地镜像</p>
+</li>
+<li>
+<p><code>docker pull</code>: 拉取镜像到本地</p>
+</li>
+<li><code>docker run</code>:创建并运行容器</li>
+</ul>
+<h2 id="dcoker">四、Dcoker 常用命令<a class="headerlink" href="#dcoker" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code># 从远程仓库抽取镜像
+docker pull image_name&lt;:tags&gt;
+# 查看本地镜像
+docker images
+# 创建容器，启动应用（如果本地仓库没有镜像，那么会从远程仓库拉取后再运行应用)
+docker run image_name&lt;:tags&gt;
+# 查看正在运行的镜像
+docker ps
+# 删除容器
+docker rm &lt;-f&gt; container_id
+# 删除镜像
+docker rmi &lt;-f&gt; image_name&lt;:tags&gt;
+</code></pre></div>
+
+<ol>
+<li>
+<p>在官方远程镜像仓库：<a href="hub.docker.com">hub.docker.com</a>搜索镜像</p>
+<ul>
+<li>Supported tags and respective <code>Dockerfile</code> links</li>
+<li>Quick reference</li>
+<li>What is xxx?</li>
+<li>How to use this image?</li>
+<li>License</li>
+</ul>
+</li>
+<li>
+<p>获取镜像，运行应用
+<div class="highlight"><pre><span></span><code># 查看本地镜像
+docker images
+# 拉取
+docker pull tomcat
+# 官网查看需要的版本
+docker pull tomcat:xxx
+
+docker run tomcat
+
+docker run tomcat:xxx
+
+docker run -p 8000:8080 tomcat
+# 查看网络
+netstat -tulpn
+# -d 后台运行
+docker run -p 8000:8080 -d tomcat
+# 查看正在运行的镜像
+docker ps
+
+docker stop container_id
+
+docker rm container_id
+
+docker rm -f container_id
+
+docker rmi image_name
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="docker_3">Docker 宿主机与容器通讯<a class="headerlink" href="#docker_3" title="Permanent link">&para;</a></h3>
+<p>使用端口映射：
+1. 使用宿主机 8000 port 映射容器应用 tomcat Expose 8080
+2. 对外始终暴露 宿主机IP &amp; 8000 port</p>
+<h2 id="_5">五、容器内部结构<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>查看官方镜像信息</li>
+<li>内部结构</li>
+</ol>
+<p>Tomcat:lastest
+- Linux(Red Hat 4.8.5-28)
+- Jdk(1.8.0-222)
+- Apache Tomcat/8.5.46</p>
+<p>在容器中执行命令
+<div class="highlight"><pre><span></span><code>docker exec [-it] container_id 命令
+</code></pre></div>
+- <code>exec</code>: 在对应容器中执行命令
+- <code>-it</code>: 采用交互式方式执行命令
+- 实例：<code>docker exec -it  /bin/bash</code></p>
+<div class="highlight"><pre><span></span><code># 查看本地文件
+ls
+
+# 查看Linux 版本
+cat /proc/version
+
+# 查看Java 版本
+java -version
+
+...
+</code></pre></div>
+
+<p>所有本地景象和容器存储目录：
+<div class="highlight"><pre><span></span><code>/var/lib/docker
+</code></pre></div></p>
+<h2 id="_6">六、容器生命周期<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p><img alt="e7d2b9dab0a1573fc01d3fc8c8919397.png" src="../_resource/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/593ba6c0acdd47a191353e1e2efddae7.png" /></p>
+<ul>
+<li></li>
+</ul>
+<div class="highlight"><pre><span></span><code># 拉取
+docker pull hello-world
+
+# 创建
+docker create hello-world
+
+# 查看所有镜像状态
+docker ps -a
+
+docker start xxx_id  # status: Up about ...
+
+docker pause xxx_id  # status: Up about a minute(Paused)
+
+docker unpause xxx_id  # status: Up about ...
+
+docker stop xxx_id  # status: Exited 2 seconds ago
+
+docker rm -f xxx_id
+</code></pre></div>
+
+<h2 id="dockerfile">七、Dockerfile 构件镜像<a class="headerlink" href="#dockerfile" title="Permanent link">&para;</a></h2>
+<h3 id="1-dockerfile">1. Dockerfile镜像描述文件<a class="headerlink" href="#1-dockerfile" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Dockerfile是一个包含用于组合镜像的命令的文本文档</li>
+<li>Docker通过读取Dockerfile中的指令按步自动生成镜像</li>
+</ul>
+<p>命令：
+<div class="highlight"><pre><span></span><code>docker build -t 机构/镜像名&lt;:tags&gt; Dockerfile目录
+</code></pre></div></p>
+<blockquote>
+<p>注意： Dockerfile文件名一定是<code>Dockerfile</code>.</p>
+</blockquote>
+<p>案例：自定义构建tomcat webapp
+<div class="highlight"><pre><span></span><code># 设置基准镜像
+FROM tomcat:lastest
+
+# 说明机构
+MAINTAINER abookworm.site
+
+# 设置工作目录, 不存在则创建
+WORKDIR /usr/local/tomcat/webapps
+
+# 复制本地文件到远程文件
+ADD docker-web ./docker-web
+</code></pre></div></p>
+<p>查看基准镜像工作目录
+<div class="highlight"><pre><span></span><code># 查看工作目录
+docker ps
+
+# 交互式运行
+docker exec -it xxx_id /bin/bash
+
+# 查看内部结构
+ls
+# 定位自定义目录
+cd webapps
+</code></pre></div></p>
+<p>构建安装
+<div class="highlight"><pre><span></span><code># 切换目录
+cd Dockerfile_dir
+
+# 使用Dockerfile构建镜像 
+docker build -t abookworm.site/mywebapp:1.0 .
+
+# 运行
+docker run abookworm.site/mywebapp:1.0
+</code></pre></div>
+- docker build
+    - <code>-t</code>: 机构名称 + 应用名称 + 版本号
+    - <code>.</code>: 构建所定位的目录</p>
+<h3 id="2-layer">2. 镜像分层（Layer)概念<a class="headerlink" href="#2-layer" title="Permanent link">&para;</a></h3>
+<p>层级
+1. 镜像层：只读
+2. 容器层：可读可写</p>
+<p>Dockerfile执行过程分析
+1. 按层堆叠执行
+2. 构建临时容器，即保存快照</p>
+<h3 id="3-dockerfile">3. Dockerfile 基础命令<a class="headerlink" href="#3-dockerfile" title="Permanent link">&para;</a></h3>
+<p>FROM - 基于基准景象</p>
+<ul>
+<li><code>FROM centos</code>：制作基准镜像（基于centos:lastest)</li>
+<li><code>FROM scratch</code>：不依赖任何基准镜像base image</li>
+<li><code>FROM tomcat:9.0.22-jadk8-openjdk</code></li>
+</ul>
+<blockquote>
+<p>注意：尽量使用官方提供的 Base Image</p>
+</blockquote>
+<p>LABEL &amp; MAINTAINER - 说明信息
+- <code>MAINTAINER abookworm.site</code>
+- <code>LABEL version = "1.0"</code>
+- <code>LABEL description = "壹书吊"</code></p>
+<p>WORKDIR - 设置工作目录
+- <code>WORKDIR /usr/local</code>
+- <code>WORKDIR /usr/local/newdir</code>：自动创建</p>
+<blockquote>
+<p>注意：尽量使用绝对路径</p>
+</blockquote>
+<p>ADD &amp; COPY - 复制文件</p>
+<ul>
+<li><code>ADD hello /</code> ：复制到根路径</li>
+<li><code>ADD test.tar.gz /</code> ：添加根目录，并自动解压</li>
+<li>ADD 除了复制，还具备添加远程文件功能</li>
+</ul>
+<p>ENV - 设置环境变量
+- <code>ENV JAVA_HOME /usr/local/openjdk8</code>
+- <code>RUN ${JAVA_HOME}/bin/java - java test.jar</code></p>
+<blockquote>
+<p>注意：尽量使用环境变量，可提高程序维护性</p>
+</blockquote>
+<h3 id="4-dockerfile">4. Dockerfile 执行命令<a class="headerlink" href="#4-dockerfile" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>RUN</code>: 在 Build 构建时执行命令</li>
+<li><code>ENTRYPOINT</code>: 容器启动时执行命令</li>
+<li><code>CMD</code>: 容器启动后执行默认的命令或参数</li>
+</ol>
+<p>三命令执行时机不同：
+| 执行时机              | 执行命令                               |
+| --------------------- | -------------------------------------- |
+| docker build 创建镜像 | RUN 执行，在构建镜像时执行命令         |
+| docker run 创建容器   | CMD &amp; ENTRYPOINT，在容器创建时执行命令 |</p>
+<h4 id="run-">RUN - 构建时运行<a class="headerlink" href="#run-" title="Permanent link">&para;</a></h4>
+<p>两种运行方式格式：
+- Shell 命令格式： <code>RUN yum install -y vim</code>
+- Exec 命令格式：  <code>RUN ["yum", "install", "-y", "vim"]</code></p>
+<p>Shell运行方式：
+- 使用Shell执行时，当前shell是父进程，生成一个子shell进程
+- 在子shell中执行脚本。脚本执行完毕，退出子shell，回到当前shell。</p>
+<p>Exec 运行方式：
+- 使用Exec方式，会用Exec进程替换当前进程，并且保持PID不变
+- 执行完毕，直接退出，并不会退回之前的进程环境</p>
+<h4 id="entrypoint">ENTRYPOINT 启动命令<a class="headerlink" href="#entrypoint" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>ENTRYPOINT</code>(入口点)用于在容器启动时执行命令</li>
+<li>Dockerfile中只有最后一个ENTRYPOINT会被执行</li>
+<li><code>ENTRYPOINT ["ps"]</code>：推荐使用Exec格式</li>
+</ul>
+<h4 id="cmd">CMD 默认命令<a class="headerlink" href="#cmd" title="Permanent link">&para;</a></h4>
+<ul>
+<li>CMD用于设置默认执行的命令</li>
+<li>如Dockerfile中出现多个CMD,则只有最后一个被执行</li>
+<li>如容器启动时附加指令,则CMD被忽略</li>
+<li><code>CMD ["ps" , "-ef"]</code>: 推荐使用Exec格式</li>
+</ul>
+<p>案例1：</p>
+<ol>
+<li>
+<p>创建文件
+<div class="highlight"><pre><span></span><code>FROM centos
+RUN [&quot;echo&quot;, &quot;Image building...&quot;]
+CMD [&quot;echo&quot;, &quot;container starting... &quot;]
+</code></pre></div></p>
+</li>
+<li>
+<p>构建镜像
+<div class="highlight"><pre><span></span><code>docker build -t abookworm.site/docker_run_cmd .
+</code></pre></div></p>
+</li>
+<li>
+<p>print Out: Image building...</p>
+</li>
+<li>
+<p>启动容器 + 仅镜像名
+<div class="highlight"><pre><span></span><code>docker run abookworm.site/docker_run_cmd
+</code></pre></div></p>
+</li>
+<li>
+<p>print out:container starting...</p>
+</li>
+<li>
+<p>启动容器 + 执行命令
+<div class="highlight"><pre><span></span><code>docker run abookworm.site/docker_run_cmd ls
+</code></pre></div></p>
+</li>
+<li>print Out: 当前文件夹内的所有内容，即<code>ls</code>内容</li>
+</ol>
+<p>案例2:</p>
+<p><div class="highlight"><pre><span></span><code>FROM centos
+RUN [&quot;echo&quot;, &quot;Image building...&quot;]
+ENTRYPOINT [&quot;echo&quot;, &quot;container starting... &quot;]
+</code></pre></div>
+- 此文件操作后，效果同案例1.</p>
+<p>案例3:</p>
+<ol>
+<li>
+<p>创建文件
+<div class="highlight"><pre><span></span><code>FROM centos
+RUN [&quot;echo&quot;, &quot;Image building...&quot;]
+ENTRYPOINT [&quot;echo&quot;, &quot;container starting... &quot;]
+ENTRYPOINT [&quot;ps&quot;]
+CMD [&quot;-ef&quot;]
+</code></pre></div></p>
+</li>
+<li>
+<p>构建镜像
+<div class="highlight"><pre><span></span><code>docker build -t abookworm.site/docker_cmd_entrypoint .
+</code></pre></div></p>
+</li>
+<li>
+<p>print Out: Image building...</p>
+</li>
+<li>
+<p>启动容器 + 仅镜像名
+<div class="highlight"><pre><span></span><code>docker run abookworm.site/docker_cmd_entrypoint
+</code></pre></div></p>
+</li>
+<li>print out:<code>ps -ef</code>命令效果</li>
+<li>
+<p>entrypoint 命令为命令入口，两行命令仅会执行最后一行命令</p>
+</li>
+<li>
+<p>启动容器 + 执行命令
+<div class="highlight"><pre><span></span><code>docker run abookworm.site/docker_cmd_entrypoint -aux
+</code></pre></div></p>
+</li>
+<li>print Out: <code>ps -aux</code>命令效果</li>
+<li>此时，cmd 命令所携带的参数被替换。</li>
+</ol>
+<h2 id="redis">八、案例：构建Redis镜像<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>创建文件
+<div class="highlight"><pre><span></span><code>FROM centos
+RUN [&quot;yum&quot;, &quot;install&quot;, &quot;-y&quot;, &quot;gcc&quot;, &quot;gcc-c++&quot;, &quot;net-tools&quot;, &quot;make&quot;]
+WORKDIR /usr/local
+ADD redis-4.0.14.tar.gz
+WORKDIR /usr/local/redis-4.0.14/src
+RUN make &amp;&amp; make install
+WORKDIR /usr/local/redis-4.0.14
+ADD redis-7000.cnf
+EXPOSE 7000
+CMD [&quot;redis-server&quot;, &quot;redis-7000.conf&quot;]
+</code></pre></div></p>
+</li>
+<li>
+<p>创建镜像
+<div class="highlight"><pre><span></span><code>docker build -t abookworm.site/myredis:4.0.14 .
+</code></pre></div></p>
+</li>
+<li>
+<p>运行
+<div class="highlight"><pre><span></span><code>docker run -p 7000:7000 abookworm.site/myredis:4.0.14
+</code></pre></div></p>
+</li>
+<li>
+<p>验证端口检测
+<div class="highlight"><pre><span></span><code>netstat -tulpn
+</code></pre></div></p>
+</li>
+<li>
+<p>7000 端口：docker-proxy</p>
+</li>
+<li>
+<p>验证内部执行
+<div class="highlight"><pre><span></span><code>docker exec -it contain_id /bin/bash
+</code></pre></div></p>
+</li>
+</ol>
+<h2 id="_7">九、 容器间通讯<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="1-link">1. 容器间Link单向通讯<a class="headerlink" href="#1-link" title="Permanent link">&para;</a></h3>
+<p>容器间的单向访问：
+- 虚拟IP
+- 容器名称</p>
+<p><div class="highlight"><pre><span></span><code># 运行 databases
+docker run -d --name database -it centos /bin/bash
+
+# 运行 web 并连接database
+docker run -d --name web --link database tomcat
+
+# 查看运行状态
+docker ps
+
+# 查看单个容器信息
+docker inspect 9814e5509196
+docker inspect 426dcefc5dc2
+
+# 此时可以直接互相ping ipaddress
+
+# 进入 web 内部交互
+docker exec -it 426dcefc5dc2 /bin/bash
+
+# 查看是否连接, 既web单向通讯database
+ping database
+</code></pre></div>
+- <code>docker inspect container_id</code>： 查看运行容器的相关信息
+    - NetworkSettings: IPADDRESS</p>
+<h3 id="2-bridge">2. Bridge网桥双向通信<a class="headerlink" href="#2-bridge" title="Permanent link">&para;</a></h3>
+<p><img alt="bb1ee00051d9aa05714eb02b4a237649.png" src="../_resource/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/e6ecbf93ba2e4faeb055af46ce683c61.png" /></p>
+<div class="highlight"><pre><span></span><code># 运行 databases
+docker run -d --name database -it centos /bin/bash
+
+# 运行 web 并连接database
+docker run -d --name web tomcat
+
+# 查看运行状态
+docker ps
+
+# 查看单个容器信息
+docker inspect 9814e5509196
+docker inspect b33aebe5a67a
+
+# 查看容器网络状态
+docker network ls
+
+# 创建子定义网桥
+docker network create -d bridge my-bridge
+
+# 查看子定义网桥
+docker network ls
+
+# 创建互通网桥
+docker network connect my-bridge web
+docker network connect my-bridge database
+
+# 进入 web 内部交互
+docker exec -it b33aebe5a67a /bin/bash
+# 查看是否连接, 既web单向通讯database
+ping database
+
+# 进入 database 内部交互
+docker exec -it 9814e5509196 /bin/bash
+# 查看是否连接
+ping web
+</code></pre></div>
+
+<h4 id="_8">网桥实现原理<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p><img alt="41754e918434b1c4185872ef5c29b924.png" src="../_resource/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/b1066a21b532442a92233b15abb5b770.png" /></p>
+<h3 id="3-volume">3. Volume 容器间共享数据<a class="headerlink" href="#3-volume" title="Permanent link">&para;</a></h3>
+<h4 id="_9">数据共享的需要<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<h4 id="volume">Volume 挂载操作<a class="headerlink" href="#volume" title="Permanent link">&para;</a></h4>
+<p><img alt="86d474890662ea539ba98599a0e609f9.png" src="../_resource/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/2217dccfdc8c44c5863e6ea8997e31d7.png" /></p>
+<ol>
+<li>设置 <code>-v</code> 挂载宿主机目录
+<div class="highlight"><pre><span></span><code>docker run --name container_name -v 宿主机目录：容器内挂载路径 镜像名
+</code></pre></div></li>
+<li>
+<p><code>docker run --name t1 -v /usr/webapps:/usr/local/tomcat/webapps tomcat</code></p>
+</li>
+<li>
+<p>设置 <code>--volumes-from</code> 共享容器内挂载点
+<div class="highlight"><pre><span></span><code># 创建共享容器
+docker create --name webpage -v /webapps:/tomcat/webapps tomcat /bin/true
+
+# 共享容器挂载点
+docker run --volumes-from webpage ==name t1 -d tomcat
+</code></pre></div></p>
+</li>
+</ol>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                Git & Github 代码管理
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                Kubernetes(K8s) 最佳实践
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
