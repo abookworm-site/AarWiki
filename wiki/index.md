@@ -20,13 +20,37 @@
 
 目前，Wiki 目录暂时摘录笔记管理体系中的部分，后续再行更新。
 
+
+
 200 Working Business 商务管理
 
 210 Working Project 项目实践
 
 220 Working Professionalism 专业技能
 
+230 Working Talent Development
+
 250 Working Coding 策码奔腾
+
+- 操作系统底层
+- 数据库操作与配置
+- Git & Github 代码管理
+- Docker & K8s 容器技术
+- 环境安装与配置
+
+250 Working Coding C
+
+250 Working Coding Java
+
+- 数据结构与算法
+
+- JavaSE
+- Spring
+
+250 Working Coding Python
+
+- Django
+- Flask
 
 310 Learning English 鸟语花香
 
