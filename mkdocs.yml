@@ -74,8 +74,8 @@ markdown_extensions:
 nav:
 - Home: 'index.md'
 
-- 230 Working Talent Development:
-  - Content: '230 Working Talent Development\index.md'
+#- 230 Working Excellence:
+#  - Content: '230 Working Excellence\index.md'
 
 - 250 Working Coding: 
   - 操作系统底层: '250 Working Coding\操作系统底层\Java 程序员掌握的系统底层知识.md'

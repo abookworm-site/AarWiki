@@ -16,19 +16,19 @@
 
 
 
-## 目录结构
-
-目前，Wiki 目录暂时摘录笔记管理体系中的部分，后续再行更新。
+## Content | 目录结构
 
 
+```python
+200 Working Business 积极主动要事第一
 
-200 Working Business 商务管理
-
-210 Working Project 项目实践
+210 Working Project 以始为终双赢思维
 
 220 Working Professionalism 专业技能
 
-230 Working Talent Development
+230 Working Excellence 追求卓越
+
+240 Working Framework 统合综效
 
 250 Working Coding 策码奔腾
 
@@ -40,11 +40,13 @@
 
 250 Working Coding C
 
+- 语言基础
+
 250 Working Coding Java
 
 - 数据结构与算法
 
-- JavaSE
+- 语言基础 - JavaSE
 - Spring
 
 250 Working Coding Python
@@ -52,17 +54,17 @@
 - Django
 - Flask
 
-310 Learning English 鸟语花香
+310 Learning English 万物有灵
 
-410 Loving Reading 开卷有益
+410 Loving Reading 天地立心
 
 420 Loving Writing 提笔安神
 
 500 Living Life 人活于世
+```
 
-
-
-> 此目录结构仅作参考，未来得及更新部分，请以实际文章为准。
+- 目前，Wiki 目录暂时摘录笔记管理体系中的部分，后续再行更新。
+- 此目录结构仅作参考，未来得及更新部分，请以实际文章为准。
 
 
 
