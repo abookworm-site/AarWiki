@@ -15,6 +15,7 @@ install:
 script:
   # 每次远程强制同步部署，该步骤会消出设置的自定义域名
   # - mkdocs gh-deploy --force --clean
+  - rm -rf ./site
   - mkdocs build --clean
 
 branches:
