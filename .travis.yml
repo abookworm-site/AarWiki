@@ -7,7 +7,7 @@ install:
   - pip install mkdocs
   - pip install mkdocs-material
   - echo -e "machine github.com\n  login ${GITHUB_TOKEN}" > ~/.netrc
-  - sudo yum install -y golang
+  - sudo apt-get install -y golang
   - go get github.com/polym/upx
 
 script:
