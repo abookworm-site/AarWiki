@@ -7,9 +7,8 @@ install:
   - pip install mkdocs
   - pip install mkdocs-material
   - echo -e "machine github.com\n  login ${GITHUB_TOKEN}" > ~/.netrc
-  - sudo apt-get install -y golang
+  - sudo yum install -y golang
   - go get github.com/polym/upx
-  - go version
 
 script:
   # 每次远程强制同步部署，该步骤会消出设置的自定义域名
