@@ -1,4 +1,4 @@
-# MyWiki for Python Tech.
+# Python Index
 
 
 

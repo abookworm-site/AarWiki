@@ -90,13 +90,13 @@ nav:
   - 环境安装与配置:
     - Content: '250 Working Coding\环境安装与配置\index.md'
 
-250 Working Coding C:
+- 250 Working Coding C:
   - Content: '250 Working Coding C\index.md'
-250 Working Coding Java:
+- 250 Working Coding Java:
   - Content: '250 Working Coding Java\index.md'
-250 Working Coding Python:
+- 250 Working Coding Python:
   - Content: '250 Working Coding Python\index.md'
 
-260 Working Oerating System:
+- 260 Working Oerating System:
   - Content: '260 Working Oerating System\index.md'
   - Linux System: '260 Working Oerating System\Linux System\Linux Learning.md'

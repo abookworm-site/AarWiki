@@ -7,7 +7,7 @@ Here is for my wiki documents : [wiki.abookworm.site](https://wiki.abookworm.sit
 
 
 
-```bash
+```markdown
 # Site info.
 site_name: abookworm's Wiki
 site_author: Aaron Loong
