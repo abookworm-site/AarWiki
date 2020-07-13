@@ -72,7 +72,7 @@ markdown_extensions:
 
 # Site Nav
 nav:
-- Home: 'index.md'
+- abookworm's Wiki: 'index.md'
 
 #- 230 Working Excellence:
 #  - Content: '230 Working Excellence\index.md'
