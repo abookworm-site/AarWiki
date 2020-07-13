@@ -72,7 +72,7 @@ markdown_extensions:
 
 # Site Nav
 nav:
-- abookworm's Wiki: 'index.md'
+- HomePage: 'index.md'
 
 #- 230 Working Excellence:
 #  - Content: '230 Working Excellence\index.md'
@@ -97,6 +97,6 @@ nav:
 - 250 Working Coding Python:
   - Content: '250 Working Coding Python\index.md'
 
-- 260 Working Oerating System:
-  - Content: '260 Working Oerating System\index.md'
-  - Linux System: '260 Working Oerating System\Linux System\Linux Learning.md'
+- 260 Working Operating System:
+  - Content: '260 Working Operating System\index.md' 
+  - Linux System: '260 Working Operating System\Linux System\Linux Learning.md'

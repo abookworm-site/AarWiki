@@ -46,11 +46,11 @@
 
 - 数据结构与算法
 
-- 语言基础 - JavaSE
+- 语言基础：JavaSE
 - Spring
 
 250 Working Coding Python
-
+- 语言基础
 - Django
 - Flask
 
@@ -65,10 +65,11 @@
 
 - 目前，Wiki 目录暂时摘录笔记管理体系中的部分，后续再行更新。
 - 此目录结构仅作参考，未来得及更新部分，请以实际文章为准。
+- `250 Working Coding C`/`250 Working Coding Java`/`250 Working Coding Python` 三个主分支仅作个自技术分类使用。即**251分支及其后续分支**始终归于`250 Working Coding`主分支所有。
 
 
 
-## 存放位置
+## File Location | 文件位置
 
 主文件存放位置：
 
@@ -84,12 +85,16 @@ wiki 使用`Mkdocs`进行搭建，故此，所有文章均位于 `wiki` 文件�
 ./_resource/${filename}
 ```
 
-- `Mkdocs` 文章部署不保障服务器绝对路径，因此使用相对路径进行存放。当然，也可以使用图库进行存储。
+- `Mkdocs` 文章部署不保障服务器绝对路径，因此务必使用**相对路径存放**。当然，也可以使用**图库**进行存储。
 - `${filename}`： 文件名称
 
 
 
 ## Reference
 
-1. [Mkdocs](https://www.mkdocs.org)
+| 序号 | 参考 | 说明                                                         |
+| ---- | ---- | ------------------------------------------------------------ |
+| 1    |[Mkdocs](https://www.mkdocs.org)      | `HomePage` |
+
+
 
