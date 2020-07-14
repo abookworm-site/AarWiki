@@ -1,10 +1,5 @@
-# Java Index
+# JavaSE Index
 
-JavaSE 基础：
+## 基础入门
 
-- 
-
-JavaWeb 基础
-
-Spring
-
+1. [Java后端初识](01-Java后端初识.md)
