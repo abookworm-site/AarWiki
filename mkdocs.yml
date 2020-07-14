@@ -72,30 +72,34 @@ markdown_extensions:
 
 # Site Nav
 nav:
-- HomePage: 'index.md'
+- AarWiki Home: 'index.md'
 
-#- 230 Working Excellence:
-#  - Content: '230 Working Excellence\index.md'
+- 100 WorkSpace: '100 WorkSpace\index.md'
+
+#- 230 Working Excellence: '230 Working Excellence\index.md'
 
 - 250 Working Coding: 
+  - Overview: '250 Working Coding\index.md'
   - 操作系统底层: '250 Working Coding\操作系统底层\Java 程序员掌握的系统底层知识.md'
-  - 数据库操作与配置:
-    - Content: '250 Working Coding\数据库操作与配置\index.md'
+  - 数据库操作与配置: '250 Working Coding\数据库操作与配置\index.md'
   - Git & Github 代码管理: '250 Working Coding\Git & Github 代码管理\Git & Github.md'
   - Docker 与 K8s 容器技术: 
+    - Overview: '250 Working Coding\Docker & K8s 容器技术\index.md'
     - Docker 最佳实践: '250 Working Coding\Docker & K8s 容器技术\Docker 最佳实践.md'
     - Kubernetes(K8s) 最佳实践: '250 Working Coding\Docker & K8s 容器技术\Kubernetes(K8s) 最佳实践.md'
     - K8s 安装指引: '250 Working Coding\Docker & K8s 容器技术\K8s 安装指引.md'
     - K8s 端口转发工具 rinetd 安装配置指引: '250 Working Coding\Docker & K8s 容器技术\K8s 端口转发工具 rinetd 安装配置指引.md'
   - 环境安装与配置:
-    - Content: '250 Working Coding\环境安装与配置\index.md'
+    - Overview: '250 Working Coding\环境安装与配置\index.md'
 
-- 250 Working Coding C:
-  - Content: '250 Working Coding C\index.md'
-- 250 Working Coding Java:
-  - Content: '250 Working Coding Java\index.md'
+- 250 Working Coding C: '250 Working Coding C\index.md'
+- 250 Working Coding Java: '250 Working Coding Java\index.md'
+
 - 250 Working Coding Python:
-  - Content: '250 Working Coding Python\index.md'
+  - Overview: '250 Working Coding Python\index.md'
+  - Basics: '250 Working Coding Python\Basics\index.md'
+  - Django: '250 Working Coding Python\Django\index.md'
+  - Flask: '250 Working Coding Python\Flask\index.md'
 
 - 260 Working Operating System:
   - Content: '260 Working Operating System\index.md' 
