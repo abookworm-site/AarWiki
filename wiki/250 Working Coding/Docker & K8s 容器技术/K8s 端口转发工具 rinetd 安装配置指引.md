@@ -1,7 +1,7 @@
 # Rinetd 安装配置指引
 
 ## Rinetd 安装
-```
+```bash
 cd/usr/local
 
 wget http://www.boutell.com/rinetd/http/rinetd.tar.gz
@@ -27,7 +27,7 @@ make && make install
 ## 配置转发IP端口
 
 1. 编辑配置文件
-```
+```bash
 vim /etc/rinetd.conf
 ```
 > rinetd.conf
@@ -39,7 +39,7 @@ vim /etc/rinetd.conf
 - `10.100.22.231`: 表示内部IP地址
 
 2. 执行生效
-```
+```bash
 # 执行配置文件
 rinetd -c /etc/rinetd.conf
 

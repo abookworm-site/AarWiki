@@ -2,13 +2,15 @@ Linux Learning
 
 # Operation System - Linux 
 
-## 目录和文件操作
+> 目录和文件操作
 
-### 类Unix的文件根目录
+
+
+## 类Unix的文件根目录
 
 > Linux 一切皆文件
 
-#### All in here
+### All in here
 1. 系统启动必须：
     - /boot：存放的启动Linux 时使用的内核文件，包括连接文件以及镜像文件。
     - /etc：存放所有的系统需要的配置文件和子目录列表，更改目录下的文件可能会导致系统不能启动。
@@ -51,18 +53,22 @@ Linux Learning
 	- /opt：默认是空的，我们安装额外软件可以放在这个里面。
 	- /srv：存放服务启动后需要提取的数据（不用服务器就是空）
 
-#### Common using
+
+
+### 特别记忆
+
 - /boot : 内核和启动程序的相关文件
 
-- /dev  : 设备文件所在目录
-- /media: 挂载设备媒体，U盘，光驱等
-- /mnt  : 挂载的文件系统
-
-- /home/
-- /usr  : unix system resources 庞大和复杂的目录
-    - /usr/local : 用户自己安装软件的目录
-
 - /proc : 系统内存的映射，会保留进制运行的一些信息
+
+    
+
+- /usr  : unix system resources 庞大和复杂的目录
+  
+- /usr/local : 用户自己安装软件的目录
+  
+    
+  
 - /etc  : 系统软件的启动和配置目录
     - /etc/passwd : 用户存放文件
     - man 5 passwd: 查看文件格式
@@ -136,7 +142,7 @@ man command
 
 ## 文件列表
 
-### `ls` ：list --- 查看文件列表
+### 查看文件列表`ls` ：list
 
 一、命令参数
 - `ls -l`
@@ -164,18 +170,18 @@ man command
 
 ## 目录相关
 
-### `cd` : change dir
+### 更改所有目录`cd` : change dir
 
 一、回到家目录：
 - cd ~
 - cd $HOME
 - cd
 
-### pwd
+### 查看当前所在目录`pwd`
 
-### which
+### 查看目标所在目录`which sth `
 
-### mkdir
+### 创建新文件夹`mkdir`: make dir
 一、命令参数
 - mkdir dir1 [dir2 dir3 ...] 
 - mkdir dir1/dir2 -p ---递归创建目录
@@ -184,20 +190,20 @@ man command
 
 ## 文件相关
 
-### touch : 创建文件
+### 创建文件`touch`
 
 一、命令参数
 - touch filename 
     - 创建文件
     - 若文件已存在，那么修改文件的修改时间
 
-### rm : remove 删除
+### 删除文件`rm`: remove
 一、命令参数
 - `rm filename`
 - `rm -r dir`: 递归删除文件目录
 - `rm -rf *` : 强制删除目录下的全部内容
 
-### cp : copy & mv : move 复制
+### 复制/移动文件`cp`: copy & `mv`: move
 - 考虑当前文件或者目录存不存在
     - 存在：保存当前存在的目录下面
     - 不存在：修改拷贝目录、文件名称，之后拷贝其内的内容
@@ -206,17 +212,17 @@ man command
 
 ## 文件内容查看
 
-### cat : 直接命令行中显示信息
+### 命令行中显示信息`cat`
 
-### more/less : 分屏显示文件信息
+### 分屏显示文件信息`more` & `less`
 - 回车： 逐行显示
 - 空格： 单页显示
 
-### head : 查看文件头
+### 查看文件头`head`
 - 默认10行
 - head -n file: 显示指定的行数
 
-### tail ： 查看文件尾
+### 查看文件尾`tail`
 - 默认10行
 - tail -n file : 显示指定的行数
 - tail -f file : 一直跟踪文件末尾
@@ -225,7 +231,7 @@ man command
 
 ## 统计信息
 
-### tree
+### `tree`: 显示文件夹结构
 
 ### wc : 统计文件信息内容
 - wc *  : 统计整个目录
@@ -245,9 +251,7 @@ man command
 
 ## 文件属性和用户用户组
 
-### 登录用户whoami
-
-查看登录用户
+### 查看登录用户`whoami`
 
 ### 文件权限和软硬连接
 
@@ -270,7 +274,7 @@ man command
 
 
 
-### ln : 建立软硬链接
+#### 建立软硬链接`ln`
 
 1. 建立硬链接
 ln src xxx
@@ -278,15 +282,13 @@ ln src xxx
 2. 建立软链接
 ln -s src xxx
 
-
-
-### unlink : 删除软硬链接
+#### 删除软硬链接`unlink`
 
 - 硬链接数为0时，文件被删除
 
 
 
-### 修改文件权限
+### 修改文件权限`chmod`
 
 一、chmod
 `chmod [u|g|o|a] [+|-][r|w|x] filename`
@@ -294,11 +296,13 @@ ln -s src xxx
 - chmod 0664 filename: 修改所有权限
 - 目录需要可执行权限才能进入
 
+
+
 ### 修改用户和组(root)
 
 修改用户和组:
 `sudo chown user:group file`  : 修改所有者和所属组
-`sudo chown user file`        : 只修改所有者
+`sudo chown user file`: 只修改所有者
 
 修改组：
 `sudo chgrp groupname file` : 修改文件所属组
@@ -424,15 +428,15 @@ sudo groupadd usergourp_name
 sudo passwd user_name
 ```
 
-### 切换用户
+### `su`: 切换用户
 - su itcast  : 切换用户
 - su -itcast : 切换用户并改变环境变量
 
-### 切换root用户
+#### `su`: 切换root用户
 - sudo
 - su
 
-### 删除用户
+### `userdel`: 删除用户
 - sudo userdel itcast    : 删除用户
 - sudo userdel -r itcast : 删除用户及其家目录
 
@@ -440,57 +444,55 @@ sudo passwd user_name
 
 ## 进程管理
 
-### who : 查看登陆设备用户
+### `who` : 查看登陆设备用户
 
-### ps  : 查看进程信息
+### `ps`  : 查看进程信息
 - ps aux
 - ps ajx
 
-### kill : 终结进程
+### `kill` : 终结进程
 - kill -9 pid
 
-### env : 环境变量
+### `env` : 环境变量
 - echo SSHELL 
 
-### top : 查看系统信息
+### `top` : 查看系统信息
 
 
 
 ## 网络管理
 
-### ifconfig : 查看ip信息
+### `ifconfig` : 查看ip信息
 - etho : 代表本地第一课网卡
 - `sudo ifconfig eth0 ip`
 
-### ping：查看连接状态
+### `ping`：查看连接状态
 - ping 域名
 - ping -c 4 : 连接域名、IP 四次
 
-### nslookup : 通过域名得到ip
+### `nslookup` : 通过域名得到ip
 
-### netstat : 查看网络连接状态
+### `netstat` : 查看网络连接状态
 - netstat -an | grep port
 
 
 
 ## 其他命令
 
-### date
+### `date`: 查看日期
 
-### cal
+### `cal`: 查看日历
 
-### umask : 文件权限补码
+### `umask` : 文件权限补码
 - umask    : 显示八进制文件掩码
 - 读写权限来由：
 	- 1. umask 默认参数为：002, 取补码为：775
 	- 2. 与默认权限666取交集：得到664，即wrxwrxwr-
 - umask -S : 显示创建文件对应的读写权限
 
-### echo : 输出变量或者字符串
+### `echo` : 输出变量或者字符串
 
-### alias : 配置命令别名
-
-
+### `alias` : 配置命令别名
 
 
 

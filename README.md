@@ -49,12 +49,10 @@ repo_url: https://github.com/abookworm-site/WikiPage
 
 ## Reference
 
-1. [Mkdocs](https://www.mkdocs.org)
-
-2. [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
-
-3. [基于 mkdocs-material 搭建个人静态博客](https://cyent.github.io/markdown-with-mkdocs-material/)
-4. [Noodlefighter's Wiki](https://wiki.noodlefighter.com)
-
-5. [叶子坑](https://flc.io)
-
+| 序号 | 参考                                                         | 说明                    |
+| ---- | ------------------------------------------------------------ | ----------------------- |
+| 1    | [Mkdocs](https://www.mkdocs.org)                             | `HomePage`， `Tutorial` |
+| 2    | [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) | `HomePage`，`Theme`     |
+| 3    | [基于 mkdocs-material 搭建个人静态博客](https://cyent.github.io/markdown-with-mkdocs-material/) | `Tutorial`              |
+| 4    | [Noodlefighter's Wiki](https://wiki.noodlefighter.com)       | `Reference`             |
+| 5    | [叶子坑](https://flc.io)                                     | `Reference`             |

@@ -1,20 +1,18 @@
-# Python Index
+# Python Overview
 
-## 语言基础
+## 一. 语言基础
 
-[Basics](./Basics/index.md)
-
-
+### [Basics](./Basics/index.md)
 
 
 
-## 网站开发
+## 二. 网络开发
 
 
 
 
 
-## 开发框架
+## 三. 开发框架
 
 ### [Flask](./Flask/index.md)
 
@@ -22,13 +20,11 @@
 
 
 
-## 网络爬虫
+## 四. 网络爬虫
 
 
 
 
 
-
-
-## 数据分析
+## 五. 数据分析
 

@@ -87,20 +87,18 @@ nav:
     - Overview: '250 Working Coding\Docker & K8s 容器技术\index.md'
     - Docker 最佳实践: '250 Working Coding\Docker & K8s 容器技术\Docker 最佳实践.md'
     - Kubernetes(K8s) 最佳实践: '250 Working Coding\Docker & K8s 容器技术\Kubernetes(K8s) 最佳实践.md'
-    - K8s 安装指引: '250 Working Coding\Docker & K8s 容器技术\K8s 安装指引.md'
-    - K8s 端口转发工具 rinetd 安装配置指引: '250 Working Coding\Docker & K8s 容器技术\K8s 端口转发工具 rinetd 安装配置指引.md'
   - 环境安装与配置:
     - Overview: '250 Working Coding\环境安装与配置\index.md'
 
-- 250 Working Coding C: '250 Working Coding C\index.md'
-- 250 Working Coding Java: '250 Working Coding Java\index.md'
+- ------ Working Coding C: '250 Working Coding C\index.md'
+- ------ Working Coding Java: '250 Working Coding Java\index.md'
 
-- 250 Working Coding Python:
+- ------ Working Coding Python:
   - Overview: '250 Working Coding Python\index.md'
   - Basics: '250 Working Coding Python\Basics\index.md'
   - Django: '250 Working Coding Python\Django\index.md'
   - Flask: '250 Working Coding Python\Flask\index.md'
 
 - 260 Working Operating System:
-  - Content: '260 Working Operating System\index.md' 
+  - Overview: '260 Working Operating System\index.md' 
   - Linux System: '260 Working Operating System\Linux System\Linux Learning.md'

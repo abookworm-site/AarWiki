@@ -7,7 +7,7 @@
     - 使用同级编号，提升文件管理等级，便于文件操作以及相关查找。
     - 各个语言之间发展迅速，虽互相都有各自借鉴。但是在不同领域应用有区别
 
-因此，第二部分的划分领域中仅仅包含各自语言的特有应用部分。其他的所有相关技术均需要包含在**Technology**之中。
+因此，第二部分的划分领域中仅仅包含各自语言的特有应用部分。其他的所有相关技术均需要包含在 **Technology** 之中。
 
 
 
@@ -23,11 +23,11 @@
 
 ## 2. Working Coding Language
 
-[250 Working Coding C](..\250 Working Coding C\index.md)
+- [250 Working Coding C](..\250 Working Coding C\index.md)
 
-[250 Working Coding Java](..\250 Working Coding Java\index.md)
+- [250 Working Coding Java](..\250 Working Coding Java\index.md)
 
-[250 Working Coding Python](..\250 Working Coding Python\index.md)
+- [250 Working Coding Python](..\250 Working Coding Python\index.md)
 
 
 

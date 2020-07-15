@@ -1,4 +1,4 @@
-# JavaSE Index
+# JavaSE
 
 ## 基础入门
 
