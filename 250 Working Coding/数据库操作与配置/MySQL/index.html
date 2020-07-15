@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
       
-        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/K8s%20%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%B7%A5%E5%85%B7%20rinetd%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%8C%87%E5%BC%95/">
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E4%B8%8E%E9%85%8D%E7%BD%AE/MySQL/">
       
       
         <meta name="author" content="Aaron Loong">
@@ -19,7 +19,7 @@
     
     
       
-        <title>Rinetd 安装配置指引 - abookworm's Wiki</title>
+        <title>MySQL Index - abookworm's Wiki</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rinetd" class="md-skip">
+        <a href="#mysql-index" class="md-skip">
           跳转至
         </a>
       
@@ -90,7 +90,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Rinetd 安装配置指引
+              MySQL Index
             
           </span>
         </div>
@@ -263,7 +263,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="数据库操作与配置" class="md-nav__link">
+    <a href="../" title="数据库操作与配置" class="md-nav__link">
       数据库操作与配置
     </a>
   </li>
@@ -312,7 +312,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="Overview" class="md-nav__link">
+    <a href="../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
       Overview
     </a>
   </li>
@@ -324,7 +324,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+    <a href="../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
       Docker 最佳实践
     </a>
   </li>
@@ -336,7 +336,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+    <a href="../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
       Kubernetes(K8s) 最佳实践
     </a>
   </li>
@@ -576,15 +576,57 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#rinetd_1" class="md-nav__link">
-    Rinetd 安装
+  <a href="#_1" class="md-nav__link">
+    环境搭建及其配置
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ip" class="md-nav__link">
-    配置转发IP端口
+  <a href="#mysql" class="md-nav__link">
+    MySQL基本操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    数据库事务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    数据库索引
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql_1" class="md-nav__link">
+    MySQL执行计划
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql_2" class="md-nav__link">
+    MySQL锁机制
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql_3" class="md-nav__link">
+    MySQL主从复制和读写分离
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    数据库外部连接
   </a>
   
 </li>
@@ -601,7 +643,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/250 Working Coding/Docker & K8s 容器技术/K8s 端口转发工具 rinetd 安装配置指引.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/250 Working Coding/数据库操作与配置/MySQL/index.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -609,52 +651,34 @@
                   
                 
                 
-                <h1 id="rinetd">Rinetd 安装配置指引<a class="headerlink" href="#rinetd" title="Permanent link">&para;</a></h1>
-<h2 id="rinetd_1">Rinetd 安装<a class="headerlink" href="#rinetd_1" title="Permanent link">&para;</a></h2>
-<p><div class="highlight"><pre><span></span><code>cd/usr/local
-
-wget http://www.boutell.com/rinetd/http/rinetd.tar.gz
-
-tar -zxvf rinetd.tar.gz
-
-<span class="nb">cd</span> rinetd
-
-<span class="c1"># 修改端口文件</span>
-sed -i <span class="s1">&#39;s/65536/65535/g&#39;</span> rinetd.c
-
-mkdir -p /usr/man/
-
-<span class="c1"># 安装C编译工具，此步骤对未安装的Linux使用</span>
-yum install -y gcc
-<span class="c1"># 编译并安装</span>
-make <span class="o">&amp;&amp;</span> make install
-</code></pre></div>
-- <code>wget</code>: 失败后，可以直接使用 tar.gz 进行解压安装</p>
-<h2 id="ip">配置转发IP端口<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
-<ol>
-<li>编辑配置文件
-<div class="highlight"><pre><span></span><code>vim /etc/rinetd.conf
-</code></pre></div><blockquote>
-<p>rinetd.conf
-<div class="highlight"><pre><span></span><code>0.0.0.0 8000 10.100.22.231 8000
-</code></pre></div></p>
-</blockquote>
-</li>
-<li>表示将所有的IP：8000端口映射到内部的IP网络8000端口</li>
-<li><code>0.0.0.0</code>: 表示所有发送的IP</li>
-<li>
-<p><code>10.100.22.231</code>: 表示内部IP地址</p>
-</li>
-<li>
-<p>执行生效
-<div class="highlight"><pre><span></span><code><span class="c1"># 执行配置文件</span>
-rinetd -c /etc/rinetd.conf
-
-<span class="c1"># 查看网络端口映射</span>
-netstat -tulpn
-</code></pre></div></p>
-</li>
-</ol>
+                <h1 id="mysql-index">MySQL Index<a class="headerlink" href="#mysql-index" title="Permanent link">&para;</a></h1>
+<h3 id="_1">环境搭建及其配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>Linux MySQL5.7 彻底卸载.md
+Linux MySQL5.7 详细安装步骤.md</p>
+<h3 id="mysql">MySQL基本操作<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h3>
+<p>mysql练习题.md</p>
+<h3 id="_2">数据库事务<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>mysql事务测试.md</p>
+<h3 id="_3">数据库索引<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="mysql_1">MySQL执行计划<a class="headerlink" href="#mysql_1" title="Permanent link">&para;</a></h3>
+<p>mysql执行计划.md</p>
+<h3 id="mysql_2">MySQL锁机制<a class="headerlink" href="#mysql_2" title="Permanent link">&para;</a></h3>
+<p>mysql的锁机制.md</p>
+<h3 id="mysql_3">MySQL主从复制和读写分离<a class="headerlink" href="#mysql_3" title="Permanent link">&para;</a></h3>
+<p>mysql主从复制原理.md
+mysql主从复制安装配置.md</p>
+<p>mysql读写分离.md
+使用amoeba实现mysql读写分离.md</p>
+<p>MySQL数据库结构.png</p>
+<h3 id="_4">数据库外部连接<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>数据库表的创建、表的约束、索引、数据库设计的范式</li>
+<li>JDBC及代码分层</li>
+<li>反射技术实现及封装</li>
+<li>DBUtil及数据库连接池（dbcp、c3p0）</li>
+<li>数据库连接池（druid、hikariCP）</li>
+<li>mysql基本架构及日志实现</li>
+</ul>
                 
               
               
