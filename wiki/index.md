@@ -33,10 +33,6 @@
 - [Git & Github 代码管理](250 Working Coding\Git & Github 代码管理\Git & Github.md)
 
 - [Docker 与 K8s 容器技术](250 Working Coding\Docker & K8s 容器技术\index.md)
-    - [Docker 最佳实践](250 Working Coding\Docker & K8s 容器技术\Docker 最佳实践.md)
-    - [Kubernetes(K8s) 最佳实践](250 Working Coding\Docker & K8s 容器技术\Kubernetes(K8s) 最佳实践.md)
-    - [K8s 安装指引](250 Working Coding\Docker & K8s 容器技术\K8s 安装指引.md)
-    - [K8s 端口转发工具 rinetd 安装配置指引](250 Working Coding\Docker & K8s 容器技术\K8s 端口转发工具 rinetd 安装配置指引.md)
 
 - [环境安装与配置](250 Working Coding\环境安装与配置\index.md)
 
@@ -217,7 +213,7 @@ Wiki文章中包含的许多资源文件，特别是图片文件，都依照Mark
 | 序号 | 参考 | 说明                                                         |
 | ---- | ---- | ------------------------------------------------------------ |
 | 1    |[Mkdocs](https://www.mkdocs.org)      | `HomePage` |
-|  |[Noodlefighter's Wiki](https://wiki.noodlefighter.com) | `Homepage`, `Framework` |
+| 2 |[Noodlefighter's Wiki](https://wiki.noodlefighter.com) | `Homepage`, `Framework` |
 
 
 

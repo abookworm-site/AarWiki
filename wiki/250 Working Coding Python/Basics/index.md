@@ -1,4 +1,4 @@
-# Python Basics Index
+# Python Basics
 
 ## Python 简介
 
