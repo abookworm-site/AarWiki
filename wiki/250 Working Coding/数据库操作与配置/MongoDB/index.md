@@ -1,8 +1,6 @@
-MongoDB Learning
+# MongoDB
 
-# MongoDB Learning
-
-## Why?
+## Why MongoDB? 
 
 - not only sql
 - 跨平台，开源

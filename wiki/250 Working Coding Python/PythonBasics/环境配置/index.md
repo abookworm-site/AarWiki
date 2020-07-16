@@ -15,6 +15,8 @@
 
 ### 2. Shell
 
+- [Shell 运行Python代码](Shell 运行Python代码.md)
+
 ### 3. Jupyter(Anaconda)
 
 
