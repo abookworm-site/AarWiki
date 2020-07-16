@@ -1,4 +1,4 @@
-# Python Basics
+# Python Basics 语言基础
 
 ## 一、[环境配置](环境配置\index.md)
 
@@ -14,8 +14,7 @@
 
 ## 三、[面对对象](面对对象\index.md)
 
-- [面对对象](面对对象\index.md)
-- [Python 面对对象](面对对象.md)
+
 
 
 

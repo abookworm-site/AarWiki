@@ -1,22 +1,22 @@
 # Python Overview
 
-## 一、[语言基础](Basics/index.md)
+## 一、[语言基础](PythonBasics/index.md)
 
-### 1. [环境配置](Basics\环境配置\index.md)
+### 1. [环境配置](PythonBasics\环境配置\index.md)
 
-### 2. [基础入门](Basics\基础入门\index.md)
+### 2. [基础入门](PythonBasics\基础入门\index.md)
 
-### 3. [面对对象](Basics\面对对象\index.md)
+### 3. [面对对象](PythonBasics\面对对象\index.md)
 
-### 4. [多任务](Basics\多任务\index.md)
+### 4. [多任务](PythonBasics\多任务\index.md)
 
-### 5. [正则表达式](Basics\正则表达式\index.md)
+### 5. [正则表达式](PythonBasics\正则表达式\index.md)
 
-### 6. [进阶提升](Basics\进阶提升\index.md)
+### 6. [进阶提升](PythonBasics\进阶提升\index.md)
 
 
 
-## 二、[网络编程](Network\index.md)
+## 二、[网络编程](NetworkProgramming\index.md)
 
 ### 1. 网络通讯
 
@@ -32,11 +32,11 @@
 
 ### 7. HTTP协议
 
-### 8. WEB 服务器
+### 8. WEB 服务器(Mini-Web)
 
 
 
-## 三、[数据库交互](Database\index.md)
+## 三、[数据库交互](DatabaseInteraction\index.md)
 
 
 
@@ -44,13 +44,11 @@
 
 
 
-## 四、开发框架
+## 四、[开发框架](Framework\index.md)
 
-### Mini-Web
+### 1. [Django](Framework\Django\index.md)
 
-### [Flask](Flask/index.md)
-
-### [Django](Django/index.md)
+### 2. [Flask](Framework\Flask/index.md)
 
 
 

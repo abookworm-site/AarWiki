@@ -1,5 +1,7 @@
 ## Why Wiki？
 
+### 起于笔记
+
 自大二之后，对于知识的吸收变成一种渴望。像会发作的瘾一般，能够将自己从现实世界抽离出来。
 
 后来，学习地多了，脑子也混乱了。于是便开始整理所学。笔记也就渐渐多了起来。
@@ -12,9 +14,19 @@
 
 ... ...
 
-故此，尝试使用 **wiki记录系统性总结**。
+故此，而后尝试使用 **wiki记录系统性总结**。
 
+### 统筹规划
 
+- 笔记文章收藏：Evernote
+
+- 日志记录: CatMemoNote
+
+- 日志总结: [Myblogs](http://abookworm.site)
+
+- 系统性总结: [Wiki](https://wiki.abookworm.site)
+
+    
 
 ## Content | 目录结构
 
@@ -35,6 +47,18 @@
 - [Docker 与 K8s 容器技术](250 Working Coding\Docker & K8s 容器技术\index.md)
 
 - [环境安装与配置](250 Working Coding\环境安装与配置\index.md)
+
+
+
+### 250 Working Coding Python
+
+- [语言基础](250 Working Coding Python\PythonBasics\index.md)
+- [网络编程](250 Working Coding Python\NetworkProgramming\index.md)
+
+- [数据库交互](250 Working Coding Python\DatabaseInteraction\index.md)
+- [开发框架](250 Working Coding Python\Framework\index.md)
+- [网络爬虫]
+- [数据分析]
 
 
 
@@ -74,9 +98,10 @@
 - Spring
 
 250 Working Coding Python
-- Basics
-- Django
-- Flask
+- PythonBasics
+- NetworkProgramming
+- DatabaseInteraction
+- Framework
 
 310 Learning English 万物有灵
 

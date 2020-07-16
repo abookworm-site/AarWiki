@@ -1,6 +1,10 @@
-# Python 面对对象 Object Oriented Programming
+# Python Basics - 面对对象 
 
 ## 基本概念
+
+OOP
+
+- Object Oriented Programming
 
 面对过程
 - 怎么做
@@ -38,10 +42,10 @@
 ### `dir()`内置函数
 
 - dir(class_name)
-- `__new__()` 方法 创建对象时，会被 自动 调用
-- __init__ 方法 对象被初始化时，会被 自动 调用
-- __del__ 方法 对象被从内存中销毁前，会被 自动 调用
-- __str__ 方法 返回对象的描述信息，print 函数输出使用
+- `__new__()` : 创建对象时，会被 自动 调用
+- `__init__()`: 对象被初始化时，会被 自动 调用
+- `__del__()`: 对象被从内存中销毁前，会被 自动 调用
+- `__str__()`: 返回对象的描述信息，print 函数输出使用
 
 ### 定义简单类(仅方法)
 
@@ -65,35 +69,32 @@
 
 ### 内置方法和属性
 
-- __del__()
-
-	- 对象从内存中销毁前，自动调用
+- `__del__()`
+- 对象从内存中销毁前，自动调用
 	- 对象的生命周期
 	- del name
-
-		- del 关键字删除一个对象
-
-- __str__()
-
-	- 返回对象的描述信息，print 函数输出使用
+	
+	- del 关键字删除一个对象
+	
+- `__str__()`
+- 返回对象的描述信息，print 函数输出使用
 
 ## 封装案例
 
 ### 身份运算符
 
 - 比较两个对象内存地址是否一致，是否是对同一个对象的引用
-- is
+- `is`
+- 两标识符是否引用同一对象
+	
+- `is not`
+- 两标识符是否引用不同对象
+	
+- `is` vs `==`
+- `is` 判断引用对象（内存地址）
+	- `==` 判断引用变量的值
 
-	- 两标识符是否引用同一对象
 
-- is not
-
-	- 两标识符是否引用不同对象
-
-- is vs ==
-
-	- is 判断引用对象（内存地址）
-	- == 判断引用变量的值
 
 ## 私有属性和私有方法
 
@@ -103,15 +104,17 @@
 
 ### 定义方式
 
-- __age
-- __secret(self):
+- `__age`
+- `def __secret(self):`
 
-### 伪
+### 伪私有
 
 - Python没有真正意义的私有
 - 仅对名称做特殊处理
 
-	- _类名 => _类名__名称
+	- `_类名 => _类名__名称`
+
+
 
 ## 继承
 
@@ -143,6 +146,8 @@
 	- 子类对象不能直接访问
 	- 可通过父类父类公有方法间接访问
 
+
+
 ### 多继承
 
 - 内置属性 __mro__ 查看方法搜索顺序
@@ -152,7 +157,9 @@
 
 - 新式类
 
-	- class Name(object):
+	- `class Name(object)`
+
+
 
 ## 多态
 
@@ -216,10 +223,11 @@
 - 针对类对象定义的方法
 - 语法
 
-  - ```
-    @classmethod
-    def 类方法名(cls):
-    ```
+  ```python
+  @classmethod
+  def 类方法名(cls):
+      pass
+  ```
 
 - 方法内部访问
 
@@ -240,12 +248,14 @@
 
 - 语法
 
-  - ```
-    @staticmethod
-    def 静态方法名():
-    ```
+  ```python
+  @staticmethod
+  def 静态方法名():
+  	pass
+  ```
 
-- 子主题 3
+  
+
 
 ## 单例
 
@@ -255,7 +265,7 @@
 
 	- 前人工作的总结和提炼
 
-### __new__()
+### `__new__()`
 
 - class() 创建对象时，解释器首先会调用该方法为对象分配空间
 - object基类的内置静态方法
@@ -263,7 +273,9 @@
 	- 在内存中为对象分配空间
 	- 返回对象的引用
 
-- 解释器获取对象引用后，将引用作为第一个参数，传递给 __init__()
+- 解释器获取对象引用后，将引用作为第一个参数，传递给` __init__()`
+
+
 
 ### 实现
 
@@ -271,13 +283,13 @@
 
 	- 记录单例对象的引用
 
-- 重写 __new__()
+- 重写 `__new__()`
 
-	- cls.isinstance is None
+	- `cls.isinstance is None`
+- 调用父类方法分配空间，并接收记录父类返回的引用
+		- `cls.isinstance = super().__new__(cls)`
 
-		- 调用父类方法分配空间，并接收记录父类返回的引用 cls.isinstance = super().__new__(cls)
-
-	- 返回该对象的引用 cls.isinstance
+	- 返回该对象的引用 `return cls.isinstance`
 
 - 增加需求：仅执行一次初始化
 
@@ -285,12 +297,14 @@
 
 		- 标记是否执行过初始化动作
 
-	- 2. 改写 __init__()
+	- 2. 改写  `__init__()`
 
-		- not cls.init_flag
+		- `not cls.init_flag`
+- 初始化
+			
+			- `cls.init_flag = True`
 
-			- 初始化
-			- cls.init_flag = True
+
 
 ## 异常
 
@@ -305,12 +319,12 @@
 
 - 通用捕获
 
-	- try ... except:...
+	- `try ... except:...`
 
 - 类型捕获
 - 未知错误捕获
 
-	- except Exception as result:
+	- `except Exception as result:`
 
 - 完整语法
 
@@ -368,8 +382,8 @@ finally:
 
 - 导入方式
 
-	- import
-	- from .. import ...
+	- `import ...`
+	- `from .. import ...`
 
 - 模块搜索顺序
 
@@ -379,10 +393,9 @@ finally:
 
 - 原则：每个文件都应该可以被导入
 
-	- __name__
-
-		- 被导入时，为模块名
-		- 当前执行程序，为__main__
+	- `__name__`
+- 被导入时，为模块名
+		- 当前执行程序，为`__main__`
 
 ### 包(Package)
 
@@ -394,54 +407,63 @@ finally:
 
 ### 发布模块
 
-- 制作发布压缩包步骤
+制作发布压缩包步骤
 
-  - 1. 创建 setup.py. 
+1. 创建 setup.py
 
-    ```python
-    from distutils.core import setup
-    
-    setup(name="hm_message",  # 包名
-          version="1.0",  # 版本
-          description="itheima's 发送和接收消息模块",  # 描述信息
-          long_description="完整的发送和接收消息模块",  # 完整描述信息
-          author="itheima",  # 作者
-          author_email="itheima@itheima.com",  # 作者邮箱
-          url="www.itheima.com",  # 主页
-          py_modules=["hm_message.send_message",
-                      "hm_message.receive_message"])
-    ```
+```
+from distutils.core import setup
+
+setup(name="hm_message",  # 包名
+      version="1.0",  # 版本
+      description="itheima's 发送和接收消息模块",  # 描述信息
+      long_description="完整的发送和接收消息模块",  # 完整描述信息
+      author="itheima",  # 作者
+      author_email="itheima@itheima.com",  # 作者邮箱
+      url="www.itheima.com",  # 主页
+      py_modules=["hm_message.send_message",
+                  "hm_message.receive_message"])
+```
+
+- https://docs.python.org/2/distutils/apiref.html
 
 
-		- https://docs.python.org/2/distutils/apiref.html
-	
-	- 2. 构建模块
-	
-		- ```
+2. 构建模块
+
+```shell
 python3 setup.py build
+```
 
-	- 3. 生成发布压缩包
-	
-		- ```
+3. 生成发布压缩包
+
+```shell
 python3 setup.py md_name
+```
 
-- 安装模块
 
-  - ```
-    tar -zxvf module_name_1.0.tar.gz
-    ```
 
+安装模块
+
+```shell
+tar -zxvf module_name_1.0.tar.gz
 sudo python3 setup.py install
+```
 
-- 卸载模块
 
-  - 将安装模块的目录删除即可
-  - ```
-    cd /usr/local/lib/python3.6/dist-package/
-    sudo rm -r module_name
-    ```
 
-- pip 安装第三方模块
+卸载模块
+
+- 将安装模块的目录删除即可
+```shell
+cd /usr/local/lib/python3.6/dist-package/
+sudo rm -r module_name
+```
+
+
+
+pip 安装第三方模块
+
+
 
 ## 文件
 
@@ -542,23 +564,22 @@ sudo python3 setup.py install
     ```python
     # 打开文件
     file = open("README")
+    while True:
+        # 读取一行内容
+        text = file.readline()
+        
+        # 判断是否读到内容
+    	if not text:
+        	break
+    
+    	# 每读取一行的末尾已经有了一个 `\n`
+    	print(text, end="")
+    
+    # 关闭文件
+    file.close()
     ```
 
-while True:
-    # 读取一行内容
-    text = file.readline()
 
-    # 判断是否读到内容
-    if not text:
-        break
-    
-    # 每读取一行的末尾已经有了一个 `\n`
-    print(text, end="")
-
-# 关闭文件
-file.close()
-
-		```
 
 
 ### 文件/目录的管理

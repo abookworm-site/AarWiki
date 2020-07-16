@@ -95,9 +95,12 @@ nav:
 
 - ------ Working Coding Python:
   - Overview: '250 Working Coding Python\index.md'
-  - Basics: '250 Working Coding Python\Basics\index.md'
-  - Django: '250 Working Coding Python\Django\index.md'
-  - Flask: '250 Working Coding Python\Flask\index.md'
+  - Python Basics: '250 Working Coding Python\PythonBasics\index.md'
+  - Network Programming: '250 Working Coding Python\NetworkProgramming\index.md'
+  - Database Interaction: '250 Working Coding Python\DatabaseInteraction\index.md'
+  - Development Framework: 
+    - Django: '250 Working Coding Python\Framework\Django\index.md'
+    - Flask: '250 Working Coding Python\Framework\Flask\index.md'
 
 - 260 Working Operating System:
   - Overview: '260 Working Operating System\index.md' 
