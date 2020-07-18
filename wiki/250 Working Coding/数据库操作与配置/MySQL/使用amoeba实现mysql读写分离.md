@@ -1,4 +1,4 @@
-# 使用amoeba实现mysql读写分离
+# 使用Amoeba实现MySQL读写分离
 
 ### 1、什么是amoeba？
 

@@ -1,8 +1,10 @@
 
 
-# MYSQL5.7详细安装步骤：
+# MySQL5.7 Installation Guide on CentOS
 
-### 准备：更换yum源, 加速下载
+## 安装准备
+
+### 更换yum源, 加速下载
 
 > 此处设置选择的是阿里云镜像，如果可以建议使用测试工具测试以下最好的Linux镜像地址。
 >
@@ -38,13 +40,15 @@ yum update -y
 
 
 
+## 安装步骤
+
 ### 1、查看系统中是否自带安装mysql
 
 ```shell
 yum list installed | grep mysql
 ```
 
-![1570541665646](E:\lian\oracle\typora-user-images\1570541665646.png)
+
 
 ### 2、删除系统自带的mysql及其依赖（防止冲突）
 
@@ -52,7 +56,10 @@ yum list installed | grep mysql
 yum -y remove mysql-libs.x86_64
 ```
 
-![1570541838485](E:\lian\oracle\typora-user-images\1570541838485.png)
+- 需要删除步骤一所查询到的所有结果
+- 一般系统都会自带有MySQL服务
+
+
 
 ### 3、安装wget命令
 
@@ -60,7 +67,7 @@ yum -y remove mysql-libs.x86_64
 yum install wget -y 
 ```
 
-![1570541946471](E:\lian\oracle\typora-user-images\1570541946471.png)
+
 
 ### 4、给CentOS添加rpm源，并且选择较新的源
 
@@ -68,7 +75,7 @@ yum install wget -y
 wget dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
 ```
 
-![1570542045332](E:\lian\oracle\typora-user-images\1570542045332.png)
+
 
 ### 5、安装下载好的rpm文件
 
@@ -76,21 +83,26 @@ wget dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
  yum install mysql-community-release-el6-5.noarch.rpm -y
 ```
 
-![1570542254949](E:\lian\oracle\typora-user-images\1570542254949.png)
+
 
 ### 6、安装成功之后，会在/etc/yum.repos.d/文件夹下增加两个文件
 
-![1570542341604](E:\lian\oracle\typora-user-images\1570542341604.png)
+- `mysql-community.repo`
+- `mysql-community-source.repo`
 
-### 7、修改mysql-community.repo文件
+
+
+### 7、修改 `mysql-community.repo` 文件
 
 原文件：
 
-![1570542415955](E:\lian\oracle\typora-user-images\1570542415955.png)
+![1570542415955](_resource/Linux%20MySQL5.7%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/1570542415955.png)
 
 修改之后：
 
-![1570542471948](E:\lian\oracle\typora-user-images\1570542471948.png)
+![1570542471948](_resource/Linux%20MySQL5.7%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/1570542471948.png)
+
+
 
 ### 8、使用yum安装mysql
 
@@ -98,7 +110,7 @@ wget dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
 yum install mysql-community-server -y
 ```
 
-![1570542688796](E:\lian\oracle\typora-user-images\1570542688796.png)
+
 
 ### 9、启动mysql服务并设置开机启动
 
@@ -128,13 +140,13 @@ chkconfig mysqld on
 grep "password" /var/log/mysqld.log
 ```
 
-![1570604493708](E:\lian\oracle\typora-user-images\1570604493708.png)
+
 
 ### 11、使用临时密码登录
 
 ```shell
 mysql -uroot -p
-#输入密码
+# 输入密码
 ```
 
 ### 12、修改密码

@@ -1,77 +1,125 @@
-# MySQL Index
+# MySQL Overview
 
-### 环境搭建及其配置
+## MySQL 简介
 
-Linux MySQL5.7 彻底卸载.md
-Linux MySQL5.7 详细安装步骤.md
+- [MySQL官方网站](http://www.MySQL.com)
 
-### MySQL基本操作
 
-mysql练习题.md
+
+## 安装与配置
+
+### MySQL on Linux
+
+- [Ubuntu MySQL 安装教程](Ubuntu MySQL 安装教程.md)
+    - 服务端
+    - 客户端，包括命令行客户端与图形化客户端Navicat
+- [Linux MySQL5.7 安装教程](Linux MySQL5.7 安装教程.md)
+
+- [Linux MySQL5.7 彻底卸载](Linux MySQL5.7 彻底卸载.md)
+
+
+
+### MySQL on Win
+
+- [MySQL5.7 installation guide on Win10](MySQL5.7 installation guide on Win10.md)
+- 图形化界面客户端Navicat
+
+
+
+## 基本操作
+
+- [MySQL基础入门](MySQL 基础入门.md)
+
+- [MySQL练习题](MySQL练习题.md)
+
+
+
+## 高级特征
+
+### 数据库视图
+
+- [MySQL视图基础](MySQL视图基础.md)
 
 
 
 ### 数据库事务
 
-mysql事务测试.md
+- [MySQL事务基础](MySQL事务基础.md)
 
-
+- [MySQL事务测试](MySQL事务测试.md)
 
 
 
 ### 数据库索引
 
+- [MySQL索引基础](MySQL索引基础.md)
 
 
 
+### 账户管理
+
+- [MySQL账户管理](MySQL账户管理.md)
+
+
+
+### 主从复制和读写分离
+
+安装配置
+
+- [MySQL主从复制安装配置.md](MySQL主从复制安装配置.md)
+
+主从复制原理
+
+- [MySQL主从复制原理.md](MySQL主从复制原理.md)
+
+
+读写分离
+
+- [MySQL读写分离.md](MySQL读写分离.md)
+- [使用amoeba实现MySQL读写分离.md](使用amoeba实现MySQL读写分离.md)
+
+
+
+## MySQL 语句优化
 
 ### MySQL执行计划
 
-mysql执行计划.md
+[MySQL执行计划.md](MySQL执行计划.md)
 
 
 
 ### MySQL锁机制
 
-mysql的锁机制.md
-
-
-
-### MySQL主从复制和读写分离
-
-mysql主从复制原理.md
-mysql主从复制安装配置.md
-
-
-
-mysql读写分离.md
-使用amoeba实现mysql读写分离.md
+[MySQL的锁机制.md](MySQL的锁机制.md)
 
 
 
 
 
+## 基本架构及日志实现
 
 
 
-
-MySQL数据库结构.png
-
-
-
-### 数据库外部连接
+![MySQL数据库结构](MySQL数据库结构.png)
 
 
 
+## MySQL数据库外部连接
 
+- Database Interaction with C
 
+- Database Interaction with Java
 
+    - JDBC及代码分层
 
-- 数据库表的创建、表的约束、索引、数据库设计的范式
-- JDBC及代码分层
-- 反射技术实现及封装
-- DBUtil及数据库连接池（dbcp、c3p0）
-- 数据库连接池（druid、hikariCP）
-- mysql基本架构及日志实现
+    - 反射技术实现及封装
 
-    
+    - DBUtil及数据库连接池（dbcp、c3p0）
+
+    - 数据库连接池（druid、hikariCP）
+
+        
+
+- Database Interaction with Python
+
+  
