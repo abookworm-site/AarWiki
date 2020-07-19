@@ -1,8 +1,8 @@
 # Database Interaction 数据库交互
 
+## Python DB API 访问
 
-
-## 操作步骤
+### 操作步骤
 
 ![img](file:///E:/251%20Show%20me%20Code/%2320%20Python%E9%AB%98%E7%BA%A7/Images/assets/WechatIMG9052.jpeg)
 
@@ -77,6 +77,57 @@ cs1=conn.cursor()
 
 - SQL语句的参数化，可以有效防止sql注入
 - 参数化不同于python的字符串格式化，**全部使用%s占位**
+
+
+
+
+
+## 元类实现ORM
+
+### 1. ORM
+
+概念：
+
+- ORM 是 Python编程语言后端web框架 Django的核心思想，
+- “Object Relational Mapping”，即对象-关系映射，简称ORM。
+
+- 使用实例对象映射数据库表，类属性映射数据表字段。让数据库操作变得像操作对象属性一样简单：``class.property = data`
+
+
+
+### 2. 通过元类简单实现ORM中的insert功能
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

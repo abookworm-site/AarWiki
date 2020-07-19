@@ -209,5 +209,223 @@ __class__ 表示当前操作的对象的类是什么
 
 
 
+## 闭包
+
+
+
+
+
+## 装饰器
+
+
+
+## 元类
+
+### 1. 类也是对象
+
+只要你使用关键字`class`，Python解释器在执行的时候就会创建一个名为类名的对象。同时具有对象的一切操作：
+
+- 可以赋值给一个变量
+- 可以拷贝
+- 可以增加属性
+- 可以作为函数参数传递
+- 可以打印
+
+
+
+### 2. 动态地创建类
+
+- 当你使用class关键字时，Python解释器自动创建这个对象。任何时候，任何地点。
+
+
+
+### 3. 使用 `type` 创建类
+
+`type` 动态创建类：
+
+- `type`可以接受一个类的描述作为参数，然后返回一个类。
+
+
+
+语法：
+
+```python
+type(类名, 由父类名称组成的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)
+
+# 示例：
+Test2 = type("Test2", (), {}) # 定了一个Test2类
+```
+
+
+
+### 4. 使用 `type` 创建带有属性的类
+
+type 接受一个字典来为类定义属性
+
+```python
+Foo = type('Foo', (), {'bar': True})
+```
+
+- 添加的属性是类属性，并不是实例属性
+
+
+
+子类继承
+
+```python
+FooChild = type('FooChild', (Foo,), {})
+```
+
+- type的第2个参数，元组中是父类的名字，而不是字符串
+
+
+
+### 5. 使用 `type` 创建带有方法的类
+
+```python
+class A(object):
+    num = 100
+
+def print_b(self):
+    print(self.num)
+
+@staticmethod
+def print_static():
+    print("----haha-----")
+
+@classmethod
+def print_class(cls):
+    print(cls.num)
+
+B = type("B", (A,), {"print_b": print_b, "print_static": print_static, "print_class": print_class})
+```
+
+
+
+### 6. 元类
+
+- 创建类的类
+
+- 函数`type()`实际上是一个元类。type就是Python在背后用来创建所有类的元类。
+
+- type就是Python的内建元类
+
+
+
+### 7. `__metaclass__` 属性
+
+作用时机
+
+当创建新类的时候，`__metaclass__` 属性
+
+```python
+class Foo(Bar):
+    pass
+```
+
+1. 查找 `Foo` 中是否有 `__metaclass__` 属性，有则通过该属性创建对象类 `Foo`
+2. 没有，则查找父类 `Bar` 中 是否有`__metaclass__` 属性，有则通过该属性创建对象类 `Foo`
+3. 没有，则查找在模块层次上是否有`__metaclass__` 属性，有则通过该属性创建对象类 `Foo`
+4. 如果还是没有，那么，Python就会调用内置的 type() 来创建对象类 `Foo`
+
+
+
+- 定义类的时候为其添加 `__metaclass__` 属性
+
+    
+
+### 8. 自定义元类
+
+元类主要目的
+
+- 为了 **当创建类时能够自动地改变类。**
+
+
+
+元类作用：
+
+1. 拦截类的创建
+2. 修改类
+3. 返回修改之后的类
+
+
+
+```python
+#coding=utf-8
+
+class UpperAttrMetaClass(type):
+    # __new__ 是在__init__之前被调用的特殊方法
+    # __new__是用来创建对象并返回之的方法
+    # 而__init__只是用来将传入的参数初始化给对象
+    # 你很少用到__new__，除非你希望能够控制对象的创建
+    # 这里，创建的对象是类，我们希望能够自定义它，所以我们这里改写__new__
+    # 如果你希望的话，你也可以在__init__中做些事情
+    # 还有一些高级的用法会涉及到改写__call__特殊方法，但是我们这里不用
+    def __new__(cls, class_name, class_parents, class_attr):
+        # 遍历属性字典，把不是__开头的属性名字变为大写
+        new_attr = {}
+        for name, value in class_attr.items():
+            if not name.startswith("__"):
+                new_attr[name.upper()] = value
+
+        # 方法1：通过'type'来做类对象的创建
+        return type(class_name, class_parents, new_attr)
+
+        # 方法2：复用type.__new__方法
+        # 这就是基本的OOP编程，没什么魔法
+        # return type.__new__(cls, class_name, class_parents, new_attr)
+
+# python3的用法
+class Foo(object, metaclass=UpperAttrMetaClass):
+    bar = 'bip'
+
+# python2的用法
+# class Foo(object):
+#     __metaclass__ = UpperAttrMetaClass
+#     bar = 'bip'
+
+
+print(hasattr(Foo, 'bar'))
+# 输出: False
+print(hasattr(Foo, 'BAR'))
+# 输出:True
+
+f = Foo()
+print(f.BAR)
+# 输出:'bip'
+```
+
+
+
+## 元类实现ORM
+
+- [Database Interaction 数据库交互](..\..\DatabaseInteraction\index.md)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
