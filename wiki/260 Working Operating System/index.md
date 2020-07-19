@@ -11,6 +11,7 @@
 ### 1. 系统安装
 
 - [CentOS6.5 installation guide](Linux System\CentOS6.5 installation guide.md)
+- [Ubuntu 静态IP设置](Linux System\Ubuntu 静态IP设置.md)
 
 
 
