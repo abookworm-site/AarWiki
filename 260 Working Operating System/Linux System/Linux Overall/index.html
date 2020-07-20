@@ -1,0 +1,4973 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Linux System - abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#operation-system-linux" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Linux System
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Linux System
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Linux System" class="md-nav__link md-nav__link--active">
+      Linux System
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#unix" class="md-nav__link">
+    类Unix的文件根目录
+  </a>
+  
+    <nav class="md-nav" aria-label="类Unix的文件根目录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all-in-here" class="md-nav__link">
+    All in here
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    特别记忆
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    Linux 命令
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux 命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    终端命令格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#man-or-help" class="md-nav__link">
+    查看帮助man or --help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#history" class="md-nav__link">
+    查看终端命令历史记录 history
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last" class="md-nav__link">
+    查看终端登录历史记录 last
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    文件列表
+  </a>
+  
+    <nav class="md-nav" aria-label="文件列表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ls-list" class="md-nav__link">
+    查看文件列表ls ：list
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    目录相关
+  </a>
+  
+    <nav class="md-nav" aria-label="目录相关">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cd-change-dir" class="md-nav__link">
+    更改所有目录cd : change dir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pwd" class="md-nav__link">
+    查看当前所在目录pwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-sth" class="md-nav__link">
+    查看目标所在目录which sth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdir-make-dir" class="md-nav__link">
+    创建新文件夹mkdir: make dir
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文件相关
+  </a>
+  
+    <nav class="md-nav" aria-label="文件相关">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#touch" class="md-nav__link">
+    创建文件touch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rm-remove" class="md-nav__link">
+    删除文件rm: remove
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-copy-mv-move" class="md-nav__link">
+    复制/移动文件cp: copy &amp; mv: move
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    文件内容查看
+  </a>
+  
+    <nav class="md-nav" aria-label="文件内容查看">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    命令行中显示信息cat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-less" class="md-nav__link">
+    分屏显示文件信息more &amp; less
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    查看文件头head
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tail" class="md-nav__link">
+    查看文件尾tail
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    统计信息
+  </a>
+  
+    <nav class="md-nav" aria-label="统计信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tree" class="md-nav__link">
+    tree: 显示文件夹结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wc" class="md-nav__link">
+    wc : 统计文件信息内容
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#du" class="md-nav__link">
+    du : 查看目录占用空间
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#df" class="md-nav__link">
+    df : 查看磁盘空间信息
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    文件属性和用户用户组
+  </a>
+  
+    <nav class="md-nav" aria-label="文件属性和用户用户组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whoami" class="md-nav__link">
+    查看登录用户whoami
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    文件权限和软硬连接
+  </a>
+  
+    <nav class="md-nav" aria-label="文件权限和软硬连接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ln" class="md-nav__link">
+    建立软硬链接ln
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unlink" class="md-nav__link">
+    删除软硬链接unlink
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chmod" class="md-nav__link">
+    修改文件权限chmod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    修改用户和组(root)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    查找和检索
+  </a>
+  
+    <nav class="md-nav" aria-label="查找和检索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find" class="md-nav__link">
+    find
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xargs" class="md-nav__link">
+    xargs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    grep : 内容过滤
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    压缩包管理
+  </a>
+  
+    <nav class="md-nav" aria-label="压缩包管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zip" class="md-nav__link">
+    zip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tar" class="md-nav__link">
+    tar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rar" class="md-nav__link">
+    rar
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    虚拟机网络配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    软件安装和卸载
+  </a>
+  
+    <nav class="md-nav" aria-label="软件安装和卸载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux_1" class="md-nav__link">
+    Linux 一般安装方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 源码(非绝对)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apt-get" class="md-nav__link">
+    apt-get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dpkg" class="md-nav__link">
+    dpkg
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    磁盘管理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    用户管理
+  </a>
+  
+    <nav class="md-nav" aria-label="用户管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    创建用户
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    设置用户组
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    设置用户密码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#su" class="md-nav__link">
+    su: 切换用户
+  </a>
+  
+    <nav class="md-nav" aria-label="su: 切换用户">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#su-root" class="md-nav__link">
+    su: 切换root用户
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userdel" class="md-nav__link">
+    userdel: 删除用户
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    进程管理
+  </a>
+  
+    <nav class="md-nav" aria-label="进程管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who" class="md-nav__link">
+    who : 查看登陆设备用户
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ps" class="md-nav__link">
+    ps  : 查看进程信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kill" class="md-nav__link">
+    kill : 终结进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env" class="md-nav__link">
+    env : 环境变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top" class="md-nav__link">
+    top : 查看系统信息
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    网络管理
+  </a>
+  
+    <nav class="md-nav" aria-label="网络管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ifconfig-ip" class="md-nav__link">
+    ifconfig : 查看ip信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ping" class="md-nav__link">
+    ping：查看连接状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nslookup-ip" class="md-nav__link">
+    nslookup : 通过域名得到ip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netstat" class="md-nav__link">
+    netstat : 查看网络连接状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    其他命令
+  </a>
+  
+    <nav class="md-nav" aria-label="其他命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#date" class="md-nav__link">
+    date: 查看日期
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cal" class="md-nav__link">
+    cal: 查看日历
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umask" class="md-nav__link">
+    umask : 文件权限补码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#echo" class="md-nav__link">
+    echo : 输出变量或者字符串
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alias" class="md-nav__link">
+    alias : 配置命令别名
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    重定向 &gt; 和 &gt;&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    管道 |
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    远程登录和复制文件
+  </a>
+  
+    <nav class="md-nav" aria-label="远程登录和复制文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    ssh 基础
+  </a>
+  
+    <nav class="md-nav" aria-label="ssh 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1) 域名 和 端口号
+  </a>
+  
+    <nav class="md-nav" aria-label="1) 域名 和 端口号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    域名
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    端口号
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ssh" class="md-nav__link">
+    2) SSH 客户端的简单使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-windows-ssh" class="md-nav__link">
+    3) Windows 下 SSH 客户端的安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scp" class="md-nav__link">
+    scp
+  </a>
+  
+    <nav class="md-nav" aria-label="scp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filezilla" class="md-nav__link">
+    FileZilla
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh_1" class="md-nav__link">
+    SSH 高级
+  </a>
+  
+    <nav class="md-nav" aria-label="SSH 高级">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1）免密码登录
+  </a>
+  
+    <nav class="md-nav" aria-label="1）免密码登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    步骤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    示意图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2) 配置别名
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    配置软件源
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vim" class="md-nav__link">
+    Vim 编辑器使用
+  </a>
+  
+    <nav class="md-nav" aria-label="Vim 编辑器使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    常用命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vim_1" class="md-nav__link">
+    Vim 配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vim_2" class="md-nav__link">
+    Vim 插件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cgcc" class="md-nav__link">
+    c文件编译：gcc
+  </a>
+  
+    <nav class="md-nav" aria-label="c文件编译：gcc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    编译过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gcc" class="md-nav__link">
+    gcc 编译参数：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    静态库和共享库
+  </a>
+  
+    <nav class="md-nav" aria-label="静态库和共享库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    库文件存在
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    制作静态库：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    制作动态库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    使用：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    优缺点：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#makefile-c" class="md-nav__link">
+    Makefile: c文件自动编译
+  </a>
+  
+    <nav class="md-nav" aria-label="Makefile: c文件自动编译">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    一、好处：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    二、命令规则：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    三、三要素：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    四、写法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    五、案例
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gdb-c" class="md-nav__link">
+    gdb 调试： c程序调试
+  </a>
+  
+    <nav class="md-nav" aria-label="gdb 调试： c程序调试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    一、使用gdb调试
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdb_1" class="md-nav__link">
+    启动gdb调试：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    设置启动参数：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    查看代码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    查看元素：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    设置断点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    查看断点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    删除断点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    跳转到一个断点:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    设置变量的值
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    追踪变量：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    设置条件断点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdbcore" class="md-nav__link">
+    gdb转移Core
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    系统API与库函数的关系
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    文件IO
+  </a>
+  
+    <nav class="md-nav" aria-label="文件IO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-man-2-open" class="md-nav__link">
+    open : man 2 open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#close-man-2-close" class="md-nav__link">
+    close: man 2 close
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    二、参数
+  </a>
+  
+    <nav class="md-nav" aria-label="二、参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#read-man-2-read" class="md-nav__link">
+    read: man 2 read
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-man-2-write" class="md-nav__link">
+    write: man 2 write
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lseek" class="md-nav__link">
+    lseek
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    阻塞的概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fcntl" class="md-nav__link">
+    fcntl 函数设置非阻塞
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    虚拟地址空间
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stat-man-2-stat" class="md-nav__link">
+    stat() : man 2 stat
+  </a>
+  
+    <nav class="md-nav" aria-label="stat() : man 2 stat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#readlink" class="md-nav__link">
+    readlink
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    二、参数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    目录相关函数
+  </a>
+  
+    <nav class="md-nav" aria-label="目录相关函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getcwd" class="md-nav__link">
+    getcwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chdir" class="md-nav__link">
+    chdir :
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdir-man-2-mkdir" class="md-nav__link">
+    mkdir: man 2 mkdir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rmdir-man-2-rmdir" class="md-nav__link">
+    rmdir: man 2 rmdir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opendir-man-2-opendir" class="md-nav__link">
+    opendir: man 2 opendir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readdir-man-readdir" class="md-nav__link">
+    readdir: man readdir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closedir-man-closedir" class="md-nav__link">
+    closedir: man closedir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error" class="md-nav__link">
+    error 输出函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dup2" class="md-nav__link">
+    dup2 :重定向
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dup" class="md-nav__link">
+    dup: 复制文件描述符
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#unix" class="md-nav__link">
+    类Unix的文件根目录
+  </a>
+  
+    <nav class="md-nav" aria-label="类Unix的文件根目录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all-in-here" class="md-nav__link">
+    All in here
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    特别记忆
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    Linux 命令
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux 命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    终端命令格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#man-or-help" class="md-nav__link">
+    查看帮助man or --help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#history" class="md-nav__link">
+    查看终端命令历史记录 history
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last" class="md-nav__link">
+    查看终端登录历史记录 last
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    文件列表
+  </a>
+  
+    <nav class="md-nav" aria-label="文件列表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ls-list" class="md-nav__link">
+    查看文件列表ls ：list
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    目录相关
+  </a>
+  
+    <nav class="md-nav" aria-label="目录相关">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cd-change-dir" class="md-nav__link">
+    更改所有目录cd : change dir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pwd" class="md-nav__link">
+    查看当前所在目录pwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-sth" class="md-nav__link">
+    查看目标所在目录which sth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdir-make-dir" class="md-nav__link">
+    创建新文件夹mkdir: make dir
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文件相关
+  </a>
+  
+    <nav class="md-nav" aria-label="文件相关">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#touch" class="md-nav__link">
+    创建文件touch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rm-remove" class="md-nav__link">
+    删除文件rm: remove
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-copy-mv-move" class="md-nav__link">
+    复制/移动文件cp: copy &amp; mv: move
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    文件内容查看
+  </a>
+  
+    <nav class="md-nav" aria-label="文件内容查看">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    命令行中显示信息cat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-less" class="md-nav__link">
+    分屏显示文件信息more &amp; less
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    查看文件头head
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tail" class="md-nav__link">
+    查看文件尾tail
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    统计信息
+  </a>
+  
+    <nav class="md-nav" aria-label="统计信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tree" class="md-nav__link">
+    tree: 显示文件夹结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wc" class="md-nav__link">
+    wc : 统计文件信息内容
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#du" class="md-nav__link">
+    du : 查看目录占用空间
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#df" class="md-nav__link">
+    df : 查看磁盘空间信息
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    文件属性和用户用户组
+  </a>
+  
+    <nav class="md-nav" aria-label="文件属性和用户用户组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whoami" class="md-nav__link">
+    查看登录用户whoami
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    文件权限和软硬连接
+  </a>
+  
+    <nav class="md-nav" aria-label="文件权限和软硬连接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ln" class="md-nav__link">
+    建立软硬链接ln
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unlink" class="md-nav__link">
+    删除软硬链接unlink
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chmod" class="md-nav__link">
+    修改文件权限chmod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    修改用户和组(root)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    查找和检索
+  </a>
+  
+    <nav class="md-nav" aria-label="查找和检索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find" class="md-nav__link">
+    find
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xargs" class="md-nav__link">
+    xargs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    grep : 内容过滤
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    压缩包管理
+  </a>
+  
+    <nav class="md-nav" aria-label="压缩包管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zip" class="md-nav__link">
+    zip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tar" class="md-nav__link">
+    tar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rar" class="md-nav__link">
+    rar
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    虚拟机网络配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    软件安装和卸载
+  </a>
+  
+    <nav class="md-nav" aria-label="软件安装和卸载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux_1" class="md-nav__link">
+    Linux 一般安装方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 源码(非绝对)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apt-get" class="md-nav__link">
+    apt-get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dpkg" class="md-nav__link">
+    dpkg
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    磁盘管理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    用户管理
+  </a>
+  
+    <nav class="md-nav" aria-label="用户管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    创建用户
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    设置用户组
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    设置用户密码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#su" class="md-nav__link">
+    su: 切换用户
+  </a>
+  
+    <nav class="md-nav" aria-label="su: 切换用户">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#su-root" class="md-nav__link">
+    su: 切换root用户
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userdel" class="md-nav__link">
+    userdel: 删除用户
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    进程管理
+  </a>
+  
+    <nav class="md-nav" aria-label="进程管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who" class="md-nav__link">
+    who : 查看登陆设备用户
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ps" class="md-nav__link">
+    ps  : 查看进程信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kill" class="md-nav__link">
+    kill : 终结进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env" class="md-nav__link">
+    env : 环境变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top" class="md-nav__link">
+    top : 查看系统信息
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    网络管理
+  </a>
+  
+    <nav class="md-nav" aria-label="网络管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ifconfig-ip" class="md-nav__link">
+    ifconfig : 查看ip信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ping" class="md-nav__link">
+    ping：查看连接状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nslookup-ip" class="md-nav__link">
+    nslookup : 通过域名得到ip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netstat" class="md-nav__link">
+    netstat : 查看网络连接状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    其他命令
+  </a>
+  
+    <nav class="md-nav" aria-label="其他命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#date" class="md-nav__link">
+    date: 查看日期
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cal" class="md-nav__link">
+    cal: 查看日历
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umask" class="md-nav__link">
+    umask : 文件权限补码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#echo" class="md-nav__link">
+    echo : 输出变量或者字符串
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alias" class="md-nav__link">
+    alias : 配置命令别名
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    重定向 &gt; 和 &gt;&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    管道 |
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    远程登录和复制文件
+  </a>
+  
+    <nav class="md-nav" aria-label="远程登录和复制文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    ssh 基础
+  </a>
+  
+    <nav class="md-nav" aria-label="ssh 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1) 域名 和 端口号
+  </a>
+  
+    <nav class="md-nav" aria-label="1) 域名 和 端口号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    域名
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    端口号
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ssh" class="md-nav__link">
+    2) SSH 客户端的简单使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-windows-ssh" class="md-nav__link">
+    3) Windows 下 SSH 客户端的安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scp" class="md-nav__link">
+    scp
+  </a>
+  
+    <nav class="md-nav" aria-label="scp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filezilla" class="md-nav__link">
+    FileZilla
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh_1" class="md-nav__link">
+    SSH 高级
+  </a>
+  
+    <nav class="md-nav" aria-label="SSH 高级">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1）免密码登录
+  </a>
+  
+    <nav class="md-nav" aria-label="1）免密码登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    步骤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    示意图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2) 配置别名
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    配置软件源
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vim" class="md-nav__link">
+    Vim 编辑器使用
+  </a>
+  
+    <nav class="md-nav" aria-label="Vim 编辑器使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    常用命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vim_1" class="md-nav__link">
+    Vim 配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vim_2" class="md-nav__link">
+    Vim 插件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cgcc" class="md-nav__link">
+    c文件编译：gcc
+  </a>
+  
+    <nav class="md-nav" aria-label="c文件编译：gcc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    编译过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gcc" class="md-nav__link">
+    gcc 编译参数：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    静态库和共享库
+  </a>
+  
+    <nav class="md-nav" aria-label="静态库和共享库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    库文件存在
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    制作静态库：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    制作动态库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    使用：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    优缺点：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#makefile-c" class="md-nav__link">
+    Makefile: c文件自动编译
+  </a>
+  
+    <nav class="md-nav" aria-label="Makefile: c文件自动编译">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    一、好处：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    二、命令规则：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    三、三要素：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    四、写法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    五、案例
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gdb-c" class="md-nav__link">
+    gdb 调试： c程序调试
+  </a>
+  
+    <nav class="md-nav" aria-label="gdb 调试： c程序调试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    一、使用gdb调试
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdb_1" class="md-nav__link">
+    启动gdb调试：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    设置启动参数：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    查看代码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    查看元素：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    设置断点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    查看断点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    删除断点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    跳转到一个断点:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    设置变量的值
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    追踪变量：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    设置条件断点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdbcore" class="md-nav__link">
+    gdb转移Core
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    系统API与库函数的关系
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    文件IO
+  </a>
+  
+    <nav class="md-nav" aria-label="文件IO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-man-2-open" class="md-nav__link">
+    open : man 2 open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#close-man-2-close" class="md-nav__link">
+    close: man 2 close
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    二、参数
+  </a>
+  
+    <nav class="md-nav" aria-label="二、参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#read-man-2-read" class="md-nav__link">
+    read: man 2 read
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-man-2-write" class="md-nav__link">
+    write: man 2 write
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lseek" class="md-nav__link">
+    lseek
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    阻塞的概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fcntl" class="md-nav__link">
+    fcntl 函数设置非阻塞
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    虚拟地址空间
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stat-man-2-stat" class="md-nav__link">
+    stat() : man 2 stat
+  </a>
+  
+    <nav class="md-nav" aria-label="stat() : man 2 stat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#readlink" class="md-nav__link">
+    readlink
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    二、参数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    目录相关函数
+  </a>
+  
+    <nav class="md-nav" aria-label="目录相关函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getcwd" class="md-nav__link">
+    getcwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chdir" class="md-nav__link">
+    chdir :
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdir-man-2-mkdir" class="md-nav__link">
+    mkdir: man 2 mkdir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rmdir-man-2-rmdir" class="md-nav__link">
+    rmdir: man 2 rmdir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opendir-man-2-opendir" class="md-nav__link">
+    opendir: man 2 opendir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readdir-man-readdir" class="md-nav__link">
+    readdir: man readdir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closedir-man-closedir" class="md-nav__link">
+    closedir: man closedir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error" class="md-nav__link">
+    error 输出函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dup2" class="md-nav__link">
+    dup2 :重定向
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dup" class="md-nav__link">
+    dup: 复制文件描述符
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/260 Working Operating System/Linux System/Linux Overall.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="operation-system-linux">Operation System - Linux<a class="headerlink" href="#operation-system-linux" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>目录和文件操作</p>
+</blockquote>
+<h2 id="unix">类Unix的文件根目录<a class="headerlink" href="#unix" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Linux 一切皆文件</p>
+</blockquote>
+<h3 id="all-in-here">All in here<a class="headerlink" href="#all-in-here" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>系统启动必须：</p>
+<ul>
+<li>/boot：存放的启动Linux 时使用的内核文件，包括连接文件以及镜像文件。</li>
+<li>/etc：存放所有的系统需要的配置文件和子目录列表，更改目录下的文件可能会导致系统不能启动。</li>
+<li>/lib：存放基本代码库（比如c++库），其作用类似于Windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库。</li>
+<li>lib64: </li>
+<li>/sys： 这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。sysfs文件系统集成了下面3种文件系统的信息：针对进程信息的proc文件系统、针对设备的devfs文件系统以及针对伪终端的devpts文件系统。该文件系统是内核设备树的一个直观反映。当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中</li>
+</ul>
+</li>
+<li>
+<p>指令集合：</p>
+<ul>
+<li>/bin：存放着最常用的程序和指令</li>
+<li>/sbin：只有系统管理员能使用的程序和指令。</li>
+</ul>
+</li>
+<li>
+<p>外部文件管理：</p>
+<ul>
+<li>/dev ：Device(设备)的缩写, 存放的是Linux的外部设备。注意：在Linux中访问设备和访问文件的方式是相同的。</li>
+<li>/media：类windows的其他设备，例如U盘、光驱等等，识别后linux会把设备放到这个目录下。</li>
+<li>/mnt：临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。</li>
+</ul>
+</li>
+<li>
+<p>临时文件：</p>
+<ul>
+<li>/run：是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run。</li>
+<li>/lost+found：一般情况下为空的，系统非法关机后，这里就存放一些文件。</li>
+<li>/tmp：这个目录是用来存放一些临时文件的。</li>
+</ul>
+</li>
+<li>
+<p>账户：</p>
+<ul>
+<li>/root：系统管理员的用户主目录。</li>
+<li>/home：用户的主目录，以用户的账号命名的。</li>
+<li>/usr：用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。<ul>
+<li>/usr/bin：系统用户使用的应用程序与指令。</li>
+<li>/usr/sbin：超级用户使用的比较高级的管理程序和系统守护程序。</li>
+<li>/usr/src：内核源代码默认的放置目录。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>运行过程中要用：</p>
+<ul>
+<li>/var：存放经常修改的数据，比如程序运行的日志文件（/var/log 目录下）。</li>
+<li>/proc：管理内存空间！虚拟的目录，是系统内存的映射，我们可以直接访问这个目录来，获取系统信息。这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件来做修改。</li>
+</ul>
+</li>
+<li>
+<p>扩展用的：</p>
+<ul>
+<li>/opt：默认是空的，我们安装额外软件可以放在这个里面。</li>
+<li>/srv：存放服务启动后需要提取的数据（不用服务器就是空）</li>
+</ul>
+</li>
+</ol>
+<h3 id="_1">特别记忆<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>/boot : 内核和启动程序的相关文件</p>
+</li>
+<li>
+<p>/proc : 系统内存的映射，会保留进制运行的一些信息</p>
+</li>
+<li>
+<p>/usr  : unix system resources 庞大和复杂的目录</p>
+</li>
+<li>
+<p>/usr/local : 用户自己安装软件的目录</p>
+</li>
+<li>
+<p>/etc  : 系统软件的启动和配置目录</p>
+<ul>
+<li>/etc/passwd : 用户存放文件</li>
+<li>man 5 passwd: 查看文件格式</li>
+</ul>
+</li>
+</ul>
+<h2 id="linux">Linux 命令<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h2>
+<h3 id="_2">终端命令格式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">command</span> <span class="o">[</span>-options<span class="o">]</span> <span class="o">[</span>parameter<span class="o">]</span>
+</code></pre></div>
+
+<p>说明：</p>
+<ul>
+<li><code>command</code>：命令名，相应功能的英文单词或单词的缩写</li>
+<li><code>[-options]</code>：选项，可用来对命令进行控制，也可以省略</li>
+<li><code>parameter</code>：传给命令的参数，可以是 <strong>零个</strong>、<strong>一个</strong> 或者 <strong>多个</strong></li>
+</ul>
+<blockquote>
+<p><code>[]</code> 代表可选</p>
+</blockquote>
+<h3 id="man-or-help">查看帮助<code>man</code> or <code>--help</code><a class="headerlink" href="#man-or-help" title="Permanent link">&para;</a></h3>
+<p>1，查看帮助文件</p>
+<div class="highlight"><pre><span></span><code><span class="nb">command</span> --help
+</code></pre></div>
+
+<p>2， 查看命令使用手册</p>
+<div class="highlight"><pre><span></span><code>man <span class="nb">command</span>
+</code></pre></div>
+
+<ul>
+<li>查阅 <code>command</code> 命令的使用手册</li>
+<li><code>man</code> 是 <strong>manual</strong> 的缩写，是 Linux 提供的一个 <strong>手册</strong>，包含了绝大部分的命令、函数的详细使用说明</li>
+</ul>
+<p>使用 <code>man</code> 时的操作键：</p>
+<table>
+<thead>
+<tr>
+<th>操作键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空格键</td>
+<td>显示手册页的下一屏</td>
+</tr>
+<tr>
+<td>Enter 键</td>
+<td>一次滚动手册页的一行</td>
+</tr>
+<tr>
+<td>b</td>
+<td>回滚一屏</td>
+</tr>
+<tr>
+<td>f</td>
+<td>前滚一屏</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出</td>
+</tr>
+<tr>
+<td>/word</td>
+<td>搜索 <strong>word</strong> 字符串</td>
+</tr>
+</tbody>
+</table>
+<h3 id="history">查看终端命令历史记录 <code>history</code><a class="headerlink" href="#history" title="Permanent link">&para;</a></h3>
+<h3 id="last">查看终端登录历史记录 <code>last</code><a class="headerlink" href="#last" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>其他：</p>
+<ul>
+<li>按 <code>上</code>／<code>下</code> 光标键可以在曾经使用过的命令之间来回切换</li>
+<li>如果想要退出选择，并且不想执行当前选中的命令，可以按 <code>ctrl + c</code></li>
+</ul>
+</blockquote>
+<h2 id="_3">文件列表<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="ls-list">查看文件列表<code>ls</code> ：list<a class="headerlink" href="#ls-list" title="Permanent link">&para;</a></h3>
+<p>一、命令参数
+- <code>ls -l</code>
+- <code>ls -a</code>
+- <code>ls -h</code> : 人性化显示
+- <code>ll</code>: 常用，或者一般修改为其他常用的映射命令。
+- <code>ls -R</code> : 递归显示子目录的内容
+- <code>ls -lrt</code> : 按照时间排序</p>
+<p>二、通配符 <code>*</code> 和 <code>？</code></p>
+<table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>代表任意个数个字符</td>
+</tr>
+<tr>
+<td>?</td>
+<td>代表任意一个字符，至少 1 个</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>表示可以匹配字符组中的任一一个</td>
+</tr>
+<tr>
+<td>[abc]</td>
+<td>匹配 a、b、c 中的任意一个</td>
+</tr>
+<tr>
+<td>[a-f]</td>
+<td>匹配从 a 到 f 范围内的的任意一个字符</td>
+</tr>
+</tbody>
+</table>
+<p>三、相对路径和绝对路径</p>
+<h2 id="_4">目录相关<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="cd-change-dir">更改所有目录<code>cd</code> : change dir<a class="headerlink" href="#cd-change-dir" title="Permanent link">&para;</a></h3>
+<p>一、回到家目录：
+- cd ~
+- cd $HOME
+- cd</p>
+<h3 id="pwd">查看当前所在目录<code>pwd</code><a class="headerlink" href="#pwd" title="Permanent link">&para;</a></h3>
+<h3 id="which-sth">查看目标所在目录<code>which sth</code><a class="headerlink" href="#which-sth" title="Permanent link">&para;</a></h3>
+<h3 id="mkdir-make-dir">创建新文件夹<code>mkdir</code>: make dir<a class="headerlink" href="#mkdir-make-dir" title="Permanent link">&para;</a></h3>
+<p>一、命令参数
+- mkdir dir1 [dir2 dir3 ...] 
+- mkdir dir1/dir2 -p ---递归创建目录</p>
+<h2 id="_5">文件相关<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="touch">创建文件<code>touch</code><a class="headerlink" href="#touch" title="Permanent link">&para;</a></h3>
+<p>一、命令参数
+- touch filename 
+    - 创建文件
+    - 若文件已存在，那么修改文件的修改时间</p>
+<h3 id="rm-remove">删除文件<code>rm</code>: remove<a class="headerlink" href="#rm-remove" title="Permanent link">&para;</a></h3>
+<p>一、命令参数
+- <code>rm filename</code>
+- <code>rm -r dir</code>: 递归删除文件目录
+- <code>rm -rf *</code> : 强制删除目录下的全部内容</p>
+<h3 id="cp-copy-mv-move">复制/移动文件<code>cp</code>: copy &amp; <code>mv</code>: move<a class="headerlink" href="#cp-copy-mv-move" title="Permanent link">&para;</a></h3>
+<ul>
+<li>考虑当前文件或者目录存不存在<ul>
+<li>存在：保存当前存在的目录下面</li>
+<li>不存在：修改拷贝目录、文件名称，之后拷贝其内的内容</li>
+</ul>
+</li>
+</ul>
+<h2 id="_6">文件内容查看<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="cat">命令行中显示信息<code>cat</code><a class="headerlink" href="#cat" title="Permanent link">&para;</a></h3>
+<h3 id="more-less">分屏显示文件信息<code>more</code> &amp; <code>less</code><a class="headerlink" href="#more-less" title="Permanent link">&para;</a></h3>
+<ul>
+<li>回车： 逐行显示</li>
+<li>空格： 单页显示</li>
+</ul>
+<h3 id="head">查看文件头<code>head</code><a class="headerlink" href="#head" title="Permanent link">&para;</a></h3>
+<ul>
+<li>默认10行</li>
+<li>head -n file: 显示指定的行数</li>
+</ul>
+<h3 id="tail">查看文件尾<code>tail</code><a class="headerlink" href="#tail" title="Permanent link">&para;</a></h3>
+<ul>
+<li>默认10行</li>
+<li>tail -n file : 显示指定的行数</li>
+<li>tail -f file : 一直跟踪文件末尾</li>
+</ul>
+<h2 id="_7">统计信息<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="tree"><code>tree</code>: 显示文件夹结构<a class="headerlink" href="#tree" title="Permanent link">&para;</a></h3>
+<h3 id="wc">wc : 统计文件信息内容<a class="headerlink" href="#wc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>wc *  : 统计整个目录</li>
+<li>wc -l : 显示行数</li>
+<li>wc -w : 统计单词数</li>
+<li>wc -c : 显示字节数</li>
+</ul>
+<h3 id="du">du : 查看目录占用空间<a class="headerlink" href="#du" title="Permanent link">&para;</a></h3>
+<ul>
+<li>du -h : 更适合人类观察</li>
+<li>du -h --max-depth=1 : 递归一级子目录</li>
+</ul>
+<h3 id="df">df : 查看磁盘空间信息<a class="headerlink" href="#df" title="Permanent link">&para;</a></h3>
+<ul>
+<li>df -h : 显示磁盘使用情况</li>
+<li>df -h --block-size=GB : 按照GB统计显示</li>
+</ul>
+<h2 id="_8">文件属性和用户用户组<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="whoami">查看登录用户<code>whoami</code><a class="headerlink" href="#whoami" title="Permanent link">&para;</a></h3>
+<h3 id="_9">文件权限和软硬连接<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>文件类型：
+- 普通文件：<code>-
+- 目录文件：</code>d<code>- 符号链接：</code>l<code>- 字符设备：</code>c<code>- 块设备  ：</code>b<code>- 管道设备：</code>p<code>- 本地套接字：</code>s`</p>
+<p>权限位数字表示法（八进制）：最后连起来前面 <code>+0</code>:即0644</p>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>二进制</th>
+<th>十进制</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rw-</td>
+<td>110</td>
+<td>6</td>
+<td>用户位</td>
+</tr>
+<tr>
+<td>r--</td>
+<td>100</td>
+<td>4</td>
+<td>组权限位</td>
+</tr>
+<tr>
+<td>r--</td>
+<td>100</td>
+<td>4</td>
+<td>其他权限位</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ln">建立软硬链接<code>ln</code><a class="headerlink" href="#ln" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>建立硬链接
+ln src xxx</p>
+</li>
+<li>
+<p>建立软链接
+ln -s src xxx</p>
+</li>
+</ol>
+<h4 id="unlink">删除软硬链接<code>unlink</code><a class="headerlink" href="#unlink" title="Permanent link">&para;</a></h4>
+<ul>
+<li>硬链接数为0时，文件被删除</li>
+</ul>
+<h3 id="chmod">修改文件权限<code>chmod</code><a class="headerlink" href="#chmod" title="Permanent link">&para;</a></h3>
+<p>一、chmod
+<code>chmod [u|g|o|a] [+|-][r|w|x] filename</code>
+- chmod u-x filename : 修改用户权限
+- chmod 0664 filename: 修改所有权限
+- 目录需要可执行权限才能进入</p>
+<h3 id="root">修改用户和组(root)<a class="headerlink" href="#root" title="Permanent link">&para;</a></h3>
+<p>修改用户和组:
+<code>sudo chown user:group file</code>  : 修改所有者和所属组
+<code>sudo chown user file</code>: 只修改所有者</p>
+<p>修改组：
+<code>sudo chgrp groupname file</code> : 修改文件所属组</p>
+<h2 id="_10">查找和检索<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="find">find<a class="headerlink" href="#find" title="Permanent link">&para;</a></h3>
+<ul>
+<li>find dir [option] 内容<ul>
+<li><code>-name</code> : 按名字查找<ul>
+<li>find dir -name </li>
+</ul>
+</li>
+<li><code>-type</code> : 按类型查找<ul>
+<li>find ./ -type </li>
+</ul>
+</li>
+<li><code>-size</code> : 按大小查找<ul>
+<li>find ./ -size +1M -size -5M : 查找大于1M， 小于5M的文件</li>
+</ul>
+</li>
+<li><code>-maxdepth</code> : 最深目录<ul>
+<li>find ./ -maxdepth 1 -size +1M : 当前目录下大于1M的文件</li>
+</ul>
+</li>
+<li>find ./ -maxdepth 2 -size +1M -exec ls -l {} \;<ul>
+<li><code>-ok</code> : 相对安全模式，每一条指令都提示</li>
+<li><code>-exec</code> :</li>
+</ul>
+</li>
+<li>find ./ -type f | xargs grep "txt"</li>
+<li>find ./ -type l | xargs ls -l</li>
+</ul>
+</li>
+</ul>
+<h3 id="xargs">xargs<a class="headerlink" href="#xargs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>将前一个目录的输出分成小块输入给后面的命令<ul>
+<li>find ./ -type l | xargs ls -l</li>
+</ul>
+</li>
+</ul>
+<h3 id="grep">grep : 内容过滤<a class="headerlink" href="#grep" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>grep -r xxxx [file]</code> : 递归查找
+- <code>grep xxxx file</code>
+- <code>cat file | grep xxxx</code> : 查找文件中的xxxx内容
+- <code>tail -f file | grep xxxx</code>
+- grep -v xxxx : 过滤xxxx的内容
+- grep -rn "main" * : 查找所有包含"main"的所有文件，并显示行号n</p>
+</blockquote>
+<h2 id="_11">压缩包管理<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="zip">zip<a class="headerlink" href="#zip" title="Permanent link">&para;</a></h3>
+<ul>
+<li>zip -r file.zip file : r代表递归子目录</li>
+<li>unzip file.zip</li>
+</ul>
+<h3 id="tar">tar<a class="headerlink" href="#tar" title="Permanent link">&para;</a></h3>
+<ul>
+<li>tar -zcvf file.tar.gz filepath<ul>
+<li>-c : 压缩文件</li>
+<li>-v : 显示信息</li>
+<li>-f : 指定压缩包名</li>
+<li>-z : gz格式压缩</li>
+</ul>
+</li>
+<li>tar -zxvf file.tar.gz</li>
+<li><code>bzip2</code> 格式：</li>
+<li>-j选项，其他与tar一致</li>
+</ul>
+<h3 id="rar">rar<a class="headerlink" href="#rar" title="Permanent link">&para;</a></h3>
+<ul>
+<li>rar a -r filename dir : 打包</li>
+<li>rar x filename.rar    : 解压</li>
+</ul>
+<h2 id="_12">虚拟机网络配置<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>桥接模式：虚拟机相当于另外一台电脆和本地连接同一个IP段</li>
+<li>NAT模式：本地主机通过VMINET8网卡连接到虚拟机，要求V/MINET8网卡与康拟机ip同一个网段<ul>
+<li>静态IP配置</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>此处可查看静态Linux静态IP配置说明</p>
+</blockquote>
+<h2 id="_13">软件安装和卸载<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h3 id="linux_1">Linux 一般安装方式<a class="headerlink" href="#linux_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>源码编译的方式 </li>
+<li>rpm package or deb package</li>
+<li>yum install or apt install</li>
+<li>压缩包</li>
+</ol>
+<h3 id="1">1. 源码(非绝对)<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>解压缩代码包</li>
+<li>cd dir</li>
+<li>./configure         : 检测文件是否缺失，创建make file， 检测编译环境</li>
+<li>make</li>
+<li>sudo make install   : 把库和可执行程序，安装到系统路径下</li>
+<li>sudo make distclean : 清除和卸载软件</li>
+</ol>
+<h3 id="apt-get">apt-get<a class="headerlink" href="#apt-get" title="Permanent link">&para;</a></h3>
+<ul>
+<li>sudo apt-get update          : 更新源</li>
+<li>sudo apt-get install tree</li>
+<li>sudo apt-get remove tree</li>
+<li>sudo apt-get clean</li>
+</ul>
+<h3 id="dpkg">dpkg<a class="headerlink" href="#dpkg" title="Permanent link">&para;</a></h3>
+<ul>
+<li>sudo dpkg -i xxx.deb : 安装</li>
+<li>sudo dpkg -r xxx.deb : 移除</li>
+</ul>
+<h2 id="_14">磁盘管理<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h2 id="_15">用户管理<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<h3 id="_16">创建用户<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>sudo useradd -s /bin/bash -g usergourp_name
+</code></pre></div>
+- <code>-s</code> ：指定shell
+- <code>-g</code> : 指定组
+- <code>-d</code> : 用户家目录
+- <code>-m</code> : 家目录不存在时，自动创建
+- <code>sudo useradd s/bin/bash -g itcast -l /home/itcast -m itcast</code></p>
+<h3 id="_17">设置用户组<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>sudo groupadd usergourp_name
+</code></pre></div>
+
+<h3 id="_18">设置用户密码<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>sudo passwd user_name
+</code></pre></div>
+
+<h3 id="su"><code>su</code>: 切换用户<a class="headerlink" href="#su" title="Permanent link">&para;</a></h3>
+<ul>
+<li>su itcast  : 切换用户</li>
+<li>su -itcast : 切换用户并改变环境变量</li>
+</ul>
+<h4 id="su-root"><code>su</code>: 切换root用户<a class="headerlink" href="#su-root" title="Permanent link">&para;</a></h4>
+<ul>
+<li>sudo</li>
+<li>su</li>
+</ul>
+<h3 id="userdel"><code>userdel</code>: 删除用户<a class="headerlink" href="#userdel" title="Permanent link">&para;</a></h3>
+<ul>
+<li>sudo userdel itcast    : 删除用户</li>
+<li>sudo userdel -r itcast : 删除用户及其家目录</li>
+</ul>
+<h2 id="_19">进程管理<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<h3 id="who"><code>who</code> : 查看登陆设备用户<a class="headerlink" href="#who" title="Permanent link">&para;</a></h3>
+<h3 id="ps"><code>ps</code>  : 查看进程信息<a class="headerlink" href="#ps" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ps aux</li>
+<li>ps ajx</li>
+</ul>
+<h3 id="kill"><code>kill</code> : 终结进程<a class="headerlink" href="#kill" title="Permanent link">&para;</a></h3>
+<ul>
+<li>kill -9 pid</li>
+</ul>
+<h3 id="env"><code>env</code> : 环境变量<a class="headerlink" href="#env" title="Permanent link">&para;</a></h3>
+<ul>
+<li>echo SSHELL </li>
+</ul>
+<h3 id="top"><code>top</code> : 查看系统信息<a class="headerlink" href="#top" title="Permanent link">&para;</a></h3>
+<h2 id="_20">网络管理<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<h3 id="ifconfig-ip"><code>ifconfig</code> : 查看ip信息<a class="headerlink" href="#ifconfig-ip" title="Permanent link">&para;</a></h3>
+<ul>
+<li>etho : 代表本地第一课网卡</li>
+<li><code>sudo ifconfig eth0 ip</code></li>
+</ul>
+<h3 id="ping"><code>ping</code>：查看连接状态<a class="headerlink" href="#ping" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ping 域名</li>
+<li>ping -c 4 : 连接域名、IP 四次</li>
+</ul>
+<h3 id="nslookup-ip"><code>nslookup</code> : 通过域名得到ip<a class="headerlink" href="#nslookup-ip" title="Permanent link">&para;</a></h3>
+<h3 id="netstat"><code>netstat</code> : 查看网络连接状态<a class="headerlink" href="#netstat" title="Permanent link">&para;</a></h3>
+<ul>
+<li>netstat -an | grep port</li>
+</ul>
+<h2 id="_21">其他命令<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<h3 id="date"><code>date</code>: 查看日期<a class="headerlink" href="#date" title="Permanent link">&para;</a></h3>
+<h3 id="cal"><code>cal</code>: 查看日历<a class="headerlink" href="#cal" title="Permanent link">&para;</a></h3>
+<h3 id="umask"><code>umask</code> : 文件权限补码<a class="headerlink" href="#umask" title="Permanent link">&para;</a></h3>
+<ul>
+<li>umask    : 显示八进制文件掩码</li>
+<li>读写权限来由：<ul>
+<li>
+<ol>
+<li>umask 默认参数为：002, 取补码为：775</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>与默认权限666取交集：得到664，即wrxwrxwr-</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>umask -S : 显示创建文件对应的读写权限</li>
+</ul>
+<h3 id="echo"><code>echo</code> : 输出变量或者字符串<a class="headerlink" href="#echo" title="Permanent link">&para;</a></h3>
+<h3 id="alias"><code>alias</code> : 配置命令别名<a class="headerlink" href="#alias" title="Permanent link">&para;</a></h3>
+<h3 id="_22">重定向 <code>&gt;</code> 和 <code>&gt;&gt;</code><a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Linux 允许将命令执行结果 <strong>重定向**到一个 **文件</strong></li>
+<li>将本应显示在**终端上的内容** <strong>输出／追加</strong> 到**指定文件中**</li>
+</ul>
+<p>其中</p>
+<ul>
+<li><code>&gt;</code> 表示输出，会覆盖文件原有的内容</li>
+<li><code>&gt;&gt;</code> 表示追加，会将内容追加到已有文件的末尾</li>
+</ul>
+<h3 id="_23">管道 <code>|</code><a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Linux 允许将 <strong>一个命令的输出</strong> 可以**通过管道** 做为 <strong>另一个命令的输入</strong></li>
+</ul>
+<p>常用的管道命令有：</p>
+<ul>
+<li><code>more</code>：分屏显示内容</li>
+<li><code>grep</code>：在命令执行结果的基础上查询指定的文本</li>
+</ul>
+<h2 id="_24">远程登录和复制文件<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>命令</th>
+<th>对应英文</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>ssh 用户名@ip</td>
+<td>secure shell</td>
+<td>关机／重新启动</td>
+</tr>
+<tr>
+<td>02</td>
+<td>scp 用户名@ip:文件名或路径 用户名@ip:文件名或路径</td>
+<td>secure copy</td>
+<td>远程复制文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ssh"><code>ssh</code> 基础<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h3>
+<p>在 Linux 中 SSH 是 <strong>非常常用</strong> 的工具，通过 <strong>SSH 客户端</strong> 我们可以连接到运行了 <strong>SSH 服务器</strong> 的远程机器上</p>
+<ul>
+<li>**SSH 客户端**是一种使用 <code>Secure Shell（SSH）</code> 协议连接到远程计算机的软件程序</li>
+<li><code>SSH</code> 是目前较可靠，**专为远程登录会话和其他网络服务**提供安全性的协议<ul>
+<li>利用 <code>SSH 协议</code> 可以有效**防止远程管理过程中的信息泄露**</li>
+<li>通过 <code>SSH 协议</code> 可以对所有传输的数据进行加密，也能够防止 DNS 欺骗和 IP 欺骗</li>
+</ul>
+</li>
+<li><code>SSH</code> 的另一项优点是传输的数据可以是经过压缩的，所以可以加快传输的速度</li>
+</ul>
+<h4 id="1_1">1) 域名 和 端口号<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h4>
+<h5 id="_25">域名<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h5>
+<ul>
+<li>由一串 <strong>用点分隔</strong> 的名字组成，例如：<code>www.itcast.cn</code></li>
+<li>是 <strong>IP 地址</strong> 的别名，方便用户记忆</li>
+</ul>
+<h5 id="_26">端口号<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>IP 地址</strong>：通过 <strong>IP 地址</strong> 找到网络上的 <strong>计算机</strong></li>
+<li><strong>端口号</strong>：通过 <strong>端口号</strong> 可以找到 <strong>计算机上运行的应用程序</strong><ul>
+<li><strong>SSH 服务器</strong> 的默认端口号是 <code>22</code>，如果是默认端口号，在连接的时候，可以省略</li>
+</ul>
+</li>
+<li>常见服务端口号列表：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>服务</th>
+<th>端口号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>SSH 服务器</td>
+<td>22</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Web 服务器</td>
+<td>80</td>
+</tr>
+<tr>
+<td>03</td>
+<td>HTTPS</td>
+<td>443</td>
+</tr>
+<tr>
+<td>04</td>
+<td>FTP 服务器</td>
+<td>21</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>提示：有关 **端口号**的详细内容，在就业班会详细讲解！</p>
+</blockquote>
+<h4 id="2-ssh">2) SSH 客户端的简单使用<a class="headerlink" href="#2-ssh" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>ssh <span class="o">[</span>-p port<span class="o">]</span> user@remote
+</code></pre></div>
+
+<ul>
+<li><code>user</code> 是在远程机器上的用户名，如果不指定的话默认为当前用户</li>
+<li><code>remote</code> 是远程机器的地址，可以是 <strong>IP</strong>／<strong>域名</strong>，或者是 <strong>后面会提到的别名</strong></li>
+<li><code>port</code> 是 <strong>SSH Server 监听的端口</strong>，如果不指定，就为默认值 <code>22</code></li>
+</ul>
+<blockquote>
+<p>提示：</p>
+<ul>
+<li>使用 <code>exit</code> 退出当前用户的登录</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li><code>ssh</code> 这个终端命令只能在 <code>Linux</code> 或者 <code>UNIX</code> 系统下使用</li>
+<li>如果在 <code>Windows</code> 系统中，可以安装 <code>PuTTY</code> 或者 <code>XShell</code> 客户端软件即可</li>
+</ul>
+<p>提示：</p>
+<ul>
+<li>在工作中，SSH 服务器的端口号很有可能**不是 22**，如果遇到这种情况就需要使用 <code>-p</code> 选项，指定正确的端口号，否则无法正常连接到服务器</li>
+</ul>
+</blockquote>
+<h4 id="3-windows-ssh">3) Windows 下 SSH 客户端的安装<a class="headerlink" href="#3-windows-ssh" title="Permanent link">&para;</a></h4>
+<ul>
+<li>XShell <a href="http://xshellcn.com">http://xshellcn.com</a></li>
+<li>WinSCP</li>
+</ul>
+<blockquote>
+<p>建议从官方网站下载正式的安装程序</p>
+</blockquote>
+<h3 id="scp"><code>scp</code><a class="headerlink" href="#scp" title="Permanent link">&para;</a></h3>
+<ul>
+<li>scp 就是 <code>secure copy</code>，是一个在 Linux 下用来进行 <strong>远程拷贝文件</strong> 的命令</li>
+<li>它的**地址格式与 ssh 基本相同**，<strong>需要注意的是</strong>，在指定端口时用的是大写的 <code>-P</code> 而不是小写的</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># 把本地当前目录下的 01.py 文件 复制到 远程 家目录下的 Desktop/01.py</span>
+<span class="c1"># 注意：`:` 后面的路径如果不是绝对路径，则以用户的家目录作为参照路径</span>
+scp -P port <span class="m">01</span>.py user@remote:Desktop/01.py
+
+<span class="c1"># 把远程 家目录下的 Desktop/01.py 文件 复制到 本地当前目录下的 01.py</span>
+scp -P port user@remote:Desktop/01.py <span class="m">01</span>.py
+
+<span class="c1"># 加上 -r 选项可以传送文件夹</span>
+<span class="c1"># 把当前目录下的 demo 文件夹 复制到 远程 家目录下的 Desktop</span>
+scp -r demo user@remote:Desktop
+
+<span class="c1"># 把远程 家目录下的 Desktop 复制到 当前目录下的 demo 文件夹</span>
+scp -r user@remote:Desktop demo
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-r</td>
+<td>若给出的源文件是目录文件，则 scp 将递归复制该目录下的所有子目录和文件，目标文件必须为一个目录名</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>若远程 SSH 服务器的端口不是 22，需要使用大写字母 -P 选项指定端口</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li><code>scp</code> 这个终端命令只能在 <code>Linux</code> 或者 <code>UNIX</code> 系统下使用</li>
+<li>如果在 <code>Windows</code> 系统中，可以安装 <code>PuTTY</code>，使用 <code>pscp</code> 命令行工具或者安装 <code>FileZilla</code> 使用 <code>FTP</code> 进行文件传输</li>
+</ul>
+</blockquote>
+<h4 id="filezilla"><code>FileZilla</code><a class="headerlink" href="#filezilla" title="Permanent link">&para;</a></h4>
+<ul>
+<li>官方网站：<a href="https://www.filezilla.cn/download/client">https://www.filezilla.cn/download/client</a></li>
+<li><code>FileZilla</code> 在传输文件时，使用的是 <code>FTP 服务</code> 而不是 <code>SSH 服务</code>，因此端口号应该设置为 <code>21</code></li>
+</ul>
+<h3 id="ssh_1">SSH 高级<a class="headerlink" href="#ssh_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>免密码登录</li>
+<li>配置别名</li>
+</ul>
+<blockquote>
+<p>提示：有关 SSH 配置信息都保存在用户家目录下的 <code>.ssh</code> 目录下</p>
+</blockquote>
+<h4 id="1_2">1）免密码登录<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h4>
+<h5 id="_27">步骤<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h5>
+<ul>
+<li>配置公钥<ul>
+<li>执行 <code>ssh-keygen</code> 即可生成 SSH 钥匙，一路回车即可</li>
+</ul>
+</li>
+<li>上传公钥到服务器<ul>
+<li>执行 <code>ssh-copy-id -p port user@remote</code>，可以让远程服务器记住我们的公钥</li>
+</ul>
+</li>
+</ul>
+<h5 id="_28">示意图<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h5>
+<p><img alt="003_SSH 免密码示意图" src="file:///E:/251%20Show%20me%20Code/%2310%20Python%E5%9F%BA%E7%A1%80/Linux%20%E5%9F%BA%E7%A1%80/media/14934132718311/003_SSH%20%E5%85%8D%E5%AF%86%E7%A0%81%E7%A4%BA%E6%84%8F%E5%9B%BE.png" /></p>
+<blockquote>
+<p>非对称加密算法</p>
+<ul>
+<li>使用 <strong>公钥</strong> 加密的数据，需要使用 <strong>私钥</strong> 解密</li>
+<li>使用 <strong>私钥</strong> 加密的数据，需要使用 <strong>公钥</strong> 解密</li>
+</ul>
+</blockquote>
+<h4 id="2">2) 配置别名<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>每次都输入 <code>ssh -p port user@remote</code>，时间久了会觉得很麻烦，特别是当 <code>user</code>, <code>remote</code> 和 <code>port</code> 都得输入，而且还不好记忆</p>
+<p>而 <strong>配置别名</strong> 可以让我们进一步偷懒，譬如用：<code>ssh mac</code> 来替代上面这么一长串，那么就在 <code>~/.ssh/config</code> 里面追加以下内容：</p>
+<div class="highlight"><pre><span></span><code>Host mac
+    HostName ip地址
+    User itheima
+    Port 22
+</code></pre></div>
+
+<p><strong>保存之后，即可用 <code>ssh mac</code> 实现远程登录了，<code>scp</code> 同样可以使用</strong></p>
+<h2 id="_29">配置软件源<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h2>
+<h2 id="vim">Vim 编辑器使用<a class="headerlink" href="#vim" title="Permanent link">&para;</a></h2>
+<h3 id="_30">常用命令<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
+<p><img alt="vi" src="file:///E:/251%20Show%20me%20Code/%2310%20Python%E5%9F%BA%E7%A1%80/Linux%20%E5%9F%BA%E7%A1%80/media/14993340485745/vim.png" /></p>
+<ul>
+<li>查找单个单词: 光标移到单词上，按#(Shift + 3)</li>
+<li>文件整理，调整格式：<code>gg=G</code></li>
+<li>man 帮助查看： <code>K</code> 或者 <code>2K</code></li>
+<li>删除当前字母，变为插入模式：<code>s</code></li>
+<li>删除当前行，变为插入模式： <code>S</code></li>
+<li>保存退出：<code>ZZ</code> or <code>x</code></li>
+<li>分屏：<code>:vsp file</code> </li>
+</ul>
+<h3 id="vim_1">Vim 配置<a class="headerlink" href="#vim_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>在系统环境设置当前shell环境下使用vim快捷键<ul>
+<li><code>set -o vi</code></li>
+</ul>
+</li>
+<li><code>/home/user/.vimrc</code> : 本用户的配置文件<ul>
+<li>此处常用修改或者直接clone vimplus </li>
+</ul>
+</li>
+<li><code>/etc/vim/vimrc</code>    : 系统vim配置文件</li>
+</ul>
+<h3 id="vim_2">Vim 插件<a class="headerlink" href="#vim_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>mbbill /echofunc</li>
+<li>link: <a href="http://github.com/chxuan/vimplus">http://github.com/chxuan/vimplus</a></li>
+</ul>
+<h2 id="cgcc">c文件编译：gcc<a class="headerlink" href="#cgcc" title="Permanent link">&para;</a></h2>
+<h3 id="_31">编译过程<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
+<ol>
+<li>预处理：gcc -E hello.c &gt; hello.i<ul>
+<li>头文件展开</li>
+<li>宏替换</li>
+</ul>
+</li>
+<li>生成汇编： gcc -S hello.i hello.s</li>
+<li>编译成二进制文件: gcc -c hello.s hello.o</li>
+<li>链接：生成可执行文件: gcc -l hello.o hello<ul>
+<li>调用ld</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifdef DEBUG</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">);</span>
+<span class="cp">#endif</span>
+</code></pre></div>
+
+<h3 id="gcc">gcc 编译参数：<a class="headerlink" href="#gcc" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>-I</code> : 包含头文件路径（可以绝对路径，可以相对路径）</li>
+<li><code>-L</code> : 包含的库路径</li>
+<li><code>-1</code> : 指定库名(通常libxx.so或者libxx.a : -lxxx)<ul>
+<li>gcc main.c -o app -I include/ -L lib/ -lxxx</li>
+</ul>
+</li>
+<li><code>-o</code> : 目标文件</li>
+<li><code>-c</code> : 编译成.o文件</li>
+<li><code>-g</code> : 用于gdb调试不加此意项不能gb调试</li>
+<li><code>-Wall</code> :显示更多的警告<ul>
+<li><code>w</code>   : 警告</li>
+<li><code>all</code> : 显示更多</li>
+</ul>
+</li>
+<li><code>gcc hello.c -D DEBUG</code> : 指定宏编译即</li>
+<li><code>gcc hello.cpp -lstdc++</code> : 编译c+代码</li>
+<li><code>-O</code> :优化选项，1-3越高优先级越高</li>
+<li><code>-c</code> : 编译成<code>.o</code>文件</li>
+<li><code>-E</code> : 输出到标准输出，宏替换，头文件展开</li>
+<li><code>-S</code> : 编译成汇编语言</li>
+</ul>
+<div class="highlight"><pre><span></span><code>gcc add.c -I ./include/ -D DEBUG -o app -g -Wall -l 
+
+gcc hello.cpp -lstdc++
+</code></pre></div>
+
+<h2 id="_32">静态库和共享库<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h2>
+<p><img alt="5e5876f0ffdcb1fc671773e3321ca852.png" src=":/c37c8a46bc55449b9de24e0bc1dea7ed" /></p>
+<h3 id="_33">库文件存在<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h3>
+<ul>
+<li>商业目的</li>
+<li>操作简单</li>
+</ul>
+<h3 id="_34">制作静态库：<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h3>
+<ol>
+<li>编译成 <code>.o</code> 文件: <code>gcc -c hello.c</code></li>
+<li>将<code>.o</code>文件打包为lib_name.a ：<code>ar rcs lib_name.a file1.o file2.o file3.o ....</code></li>
+<li>将头文件与库一起发布</li>
+</ol>
+<h3 id="_35">制作动态库<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
+<ol>
+<li>编译 <code>.o</code> 文件，要求与位置无关，使用参数：<code>-fPIC</code></li>
+<li>打包成 <code>.so</code>文件，参数：<code>-shared</code><ul>
+<li><code>gcc -shared -o libCalc.so *.o</code></li>
+</ul>
+</li>
+<li>发布库文件和头文件</li>
+</ol>
+<h3 id="_36">使用：<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h3>
+<ul>
+<li>编译 -L 指定路径， -l 指定库名，用法同静态库</li>
+<li>执行的时候不能找到动态库的解决方法：<ul>
+<li><code>ldd app</code> : 查看执行时库链接</li>
+<li>拷贝到系统的库路径下（不推荐）</li>
+<li>修改 <code>LD_LIBRARY_PATH</code> 环境变量，将库所在的路径添加到环境变量中，用冒号分割(新增环境变量不会影响原有环境变量)</li>
+<li><code>export LD_LIBRARY_PATH=/home/aaron/linux/cmd/Calc/lib/:$LD_LIBRARY_PATH</code> 执行一次，保留需要写入 <code>.bashrc</code>文件中。</li>
+<li>修改 <code>sudo vim /etc/ld.so.conf</code>, 添加库路径在该文件中, 执行<code>sudo ldconfig -v</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_37">优缺点：<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
+<p>静态库：
+- 执行快，发布应用时不需要发布库
+- 体积大，库变更时需要重新编译应用
+- 动态库与静态库优缺点相对互补，相对应。</p>
+<h2 id="makefile-c">Makefile: c文件自动编译<a class="headerlink" href="#makefile-c" title="Permanent link">&para;</a></h2>
+<h3 id="_38">一、好处：<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h3>
+<ul>
+<li>一次编写，终身受益</li>
+</ul>
+<h3 id="_39">二、命令规则：<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h3>
+<ul>
+<li>makefile</li>
+<li>Makefile</li>
+</ul>
+<h3 id="_40">三、三要素：<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h3>
+<ul>
+<li>目标</li>
+<li>依赖</li>
+<li>规则命令</li>
+</ul>
+<h3 id="_41">四、写法：<a class="headerlink" href="#_41" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>目标：依赖
+Tab键 + 规则命令
+</code></pre></div>
+
+<h3 id="_42">五、案例<a class="headerlink" href="#_42" title="Permanent link">&para;</a></h3>
+<p>第一版：
+<div class="highlight"><pre><span></span><code>app: main.c add.c sub.c div.c mul.c
+    gcc -o app -I ./include main.c add.c sub.c div.c mul.c
+</code></pre></div>
+如果更改其中一个文件，所有的源码都重新编译。
+- 可以考虑编译过程分解：先生成 <code>.o</code>文件，然后使用 <code>.o</code> 文件编译成结果</p>
+<p>第二版：
+<div class="highlight"><pre><span></span><code># ObjFiles 定义目标文件
+ObjFiles=main.o add.o sub.o div.o mul.o
+
+# 目标文件用法：$(var)
+app: $(ObjFiles)
+    gcc -o app -I ./include main.o add.o sub.o div.o mul.o
+
+main.o:main.c
+    gcc -c main.c -I ./include
+
+add.o:add.c
+    gcc -c add.c -I ./include
+
+sub.o:sub.c
+    gcc -c sub.c -I ./include
+
+div.o:div.c
+    gcc -c div.c -I ./include
+
+mul.o:mul.c
+    gcc -c mul.c -I ./include
+</code></pre></div>
+- makefile的隐含规则：默认处理第一个目标</p>
+<p>递推规则：
+依赖文件如果比目标文件新，则重新生成目标。</p>
+<p>函数：
+- wildcard : 可以进行文件匹配
+- patsubst : 内容替换</p>
+<p>变量：
+- $@ ：代表目标
+- $^ : 代表全部依赖
+- $&lt; : 第一个依赖
+- $? : 第一个变化的依赖</p>
+<p>第三版：
+<div class="highlight"><pre><span></span><code># get all .c files
+SrcFiles=$(wildcard *.c)
+
+# all .c files ---&gt; .o files
+ObjFiles=$(patsubst %.c, %.o, $(SrcFiles))
+
+app: $(ObjFiles)
+    gcc -o app -I ./include $(ObjFiles)
+
+main.o:main.c
+    gcc -c main.c -I ./include
+
+add.o:add.c
+    gcc -c add.c -I ./include
+
+sub.o:sub.c
+    gcc -c sub.c -I ./include
+
+div.o:div.c
+    gcc -c div.c -I ./include
+
+mul.o:mul.c
+    gcc -c mul.c -I ./include
+
+test:
+    echo $(SrcFiles)
+</code></pre></div></p>
+<p>第四版：
+<div class="highlight"><pre><span></span><code># get all .c files
+SrcFiles = $(wildcard *.c)
+
+# all .c files 2 o.files
+ObjFiles = $(patsbust %.c, %.o, $(SrcFiles))
+
+app:$(ObjFiles)
+    gcc -o app -I ./include $(ObjFiles)
+
+# 模式匹配规则： 变量$@ $&lt; 等，只能在规则中出现
+%.o:%.c
+    gcc -c $&lt; -I ./include -o $@
+
+test:
+    echo $(SrcFiles)
+    echo $(ObjFiles)
+</code></pre></div></p>
+<p>第五版：增加清理功能
+<div class="highlight"><pre><span></span><code># get all .c files
+SrcFiles = $(wildcard *.c)
+
+# all .c files 2 o.files
+ObjFiles = $(patsbust %.c, %.o, $(SrcFiles))
+
+all:app
+
+app:$(ObjFiles)
+    gcc -o app -I ./include $(ObjFiles)
+
+# 模式匹配规则： 变量$@ $&lt; 等，只能在规则中出现
+%.o:%.c
+    gcc -c $&lt; -I ./include -o $@
+
+test:
+    @echo $(SrcFiles)
+    @echo $(ObjFiles)
+
+# 定义伪目标，防止有歧义
+.PHONY: clean, all
+
+clean:
+    # 
+    -@rm -f *.o
+    -@rm -f app
+</code></pre></div></p>
+<p>其他：
+- <code>@</code> ：在规则前代表不输出该条规则的命令
+- <code>-</code> : 规则前的<code>-</code>，代表该条规则报错，仍然继续执行
+- <code>all</code> : 
+- <code>.PHONY</code> : 定义伪目标，防止有歧义</p>
+<h2 id="gdb-c">gdb 调试： c程序调试<a class="headerlink" href="#gdb-c" title="Permanent link">&para;</a></h2>
+<h3 id="gdb">一、使用gdb调试<a class="headerlink" href="#gdb" title="Permanent link">&para;</a></h3>
+<ul>
+<li>编译时，加上 <code>-G</code></li>
+</ul>
+<h3 id="gdb_1">启动gdb调试：<a class="headerlink" href="#gdb_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>gdb app</code></li>
+<li><code>run</code>/<code>r</code> : 启动程序</li>
+<li><code>start</code>   : 停留在main函数，分步调试</li>
+<li><code>next</code>/<code>n</code>:继续执行</li>
+<li><code>step</code>/<code>s</code> : 单步执行，</li>
+<li><code>quit</code>/<code>q</code>: 退出gdb</li>
+</ul>
+<h3 id="_43">设置启动参数：<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h3>
+<ul>
+<li>set args 10 6</li>
+<li>run 12 7</li>
+</ul>
+<h3 id="_44">查看代码<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h3>
+<ul>
+<li>l(ist)      : 查看代码，默认显示10行<ul>
+<li>l ：显示主函数对应文件代码</li>
+<li>l 文件名：行号</li>
+</ul>
+</li>
+</ul>
+<h3 id="_45">查看元素：<a class="headerlink" href="#_45" title="Permanent link">&para;</a></h3>
+<ul>
+<li>p xxxxxxx : print xxxx 打印变量的值</li>
+<li>ptype xxx : print type xxx 打印变量的类型</li>
+</ul>
+<h3 id="_46">设置断点：<a class="headerlink" href="#_46" title="Permanent link">&para;</a></h3>
+<ul>
+<li>b(reak) 行号 : 主函数所在的文件行</li>
+<li>b 函数名</li>
+<li>b 文件名：行号</li>
+</ul>
+<h3 id="_47">查看断点：<a class="headerlink" href="#_47" title="Permanent link">&para;</a></h3>
+<ul>
+<li>info b       : 查看断点, 得到一个编号</li>
+</ul>
+<h3 id="_48">删除断点：<a class="headerlink" href="#_48" title="Permanent link">&para;</a></h3>
+<ul>
+<li>d(el) 编号   : 删除断点</li>
+</ul>
+<h3 id="_49">跳转到一个断点:<a class="headerlink" href="#_49" title="Permanent link">&para;</a></h3>
+<ul>
+<li>c(ontinue)   : 继续执行</li>
+</ul>
+<h3 id="_50">设置变量的值<a class="headerlink" href="#_50" title="Permanent link">&para;</a></h3>
+<ul>
+<li>set argc = 4</li>
+<li>set argv[1]="12"</li>
+<li>set argv[2]="7"</li>
+</ul>
+<h3 id="_51">追踪变量：<a class="headerlink" href="#_51" title="Permanent link">&para;</a></h3>
+<ul>
+<li>显示变量的值，用于追踪，查看变量具体什么时候变化: display</li>
+<li>删除显示变量: undisplay</li>
+<li>查看编号: info display</li>
+</ul>
+<h3 id="_52">设置条件断点：<a class="headerlink" href="#_52" title="Permanent link">&para;</a></h3>
+<ul>
+<li>b line_num if i == 1</li>
+</ul>
+<h3 id="gdbcore">gdb转移Core<a class="headerlink" href="#gdbcore" title="Permanent link">&para;</a></h3>
+<p>设置生成Core : 
+- ulimit -c unlimited</p>
+<p>取消生成Core:
+- ulimit -c 0</p>
+<p>配置Core文件格式：
+- 位置：<code>/proc/sys/kernel/core_pattern</code>
+- <code>sudo echo "core-%e-%p-%t" &gt; /proc/sys/kernel/core_pattern</code>
+    - <code>su</code>
+    - <code>echo "core-%e-%p-%t" &gt; /proc/sys/kernel/core_pattern</code></p>
+<h2 id="api">系统API与库函数的关系<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<p>FILE * stdout :
+- fd : 文件描述符
+- f_pos : 位置
+- buffer : 8k
+    - 何时刷新？
+        - 手动刷新
+        - fclose()
+        - buffer 满了~</p>
+<p>内核区：
+- 虚拟文件系统
+- 内存管理
+- 进程管理
+    - PCB进程控制块
+    - ---&gt; 结构体
+    - ---&gt; 文件描述符
+        - 0 ： 标准输入 --- stdin
+        - 1 :  标准输出 --- stdout
+        - 2 ： 标准错误 --- stderr
+        - 启动一个进程，系统默认打开上面三个文件描述符
+- 设备管理</p>
+<p>print("hello\n");
+- &gt;&gt; write(1, "hello\n", 6)</p>
+<h2 id="io">文件IO<a class="headerlink" href="#io" title="Permanent link">&para;</a></h2>
+<h3 id="open-man-2-open">open : man 2 open<a class="headerlink" href="#open-man-2-open" title="Permanent link">&para;</a></h3>
+<p>一、函数原型: open, openat, creat - open and possibly create a file
+<div class="highlight"><pre><span></span><code><span class="cp">#includ &lt;sys/types.h&gt;</span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pathname</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pathname</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">mode_t</span> <span class="n">mode</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">creat</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pathname</span><span class="p">,</span> <span class="kt">mode_t</span> <span class="n">mode</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">openat</span><span class="p">(</span><span class="kt">int</span> <span class="n">dirfd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pathname</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">openat</span><span class="p">(</span><span class="kt">int</span> <span class="n">dirfd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pathname</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">mode_t</span> <span class="n">mode</span><span class="p">);</span>
+</code></pre></div></p>
+<p>二、参数：
+1. pathname
+2. flags
+- 必须参数(选一):
+    - O_RDONLY : 只读
+    - O_WRONLY : 只写
+    - O_RDWR   : 读写
+- 可选参数:
+- O_APPEND : 追加
+- O_CREAT  : 创建文件
+- O_EXCL 与 O_CREAT 一起使用，如果文件存在，则报错
+- mode 权限位，最终(mode &amp; ~umask)
+- O_NONBLOCK 非阻塞
+- 返回值：返回最小的可用文件描述符, 失败返回<code>-1</code>, 设置errno</p>
+<h3 id="close-man-2-close">close: man 2 close<a class="headerlink" href="#close-man-2-close" title="Permanent link">&para;</a></h3>
+<p>一、函数原型: close a file descriptor
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">close</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">);</span>
+</code></pre></div></p>
+<h2 id="_53">二、参数<a class="headerlink" href="#_53" title="Permanent link">&para;</a></h2>
+<h3 id="read-man-2-read">read: man 2 read<a class="headerlink" href="#read-man-2-read" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
+
+<span class="n">ssize_t_read</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t_count</span><span class="p">);</span>
+</code></pre></div>
+
+<p>二、参数
+- fd: 文件描述符
+- buf: 缓冲区
+- size_t_count: 缓冲区大小
+- 返回值：
+    - 成功：返回读到的大小
+    - 失败：返回-1，设置errno
+    - 0   : 代表读到文件末尾
+    - 非阻塞的情况下read返回-1，但是此时需要判断 <code>error</code>的值</p>
+<h3 id="write-man-2-write">write: man 2 write<a class="headerlink" href="#write-man-2-write" title="Permanent link">&para;</a></h3>
+<p>一、函数原型
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
+</code></pre></div></p>
+<p>二、参数
+- fd: 文件描述符
+- buf: 缓冲区
+- size_t_count: 缓冲区大小
+- 返回值：
+    - 成功：返回读到的大小
+    - 失败：返回-1，设置errno
+    - 0   : 代表读到文件末尾
+    - 非阻塞的情况下read返回-1，但是此时需要判断 <code>error</code>的值</p>
+<p>三、实例：cat实现</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!==</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;./a.out filename</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">O_R</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="lseek">lseek<a class="headerlink" href="#lseek" title="Permanent link">&para;</a></h2>
+<p>一、函数原型
+<div class="highlight"><pre><span></span><code>
+</code></pre></div></p>
+<p>二、参数
+- fd : 文件描述符
+- off_t : 
+- whence
+    - SEEk_SET: 开始位置
+    - SEEk_CUR: 当前位置
+    - SEEk_END: 结束位置
+- 返回值：
+    - 成功：返回当前位置到开始的长度
+    - 失败：-1， 设置errno</p>
+<p>三、作用
+- 移动文件读写位置
+- 计算文件大小
+- 拓展文件</p>
+<div class="highlight"><pre><span></span><code>#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+
+
+int main(int argc, char *argv{})
+{
+    if(argc != 2)
+    {
+        printf(&quot;./a.out filename\n&quot;);
+        return -1;
+    }
+
+    // 1. open
+    int fd = open(argv[1], O_RDONLY);
+
+    // 2. lseek, get the return value 
+    int ret = lseek(fd, 0, SEEK_END);
+    printf(&quot;File size is %d\n&quot;, ret);
+
+    // 3. close
+    close(fd);
+    return 0;
+}
+</code></pre></div>
+
+<p>四、案例：创建文件并拓展文件</p>
+<div class="highlight"><pre><span></span><code>#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/
+</code></pre></div>
+
+<h2 id="_54">阻塞的概念<a class="headerlink" href="#_54" title="Permanent link">&para;</a></h2>
+<p>一、概念：
+- 函数在读取设备或者读取管道，或者读网络的时候，会产生阻塞
+- 输入输出设备对应：<code>/dev/tty</code></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#incldue &lt;fcntl.h&gt;</span>
+<span class="cp">#incldue &lt;string.h&gt;</span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="cp"># O_NONBLOCK 设置非堵塞状态</span>
+    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/tty&quot;</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="o">|</span><span class="n">O_NONBLOCK</span><span class="p">);</span>
+
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">perror</span><span class="p">(</span><span class="s">&quot;read error;&quot;</span><span class="p">)</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;ret is %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;buf is %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">buf</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;haha</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="fcntl">fcntl 函数设置非阻塞<a class="headerlink" href="#fcntl" title="Permanent link">&para;</a></h2>
+<p>一、函数原型：manipulate file descriptor
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">fcntl</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="p">...</span> <span class="cm">/* arg */</span> <span class="p">);</span>
+</code></pre></div></p>
+<p>二、参数
+- fd : 文件描述符
+- cmd: 
+    - F_GETFD(void)
+    - F_SETFD(int): O_APPEND, O_ASYNC, O_DIRECT, O_NOATIME, and O_NONBLOCK flags</p>
+<p>三、实现read()非阻塞功能
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#incldue &lt;fcntl.h&gt;</span>
+<span class="cp">#incldue &lt;string.h&gt;</span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="cp"># O_NONBLOCK 设置非堵塞状态</span>
+    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;/dev/tty&quot;</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_GETFL</span><span class="p">);</span>
+    <span class="n">flags</span> <span class="o">|=</span> <span class="n">O_NONBLOCK</span><span class="p">;</span>
+    <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_SETFL</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
+
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+
+
+        <span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">perror</span><span class="p">(</span><span class="s">&quot;read error;&quot;</span><span class="p">)</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;ret is %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;buf is %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">buf</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;haha</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>四、作业：</p>
+<ol>
+<li>将静态库和动态库的制作写成makefile, wildcard通配时，也可以处理路径</li>
+<li>在一个目录创建两个C代码文件：hello.c world.c, 分别输出hello 和world, 要求编写makefile, 自动生成hello和world可执行文件</li>
+<li>实现mycp功能，拷贝一个文件（够大的文件,mp3文件）</li>
+</ol>
+<h2 id="_55">虚拟地址空间<a class="headerlink" href="#_55" title="Permanent link">&para;</a></h2>
+<h2 id="stat-man-2-stat">stat() : man 2 stat<a class="headerlink" href="#stat-man-2-stat" title="Permanent link">&para;</a></h2>
+<p>一、函数原型：
+<div class="highlight"><pre><span></span><code>#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;unistd.h&gt;
+
+int stat(const char *pathname, struct stat *buf);
+
+// 接头体参数
+struct stat{
+    dev_t       st_dev;
+    ino_t       st_ino;
+    mode_t      st_mode;
+    nlink_t     st_nlink;
+    uid_t       st_uid;
+    gid_t       st_gid;
+    dev_t       st_rdev;
+    off_t       st_size;
+    blksize_t   st_blksize;
+    blkcnt_t    st_blocks;
+
+    struct timespec st_atim;
+    struct timespec st_mtim;
+    struct timespec st_ctim;
+}
+
+#define st_atime st_atim.tv_sec
+#define st_mtime st_mtim.tv_sec
+#define st_ctime st_ctim.tv_sev
+
+struct timespec {
+    __kernel_time_t tv_sec; //当前时间到1970.1.1.00:00:00的时间
+    long tv_nsec; //纳秒
+};
+</code></pre></div></p>
+<p>二、参数
+- pathname      文件名
+- buf           传出参数：定义一个结构体，传入其引用即可。
+    - st_dev    设备ID
+    - st_ino    索引节点编号
+    - st_mode   文件类型权限：八进制
+    - st_nlink  硬链接数
+    - st_uid    用户ID
+    - st_gid    组ID
+    - st_rdev   特殊文件中的设备ID 
+    - st_size   总尺寸
+    - st_blksize块大小
+    - st_blocks 块个数
+    - st_atim <br />
+    - st_mtim
+    - st_ctim
+- 返回值：
+- 成功：返回0
+- 失败：返回-1， 设置errno</p>
+<p>st_mode:</p>
+<ol>
+<li>掩码处理：</li>
+<li>S_IFMT        0170000     bit mask for the file type bit field</li>
+<li>S_IFSOCK      0140000     socket</li>
+<li>S_IFLINK      0120000     symbolic link</li>
+<li>S_IFREG       0100000     regular file</li>
+<li>S_IFBLK       0060000     block device(设备文件)</li>
+<li>S_IFDIR       0040000     directory</li>
+<li>S_IFCHR       0020000     character device(字符设备)</li>
+<li>S_IFIFO       0010000     FIFO(管道)</li>
+</ol>
+<blockquote>
+<p>0170000
+- 0 : 八进制
+- 17：</p>
+</blockquote>
+<ol>
+<li>宏处理：</li>
+<li>S_ISREG</li>
+<li>S_ISDIR</li>
+<li>S_ISCHR</li>
+<li>S_ISBLK</li>
+<li>S_ISFIFO</li>
+<li>S_ISLINK</li>
+<li>S_ISSOCK </li>
+</ol>
+<p><img alt="b97c9a28fd6b96351a0c3e021624245e.png" src=":/64572fdb2f2c49b580a40a46f83882f4" /></p>
+<blockquote>
+<p>内容查找：
+grep -rn "struct timespec {" /usr/</p>
+</blockquote>
+<h3 id="readlink">readlink<a class="headerlink" href="#readlink" title="Permanent link">&para;</a></h3>
+<p>一、函数原型
+<div class="highlight"><pre><span></span><code>#include &lt;unistd.h&gt;
+
+z
+</code></pre></div></p>
+<h2 id="_56">二、参数<a class="headerlink" href="#_56" title="Permanent link">&para;</a></h2>
+<p>三、</p>
+<h2 id="_57">目录相关函数<a class="headerlink" href="#_57" title="Permanent link">&para;</a></h2>
+<h3 id="getcwd">getcwd<a class="headerlink" href="#getcwd" title="Permanent link">&para;</a></h3>
+<p>一、函数原型
+<div class="highlight"><pre><span></span><code>#include &lt;unistd.h&gt;
+</code></pre></div></p>
+<p>二、参数
+- buf : 传出参数</p>
+<h3 id="chdir">chdir :<a class="headerlink" href="#chdir" title="Permanent link">&para;</a></h3>
+<p>一、函数原型
+<div class="highlight"><pre><span></span><code>#include &lt;unistd.h&gt;
+</code></pre></div></p>
+<p>二、参数
+- path : </p>
+<p>三、实例</p>
+<div class="highlight"><pre><span></span><code>#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+
+int main()
+{
+    // 切换工作目录
+    chdir(&quot;bbb&quot;);
+
+    int fd = open(&quot;temp&quot;, O_WRONLY|O_CREAT, 0666);
+    write(fd, &quot;dcociyiyou&quot;, 10);
+
+    close(fd);
+    // 显示当前工作目录
+    char buf[256];
+    getcwd(buf, sizeof(buf));
+
+    printf(&quot;buf is [%s]\n&quot;, buf);
+    return 0;
+}
+</code></pre></div>
+
+<h3 id="mkdir-man-2-mkdir">mkdir: man 2 mkdir<a class="headerlink" href="#mkdir-man-2-mkdir" title="Permanent link">&para;</a></h3>
+<p>一、函数原型: create a directory
+<div class="highlight"><pre><span></span><code>#include &lt;sys/stat.h&gt;
+#include &lt;sys/types.h&gt;
+
+int mkdir(const char *pathname, mode_t mode);
+</code></pre></div></p>
+<p>二、参数
+- pathname : 路径
+- mode(mode &amp;&amp; ~umask &amp;&amp; 0777)
+    - 注意权限：如果目录没有可执行权限，不可进入</p>
+<p>三、实例
+<div class="highlight"><pre><span></span><code>#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+
+
+int main(int argc, char *argv[])
+{
+    if(argc != 2)
+    {
+        printf(&quot;./a.out dirname\n&quot;);
+        return -1;
+    }
+
+    # 注意此处所给权限
+    mkdir(argv[1], 0777);
+
+    return 0;
+}
+</code></pre></div></p>
+<h3 id="rmdir-man-2-rmdir">rmdir: man 2 rmdir<a class="headerlink" href="#rmdir-man-2-rmdir" title="Permanent link">&para;</a></h3>
+<p>一、函数原型: delete a directory, which must be empty.
+<div class="highlight"><pre><span></span><code>#include &lt;unistd.h&gt;
+
+int rmdir(const char *pathname);
+</code></pre></div></p>
+<p>二、参数
+- pathname : 
+- 返回值：
+    - 成功，返回0
+    - 失败，返回-1</p>
+<p>三、应用
+&emsp;&emsp;统计一下指定目录下普通文件的个数，要求子目录递归统计。</p>
+<p>bash shell:
+<div class="highlight"><pre><span></span><code>find ./ -type f | wc -l
+</code></pre></div>
+Program
+<div class="highlight"><pre><span></span><code>#include &lt;unistd.h&gt;
+#
+
+int main()
+{
+
+}
+</code></pre></div></p>
+<h3 id="opendir-man-2-opendir">opendir: man 2 opendir<a class="headerlink" href="#opendir-man-2-opendir" title="Permanent link">&para;</a></h3>
+<p>一、函数原型
+<div class="highlight"><pre><span></span><code>#include &lt;sys/types.h&gt;
+#include &lt;dirent.h&gt;
+
+DIR *opendir(const char *name);
+DIR *fdopendir(int fd);
+</code></pre></div></p>
+<p>二、参数
+- name: 打开的目录
+- 返回值：
+    - 返回DIR* 的指针，指向目录项的信息</p>
+<p>三、应用
+<div class="highlight"><pre><span></span><code>
+</code></pre></div></p>
+<h3 id="readdir-man-readdir">readdir: man readdir<a class="headerlink" href="#readdir-man-readdir" title="Permanent link">&para;</a></h3>
+<p>一、函数原型
+<div class="highlight"><pre><span></span><code>#include &lt;dirent.h&gt;
+
+struct dirent *readdir(DIR *dirp);
+
+int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result);
+</code></pre></div></p>
+<p>二、参数
+- dirp : 传入参数，opendir 返回的指针
+- 返回值
+    - 读到目录项的内容
+    - NULL 代表读到末尾或者错误</p>
+<p>三、应用
+<div class="highlight"><pre><span></span><code>
+</code></pre></div></p>
+<h3 id="closedir-man-closedir">closedir: man closedir<a class="headerlink" href="#closedir-man-closedir" title="Permanent link">&para;</a></h3>
+<p>一、函数原型
+<div class="highlight"><pre><span></span><code>#include &lt;unistd.h&gt;
+</code></pre></div></p>
+<p>二、参数
+- dirp : opendir</p>
+<p>三、应用
+<div class="highlight"><pre><span></span><code>
+</code></pre></div></p>
+<h3 id="error">error 输出函数<a class="headerlink" href="#error" title="Permanent link">&para;</a></h3>
+<p>一、函数原型
+<div class="highlight"><pre><span></span><code>#include &lt;string.h&gt;
+
+char *strerror(int errnum);
+</code></pre></div></p>
+<p>二、参数
+- errnum : 错误代码
+- 返回值：
+- </p>
+<h3 id="dup2">dup2 :重定向<a class="headerlink" href="#dup2" title="Permanent link">&para;</a></h3>
+<p>一、函数原型
+功能：关闭 Newfd 对应的文件描述符，将newfd重新指向为oldfd对应的文件。
+<div class="highlight"><pre><span></span><code>#include &lt;unistd.h&gt;
+
+int dup(int oldfd);
+int dup2(int oldfd, int newfd);
+
+#define _GNU_SOURCE
+#include &lt;fcntl.h&gt;
+#incldue &lt;unistd.h&gt;
+
+int dup3(int oldfd, int newfd, int flags);
+</code></pre></div></p>
+<p>二、参数
+- oldfd: 旧文件描述符
+- newfd: 新文件描述符
+- 返回值：
+    - 成功：新的文件描述符
+    - 失败：-1, 并设置error</p>
+<h3 id="dup">dup: 复制文件描述符<a class="headerlink" href="#dup" title="Permanent link">&para;</a></h3>
+<p>一、函数原型: 
+功能：新复制一个文件描述符指向oldfd对应的文件中。
+<div class="highlight"><pre><span></span><code>#include &lt;unistd.h&gt;
+
+int dup(int oldfd);
+</code></pre></div></p>
+<p>二、参数
+- oldfd: 旧文件描述符
+- 返回值：
+    - 成功：新的文件描述符
+    - 失败：-1, 并设置error</p>
+<p>三、应用
+实现突发奇想的功能，在代码中执行两次 <code>print("Hello world\n");</code>，一次输出到<code>hello</code>文件中，后一次输出到屏幕上。
+<div class="highlight"><pre><span></span><code>#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+
+
+int main()
+{
+
+
+
+
+    return 0;
+}
+</code></pre></div></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../" title="Overview" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

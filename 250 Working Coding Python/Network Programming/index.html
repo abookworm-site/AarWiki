@@ -1,0 +1,1621 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding%20Python/Network%20Programming/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>网络编程 - abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#network-programming" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              网络编程
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Database%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Database%20System/MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Database%20System/Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Database%20System/Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Database%20System/MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding/Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        网络编程
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="网络编程" class="md-nav__link md-nav__link--active">
+      网络编程
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、网络通讯
+  </a>
+  
+    <nav class="md-nav" aria-label="一、网络通讯">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    网络通讯概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip" class="md-nav__link">
+    IP地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port" class="md-nav__link">
+    端口Port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#socket" class="md-nav__link">
+    socket
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#udp" class="md-nav__link">
+    二、UDP网络程序
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tcp" class="md-nav__link">
+    三、TCP网络程序
+  </a>
+  
+    <nav class="md-nav" aria-label="三、TCP网络程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcp_1" class="md-nav__link">
+    TCP客户端
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcp_2" class="md-nav__link">
+    TCP服务器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcp_3" class="md-nav__link">
+    TCP 注意点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    三次握手，四次挥手
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcp_4" class="md-nav__link">
+    TCP 长断连接
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    四、网络抓包
+  </a>
+  
+    <nav class="md-nav" aria-label="四、网络抓包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wireshark" class="md-nav__link">
+    wireshark
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tcpip" class="md-nav__link">
+    五、TCP/IP协议
+  </a>
+  
+    <nav class="md-nav" aria-label="五、TCP/IP协议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcpip_1" class="md-nav__link">
+    TCP/IP简介
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    六、网络通讯过程
+  </a>
+  
+    <nav class="md-nav" aria-label="六、网络通讯过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    通讯过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#net" class="md-nav__link">
+    网络地址转换器NET
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    七、Http 协议
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    八、Web并发服务器
+  </a>
+  
+    <nav class="md-nav" aria-label="八、Web并发服务器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#epoll" class="md-nav__link">
+    Epoll原理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../260%20Working%20Operating%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、网络通讯
+  </a>
+  
+    <nav class="md-nav" aria-label="一、网络通讯">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    网络通讯概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip" class="md-nav__link">
+    IP地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port" class="md-nav__link">
+    端口Port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#socket" class="md-nav__link">
+    socket
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#udp" class="md-nav__link">
+    二、UDP网络程序
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tcp" class="md-nav__link">
+    三、TCP网络程序
+  </a>
+  
+    <nav class="md-nav" aria-label="三、TCP网络程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcp_1" class="md-nav__link">
+    TCP客户端
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcp_2" class="md-nav__link">
+    TCP服务器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcp_3" class="md-nav__link">
+    TCP 注意点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    三次握手，四次挥手
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcp_4" class="md-nav__link">
+    TCP 长断连接
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    四、网络抓包
+  </a>
+  
+    <nav class="md-nav" aria-label="四、网络抓包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wireshark" class="md-nav__link">
+    wireshark
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tcpip" class="md-nav__link">
+    五、TCP/IP协议
+  </a>
+  
+    <nav class="md-nav" aria-label="五、TCP/IP协议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcpip_1" class="md-nav__link">
+    TCP/IP简介
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    六、网络通讯过程
+  </a>
+  
+    <nav class="md-nav" aria-label="六、网络通讯过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    通讯过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#net" class="md-nav__link">
+    网络地址转换器NET
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    七、Http 协议
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    八、Web并发服务器
+  </a>
+  
+    <nav class="md-nav" aria-label="八、Web并发服务器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#epoll" class="md-nav__link">
+    Epoll原理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/250 Working Coding Python/Network Programming/index.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="network-programming">Network Programming 网络编程<a class="headerlink" href="#network-programming" title="Permanent link">&para;</a></h1>
+<h2 id="_1">一、网络通讯<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">网络通讯概述<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>多方链接，数据传递</li>
+</ul>
+<h3 id="ip">IP地址<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h3>
+<p>用途</p>
+<ul>
+<li>唯一标记网络中一个终端</li>
+</ul>
+<p>组成</p>
+<ul>
+<li>网络地址</li>
+<li>主机地址</li>
+</ul>
+<p>分类</p>
+<ul>
+<li>
+<p>IPV4</p>
+<ul>
+<li>
+<p>A类</p>
+<ul>
+<li>1Byte网络地址 + 3Byte主机地址， 最高位为0</li>
+<li>1.0.0.1-126.255.255.254</li>
+</ul>
+</li>
+<li>
+<p>B类</p>
+<ul>
+<li>2Byte网络地址 + 2Byte主机地址， 最高位为10</li>
+<li>128.1.0.1-191.255.255.254</li>
+</ul>
+</li>
+<li>
+<p>C类</p>
+<ul>
+<li>3Byte网络地址 + 1Byte主机地址， 最高位为110</li>
+<li>192.0.1.1-223.255.255.254</li>
+</ul>
+</li>
+<li>
+<p>D类</p>
+<ul>
+<li>最高位为1110</li>
+<li>保留地址，不制定特定网络，多用于多点广播</li>
+<li>224.0.0.1-239.255.255.254</li>
+</ul>
+</li>
+<li>
+<p>E类</p>
+<ul>
+<li>以“1111”开始，为将来使用保留</li>
+<li>仅用于实验和开发</li>
+</ul>
+</li>
+<li>
+<p>私有IP</p>
+<ul>
+<li>IP地址仅用于局域网使用，不可在公网中使用</li>
+<li>10.0.0.0～10.255.255.255</li>
+<li>172.16.0.0～172.31.255.255</li>
+<li>192.168.0.0～192.168.255.255</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>IPV6</p>
+</li>
+<li>
+<p>其他</p>
+<ul>
+<li>IP地址127.0.0.1 ~ 127.255.255.255 用于回路测试</li>
+<li>127.0.0.1 代表本地IP地址，那么，<code>http://127.0.0.1</code>就可测试本机配置的Web服务器</li>
+</ul>
+</li>
+</ul>
+<h3 id="port">端口Port<a class="headerlink" href="#port" title="Permanent link">&para;</a></h3>
+<ul>
+<li>应用门户</li>
+<li>
+<p>端口号</p>
+<ul>
+<li>0 - 65535</li>
+</ul>
+</li>
+<li>
+<p>分配</p>
+<ul>
+<li>
+<p>知名端口</p>
+<ul>
+<li>0到1023</li>
+<li>80端口分配给HTTP服务</li>
+<li>21端口分配给FTP服务</li>
+</ul>
+</li>
+<li>
+<p>动态端口</p>
+<ul>
+<li>1024到65535</li>
+<li>主机分配可用端口，而后随程序结束而释放</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>查看</p>
+<div class="highlight"><pre><span></span><code>netstat -an
+</code></pre></div>
+
+<h3 id="socket">socket<a class="headerlink" href="#socket" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>不同电脑的进程间通讯</p>
+<ul>
+<li>PID?</li>
+<li>IP地址 + 端口</li>
+</ul>
+</li>
+<li>
+<p>基本概念</p>
+<ul>
+<li>进程间通讯的一种方式</li>
+</ul>
+</li>
+<li>
+<p>实践</p>
+<ul>
+<li>
+<p>创建套接字</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">AddressFamily</span><span class="p">,</span> <span class="n">Type</span><span class="p">)</span>
+
+<span class="n">sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+
+<ul>
+<li>Address Family：可以选择 <ul>
+<li>AF_INET（用于 Internet 进程间通信，实际工作**常用**）</li>
+<li>AF_UNIX（用于同一台机器进程间通信）</li>
+</ul>
+</li>
+<li>Type：套接字类型<ul>
+<li>SOCK_STREAM（流式套接字，主要用于 TCP 协议）</li>
+<li>SOCK_DGRAM（数据报套接字，主要用于 UDP 协议）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>使用流程</p>
+<ul>
+<li>创建套接字</li>
+<li>使用套接字收/发数据</li>
+<li>关闭套接字</li>
+</ul>
+</li>
+</ul>
+<h2 id="udp">二、UDP网络程序<a class="headerlink" href="#udp" title="Permanent link">&para;</a></h2>
+<ul>
+<li>具体步骤</li>
+<li>端口绑定问题解决</li>
+</ul>
+<h2 id="tcp">三、TCP网络程序<a class="headerlink" href="#tcp" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>基本概念</p>
+<ul>
+<li>传输控制协议Transmission Control Protocol</li>
+<li>面向连接的、可靠的、基于字节流的传输层通信协议</li>
+</ul>
+</li>
+<li>
+<p>特点</p>
+<ul>
+<li>面向连接</li>
+<li>
+<p>可靠传输</p>
+<ul>
+<li>
+<p>发送应答机制</p>
+<ul>
+<li>ACK</li>
+</ul>
+</li>
+<li>
+<p>超时重传</p>
+<ul>
+<li>RTT</li>
+</ul>
+</li>
+<li>
+<p>错误校验</p>
+</li>
+<li>流量控制和阻塞管理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>通讯模型</p>
+<ul>
+<li>打电话</li>
+</ul>
+</li>
+</ul>
+<h3 id="tcp_1">TCP客户端<a class="headerlink" href="#tcp_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li></li>
+</ul>
+<h3 id="tcp_2">TCP服务器<a class="headerlink" href="#tcp_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>基本流程</p>
+<ul>
+<li>socket创建一个套接字</li>
+<li>bind绑定ip和port</li>
+<li>listen使套接字变为可以被动链接</li>
+<li>accept等待客户端的链接</li>
+<li>recv/send接收发送数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="tcp_3">TCP 注意点<a class="headerlink" href="#tcp_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>服务器端口绑定</li>
+</ul>
+<h3 id="_3">三次握手，四次挥手<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li>三次握手，四次挥手都是在tcp协议中发生的，这种协议是全双工通信协议，即允许数据同时在两个方向上同时传输，同时进行收发操作。</li>
+<li>而三次握手，四次挥手两者都是客户端首先发送相关命令信息。这与端口的绑定有关。</li>
+</ol>
+<p>三次握手：是为了客户端与服务端都准备好的连接工作</p>
+<ol>
+<li>客户端在连接服务器时进行堵塞，发送syn number标志。</li>
+<li>而后服务器端接受到信息进行应答， 准备好资源。发送 ack number + 1;同时也向客户端发送syn num的信息</li>
+<li>而后客户端接收到信息，将Num + 1后回送给服务器端</li>
+</ol>
+<p>四次挥手：是为了客户端与服务端都进行资源的释放操作</p>
+<ol>
+<li>连接断开的时候，客户端先发送连接套接字关闭的命令，</li>
+<li>而后服务器端在接收到关闭命令之后，发送关闭接受命令回送信息。</li>
+<li>再然后，会调用子套接字的关闭命令，发送给客户端，进行关闭发送命令。</li>
+<li>客户端接收到服务器的关闭命令后，进行延迟2msl时间延迟操作，同时回送已接收到关闭命令的信息。在这个过程中，如果服务器端没有接收到回送信息，则会重复再发送子套接字关闭发送的命令。</li>
+</ol>
+<p>可以设置服务器的套接字可以重复利用之前的资源。</p>
+<div class="highlight"><pre><span></span><code><span class="n">server_socket</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="tcp_4">TCP 长断连接<a class="headerlink" href="#tcp_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>现在的网站连接都是利用长连接，以减少服务器的资源。短连接使用需要耗费大量的资源</li>
+</ul>
+<h2 id="_4">四、网络抓包<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="wireshark">wireshark<a class="headerlink" href="#wireshark" title="Permanent link">&para;</a></h3>
+<h2 id="tcpip">五、TCP/IP协议<a class="headerlink" href="#tcpip" title="Permanent link">&para;</a></h2>
+<h3 id="tcpip_1">TCP/IP简介<a class="headerlink" href="#tcpip_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>协议</p>
+</li>
+<li>
+<p>网络协议</p>
+</li>
+<li>
+<p>TCP/IP协议簇</p>
+</li>
+<li>
+<p>常用网络协议</p>
+</li>
+</ul>
+<h2 id="_5">六、网络通讯过程<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>两台电脑通讯</p>
+<ul>
+<li>IP地址处于同一网段</li>
+</ul>
+</li>
+<li>
+<p>集线器组成网络</p>
+<ul>
+<li>
+<p>缺点</p>
+<ul>
+<li>广播发送，容易网络拥堵</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>交换机组成网络</p>
+<ul>
+<li>即可广播，也可单播</li>
+</ul>
+</li>
+<li>
+<p>路由器连接多网络</p>
+</li>
+</ul>
+<h3 id="_6">通讯过程<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>首先去系统缓存文件中寻找是否有域名对应的ip地址，如果没有则需要去访问DNS服务器获取该域名对应的IP地址。</p>
+<ol>
+<li>电脑去系统缓存文件中查看是否有默认网关（路由器）的Mac地址，arp -a</li>
+<li>如果有，直接使用。如果没有则使用arp协议广播获取路由器的Mac地址</li>
+<li>依据DNS服务器的IP地址，发送请求解析对应的域名</li>
+<li>而后，通过默认网关以及互联网的层层转发到达DNS域名服务器，获得请求并应答回递。</li>
+</ol>
+</li>
+<li>
+<p>知道了域名服务器对应的IP地址，之后则向域名对应的IP地址发送三次握手连接请求。连接成功。</p>
+</li>
+<li>而后服务器进行HTTP协议数据应答。</li>
+<li>之后便可以通过客户端进行相应的HTTP的请求数据发送以及等待服务器的相关应答操作。</li>
+<li>访问结束后，客户端与服务器进行TCP的四次挥手。双方进行相关操作资源的释放。</li>
+</ol>
+<p>当然，期间还有路由器之间的发射协议</p>
+<h3 id="net">网络地址转换器NET<a class="headerlink" href="#net" title="Permanent link">&para;</a></h3>
+<ul>
+<li></li>
+</ul>
+<h2 id="http">七、Http 协议<a class="headerlink" href="#http" title="Permanent link">&para;</a></h2>
+<h2 id="web">八、Web并发服务器<a class="headerlink" href="#web" title="Permanent link">&para;</a></h2>
+<h3 id="epoll">Epoll原理<a class="headerlink" href="#epoll" title="Permanent link">&para;</a></h3>
+<p>当进程单线程实现高并发：
+- kernel： 操作系统拥有独有的核心空间</p>
+<p>单进程单线程瓶颈：
+- 将服务器内部的套接字进行复制FD(文件描述符)后，让操作系统检查FD内部是否有新消息到达</p>
+<p>共享的内存空间中进行检查：
+- 减少复制的内存时间
+- 以事件通知的方式进行检查，而非轮询检查。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">epoll</span>
+
+<span class="c1"># 1. 创建epoll对象</span>
+<span class="n">epoll</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">epoll</span><span class="p">()</span>
+
+<span class="c1"># 将监听套接字对应的ID注册到epoll中</span>
+<span class="n">epoll</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">server_socket</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">select</span><span class="o">.</span><span class="n">EPOLLIN</span><span class="p">)</span>
+
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+
+    <span class="c1"># 默认堵塞，直到OS检测到数据来，通过事件通知的方式进行告诉这个程序，此时才会解堵塞。</span>
+    <span class="c1"># return: [(fd, event), (fd2, event2), (fd3, event3)]</span>
+    <span class="n">fd_event_list</span> <span class="o">=</span> <span class="n">epoll</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+
+    <span class="c1"># [(fd, event), (套接字对应的文件描述符，这个文件描述符到底是什么事件，例如可以调用recv接收等)]</span>
+    <span class="k">for</span> <span class="n">fd</span><span class="p">,</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">fd_event_list</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">fd</span> <span class="o">==</span> <span class="n">server_socket</span><span class="o">.</span><span class="n">fileno</span><span class="p">():</span>
+            <span class="c1"># 判断新客户端连接到来</span>
+
+            <span class="n">client_socket</span><span class="p">,</span> <span class="n">client_addr</span> <span class="o">=</span> <span class="n">server_socket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+
+            <span class="n">epoll</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">client_socket</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">select</span><span class="o">.</span><span class="n">EPOLLIN</span><span class="p">)</span>
+
+            <span class="c1"># 添加字典，从文件描述符获取到套接字</span>
+            <span class="n">fd_event_dict</span><span class="p">[</span><span class="n">client_socket</span><span class="o">.</span><span class="n">fileno</span><span class="p">()]</span> <span class="o">=</span> <span class="n">client_socket</span>
+
+        <span class="k">elif</span> <span class="n">event</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">EPOLLIN</span><span class="p">:</span>
+            <span class="c1"># 判断已经连接的客户端有数据发送过来</span>
+            <span class="n">recv_data</span> <span class="o">=</span>  <span class="n">fd_event_dict</span><span class="p">[</span><span class="n">fd</span><span class="p">]</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">recv_data</span><span class="p">:</span>
+                <span class="c1"># 有数据消息</span>
+                <span class="n">service_client</span><span class="p">(</span><span class="n">fd_event_dict</span><span class="p">[</span><span class="n">fd</span><span class="p">],</span> <span class="n">recv_data</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># 没有消息，客户端主动关闭</span>
+                <span class="n">fd_event_dict</span><span class="p">[</span><span class="n">fd</span><span class="p">]</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">epoll</span><span class="o">.</span><span class="n">unresigster</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+                <span class="k">del</span> <span class="n">fd_event_dict</span><span class="p">[</span><span class="n">fd</span><span class="p">]</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Python%20Basics/" title="语言基础" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                语言基础
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Database%20Interaction/" title="数据库交互" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                数据库交互
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

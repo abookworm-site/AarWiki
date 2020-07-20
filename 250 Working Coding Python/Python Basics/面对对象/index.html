@@ -1,0 +1,1958 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding%20Python/Python%20Basics/%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Python Basics - 面对对象 - abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-basics-" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Python Basics - 面对对象
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../260%20Working%20Operating%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基本概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    类和对象
+  </a>
+  
+    <nav class="md-nav" aria-label="类和对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    对象
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    类的设计
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    基础语法
+  </a>
+  
+    <nav class="md-nav" aria-label="基础语法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dir" class="md-nav__link">
+    dir()内置函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    定义简单类(仅方法)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self" class="md-nav__link">
+    方法中的 self参数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    初始化方法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    内置方法和属性
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    封装案例
+  </a>
+  
+    <nav class="md-nav" aria-label="封装案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    身份运算符
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    私有属性和私有方法
+  </a>
+  
+    <nav class="md-nav" aria-label="私有属性和私有方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    应用场景
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    定义方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    伪私有
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    继承
+  </a>
+  
+    <nav class="md-nav" aria-label="继承">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    单继承
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    多继承
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    多态
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    类属性和类方法
+  </a>
+  
+    <nav class="md-nav" aria-label="类属性和类方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    类结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    类属性和实例属性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    属性获取机制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    类方法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    静态方法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    单例
+  </a>
+  
+    <nav class="md-nav" aria-label="单例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    单例设计模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__new__" class="md-nav__link">
+    __new__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    实现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    异常
+  </a>
+  
+    <nav class="md-nav" aria-label="异常">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    捕获异常
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    异常传递
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raise" class="md-nav__link">
+    抛出异常（raise）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    模块和包
+  </a>
+  
+    <nav class="md-nav" aria-label="模块和包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    模块
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package" class="md-nav__link">
+    包(Package)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    发布模块
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    文件
+  </a>
+  
+    <nav class="md-nav" aria-label="文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    基本操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    文件/目录的管理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    文件文本编码格式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eval" class="md-nav__link">
+    eval函数
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/250 Working Coding Python/Python Basics/面对对象/index.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="python-basics-">Python Basics - 面对对象<a class="headerlink" href="#python-basics-" title="Permanent link">&para;</a></h1>
+<h2 id="_1">基本概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>OOP</p>
+<ul>
+<li>Object Oriented Programming</li>
+</ul>
+<p>面对过程
+- 怎么做</p>
+<p>面对对象
+- 谁来做？</p>
+<h2 id="_2">类和对象<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">类<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>特征属性</li>
+<li>行为方法</li>
+</ul>
+<h3 id="_4">对象<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>由类创建出来的具体存在<ul>
+<li>属性</li>
+<li>方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">类的设计<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>类名</p>
+<ul>
+<li>大驼峰命名法</li>
+<li>整个业务流程的名词提炼</li>
+</ul>
+</li>
+<li>
+<p>属性和方法的确定</p>
+</li>
+</ul>
+<h2 id="_6">基础语法<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="dir"><code>dir()</code>内置函数<a class="headerlink" href="#dir" title="Permanent link">&para;</a></h3>
+<ul>
+<li>dir(class_name)</li>
+<li><code>__new__()</code> : 创建对象时，会被 自动 调用</li>
+<li><code>__init__()</code>: 对象被初始化时，会被 自动 调用</li>
+<li><code>__del__()</code>: 对象被从内存中销毁前，会被 自动 调用</li>
+<li><code>__str__()</code>: 返回对象的描述信息，print 函数输出使用</li>
+</ul>
+<h3 id="_7">定义简单类(仅方法)<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>引用</p>
+<ul>
+<li>类名记录对象在内存中的地址</li>
+</ul>
+</li>
+</ul>
+<h3 id="self">方法中的 <code>self</code>参数<a class="headerlink" href="#self" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>直接添加属性：class.name = xxxx</p>
+<ul>
+<li>不推荐</li>
+</ul>
+</li>
+<li>
+<p>使用<code>self</code>在方法内部添加：self.name</p>
+<ul>
+<li>由那个对象调用的方法，方法内的<code>self</code>就是那个对象的引用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">初始化方法<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>设置对象属性，并设置初始值</li>
+</ul>
+<h3 id="_9">内置方法和属性<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>__del__()</code></li>
+<li>
+<p>对象从内存中销毁前，自动调用</p>
+<ul>
+<li>对象的生命周期</li>
+<li>
+<p>del name</p>
+</li>
+<li>
+<p>del 关键字删除一个对象</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>__str__()</code></p>
+</li>
+<li>返回对象的描述信息，print 函数输出使用</li>
+</ul>
+<h2 id="_10">封装案例<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="_11">身份运算符<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li>比较两个对象内存地址是否一致，是否是对同一个对象的引用</li>
+<li><code>is</code></li>
+<li>
+<p>两标识符是否引用同一对象</p>
+</li>
+<li>
+<p><code>is not</code></p>
+</li>
+<li>
+<p>两标识符是否引用不同对象</p>
+</li>
+<li>
+<p><code>is</code> vs <code>==</code></p>
+</li>
+<li><code>is</code> 判断引用对象（内存地址）<ul>
+<li><code>==</code> 判断引用变量的值</li>
+</ul>
+</li>
+</ul>
+<h2 id="_12">私有属性和私有方法<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="_13">应用场景<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li>对象某些属性或方法只希望在对象内部被使用，不希望在外部被访问到</li>
+</ul>
+<h3 id="_14">定义方式<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>__age</code></li>
+<li><code>def __secret(self):</code></li>
+</ul>
+<h3 id="_15">伪私有<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Python没有真正意义的私有</li>
+<li>
+<p>仅对名称做特殊处理</p>
+<ul>
+<li><code>_类名 =&gt; _类名__名称</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="_16">继承<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h3 id="_17">单继承<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>语法</p>
+<ul>
+<li>class 类名(父类名):</li>
+</ul>
+</li>
+<li>
+<p>专业术语</p>
+<ul>
+<li>子类，父类，派生类，基类，继承，派生</li>
+</ul>
+</li>
+<li>
+<p>继承传递性</p>
+</li>
+<li>
+<p>方法重写</p>
+<ul>
+<li>
+<p>覆盖父类方法</p>
+<ul>
+<li>子类定义和父类同名的方法</li>
+</ul>
+</li>
+<li>
+<p>对父类方法进行扩展</p>
+<ul>
+<li>重写父类方法</li>
+<li>需要时调用父类方法执行：super().父类方法</li>
+<li>编写子类特有的代码实现</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>父类的私有属性和私有方法</p>
+<ul>
+<li>子类对象不能直接访问</li>
+<li>可通过父类父类公有方法间接访问</li>
+</ul>
+</li>
+</ul>
+<h3 id="_18">多继承<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>内置属性 <strong>mro</strong> 查看方法搜索顺序</p>
+<ul>
+<li>method resolution order</li>
+<li>依次从左到右搜索</li>
+</ul>
+</li>
+<li>
+<p>新式类</p>
+<ul>
+<li><code>class Name(object)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="_19">多态<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<h2 id="_20">类属性和类方法<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<h3 id="_21">类结构<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>创建对象两步走</p>
+<ul>
+<li>内存中为对象分配空间</li>
+<li>调用初始化方法为对象初始化</li>
+</ul>
+</li>
+<li>
+<p>实例化对象</p>
+<ul>
+<li>实例属性</li>
+<li>实例方法</li>
+</ul>
+</li>
+<li>
+<p>每个对象都有各自独立的内存空间，保存各自属性</p>
+</li>
+<li>多个对象的方法在内存中只有一份，调用时需要把对象的引用传递到方法内部<code>(self)</code></li>
+<li>
+<p>类对象</p>
+<ul>
+<li>Python一切皆对象</li>
+<li>类对象在内存中只有一份，可创建诸多实例对象</li>
+<li>
+<p>类属性</p>
+<ul>
+<li>类名.类属性</li>
+</ul>
+</li>
+<li>
+<p>类方法</p>
+<ul>
+<li>类名.类方法(cls)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>调用区分</p>
+<ul>
+<li>
+<p>类名.属性</p>
+<ul>
+<li>访问类属性</li>
+</ul>
+</li>
+<li>
+<p>类名.方法(cls)</p>
+<ul>
+<li>访问类方法，务必传入 <code>cls</code></li>
+</ul>
+</li>
+<li>
+<p>类名()</p>
+<ul>
+<li>创建匿名实例对象：分配空间并初始化</li>
+</ul>
+</li>
+<li>
+<p>对象名.方法名(self)</p>
+<ul>
+<li>调用实力方法，务必传入<code>self</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_22">类属性和实例属性<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<ul>
+<li>类属性是类对象中定义的属性，记录类相关的特征</li>
+</ul>
+<h3 id="_23">属性获取机制<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<ul>
+<li>向上查找机制：自身类 -&gt; 类对象</li>
+<li>使用赋值语句 对象.类属性 = 值，会给对象添加一个属性，而不会影响类属性的值</li>
+</ul>
+<h3 id="_24">类方法<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<ul>
+<li>针对类对象定义的方法</li>
+<li>语法</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">类方法名</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div>
+
+<ul>
+<li>
+<p>方法内部访问</p>
+<ul>
+<li>cls.访问类的属性</li>
+<li>cls.调用其他类方法</li>
+</ul>
+</li>
+<li>
+<p>调用</p>
+<ul>
+<li>类名.调用类方法</li>
+<li>不需要传递cls参数</li>
+</ul>
+</li>
+</ul>
+<h3 id="_25">静态方法<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>定义</p>
+<ul>
+<li>既 不需要访问实例属性或调用实例方法</li>
+<li>也 不需要访问类属性或调用类方法</li>
+</ul>
+</li>
+<li>
+<p>语法</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">静态方法名</span><span class="p">():</span>
+  <span class="k">pass</span>
+</code></pre></div>
+
+<h2 id="_26">单例<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h2>
+<h3 id="_27">单例设计模式<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>设计模式</p>
+<ul>
+<li>前人工作的总结和提炼</li>
+</ul>
+</li>
+</ul>
+<h3 id="__new__"><code>__new__()</code><a class="headerlink" href="#__new__" title="Permanent link">&para;</a></h3>
+<ul>
+<li>class() 创建对象时，解释器首先会调用该方法为对象分配空间</li>
+<li>
+<p>object基类的内置静态方法</p>
+<ul>
+<li>在内存中为对象分配空间</li>
+<li>返回对象的引用</li>
+</ul>
+</li>
+<li>
+<p>解释器获取对象引用后，将引用作为第一个参数，传递给<code>__init__()</code></p>
+</li>
+</ul>
+<h3 id="_28">实现<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>定义类属性isinstance, 初始值为None</p>
+<ul>
+<li>记录单例对象的引用</li>
+</ul>
+</li>
+<li>
+<p>重写 <code>__new__()</code></p>
+<ul>
+<li><code>cls.isinstance is None</code></li>
+<li>
+<p>调用父类方法分配空间，并接收记录父类返回的引用</p>
+<ul>
+<li><code>cls.isinstance = super().__new__(cls)</code></li>
+</ul>
+</li>
+<li>
+<p>返回该对象的引用 <code>return cls.isinstance</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>增加需求：仅执行一次初始化</p>
+<ul>
+<li>
+<ol>
+<li>
+<p>定义类属性 init_flag, 初始为Fales</p>
+</li>
+<li>
+<p>标记是否执行过初始化动作</p>
+</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>
+<p>改写  <code>__init__()</code></p>
+</li>
+<li>
+<p><code>not cls.init_flag</code></p>
+</li>
+<li>
+<p>初始化</p>
+<ul>
+<li><code>cls.init_flag = True</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="_29">异常<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h2>
+<h3 id="_30">概念<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
+<ul>
+<li>解释器遇到错误，停止执行并提示错误信息的情况</li>
+<li>
+<p>抛出异常</p>
+<ul>
+<li>程序停止并提示错误信息的动作</li>
+</ul>
+</li>
+</ul>
+<h3 id="_31">捕获异常<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>通用捕获</p>
+<ul>
+<li><code>try ... except:...</code></li>
+</ul>
+</li>
+<li>
+<p>类型捕获</p>
+</li>
+<li>
+<p>未知错误捕获</p>
+<ul>
+<li><code>except Exception as result:</code></li>
+</ul>
+</li>
+<li>
+<p>完整语法</p>
+<ul>
+<li><code>python
+try:
+    # 尝试执行的代码
+    pass
+except 错误类型1:
+    # 针对错误类型1，对应的代码处理
+    pass
+except 错误类型2:
+    # 针对错误类型2，对应的代码处理
+    pass
+except (错误类型3, 错误类型4):
+    # 针对错误类型3 和 4，对应的代码处理
+    pass
+except Exception as result:
+    # 打印错误信息
+    print(result)
+else:
+    # 没有异常才会执行的代码
+    pass
+finally:
+    # 无论是否有异常，都会执行的代码
+    print("无论是否有异常，都会执行的代码")</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_32">异常传递<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>函数/方法异常</p>
+<ul>
+<li>传递给调用方</li>
+</ul>
+</li>
+<li>
+<p>截止到主程序，仍无异常处理</p>
+<ul>
+<li>程序终止</li>
+</ul>
+</li>
+</ul>
+<h3 id="raise">抛出异常（raise）<a class="headerlink" href="#raise" title="Permanent link">&para;</a></h3>
+<ul>
+<li>依据业务需求主动抛出异常</li>
+<li>
+<p>自定义异常</p>
+<ul>
+<li>应用Exception 异常类</li>
+<li>
+<ol>
+<li>创建Exception对象</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>使用raise关键字抛出异常</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="_33">模块和包<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h2>
+<h3 id="_34">模块<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>概念</p>
+<ul>
+<li>一文件即是一模块</li>
+<li>同是一个标识符</li>
+</ul>
+</li>
+<li>
+<p>导入方式</p>
+<ul>
+<li><code>import ...</code></li>
+<li><code>from .. import ...</code></li>
+</ul>
+</li>
+<li>
+<p>模块搜索顺序</p>
+<ul>
+<li>先当前目录，再系统目录</li>
+<li>给文件起名时，不要和系统模块文件重名</li>
+<li>模块内置属性__file__，可以查看模块完整路径</li>
+</ul>
+</li>
+<li>
+<p>原则：每个文件都应该可以被导入</p>
+<ul>
+<li><code>__name__</code></li>
+<li>被导入时，为模块名<ul>
+<li>当前执行程序，为<code>__main__</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="package">包(Package)<a class="headerlink" href="#package" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>概念</p>
+<ul>
+<li>包含多个模块的特殊目录</li>
+<li>具有特殊文件：<strong>init</strong>.py</li>
+<li>命名同变量名</li>
+</ul>
+</li>
+</ul>
+<h3 id="_35">发布模块<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
+<p>制作发布压缩包步骤</p>
+<ol>
+<li>创建 setup.py</li>
+</ol>
+<div class="highlight"><pre><span></span><code>from distutils.core import setup
+
+setup(name=&quot;hm_message&quot;,  # 包名
+      version=&quot;1.0&quot;,  # 版本
+      description=&quot;itheima&#39;s 发送和接收消息模块&quot;,  # 描述信息
+      long_description=&quot;完整的发送和接收消息模块&quot;,  # 完整描述信息
+      author=&quot;itheima&quot;,  # 作者
+      author_email=&quot;itheima@itheima.com&quot;,  # 作者邮箱
+      url=&quot;www.itheima.com&quot;,  # 主页
+      py_modules=[&quot;hm_message.send_message&quot;,
+                  &quot;hm_message.receive_message&quot;])
+</code></pre></div>
+
+<ul>
+<li>
+<p><a href="https://docs.python.org/2/distutils/apiref.html">https://docs.python.org/2/distutils/apiref.html</a></p>
+</li>
+<li>
+<p>构建模块</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>python3 setup.py build
+</code></pre></div>
+
+<ol>
+<li>生成发布压缩包</li>
+</ol>
+<div class="highlight"><pre><span></span><code>python3 setup.py md_name
+</code></pre></div>
+
+<p>安装模块</p>
+<div class="highlight"><pre><span></span><code>tar -zxvf module_name_1.0.tar.gz
+sudo python3 setup.py install
+</code></pre></div>
+
+<p>卸载模块</p>
+<ul>
+<li>将安装模块的目录删除即可
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /usr/local/lib/python3.6/dist-package/
+sudo rm -r module_name
+</code></pre></div></li>
+</ul>
+<p>pip 安装第三方模块</p>
+<h2 id="_36">文件<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h2>
+<h3 id="_37">概念<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>概念</p>
+<ul>
+<li>数据</li>
+</ul>
+</li>
+<li>
+<p>作用</p>
+<ul>
+<li>存储</li>
+</ul>
+</li>
+<li>
+<p>存储方式</p>
+<ul>
+<li>
+<p>文本文件</p>
+<ul>
+<li>本质还是二进制</li>
+</ul>
+</li>
+<li>
+<p>二进制文件</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_38">基本操作<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>固定三步</p>
+<ul>
+<li>打开文件</li>
+<li>读写文件</li>
+<li>关闭文件</li>
+</ul>
+</li>
+<li>
+<p>函数/方法</p>
+<ul>
+<li>
+<p>open()</p>
+<ul>
+<li>返回文件对象</li>
+</ul>
+</li>
+<li>
+<p>read()</p>
+<ul>
+<li>操作文件对象</li>
+</ul>
+</li>
+<li>
+<p>write()</p>
+<ul>
+<li>操作文件对象</li>
+</ul>
+</li>
+<li>
+<p>close()</p>
+<ul>
+<li>操作文件对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>读取文件read()</p>
+<ul>
+<li>一次性读入并返回所有内容</li>
+<li>结束后，文件指针移动到文件末尾</li>
+</ul>
+</li>
+<li>
+<p>打开文件open()</p>
+</li>
+<li>
+<p>默认以只读方式打开并返回文件对象</p>
+</li>
+<li>
+<p>格式</p>
+<div class="highlight"><pre><span></span><code>f = open(&quot;文件名&quot;, &quot;访问方式&quot;)
+</code></pre></div>
+
+</li>
+<li>
+<p>访问方式</p>
+<ul>
+<li>
+<p>r 以只读方式打开文件。</p>
+<ul>
+<li>文件的指针将会放在文件的开头，这是默认模式。</li>
+<li>如果文件不存在，抛出异常</li>
+</ul>
+</li>
+<li>
+<p>w 以只写方式打开文件。</p>
+<ul>
+<li>如果文件存在会被覆盖。</li>
+<li>如果文件不存在，创建新文件</li>
+</ul>
+</li>
+<li>
+<p>a 以追加方式打开文件。</p>
+<ul>
+<li>如果该文件已存在，文件指针将会放在文件的结尾。</li>
+<li>如果文件不存在，创建新文件进行写入</li>
+</ul>
+</li>
+<li>
+<p>r+ 以读写方式打开文件。</p>
+<ul>
+<li>文件的指针将会放在文件的开头。</li>
+<li>如果文件不存在，抛出异常</li>
+</ul>
+</li>
+<li>
+<p>w+ 以读写方式打开文件。</p>
+<ul>
+<li>文件存在会被覆盖。</li>
+<li>文件不存在，创建新文件</li>
+</ul>
+</li>
+<li>
+<p>a+ 以读写方式打开文件。</p>
+<ul>
+<li>如果该文件已存在，文件指针将会放在文件的结尾。</li>
+<li>如果文件不存在，创建新文件进行写入</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>按行读取文件内容</p>
+</li>
+<li>
+<p>readline()</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 打开文件</span>
+<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;README&quot;</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># 读取一行内容</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+
+    <span class="c1"># 判断是否读到内容</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="c1"># 每读取一行的末尾已经有了一个 `\n`</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 关闭文件</span>
+<span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+
+</li>
+</ul>
+<h3 id="_39">文件/目录的管理<a class="headerlink" href="#_39" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>文件操作</p>
+<ul>
+<li>rename 重命名文件  os.rename(源文件名, 目标文件名)</li>
+<li>remove 删除文件 os.remove(文件名)</li>
+</ul>
+</li>
+<li>
+<p>目录操作</p>
+<ul>
+<li>listdir   目录列表    os.listdir(目录名)</li>
+<li>02    mkdir   创建目录    os.mkdir(目录名)</li>
+<li>03    rmdir   删除目录    os.rmdir(目录名)</li>
+<li>04    getcwd  获取当前目录  os.getcwd()</li>
+<li>05    chdir   修改工作目录  os.chdir(目标目录)</li>
+<li>06    path.isdir  判断是否是文件 os.path.isdir(文件路径)</li>
+</ul>
+</li>
+</ul>
+<h3 id="_40">文件文本编码格式<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>ASCII</p>
+<ul>
+<li>256个</li>
+<li>0 - 127</li>
+</ul>
+</li>
+<li>
+<p>utf-8</p>
+</li>
+<li>Python2 使用中文</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># *-* coding:utf8 *-*</span>
+<span class="c1"># coding=utf-8</span>
+</code></pre></div>
+
+<ul>
+<li>unicode</li>
+</ul>
+<h2 id="eval">eval函数<a class="headerlink" href="#eval" title="Permanent link">&para;</a></h2>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

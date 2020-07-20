@@ -1,0 +1,1736 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Database%20System/MySQL/MySQL%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>MySQL 基础入门 - abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mysql" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              MySQL 基础入门
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    数据完整性
+  </a>
+  
+    <nav class="md-nav" aria-label="数据完整性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    数据类型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    约束
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navicat" class="md-nav__link">
+    数据库 Navicat 操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    数据库命令行脚本操作
+  </a>
+  
+    <nav class="md-nav" aria-label="数据库命令行脚本操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    命令行连接
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    数据库操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    数据表操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curd" class="md-nav__link">
+    增删改查(CURD)
+  </a>
+  
+    <nav class="md-nav" aria-label="增删改查(CURD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    增加
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    修改
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    删除
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    数据库备份和恢复
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    数据库设计
+  </a>
+  
+    <nav class="md-nav" aria-label="数据库设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    设计原则
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-r" class="md-nav__link">
+    E-R模型
+  </a>
+  
+    <nav class="md-nav" aria-label="E-R模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    逻辑删除
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql_1" class="md-nav__link">
+    MySQL 查询
+  </a>
+  
+    <nav class="md-nav" aria-label="MySQL 查询">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    消除重复行
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    条件查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    排序
+  </a>
+  
+    <nav class="md-nav" aria-label="排序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    语法：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    聚合函数
+  </a>
+  
+    <nav class="md-nav" aria-label="聚合函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#count" class="md-nav__link">
+    总数count(*)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maxcolumn" class="md-nav__link">
+    最大值max(column)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mincolumn" class="md-nav__link">
+    最小值min(column)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sumcolumn" class="md-nav__link">
+    求和sum(column)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avgcolum" class="md-nav__link">
+    平均值avg(colum)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    分组
+  </a>
+  
+    <nav class="md-nav" aria-label="分组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#group-by" class="md-nav__link">
+    group by
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-by-group_concat" class="md-nav__link">
+    group by + group_concat()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-by_1" class="md-nav__link">
+    group by + 集合函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-by-having" class="md-nav__link">
+    group by + having
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-by-with-rollup" class="md-nav__link">
+    group by + with rollup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    分页
+  </a>
+  
+    <nav class="md-nav" aria-label="分页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    获取部分行
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    语法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    连接查询
+  </a>
+  
+    <nav class="md-nav" aria-label="连接查询">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    语法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    自关联
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    子查询
+  </a>
+  
+    <nav class="md-nav" aria-label="子查询">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    主查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    主查询和子查询的关系
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    子查询分类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    子查询中特定关键字使用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/250 Working Coding/Database System/MySQL/MySQL基础入门.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="mysql">MySQL 基础入门<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h1>
+<h2 id="_1">数据完整性<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h4 id="_2">数据类型<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>使用原则：</p>
+<ul>
+<li><strong>够用就行</strong>，尽量使用取值范围小的，而不用大的，以节省更多的存储空间</li>
+</ul>
+<p>常用数据类型：</p>
+<ul>
+<li>整数：int，bit</li>
+<li>小数：decimal</li>
+<li>字符串：varchar,char</li>
+<li>日期时间: date, time, datetime</li>
+<li>枚举类型(enum)</li>
+</ul>
+<p>特别说明：</p>
+<ul>
+<li>decimal表示浮点数，如decimal(5,2)表示共存5位数，小数占2位</li>
+<li>char表示固定长度的字符串，如char(3)，如果填充'ab'时会补一个空格为<code>'ab '</code></li>
+<li>varchar表示可变长度的字符串，如varchar(3)，填充'ab'时就会存储'ab'</li>
+<li>字符串text表示存储大文本，当字符大于4000时推荐使用</li>
+<li>对于图片、音频、视频等文件，不存储在数据库中，而是上传到某个服务器上，然后在表中存储这个文件的保存路径</li>
+</ul>
+<p>更全数据类型参考</p>
+<ul>
+<li><a href="http://blog.csdn.net/anxpp/article/details/51284106">http://blog.csdn.net/anxpp/article/details/51284106</a></li>
+</ul>
+<p>常用数据类型</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">字节大小</th>
+<th align="left">有符号范围(Signed)</th>
+<th align="left">无符号范围(Unsigned)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">TINYINT</td>
+<td align="left">1</td>
+<td align="left">-128 ~ 127</td>
+<td align="left">0 ~ 255</td>
+</tr>
+<tr>
+<td align="left">SMALLINT</td>
+<td align="left">2</td>
+<td align="left">-32768 ~ 32767</td>
+<td align="left">0 ~ 65535</td>
+</tr>
+<tr>
+<td align="left">MEDIUMINT</td>
+<td align="left">3</td>
+<td align="left">-8388608 ~ 8388607</td>
+<td align="left">0 ~ 16777215</td>
+</tr>
+<tr>
+<td align="left">INT/INTEGER</td>
+<td align="left">4</td>
+<td align="left">-2147483648 ~2147483647</td>
+<td align="left">0 ~ 4294967295</td>
+</tr>
+<tr>
+<td align="left">BIGINT</td>
+<td align="left">8</td>
+<td align="left">-9223372036854775808 ~ 9223372036854775807</td>
+<td align="left">0 ~ 1844674407</td>
+</tr>
+</tbody>
+</table>
+<p>**存储字符串**所用数据类型</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">字节大小</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">CHAR</td>
+<td align="left">0-255</td>
+<td align="left">类型:char(3) 输入 'ab', 实际存储为'ab ', 输入'abcd' 实际存储为 'abc'</td>
+</tr>
+<tr>
+<td align="left">VARCHAR</td>
+<td align="left">0-255</td>
+<td align="left">类型:varchar(3) 输 'ab',实际存储为'ab', 输入'abcd',实际存储为'abc'</td>
+</tr>
+<tr>
+<td align="left">TEXT</td>
+<td align="left">0-65535</td>
+<td align="left">大文本</td>
+</tr>
+</tbody>
+</table>
+<p>**存储日期**所用的日期时间类型</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">字节大小</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">DATE</td>
+<td align="left">4</td>
+<td align="left">'2020-01-01'</td>
+</tr>
+<tr>
+<td align="left">TIME</td>
+<td align="left">3</td>
+<td align="left">'12:29:59'</td>
+</tr>
+<tr>
+<td align="left">DATETIME</td>
+<td align="left">8</td>
+<td align="left">'2020-01-01 12:29:59'</td>
+</tr>
+<tr>
+<td align="left">YEAR</td>
+<td align="left">1</td>
+<td align="left">'2017'</td>
+</tr>
+<tr>
+<td align="left">TIMESTAMP</td>
+<td align="left">4</td>
+<td align="left">'1970-01-01 00:00:01' UTC ~ '2038-01-01 00:00:01' UTC</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_3">约束<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>主键<code>primary key</code>：物理上存储的顺序</li>
+<li>非空<code>not null</code>：此字段不允许填写空值</li>
+<li>惟一<code>unique</code>：此字段的值不允许重复</li>
+<li>默认<code>default</code>：当不填写此值时会使用默认值，如果填写时以填写为准</li>
+<li>外键<code>foreign key</code>：对关系字段进行约束，当为关系字段填写值时，会到关联的表中查询此值是否存在，如果存在则填写成功，如果不存在则填写失败并抛出异常<ul>
+<li>不推荐使用</li>
+<li>虽然外键约束可以保证数据的有效性，但是在进行数据的crud（增加、修改、删除、查询）时，都会降低数据库的性能</li>
+<li>那么数据的有效性怎么保证呢？答：可以在逻辑层进行控制</li>
+</ul>
+</li>
+</ul>
+<h2 id="navicat">数据库 Navicat 操作<a class="headerlink" href="#navicat" title="Permanent link">&para;</a></h2>
+<h2 id="_4">数据库命令行脚本操作<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">命令行连接<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>1，连接服务端数据库</p>
+<div class="highlight"><pre><span></span><code>mysql -u root -p mysql
+</code></pre></div>
+
+<p>2，退出</p>
+<div class="highlight"><pre><span></span><code>quit 或者 exit
+</code></pre></div>
+
+<ul>
+<li>按<code>ctrl+d</code>亦可退出</li>
+</ul>
+<p>3，查看版本：</p>
+<div class="highlight"><pre><span></span><code>select version();
+</code></pre></div>
+
+<p>4， 显示当前时间：</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> now<span class="o">()</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_6">数据库操作<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>查看所有数据库</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">show</span> <span class="n">databases</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>使用数据库</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="err">数据库名</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>查看当前使用的数据库</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="k">database</span><span class="p">();</span>
+</code></pre></div>
+
+<ul>
+<li>创建数据库</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">database</span> <span class="err">数据库名</span> <span class="n">charset</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>删除数据库</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">drop</span> <span class="k">database</span> <span class="err">数据库名</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_7">数据表操作<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>1， 查看当前数据库中所有表</p>
+<div class="highlight"><pre><span></span><code><span class="k">show</span> <span class="n">tables</span><span class="p">;</span>
+</code></pre></div>
+
+<p>2， 查看表结构</p>
+<div class="highlight"><pre><span></span><code><span class="k">desc</span> <span class="err">表名</span><span class="p">;</span>
+</code></pre></div>
+
+<p>3， 创建表</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">table_name</span><span class="p">(</span>
+    <span class="n">column1</span> <span class="n">datatype</span> <span class="n">contrai</span><span class="p">,</span>
+    <span class="n">column2</span> <span class="n">datatype</span><span class="p">,</span>
+    <span class="n">column3</span> <span class="n">datatype</span><span class="p">,</span>
+    <span class="p">.....</span>
+    <span class="n">columnN</span> <span class="n">datatype</span><span class="p">,</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">one</span> <span class="k">or</span> <span class="k">more</span> <span class="n">columns</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li>auto_increment表示自动增长</li>
+</ul>
+<p>4， 修改表 - 添加字段</p>
+<div class="highlight"><pre><span></span><code><span class="k">alter</span> <span class="k">table</span> <span class="err">表名</span> <span class="k">add</span> <span class="err">列名</span> <span class="err">类型</span><span class="p">;</span>
+<span class="err">例：</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">students</span> <span class="k">add</span> <span class="n">birthday</span> <span class="n">datetime</span><span class="p">;</span>
+</code></pre></div>
+
+<p>5， 修改表 - 修改字段：重命名版*change*</p>
+<div class="highlight"><pre><span></span><code><span class="k">alter</span> <span class="k">table</span> <span class="err">表名</span> <span class="n">change</span> <span class="err">原名</span> <span class="err">新名</span> <span class="err">类型及约束</span><span class="p">;</span>
+<span class="err">例：</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">students</span> <span class="n">change</span> <span class="n">birthday</span> <span class="n">birth</span> <span class="n">datetime</span> <span class="k">not</span> <span class="k">null</span><span class="p">;</span>
+</code></pre></div>
+
+<p>6， 修改表 - 修改字段：不重命名版*modify*</p>
+<div class="highlight"><pre><span></span><code><span class="k">alter</span> <span class="k">table</span> <span class="err">表名</span> <span class="k">modify</span> <span class="err">列名</span> <span class="err">类型及约束</span><span class="p">;</span>
+<span class="err">例：</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">students</span> <span class="k">modify</span> <span class="n">birth</span> <span class="nb">date</span> <span class="k">not</span> <span class="k">null</span><span class="p">;</span>
+</code></pre></div>
+
+<p>7， 修改表-删除字段</p>
+<div class="highlight"><pre><span></span><code><span class="k">alter</span> <span class="k">table</span> <span class="err">表名</span> <span class="k">drop</span> <span class="err">列名</span><span class="p">;</span>
+</code></pre></div>
+
+<p>8， 删除表</p>
+<div class="highlight"><pre><span></span><code><span class="k">drop</span> <span class="k">table</span> <span class="err">表名</span><span class="p">;</span>
+</code></pre></div>
+
+<p>9， 查看表的创建语句</p>
+<div class="highlight"><pre><span></span><code><span class="k">show</span> <span class="k">create</span> <span class="k">table</span> <span class="err">表名</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="curd">增删改查(CURD)<a class="headerlink" href="#curd" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>全称：创建（Create）、更新（Update）、读取（Retrieve）和删除（Delete）</p>
+</blockquote>
+<h4 id="_8">查询<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>1， 查询所有列</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="err">表名</span><span class="p">;</span>
+</code></pre></div>
+
+<p>2， 查询指定列，并可使用<code>as</code>为列或表指定别名</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="err">列</span><span class="mi">1</span><span class="p">,</span><span class="err">列</span><span class="mi">2</span><span class="p">,...</span> <span class="k">from</span> <span class="err">表名</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="_9">增加<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p>格式</p>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span> <span class="p">[</span><span class="k">INTO</span><span class="p">]</span> <span class="n">tb_name</span> <span class="p">[(</span><span class="n">col_name</span><span class="p">,...)]</span> <span class="err">{</span><span class="k">VALUES</span> <span class="o">|</span> <span class="n">VALUE</span><span class="err">}</span> <span class="p">(</span><span class="err">{</span><span class="n">expr</span> <span class="o">|</span> <span class="k">DEFAULT</span><span class="err">}</span><span class="p">,...),(...),...</span>
+</code></pre></div>
+
+<ul>
+<li>主键列是自动增长，但是在全列插入时需要占位，通常使用0或者 default 或者 null 来占位，插入成功后以实际数据为准</li>
+</ul>
+<p>全列插入：值的顺序与表中字段的顺序对应</p>
+<div class="highlight"><pre><span></span><code><span class="k">insert</span> <span class="k">into</span> <span class="err">表名</span> <span class="k">values</span><span class="p">(...)</span>
+</code></pre></div>
+
+<p>部分列插入：值的顺序与给出的列顺序对应</p>
+<div class="highlight"><pre><span></span><code><span class="k">insert</span> <span class="k">into</span> <span class="err">表名</span><span class="p">(</span><span class="err">列</span><span class="mi">1</span><span class="p">,...)</span> <span class="k">values</span><span class="p">(</span><span class="err">值</span><span class="mi">1</span><span class="p">,...)</span>
+</code></pre></div>
+
+<p>全列多行插入：值的顺序与给出的列顺序对应</p>
+<div class="highlight"><pre><span></span><code><span class="k">insert</span> <span class="k">into</span> <span class="err">表名</span> <span class="k">values</span><span class="p">(...),(...)...;</span>
+</code></pre></div>
+
+<h4 id="_10">修改<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>格式</p>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span> <span class="n">tb_name</span> <span class="k">SET</span> <span class="n">col1</span><span class="o">=</span><span class="err">{</span><span class="n">expr1</span><span class="o">|</span><span class="k">DEFAULT</span><span class="err">}</span> <span class="p">[,</span><span class="n">col2</span><span class="o">=</span><span class="err">{</span><span class="n">expr2</span><span class="o">|</span><span class="k">default</span><span class="err">}</span><span class="p">]...[</span><span class="k">where</span> <span class="err">条件判断</span><span class="p">]</span>
+</code></pre></div>
+
+<p>详细：</p>
+<div class="highlight"><pre><span></span><code><span class="k">update</span> <span class="err">表名</span> <span class="k">set</span> <span class="err">列</span><span class="mi">1</span><span class="o">=</span><span class="err">值</span><span class="mi">1</span><span class="p">,</span><span class="err">列</span><span class="mi">2</span><span class="o">=</span><span class="err">值</span><span class="mi">2</span><span class="p">...</span> <span class="k">where</span> <span class="err">条件</span>
+</code></pre></div>
+
+<h4 id="_11">删除<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>格式：</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">tbname</span> <span class="p">[</span><span class="k">where</span> <span class="err">条件判断</span><span class="p">]</span>
+</code></pre></div>
+
+<p>详细：</p>
+<div class="highlight"><pre><span></span><code><span class="k">delete</span> <span class="k">from</span> <span class="err">表名</span> <span class="k">where</span> <span class="err">条件</span>
+</code></pre></div>
+
+<p>逻辑删除，本质就是修改操作</p>
+<div class="highlight"><pre><span></span><code><span class="k">update</span> <span class="n">students</span> <span class="k">set</span> <span class="n">isdelete</span><span class="o">=</span><span class="mi">1</span> <span class="k">where</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+
+<h2 id="_12">数据库备份和恢复<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>备份：</p>
+<div class="highlight"><pre><span></span><code>mysqldump -u root -p 数据库名 &gt; 备份文件名.sql<span class="p">;</span>
+
+<span class="c1"># 按提示输入mysql的密码</span>
+</code></pre></div>
+
+<p>恢复：</p>
+<ol>
+<li>连接mysql，创建新的数据库</li>
+<li>退出连接，执行如下命令</li>
+</ol>
+<div class="highlight"><pre><span></span><code>mysql -uroot -p 新数据库名 &lt; 备份文件名.sql<span class="p">;</span>
+
+<span class="c1"># 按提示输入mysql的密码</span>
+</code></pre></div>
+
+<h2 id="_13">数据库设计<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h4 id="_14">设计原则<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p>关系型数据库建议在E-R模型的基础上，我们需要根据产品经理的设计策划，抽取出来模型与关系，制定出表结构，这是项目开始的第一步</p>
+<p>范式(Normal Form)</p>
+<p>第一范式（1NF）：强调的是列的原子性，即列不能够再分成其他几列。</p>
+<p>第二范式（2NF）：首先是1NF，另外包含两部分内容：</p>
+<ul>
+<li>一是表必须有一个主键；</li>
+<li>二是没有包含在主键中的列必须完全依赖于主键，而不能只依赖于主键的一部分。</li>
+</ul>
+<p>◆ 第三范式（3NF）：首先是 2NF，</p>
+<ul>
+<li>另外非主键列必须直接依赖于主键，不能存在传递依赖。</li>
+<li>即不能存在：非主键列 A 依赖于非主键列 B，非主键列 B 依赖于主键的情况。</li>
+</ul>
+<h3 id="e-r">E-R模型<a class="headerlink" href="#e-r" title="Permanent link">&para;</a></h3>
+<ul>
+<li>E表示entry，实体，设计实体就像定义一个类一样，指定从哪些方面描述对象<ul>
+<li>一个实体转换为数据库中的一个表</li>
+</ul>
+</li>
+<li>R表示relationship，关系，关系描述两个实体之间的对应规则<ul>
+<li>关系的类型包括包括一对一、一对多、多对多</li>
+<li>关系也是一种数据，需要通过一个字段存储在表中</li>
+</ul>
+</li>
+</ul>
+<h4 id="_15">逻辑删除<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p>删除方案：设置<code>isDelete</code>的列，类型为bit，表示逻辑删除，默认值为0</p>
+<h2 id="mysql_1">MySQL 查询<a class="headerlink" href="#mysql_1" title="Permanent link">&para;</a></h2>
+<h3 id="_16">消除重复行<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<ul>
+<li>在select后面列前使用distinct可以消除重复的行
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="k">distinct</span> <span class="err">列</span><span class="mi">1</span><span class="p">,...</span> <span class="k">from</span> <span class="err">表名</span><span class="p">;</span>
+<span class="c1">-- 例：</span>
+<span class="c1">-- select distinct gender from students;</span>
+<span class="o">+</span><span class="c1">--------+</span>
+<span class="o">|</span> <span class="n">gender</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------+</span>
+<span class="o">|</span> <span class="err">女</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="err">男</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="err">保密</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="err">人妖</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------+</span>
+<span class="mi">4</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="_17">条件查询<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>where后面支持多种运算符，进行条件的处理
+- 比较运算符
+- 逻辑运算符
+- 模糊查询
+- 范围查询
+- 空判断</p>
+<p>比较运算符
+- 等于: =
+- 大于: &gt;
+- 大于等于: &gt;=
+- 小于: &lt;
+- 小于等于: &lt;=
+- 不等于: != 或 &lt;&gt;</p>
+<p>逻辑运算符
+- and
+- or
+- not</p>
+<p>模糊查询
+- <code>like</code>
+- <code>%</code> 表示任意多个任意字符
+- <code>_</code> 表示一个任意字符</p>
+<p>范围查询
+- <code>in</code> 表示在一个非连续的范围内
+- <code>not in</code></p>
+<p>空判断
+- 判空: <code>is null</code>
+- 判非空: <code>is not null</code>
+- 注意：null与''是不同的</p>
+<p>优先级
+- 优先级由高到低的顺序为：小括号，not，比较运算符，逻辑运算符
+- <code>and</code>比<code>or</code>先运算，如果同时出现并希望先算or，需要结合()使用</p>
+<h3 id="_18">排序<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<h5 id="_19">语法：<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="err">表名</span> <span class="k">order</span> <span class="k">by</span> <span class="err">列</span><span class="mi">1</span> <span class="k">asc</span><span class="o">|</span><span class="k">desc</span> <span class="p">[,</span><span class="err">列</span><span class="mi">2</span> <span class="k">asc</span><span class="o">|</span><span class="k">desc</span><span class="p">,...]</span>
+</code></pre></div>
+
+<ul>
+<li>将行数据按照列1进行排序，如果某些行列1的值相同时，则按照列2排序，以此类推</li>
+<li>默认按照列值从小到大排列（asc）</li>
+<li>asc从小到大排列，即升序</li>
+<li>desc从大到小排序，即降序</li>
+</ul>
+<h3 id="_20">聚合函数<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<h4 id="count">总数<code>count(*)</code><a class="headerlink" href="#count" title="Permanent link">&para;</a></h4>
+<ul>
+<li>计算总行数，括号中写星与列名，结果是相同的</li>
+</ul>
+<h4 id="maxcolumn">最大值<code>max(column)</code><a class="headerlink" href="#maxcolumn" title="Permanent link">&para;</a></h4>
+<ul>
+<li>表示求此列的最大值</li>
+</ul>
+<h4 id="mincolumn">最小值<code>min(column)</code><a class="headerlink" href="#mincolumn" title="Permanent link">&para;</a></h4>
+<ul>
+<li>表示求此列的最小值</li>
+</ul>
+<h4 id="sumcolumn">求和<code>sum(column)</code><a class="headerlink" href="#sumcolumn" title="Permanent link">&para;</a></h4>
+<ul>
+<li>表示求此列的和</li>
+</ul>
+<h4 id="avgcolum">平均值<code>avg(colum)</code><a class="headerlink" href="#avgcolum" title="Permanent link">&para;</a></h4>
+<ul>
+<li>表示求此列的平均值</li>
+</ul>
+<h3 id="_21">分组<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<h4 id="group-by">group by<a class="headerlink" href="#group-by" title="Permanent link">&para;</a></h4>
+<ol>
+<li>将查询结果按照1个或多个字段进行分组，字段值相同的为一组</li>
+<li>group by可用于单个字段分组，也可用于多个字段分组</li>
+</ol>
+<h4 id="group-by-group_concat">group by + group_concat()<a class="headerlink" href="#group-by-group_concat" title="Permanent link">&para;</a></h4>
+<ol>
+<li>group_concat(字段名)可以作为一个输出字段来使用，</li>
+<li>表示分组之后，根据分组结果，使用group_concat()来放置每一组的某字段的值的集合</li>
+</ol>
+<h4 id="group-by_1">group by + 集合函数<a class="headerlink" href="#group-by_1" title="Permanent link">&para;</a></h4>
+<ol>
+<li>通过group_concat()的启发，我们既然可以统计出每个分组的某字段的值的集合，那么我们也可以通过集合函数来对这个<code>值的集合</code>做一些操作</li>
+</ol>
+<h4 id="group-by-having">group by + having<a class="headerlink" href="#group-by-having" title="Permanent link">&para;</a></h4>
+<ol>
+<li>having 条件表达式：用来分组查询后指定一些条件来输出查询结果</li>
+<li>having作用和where一样，但having只能用于group by</li>
+</ol>
+<h4 id="group-by-with-rollup">group by + with rollup<a class="headerlink" href="#group-by-with-rollup" title="Permanent link">&para;</a></h4>
+<ol>
+<li>with rollup的作用是：在最后新增一行，来记录当前列里所有记录的总和</li>
+</ol>
+<h3 id="_22">分页<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<h4 id="_23">获取部分行<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h4>
+<h4 id="_24">语法<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="err">表名</span> <span class="k">limit</span> <span class="k">start</span><span class="p">,</span><span class="k">count</span>
+</code></pre></div>
+
+<ul>
+<li>从 <code>start</code> 开始，获取 <code>count</code> 条数据</li>
+</ul>
+<h3 id="_25">连接查询<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<p>当查询结果的列来源于多张表时，需要将多张表连接成一个大的数据集，再选择合适的列返回</p>
+<p>MySQL支持三种类型的连接查询</p>
+<ul>
+<li>
+<p>内连接查询：查询的结果为两个表匹配到的数据</p>
+</li>
+<li>
+<p>右连接查询：查询的结果为两个表匹配到的数据，右表特有的数据，对于左表中不存在的数据使用null填充</p>
+</li>
+<li>
+<p>左连接查询：查询的结果为两个表匹配到的数据，左表特有的数据，对于右表中不存在的数据使用null填充</p>
+</li>
+</ul>
+<h4 id="_26">语法<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="err">表</span><span class="mi">1</span> <span class="n">inner或left或right</span> <span class="k">join</span> <span class="err">表</span><span class="mi">2</span> <span class="k">on</span> <span class="err">表</span><span class="mi">1</span><span class="p">.</span><span class="err">列</span> <span class="o">=</span> <span class="err">表</span><span class="mi">2</span><span class="p">.</span><span class="err">列</span>
+</code></pre></div>
+
+<h3 id="_27">自关联<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<p>表中的某一列，关联了这个表中的另外一列，但是它们的业务逻辑含义是不一样的。那么这张表可称为自关联。</p>
+<h3 id="_28">子查询<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
+<p>在一个 select 语句中，嵌入了另外一个 select 语句，那么被嵌入的 select 语句称之为子查询语句</p>
+<h4 id="_29">主查询<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h4>
+<p>主要查询的对象，第一条 select 语句</p>
+<h4 id="_30">主查询和子查询的关系<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h4>
+<ul>
+<li>子查询是嵌入到主查询中</li>
+<li>子查询是辅助主查询的,要么充当条件,要么充当数据源</li>
+<li>子查询是可以独立存在的语句，是一条完整的 select 语句</li>
+</ul>
+<h4 id="_31">子查询分类<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h4>
+<ul>
+<li>标量子查询: 子查询返回的结果是一个数据(一行一列)</li>
+<li>列子查询: 返回的结果是一列(一列多行)</li>
+<li>行子查询: 返回的结果是一行(一行多列)</li>
+</ul>
+<h4 id="_32">子查询中特定关键字使用<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h4>
+<ul>
+<li>in 范围<ul>
+<li>格式: 主查询 where 条件 in (列子查询)</li>
+</ul>
+</li>
+</ul>
+<h2 id="_33">总结<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h2>
+<p><div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="n">select_expr</span> <span class="p">[,</span><span class="n">select_expr</span><span class="p">,...]</span> <span class="p">[</span>      
+      <span class="k">FROM</span> <span class="n">tb_name</span>
+      <span class="p">[</span><span class="k">WHERE</span> <span class="err">条件判断</span><span class="p">]</span>
+      <span class="p">[</span><span class="k">GROUP</span> <span class="k">BY</span> <span class="err">{</span><span class="n">col_name</span> <span class="o">|</span> <span class="n">postion</span><span class="err">}</span> <span class="p">[</span><span class="k">ASC</span> <span class="o">|</span> <span class="k">DESC</span><span class="p">],</span> <span class="p">...]</span> 
+      <span class="p">[</span><span class="k">HAVING</span> <span class="k">WHERE</span> <span class="err">条件判断</span><span class="p">]</span>
+      <span class="p">[</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="err">{</span><span class="n">col_name</span><span class="o">|</span><span class="n">expr</span><span class="o">|</span><span class="n">postion</span><span class="err">}</span> <span class="p">[</span><span class="k">ASC</span> <span class="o">|</span> <span class="k">DESC</span><span class="p">],</span> <span class="p">...]</span>
+      <span class="p">[</span> <span class="k">LIMIT</span> <span class="err">{</span><span class="p">[</span><span class="k">offset</span><span class="p">,]</span><span class="n">rowcount</span> <span class="o">|</span> <span class="k">row_count</span> <span class="k">OFFSET</span> <span class="k">offset</span><span class="err">}</span><span class="p">]</span>
+<span class="p">]</span>
+</code></pre></div>
+完整的select语句
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="k">distinct</span> <span class="o">*</span>
+    <span class="k">from</span> <span class="err">表名</span>
+        <span class="k">where</span> <span class="p">....</span>
+        <span class="k">group</span> <span class="k">by</span> <span class="p">...</span> <span class="k">having</span> <span class="p">...</span>
+        <span class="k">order</span> <span class="k">by</span> <span class="p">...</span>
+        <span class="k">limit</span> <span class="k">start</span><span class="p">,</span><span class="k">count</span>
+</code></pre></div>
+执行顺序为：
+<div class="highlight"><pre><span></span><code><span class="k">from</span> <span class="err">表名</span>
+    <span class="k">where</span> <span class="p">....</span>
+    <span class="k">group</span> <span class="k">by</span> <span class="p">...</span>
+    <span class="k">select</span> <span class="k">distinct</span> <span class="o">*</span>
+    <span class="k">having</span> <span class="p">...</span>
+    <span class="k">order</span> <span class="k">by</span> <span class="p">...</span>
+    <span class="k">limit</span> <span class="k">start</span><span class="p">,</span><span class="k">count</span>
+</code></pre></div></p>
+<p>案例：</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">xxxx</span> <span class="k">where</span> <span class="n">price</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">select</span> <span class="k">avg</span><span class="p">(</span><span class="n">price</span><span class="p">)</span> <span class="k">from</span> <span class="n">xxxx</span><span class="p">)</span> <span class="k">order</span> <span class="k">by</span> <span class="n">price</span> <span class="k">desc</span><span class="p">;</span>
+
+
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">goods</span> <span class="k">where</span> <span class="n">price</span> <span class="k">is</span> <span class="k">group</span> <span class="k">by</span> <span class="n">kind</span>
+
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">goods</span> <span class="k">inner</span> <span class="k">join</span> <span class="err">（</span><span class="k">select</span> <span class="n">cate_name</span><span class="p">,</span> <span class="k">max</span><span class="p">(</span><span class="n">price</span><span class="p">)</span> <span class="k">as</span> <span class="p">...</span> <span class="k">from</span> <span class="n">goods</span> <span class="k">group</span> <span class="k">by</span> <span class="n">cate_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">goods_new_info</span> <span class="k">on</span> 
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1333 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding%20Python/Python%20Basics/%E8%BF%9B%E9%98%B6%E6%8F%90%E5%8D%87/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Python Basics - 进阶提升 - abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-basics-" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Python Basics - 进阶提升
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="abookworm's Wiki" class="md-nav__button md-logo" aria-label="abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/WikiPage/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/WikiPage
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Database%20System/MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding/Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../260%20Working%20Operating%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gil" class="md-nav__link">
+    GIL：全局解释器锁
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    深拷贝与浅拷贝
+  </a>
+  
+    <nav class="md-nav" aria-label="深拷贝与浅拷贝">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#copycopy" class="md-nav__link">
+    copy.copy():
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copydeepcopy" class="md-nav__link">
+    copy.deepcopy():
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    私有化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    import 导入模块
+  </a>
+  
+    <nav class="md-nav" aria-label="import 导入模块">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import_1" class="md-nav__link">
+    import 搜索路径
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reload" class="md-nav__link">
+    重新导入模块reload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    多模块开发注意事项
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mro" class="md-nav__link">
+    多继承及MRO顺序
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    静态方法 &amp; 类方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property" class="md-nav__link">
+    property属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    魔法属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    闭包
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    装饰器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    元类
+  </a>
+  
+    <nav class="md-nav" aria-label="元类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 类也是对象
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 动态地创建类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-type" class="md-nav__link">
+    3. 使用 type 创建类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-type" class="md-nav__link">
+    4. 使用 type 创建带有属性的类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-type" class="md-nav__link">
+    5. 使用 type 创建带有方法的类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 元类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-__metaclass__" class="md-nav__link">
+    7. __metaclass__ 属性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    8. 自定义元类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#orm" class="md-nav__link">
+    元类实现ORM
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/WikiPage/edit/master/docs/250 Working Coding Python/Python Basics/进阶提升/index.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="python-basics-">Python Basics - 进阶提升<a class="headerlink" href="#python-basics-" title="Permanent link">&para;</a></h1>
+<h2 id="gil">GIL：全局解释器锁<a class="headerlink" href="#gil" title="Permanent link">&para;</a></h2>
+<p>定义
+- GIL - 全局解释器锁：保证同一时刻只有一个线程在工作。
+- Cpython解释器由于历史原因所造成的，与python本身语言没有什么关系
+- 表现：使用Cpython解释器解释的python语句，即使采用多线程的方式，在同一个时刻也只有一个线程在工作。</p>
+<p>多线程还是要比单线程要快：</p>
+<ul>
+<li>有IO密集型操作的：读写</li>
+<li>
+<p>遇到堵塞，则执行非堵塞的任务</p>
+</li>
+<li>
+<p>同时，多进程可以充分利用多核CPU资源。</p>
+</li>
+</ul>
+<p>Python:</p>
+<ul>
+<li>计算密集型：进程</li>
+<li>IO密集型：多线程，协程</li>
+</ul>
+<p>解决方案：
+- 不用CPython 解释器。
+- 使用C语言编写子线程</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+
+<span class="c1"># 加载动态库</span>
+<span class="n">lib</span> <span class="o">=</span> <span class="n">cdll</span><span class="o">.</span><span class="n">LoadLibrary</span><span class="p">(</span><span class="s2">&quot;./libdead_loop.so&quot;</span><span class="p">)</span>
+
+<span class="c1"># 创建一个子线程，让其执行C语言编写的函数，此函数是一个死循环</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">lib</span><span class="o">.</span><span class="n">DeadLoop</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="c1"># 主线程</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">pass</span>
+</code></pre></div>
+
+<h2 id="_1">深拷贝与浅拷贝<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="copycopy"><code>copy.copy():</code><a class="headerlink" href="#copycopy" title="Permanent link">&para;</a></h3>
+<p>浅拷贝：只会复制最顶层的那个列表。</p>
+<ul>
+<li>对于元组，不会复制</li>
+<li>分片<code>c[:]</code></li>
+<li>字典拷贝</li>
+<li>形参传递</li>
+</ul>
+<h3 id="copydeepcopy"><code>copy.deepcopy():</code><a class="headerlink" href="#copydeepcopy" title="Permanent link">&para;</a></h3>
+<p>深拷贝：</p>
+<ol>
+<li>
+<p>如果 <code>copy(),deepcopy()</code> 对一个全部结果都是不可变类型的数据进行拷贝，那么他们结果相同，都是指向引用</p>
+</li>
+<li>
+<p>如果 <code>copy(),deepcopy()</code> 对一个拥有可变类型的数据进行拷贝，那么deepcopy()依然是深拷贝，而copy()是指向</p>
+</li>
+</ol>
+<p>关键：明白自己的需求，从而判断自己采用深拷贝还是浅拷贝。</p>
+<h2 id="_2">私有化<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>xx</code>：公有变量</li>
+<li><code>_x</code>：单前置下划线。私有化属性或方法。<ul>
+<li><code>from somemodule import *</code> 禁止导入</li>
+<li>类对象和子类可以访问</li>
+</ul>
+</li>
+<li><code>__xx</code>：双前置下划线。避免与子类中的属性命名冲突，无法在外部直接访问(原理：名字重整所以访问不到)</li>
+<li><code>__xx__</code>：双前后下划线。用户名字空间的魔法对象或属性。<ul>
+<li>例如:<code>__init__</code>, <code>__</code>。请不要自己发明这样的名字</li>
+</ul>
+</li>
+<li><code>xx_</code>：单后置下划线,用于避免与Python关键词的冲突</li>
+</ul>
+<h2 id="import">import 导入模块<a class="headerlink" href="#import" title="Permanent link">&para;</a></h2>
+<h3 id="import_1"><code>import</code> 搜索路径<a class="headerlink" href="#import_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># 解释器搜索路径</span>
+<span class="n">search_path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+
+<span class="c1"># 添加新路径</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/home/aaron/xxx&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;/home/aaron/xxx&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<ul>
+<li>通常都是从当前路径开始搜索，所以一定要注意模块名称</li>
+</ul>
+<h3 id="reload">重新导入模块<code>reload</code><a class="headerlink" href="#reload" title="Permanent link">&para;</a></h3>
+<h3 id="_3">多模块开发注意事项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>多模块导入，且共同使用某一模块的数据时，一定要确保模块导入时指向了这个模块的值，而非新增加的局部变量或者全局变量。
+即：使用<code>import model</code>整体导入，使用 <code>model.prams</code>使用这个共享变量。</p>
+<h2 id="mro">多继承及MRO顺序<a class="headerlink" href="#mro" title="Permanent link">&para;</a></h2>
+<p>多继承时，使用<code>super().__init__</code>:
+******多继承使用super().<strong>init</strong> 发生的状态******
+(<class '__main__.Grandson'>, <class '__main__.Son1'>, <class '__main__.Son2'>, <class '__main__.Parent'>, <class 'object'>)</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;******多继承使用super().__init__ 发生的状态******&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># 为避免多继承报错，使用不定长参数，接受参数</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;parent的init开始被调用&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;parent的init结束被调用&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Son1</span><span class="p">(</span><span class="n">Parent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># 为避免多继承报错，使用不定长参数，接受参数</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Son1的init开始被调用&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># 为避免多继承报错，使用不定长参数，接受参数</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Son1的init结束被调用&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Son2</span><span class="p">(</span><span class="n">Parent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># 为避免多继承报错，使用不定长参数，接受参数</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Son2的init开始被调用&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gender</span> <span class="o">=</span> <span class="n">gender</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># 为避免多继承报错，使用不定长参数，接受参数</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Son2的init结束被调用&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Grandson</span><span class="p">(</span><span class="n">Son1</span><span class="p">,</span> <span class="n">Son2</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">gender</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Grandson的init开始被调用&#39;</span><span class="p">)</span>
+        <span class="c1"># 多继承时，相对于使用类名.__init__方法，要把每个父类全部写一遍</span>
+        <span class="c1"># 而super只用一句话，执行了全部父类的方法，这也是为何多继承需要全部传参的一个原因</span>
+        <span class="c1"># super(Grandson, self).__init__(name, age, gender)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">gender</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Grandson的init结束被调用&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">Grandson</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">)</span>
+
+<span class="n">gs</span> <span class="o">=</span> <span class="n">Grandson</span><span class="p">(</span><span class="s1">&#39;grandson&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;男&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;姓名：&#39;</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;年龄：&#39;</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;性别：&#39;</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">gender</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;******多继承使用super().__init__ 发生的状态******</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="_4">静态方法 &amp; 类方法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>类方法：实例对象通过类方法修改类对象，传递的 <code>cls</code> 指向类对象。
+静态方法：不同类对象之间特有的不同的属性。</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">ord_func</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; 定义实例方法，至少有一个self参数 &quot;&quot;&quot;</span>
+        <span class="c1"># print(self.name)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;实例方法&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 实例对象通过类方法，修改类对象。传递 cls 指向类对象。</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">class_func</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; 定义类方法，至少有一个cls参数 &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;类方法&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 与实例对象，类对象都无关的方法，同时又有不同对象之间的区别</span>
+    <span class="c1"># 不用传递默认参数</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">static_func</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot; 定义静态方法 ，无默认参数&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;静态方法&#39;</span><span class="p">)</span>
+
+
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s2">&quot;中国&quot;</span><span class="p">)</span>
+<span class="c1"># 调用实例方法</span>
+<span class="n">f</span><span class="o">.</span><span class="n">ord_func</span><span class="p">()</span>
+
+<span class="c1"># 调用类方法</span>
+<span class="n">Foo</span><span class="o">.</span><span class="n">class_func</span><span class="p">()</span>
+
+<span class="c1"># 调用静态方法</span>
+<span class="n">Foo</span><span class="o">.</span><span class="n">static_func</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="property">property属性<a class="headerlink" href="#property" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Money</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__money</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># 使用装饰器对money进行装饰，那么会自动添加一个叫money的属性，当调用获取money的值时，调用装饰的方法</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">money</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__money</span>
+
+    <span class="c1"># 使用装饰器对money进行装饰，当对money设置值时，调用装饰的方法</span>
+    <span class="nd">@money</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">money</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__money</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error:不是整型数字&quot;</span><span class="p">)</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">Money</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">money</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">money</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="_5">魔法属性<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p><code>__doc__</code></p>
+<p><code>__module__</code> 和 <code>__class__</code></p>
+<p><strong>module</strong> 表示当前操作的对象在那个模块
+<strong>class</strong> 表示当前操作的对象的类是什么</p>
+<h2 id="_6">闭包<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_7">装饰器<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_8">元类<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 类也是对象<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>只要你使用关键字<code>class</code>，Python解释器在执行的时候就会创建一个名为类名的对象。同时具有对象的一切操作：</p>
+<ul>
+<li>可以赋值给一个变量</li>
+<li>可以拷贝</li>
+<li>可以增加属性</li>
+<li>可以作为函数参数传递</li>
+<li>可以打印</li>
+</ul>
+<h3 id="2">2. 动态地创建类<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>当你使用class关键字时，Python解释器自动创建这个对象。任何时候，任何地点。</li>
+</ul>
+<h3 id="3-type">3. 使用 <code>type</code> 创建类<a class="headerlink" href="#3-type" title="Permanent link">&para;</a></h3>
+<p><code>type</code> 动态创建类：</p>
+<ul>
+<li><code>type</code>可以接受一个类的描述作为参数，然后返回一个类。</li>
+</ul>
+<p>语法：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">type</span><span class="p">(</span><span class="n">类名</span><span class="p">,</span> <span class="n">由父类名称组成的元组</span><span class="err">（</span><span class="n">针对继承的情况</span><span class="err">，</span><span class="n">可以为空</span><span class="err">），</span><span class="n">包含属性的字典</span><span class="err">（</span><span class="n">名称和值</span><span class="err">）</span><span class="p">)</span>
+
+<span class="c1"># 示例：</span>
+<span class="n">Test2</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;Test2&quot;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{})</span> <span class="c1"># 定了一个Test2类</span>
+</code></pre></div>
+
+<h3 id="4-type">4. 使用 <code>type</code> 创建带有属性的类<a class="headerlink" href="#4-type" title="Permanent link">&para;</a></h3>
+<p>type 接受一个字典来为类定义属性</p>
+<div class="highlight"><pre><span></span><code><span class="n">Foo</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;Foo&#39;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s1">&#39;bar&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+</code></pre></div>
+
+<ul>
+<li>添加的属性是类属性，并不是实例属性</li>
+</ul>
+<p>子类继承</p>
+<div class="highlight"><pre><span></span><code><span class="n">FooChild</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;FooChild&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">Foo</span><span class="p">,),</span> <span class="p">{})</span>
+</code></pre></div>
+
+<ul>
+<li>type的第2个参数，元组中是父类的名字，而不是字符串</li>
+</ul>
+<h3 id="5-type">5. 使用 <code>type</code> 创建带有方法的类<a class="headerlink" href="#5-type" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">def</span> <span class="nf">print_b</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+
+<span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">print_static</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----haha-----&quot;</span><span class="p">)</span>
+
+<span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">print_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">A</span><span class="p">,),</span> <span class="p">{</span><span class="s2">&quot;print_b&quot;</span><span class="p">:</span> <span class="n">print_b</span><span class="p">,</span> <span class="s2">&quot;print_static&quot;</span><span class="p">:</span> <span class="n">print_static</span><span class="p">,</span> <span class="s2">&quot;print_class&quot;</span><span class="p">:</span> <span class="n">print_class</span><span class="p">})</span>
+</code></pre></div>
+
+<h3 id="6">6. 元类<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>创建类的类</p>
+</li>
+<li>
+<p>函数<code>type()</code>实际上是一个元类。type就是Python在背后用来创建所有类的元类。</p>
+</li>
+<li>
+<p>type就是Python的内建元类</p>
+</li>
+</ul>
+<h3 id="7-__metaclass__">7. <code>__metaclass__</code> 属性<a class="headerlink" href="#7-__metaclass__" title="Permanent link">&para;</a></h3>
+<p>作用时机</p>
+<p>当创建新类的时候，<code>__metaclass__</code> 属性</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Bar</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div>
+
+<ol>
+<li>查找 <code>Foo</code> 中是否有 <code>__metaclass__</code> 属性，有则通过该属性创建对象类 <code>Foo</code></li>
+<li>没有，则查找父类 <code>Bar</code> 中 是否有<code>__metaclass__</code> 属性，有则通过该属性创建对象类 <code>Foo</code></li>
+<li>没有，则查找在模块层次上是否有<code>__metaclass__</code> 属性，有则通过该属性创建对象类 <code>Foo</code></li>
+<li>
+<p>如果还是没有，那么，Python就会调用内置的 type() 来创建对象类 <code>Foo</code></p>
+</li>
+<li>
+<p>定义类的时候为其添加 <code>__metaclass__</code> 属性</p>
+</li>
+</ol>
+<h3 id="8">8. 自定义元类<a class="headerlink" href="#8" title="Permanent link">&para;</a></h3>
+<p>元类主要目的</p>
+<ul>
+<li>为了 <strong>当创建类时能够自动地改变类。</strong></li>
+</ul>
+<p>元类作用：</p>
+<ol>
+<li>拦截类的创建</li>
+<li>修改类</li>
+<li>返回修改之后的类</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">#coding=utf-8</span>
+
+<span class="k">class</span> <span class="nc">UpperAttrMetaClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="c1"># __new__ 是在__init__之前被调用的特殊方法</span>
+    <span class="c1"># __new__是用来创建对象并返回之的方法</span>
+    <span class="c1"># 而__init__只是用来将传入的参数初始化给对象</span>
+    <span class="c1"># 你很少用到__new__，除非你希望能够控制对象的创建</span>
+    <span class="c1"># 这里，创建的对象是类，我们希望能够自定义它，所以我们这里改写__new__</span>
+    <span class="c1"># 如果你希望的话，你也可以在__init__中做些事情</span>
+    <span class="c1"># 还有一些高级的用法会涉及到改写__call__特殊方法，但是我们这里不用</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">class_parents</span><span class="p">,</span> <span class="n">class_attr</span><span class="p">):</span>
+        <span class="c1"># 遍历属性字典，把不是__开头的属性名字变为大写</span>
+        <span class="n">new_attr</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">class_attr</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">):</span>
+                <span class="n">new_attr</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="c1"># 方法1：通过&#39;type&#39;来做类对象的创建</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">class_parents</span><span class="p">,</span> <span class="n">new_attr</span><span class="p">)</span>
+
+        <span class="c1"># 方法2：复用type.__new__方法</span>
+        <span class="c1"># 这就是基本的OOP编程，没什么魔法</span>
+        <span class="c1"># return type.__new__(cls, class_name, class_parents, new_attr)</span>
+
+<span class="c1"># python3的用法</span>
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">UpperAttrMetaClass</span><span class="p">):</span>
+    <span class="n">bar</span> <span class="o">=</span> <span class="s1">&#39;bip&#39;</span>
+
+<span class="c1"># python2的用法</span>
+<span class="c1"># class Foo(object):</span>
+<span class="c1">#     __metaclass__ = UpperAttrMetaClass</span>
+<span class="c1">#     bar = &#39;bip&#39;</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">))</span>
+<span class="c1"># 输出: False</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="s1">&#39;BAR&#39;</span><span class="p">))</span>
+<span class="c1"># 输出:True</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">BAR</span><span class="p">)</span>
+<span class="c1"># 输出:&#39;bip&#39;</span>
+</code></pre></div>
+
+<h2 id="orm">元类实现ORM<a class="headerlink" href="#orm" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="....\Database Interaction\index.md">Database Interaction 数据库交互</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
