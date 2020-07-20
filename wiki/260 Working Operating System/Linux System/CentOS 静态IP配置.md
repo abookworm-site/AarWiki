@@ -60,7 +60,7 @@ ifconfig
 4、最后，在 VMWare 的虚拟机管理界面，选择 Ubuntu 的 “**编辑虚拟机设置**”，打开 Ubuntu 这个虚拟的设置界面。
 
 - 选择网络适配器，然后确定网络连接选中的是 “自定义” 中的 VMnet8(NAT 模式)：  
-    
+  
     ![image-20200719163202061](_resource/CentOS%20%E9%9D%99%E6%80%81IP%E9%85%8D%E7%BD%AE/image-20200719163202061.png)
 
 5， VMWare 设置完毕。

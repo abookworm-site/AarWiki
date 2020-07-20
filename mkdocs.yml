@@ -76,32 +76,43 @@ nav:
 
 - 100 WorkSpace: '100 WorkSpace\index.md'
 
-#- 230 Working Excellence: '230 Working Excellence\index.md'
-
 - 250 Working Coding: 
   - Overview: '250 Working Coding\index.md'
-  - 操作系统底层: '250 Working Coding\操作系统底层\Java 程序员掌握的系统底层知识.md'
-  - 数据库操作与配置: '250 Working Coding\数据库操作与配置\index.md'
+
+  - 操作系统底层: '250 Working Coding\Computer System\Java 程序员掌握的系统底层知识.md'
+
+  - 数据库操作系统: 
+    - Overview: '250 Working Coding\Database System\index.md'
+    - MySQL: '250 Working Coding\Database System\MySQL\index.md'
+    - Oracle: '250 Working Coding\Database System\Oracle\index.md'
+    - Redis: '250 Working Coding\Database System\Redis\index.md'
+    - MongoDB: '250 Working Coding\Database System\MongoDB\index.md'
+
+  - 工作环境配置:
+    - Overview: '250 Working Coding\Environment Settings\index.md'
+
   - Git & Github 代码管理: '250 Working Coding\Git & Github 代码管理\Git & Github.md'
+
   - Docker 与 K8s 容器技术: 
     - Overview: '250 Working Coding\Docker & K8s 容器技术\index.md'
     - Docker 最佳实践: '250 Working Coding\Docker & K8s 容器技术\Docker 最佳实践.md'
     - Kubernetes(K8s) 最佳实践: '250 Working Coding\Docker & K8s 容器技术\Kubernetes(K8s) 最佳实践.md'
-  - 环境安装与配置:
-    - Overview: '250 Working Coding\环境安装与配置\index.md'
+
+  - 前端编程: '250 Working Coding\Front-end Programming\index.md'
 
 - ------ Working Coding C: '250 Working Coding C\index.md'
+
 - ------ Working Coding Java: '250 Working Coding Java\index.md'
 
 - ------ Working Coding Python:
   - Overview: '250 Working Coding Python\index.md'
-  - Python Basics: '250 Working Coding Python\PythonBasics\index.md'
-  - Network Programming: '250 Working Coding Python\NetworkProgramming\index.md'
-  - Database Interaction: '250 Working Coding Python\DatabaseInteraction\index.md'
-  - Development Framework: 
+  - 语言基础: '250 Working Coding Python\Python Basics\index.md'
+  - 网络编程: '250 Working Coding Python\Network Programming\index.md'
+  - 数据库交互: '250 Working Coding Python\Database Interaction\index.md'
+  - 各开发框架: 
     - Django: '250 Working Coding Python\Framework\Django\index.md'
     - Flask: '250 Working Coding Python\Framework\Flask\index.md'
 
 - 260 Working Operating System:
   - Overview: '260 Working Operating System\index.md' 
-  - Linux System: '260 Working Operating System\Linux System\Linux Learning.md'
+  - Linux System: '260 Working Operating System\Linux System\Linux Overall.md'

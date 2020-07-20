@@ -13,8 +13,8 @@
 #### CentOS
 
 - [CentOS6.5 installation guide](Linux System\CentOS6.5 installation guide.md)
-- [CentOS 静态IP配置](CentOS 静态IP配置.md)
-- [CentOS 多节点配置及设置静态IP](CentOS 多节点配置及设置静态IP.md)
+- [CentOS 静态IP配置](Linux System\CentOS 静态IP配置.md)
+- [CentOS 多节点配置及设置静态IP](Linux System\CentOS 多节点配置及设置静态IP.md)
 
 #### Ubuntu
 

@@ -433,9 +433,7 @@ print(f.BAR)
 
 ## 元类实现ORM
 
-- [Database Interaction 数据库交互](..\..\DatabaseInteraction\index.md)
-
-
+- [Database Interaction 数据库交互](..\..\Database Interaction\index.md)
 
 
 

@@ -4,7 +4,7 @@
 
 ### 操作步骤
 
-![img](file:///E:/251%20Show%20me%20Code/%2320%20Python%E9%AB%98%E7%BA%A7/Images/assets/WechatIMG9052.jpeg)
+![pythonDB api](_resource/index/image-20200720232019726.png)
 
 
 
@@ -84,7 +84,7 @@ cs1=conn.cursor()
 
 ### 1. 元类
 
-- [进阶提升](..\PythonBasics\进阶提升\index.md)
+- [进阶提升](..\Python Basics\进阶提升\index.md)
 
 
 

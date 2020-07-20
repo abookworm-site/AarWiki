@@ -1,4 +1,4 @@
-# mysql读写分离
+# MySQL 读写分离
 
 ![1570776205802](E:\lian\oracle\mysql\mysql-proxy.jpg)
 

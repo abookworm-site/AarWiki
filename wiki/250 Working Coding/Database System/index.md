@@ -1,6 +1,6 @@
 # 数据库操作与配置
 
-## 数据库简介
+## 一、数据库简介
 
 ### 数据存储
 
@@ -15,29 +15,29 @@
 
 
 
-## 数据库分类
+## 二、数据库分类
 
 ### 关系型数据库SQL
 
-#### [MySQL](./MySQL/index.md)
+#### 1. [MySQL](./MySQL/index.md)
 
 - 目前应用最为广泛的关系型数据库
 
-#### [Oracle](./Oracle/index.md)
+#### 2. [Oracle](./Oracle/index.md)
 
 - 前公司使用的数据库系统
 - 以前的大型项目中使用,银行,电信等项目
 
-#### SQL server
+#### 3. SQL server
 
 - 主要用于 `.Net`编程。
 - 微软项目
 
-#### DB2
+#### 4. DB2
 
 - 常用于：金融 & 银行
 
-#### sqlite
+#### 5. SQLite
 
 - 轻量级数据库，主要应用在移动平台
 
@@ -45,11 +45,11 @@
 
 ### 非关系型数据库NoSQL
 
-#### Hbase
+#### 1. Hbase
 
-#### [Redis](./Redis/index.md)
+#### 2. [Redis](./Redis/index.md)
 
-#### [MongoDB](./MongoDB/index.md)
+#### 3. [MongoDB](./MongoDB/index.md)
 
 
 
@@ -67,7 +67,7 @@
 
 ### RDBMS和数据库的关系
 
-![img](file:///E:/251%20Show%20me%20Code/%2320%20Python%E9%AB%98%E7%BA%A7/Images/16day/QQ20170814-163342@2x.png)
+![image-20200720233540646](_resource/index/image-20200720233540646.png)
 
 ### SQL
 

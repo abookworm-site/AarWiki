@@ -15,20 +15,20 @@
 
 ### 后端技术
 
-- [操作系统底层](..\250 Working Coding\操作系统底层\Java 程序员掌握的系统底层知识.md)
-- [数据库操作与配置](..\250 Working Coding\数据库操作与配置\index.md)
+- [操作系统底层](..\250 Working Coding\Computer System\Java 程序员掌握的系统底层知识.md)
+- [数据库操作与配置](..\250 Working Coding\Database System\index.md)
 - [Git & Github 代码管理](..\250 Working Coding\Git & Github 代码管理\Git & Github.md)
 - [Docker 与 K8s 容器技术](..\250 Working Coding\Docker & K8s 容器技术\index.md)
-- [环境安装与配置](..\250 Working Coding\环境安装与配置\index.md)
+- [环境安装与配置](..\250 Working Coding\Environment Settings\index.md)
 
 
 
 ### 前端相关
 
-- [HTML](前端HTML\index.md)
-- [CSS](前端CSS\index.md)
-- [Javascript](前端Javascript\index.md)
-    - [JQuery](前端框架JQuery\index.md)
+- [HTML](Front-end Programming\前端HTML\index.md)
+- [CSS](Front-end Programming\前端CSS\index.md)
+- [Javascript](Front-end Programming\前端Javascript\index.md)
+    - [JQuery](Front-end Programming\前端框架JQuery\index.md)
     - 
 
 

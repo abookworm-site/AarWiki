@@ -22,7 +22,7 @@
 
 - 日志记录: CatMemoNote
 
-- 日志总结: [Myblogs](http://abookworm.site)
+- 日志总结: [Myblogs](http://www.abookworm.site)
 
 - 系统性总结: [Wiki](https://wiki.abookworm.site)
 
@@ -36,31 +36,37 @@
 
 
 
-### 250 Working Coding
+### [250 Working Coding](250 Working Coding\index.md)
 
-- [操作系统底层](250 Working Coding\操作系统底层\Java 程序员掌握的系统底层知识.md)
+- [操作系统底层](250 Working Coding\Computer System\Java 程序员掌握的系统底层知识.md)
 
-- [数据库操作与配置](250 Working Coding\数据库操作与配置\index.md)
+- [数据库操作系统](250 Working Coding\Database System\index.md)
 
 - [Git & Github 代码管理](250 Working Coding\Git & Github 代码管理\Git & Github.md)
 
 - [Docker 与 K8s 容器技术](250 Working Coding\Docker & K8s 容器技术\index.md)
 
-- [环境安装与配置](250 Working Coding\环境安装与配置\index.md)
+- [环境安装与配置](250 Working Coding\Environment Settings\index.md)
 
 
 
-### 250 Working Coding Python
+### [250 Working Coding Python](250 Working Coding Python\index.md)
 
-- [语言基础](250 Working Coding Python\PythonBasics\index.md)
-- [网络编程](250 Working Coding Python\NetworkProgramming\index.md)
+- [语言基础](250 Working Coding Python\Python Basics\index.md)
 
-- [数据库交互](250 Working Coding Python\DatabaseInteraction\index.md)
+- [网络编程](250 Working Coding Python\Network Programming\index.md)
+
+- [数据库交互](250 Working Coding Python\Database Interaction\index.md)
+
 - [开发框架](250 Working Coding Python\Framework\index.md)
+
 - [网络爬虫]
+
 - [数据分析]
 
+    
 
+### [260 Working Operating System](260 Working Operating System\index.md)
 
 
 
@@ -98,10 +104,13 @@
 - Spring
 
 250 Working Coding Python
-- PythonBasics
-- NetworkProgramming
-- DatabaseInteraction
-- Framework
+- 语言基础
+- 网络编程
+- 数据库交互
+- 各开发框架
+
+260 Working Operation System
+- Linux System
 
 310 Learning English 万物有灵
 

@@ -1,22 +1,22 @@
 # Python Overview
 
-## 一、[语言基础](PythonBasics/index.md)
+## 一、[语言基础](Python Basics/index.md)
 
-### 1. [环境配置](PythonBasics\环境配置\index.md)
+### 1. [环境配置](Python Basics\环境配置\index.md)
 
-### 2. [基础入门](PythonBasics\基础入门\index.md)
+### 2. [基础入门](Python Basics\基础入门\index.md)
 
-### 3. [面对对象](PythonBasics\面对对象\index.md)
+### 3. [面对对象](Python Basics\面对对象\index.md)
 
-### 4. [多任务](PythonBasics\多任务\index.md)
+### 4. [多任务](Python Basics\多任务\index.md)
 
-### 5. [正则表达式](PythonBasics\正则表达式\index.md)
+### 5. [正则表达式](Python Basics\正则表达式\index.md)
 
-### 6. [进阶提升](PythonBasics\进阶提升\index.md)
+### 6. [进阶提升](Python Basics\进阶提升\index.md)
 
 
 
-## 二、[网络编程](NetworkProgramming\index.md)
+## 二、[网络编程](Network Programming\index.md)
 
 ### 1. 网络通讯
 
@@ -36,7 +36,7 @@
 
 
 
-## 三、[数据库交互](DatabaseInteraction\index.md)
+## 三、[数据库交互](Database Interaction\index.md)
 
 
 

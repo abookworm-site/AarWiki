@@ -28,7 +28,7 @@
 
 ## 基本操作
 
-- [MySQL基础入门](MySQL 基础入门.md)
+- [MySQL基础入门](MySQL基础入门.md)
 
 - [MySQL练习题](MySQL练习题.md)
 
@@ -66,17 +66,17 @@
 
 安装配置
 
-- [MySQL主从复制安装配置.md](MySQL主从复制安装配置.md)
+- [MySQL主从复制安装配置](MySQL主从复制安装配置.md)
 
 主从复制原理
 
-- [MySQL主从复制原理.md](MySQL主从复制原理.md)
+- [MySQL主从复制原理](MySQL主从复制原理.md)
 
 
 读写分离
 
-- [MySQL读写分离.md](MySQL读写分离.md)
-- [使用amoeba实现MySQL读写分离.md](使用amoeba实现MySQL读写分离.md)
+- [MySQL读写分离](MySQL读写分离.md)
+- [使用amoeba实现MySQL读写分离](使用amoeba实现MySQL读写分离.md)
 
 
 
@@ -84,13 +84,13 @@
 
 ### MySQL执行计划
 
-[MySQL执行计划.md](MySQL执行计划.md)
+[MySQL执行计划](MySQL执行计划.md)
 
 
 
 ### MySQL锁机制
 
-[MySQL的锁机制.md](MySQL的锁机制.md)
+[MySQL的锁机制](MySQL的锁机制.md)
 
 
 
@@ -122,4 +122,4 @@
 
 - Database Interaction with Python
 
-  
+  - [Database Interaction](..\..\..\250 Working Coding Python\Database Interaction\index.md)
