@@ -164,46 +164,17 @@ netmask 255.255.255.0
 gateway 192.168.3.2
 
 dns-nameservers 223.5.5.5 223.6.6.6 8.8.8.8
+
+# 添加默认路由（可先不加）
+up route add default gw 192.168.3.2
 ```
 
 - 若需要恢复之前的网络，在此处 **删除新增的内容** 即可。
+- 最后的 **添加默认路由** ，到步骤六，七重启后查看是否需要。直接添加也问题不大吧~
 
 
 
-### 6. 添加默认网关
-
-```bash
-# 查看网关
-netstat -rn
-##################################################################################
-# Kernel IP routing table
-# Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
-# 169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 ens33
-# 192.168.3.0     0.0.0.0         255.255.255.0   U         0 0          0 ens33
-##################################################################################
-
-# 查看路由
-route
-
-# 添加默认网关
-route add default gw 192.168.3.2
-
-# 查看网关
-netstat -rn
-##################################################################################
-# Kernel IP routing table
-# Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
-# 0.0.0.0         192.168.3.2     0.0.0.0         UG        0 0          0 ens33
-# 169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 ens33
-# 192.168.3.0     0.0.0.0         255.255.255.0   U         0 0          0 ens33
-##################################################################################
-```
-
-- 网上资料没有这一步，但是，个人经验需要这里添加一下默认网关。and do not tell me why?
-
-
-
-### 7. 重启网络/重启
+### 6. 重启网络/重启
 
 重启网络命令如下：
 
@@ -216,20 +187,59 @@ sudo /etc/init.d/networking restart
 
 
 
+### 7. 查看默认网关
+
+若在验证的时候，发现无法访问外网。那么就需要以下操作。
+
+```bash
+# 查看路由
+netstat -rn
+##################################################################################
+# Kernel IP routing table
+# Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+# 169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 ens33
+# 192.168.3.0     0.0.0.0         255.255.255.0   U         0 0          0 ens33
+##################################################################################
+
+# 查看路由
+route -n
+
+# 添加默认网关
+route add default gw 192.168.3.2
+
+# 查看路由
+netstat -rn
+##################################################################################
+# Kernel IP routing table
+# Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+# 0.0.0.0         192.168.3.2     0.0.0.0         UG        0 0          0 ens33
+# 169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 ens33
+# 192.168.3.0     0.0.0.0         255.255.255.0   U         0 0          0 ens33
+##################################################################################
+```
+
+- 网上资料没有这一步，但是，个人经验需要这里添加一下默认网关。and do not tell me why? I don't know.
+- 若系统重启后，默认路由丢失，导致无法访问外网。那么此时就需要在步骤五中 **添加默认路由**。
+
+
+
 ## 验证
 
 1.  在实体机上 ping 虚拟机；
 2.  在虚拟机上 ping 实体机；
-    - 反正我的是不通的。也不关心通不通。。。
+    - 反正我的不通的。也不关心通不通了。。。
 3.  在虚拟机上 ping 外网地址，如：`ping www.baidu.com`
 
 
 
 ## Reference
 
-| 序号 | 引用                                                         | 说明        |
-| ---- | ------------------------------------------------------------ | ----------- |
-| 1    | [VMware 中设置 Ubuntu 静态 IP 并可上网](https://blog.csdn.net/cgs1999/article/details/91416055) | `Framework` |
-| 2    | [Linux 虚拟机设置静态 IP](https://www.jianshu.com/p/2e5fecf2a7df) | `Debug`     |
-| 3    | [vmware 中设置 ubuntu 静态 ip](https://www.cnblogs.com/shanhm1991/p/9902568.html) | `Reference` |
+| 序号 | 引用                                                         | 说明            |
+| ---- | ------------------------------------------------------------ | --------------- |
+| 1    | [VMware 中设置 Ubuntu 静态 IP 并可上网](https://blog.csdn.net/cgs1999/article/details/91416055) | `Framework`     |
+| 2    | [Linux 虚拟机设置静态 IP](https://www.jianshu.com/p/2e5fecf2a7df) | `Debug`         |
+| 3    | [vmware 中设置 ubuntu 静态 ip](https://www.cnblogs.com/shanhm1991/p/9902568.html) | `Reference`     |
+| 4    | [Ubuntu系统重启后/etc/resolv.conf内容丢失](https://blog.csdn.net/u010096900/article/details/70355813) | `Reference`     |
+| 5    | [Linux添加临时路由及永久路由的方法](https://blog.csdn.net/sinat_31500569/article/details/70149241) | `Debug` `Bingo` |
+| 6    | [Ubuntu 网络配置](https://www.jianshu.com/p/0c0c33de3f00)    | `Debug`         |
 

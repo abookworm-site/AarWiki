@@ -1,5 +1,3 @@
-Linux Learning
-
 # Operation System - Linux 
 
 > 目录和文件操作
