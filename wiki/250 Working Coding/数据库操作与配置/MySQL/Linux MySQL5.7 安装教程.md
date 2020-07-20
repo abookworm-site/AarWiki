@@ -1,6 +1,6 @@
 
 
-# MySQL5.7 Installation Guide on CentOS
+# MySQL5.7 安装教程 on CentOS
 
 ## 安装准备
 
@@ -61,7 +61,9 @@ yum -y remove mysql-libs.x86_64
 
 
 
-### 3、安装wget命令
+### 3、使用 `rpm` 文件安装
+
+#### 安装wget命令
 
 ```
 yum install wget -y 
@@ -69,7 +71,7 @@ yum install wget -y
 
 
 
-### 4、给CentOS添加rpm源，并且选择较新的源
+#### 给CentOS添加rpm源，并且选择较新的源
 
 ```
 wget dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
@@ -77,22 +79,19 @@ wget dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
 
 
 
-### 5、安装下载好的rpm文件
+#### 安装下载好的rpm文件
 
 ```
  yum install mysql-community-release-el6-5.noarch.rpm -y
 ```
 
-
-
-### 6、安装成功之后，会在/etc/yum.repos.d/文件夹下增加两个文件
-
-- `mysql-community.repo`
-- `mysql-community-source.repo`
+- 安装成功之后，会在 `/etc/yum.repos.d/` 文件夹下增加两个文件
+    - `mysql-community.repo`
+    - `mysql-community-source.repo`
 
 
 
-### 7、修改 `mysql-community.repo` 文件
+#### 修改 `mysql-community.repo` 文件
 
 原文件：
 
@@ -104,7 +103,7 @@ wget dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
 
 
 
-### 8、使用yum安装mysql
+### 4、使用yum安装mysql
 
 ```
 yum install mysql-community-server -y
@@ -112,7 +111,9 @@ yum install mysql-community-server -y
 
 
 
-### 9、启动mysql服务并设置开机启动
+> 步骤三和步骤四任选其一即可。
+
+### 5、启动mysql服务并设置开机启动
 
 ```shell
 #启动之前需要生成临时密码，需要用到证书，可能证书过期，需要进行更新操作
@@ -129,12 +130,16 @@ chkconfig mysqld on
 
 - `service mysqld start` : 
     - 若直接开启服务，有可能启动失败。此时可以查看 `/var/log/mysqld.log` 文件以确认错误
-    - `Could not generate RSA private key required for X509 certificate.`  此时需要更新证书：`yum update -y`
-    - `--initialize specified but the data directory has files in it. Aborting.`, 此时需要删除 `/var/lib/mysql` 中所有的文件：`rm -rf /var/lib/mysql/*`
+    - `TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option`：
+        - 此时在 `/etc/my.conf` 文件中添加一行：`explicit_defaults_for_timestamp = 1` 即可。
+    - `Could not generate RSA private key required for X509 certificate.`  
+        - 此时需要更新证书：`yum update -y`
+    - `--initialize specified but the data directory has files in it. Aborting.`
+        - 此时需要删除 `/var/lib/mysql` 中所有的文件：`rm -rf /var/lib/mysql/*`
 
 
 
-### 10、获取mysql的临时密码
+### 6、获取mysql的临时密码
 
 ```shell
 grep "password" /var/log/mysqld.log
@@ -142,14 +147,16 @@ grep "password" /var/log/mysqld.log
 
 
 
-### 11、使用临时密码登录
+### 7、使用临时密码登录
 
 ```shell
 mysql -uroot -p
 # 输入密码
 ```
 
-### 12、修改密码
+
+
+### 8、修改密码
 
 ```sql
 set global validate_password_policy=0;
@@ -157,14 +164,18 @@ set global validate_password_length=1;
 ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
 ```
 
-### 13、修改远程访问权限
+
+
+### 9、修改远程访问权限
 
 ```sql
 grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
 flush privileges;
 ```
 
-### 14、设置字符集为utf-8
+
+
+### 10、设置字符集为utf-8
 
 ```shell
 #在[mysqld]部分添加：
