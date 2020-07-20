@@ -376,7 +376,28 @@ ln -s src xxx
 
 
 ## 软件安装和卸载
+### Linux 一般安装方式
+
+1. 源码编译的方式 
+2. rpm package or deb package
+3. yum install or apt install
+4. 压缩包
+
+
+
+### 1. 源码(非绝对)
+
+1. 解压缩代码包
+2. cd dir
+3. ./configure         : 检测文件是否缺失，创建make file， 检测编译环境
+4. make
+5. sudo make install   : 把库和可执行程序，安装到系统路径下
+6. sudo make distclean : 清除和卸载软件
+
+
+
 ### apt-get
+
 - sudo apt-get update          : 更新源
 - sudo apt-get install tree
 - sudo apt-get remove tree
@@ -386,17 +407,6 @@ ln -s src xxx
 ### dpkg
 - sudo dpkg -i xxx.deb : 安装
 - sudo dpkg -r xxx.deb : 移除
-
-
-
-### 源码(非绝对)
-
-1. 解压缩代码包
-2. cd dir
-3. ./configure         : 检测文件是否缺失，创建make file， 检测编译环境
-4. make
-5. sudo make install   : 把库和可执行程序，安装到系统路径下
-6. sudo make distclean : 清除和卸载软件
 
 
 
