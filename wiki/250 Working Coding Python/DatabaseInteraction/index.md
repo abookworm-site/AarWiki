@@ -80,9 +80,13 @@ cs1=conn.cursor()
 
 
 
-
-
 ## 元类实现ORM
+
+### 1. 元类
+
+- [进阶提升](..\PythonBasics\进阶提升\index.md)
+
+
 
 ### 1. ORM
 
@@ -97,7 +101,84 @@ cs1=conn.cursor()
 
 ### 2. 通过元类简单实现ORM中的insert功能
 
+```python
+class ModelMetaclass(type):
+	"""元类 ModelMetaclass"""
 
+	def __new__(cls, name, bases, attrs):
+		mappings = dict()
+
+		# 判断是否需要保存
+		for k, v in attrs.items():
+			# 如果值是元组，那么保存在字典中。不去除重复地添加。
+			if isinstance(v, tuple):
+				print("Found Mapping: %s --> %s" % (k, v))
+				mappings[k] = v
+
+		# 删除已经在字典中存储的属性，即去重
+		for k in mappings.keys():
+			attrs.pop(k)
+
+		# 将之前的关键字及其对象引用存储到其属性中
+		attrs['__mappings__'] = mappings
+		attrs['__table__'] = name
+
+		return type.__new__(cls, name, bases, attrs)
+
+
+class Module(metaclass=ModelMetaclass):
+	"""基类"""
+	def __init__(self, **kwargs):
+		for name, value in kwargs.items():
+			setattr(self, name, value)
+
+	
+	def save(self):
+		fields = []
+		args = []
+
+		for k, v in self.__mappings__.items():
+			fields.append(v[0])
+			args.append(getattr(self, k, None))
+
+		# 检测数字类型和字符串类型
+		args_cmp = []
+		for tmp in args:
+			if isinstance(tmp, int):
+				args_cmp.append(str(tmp))
+
+			elif isinstance(tmp, str):
+				args_cmp.append("""'%s'""" % tmp)
+
+		sql = "insert into %s(%s) values (%s)" % (self.__table__, ','.join(fields), ','.join(args_cmp))
+
+		print('SQL: %s' % sql)
+
+
+
+class User(Module):
+	uid = ('uid', "int unsigned")
+	name = ('username', "varchar(30)")
+	email = ('email', "varchar(30)")
+	password = ('password', "varchar(30)")
+
+	# 依照其元类进行类定制，那么其所有值均在 __mappings__ 的属性中
+    # __mappings__ = {
+    #     "uid": ('uid', "int unsigned")
+    #     "name": ('username', "varchar(30)")
+    #     "email": ('email', "varchar(30)")
+    #     "password": ('password', "varchar(30)")
+    # }
+    # 同时，还有一个属性为 __table__ = "User"
+
+
+user = User(uid = 123, name="Aaron", email="abackhand@orm.com", password="xx123xx")
+
+user.save()
+```
+
+- 编写时，请始终记住自己的需求：SQL语句。
+- 可首先编写到统一类，再抽取到基类。
 
 
 
