@@ -108,6 +108,20 @@
 
 
 
+#### 安装模块包
+
+| 序号 | 模块名称 | 说明            | 标签      |
+| ---- | -------- | --------------- | --------- |
+| 1    | django   | 主程序框架      | `All`     |
+| 2    | PyMySQL  | MySQL数据库支持 | `Python3` |
+| 3    | mysqldb  | MySQL数据库支持 | `Python2` |
+| 4    |          |                 |           |
+| 5    |          |                 |           |
+
+
+
+
+
 ### 2. 创建项目
 
 #### 2.1 创建命令
@@ -122,25 +136,22 @@ $ django-admin startproject MyWorld
 
 #### 2.2 默认目录说明
 
-```
+```python
 MyWorld
 |
-|-- MyWorld
-|   |-- __init__.py
-|   |-- settings.py
-|   |-- urls.py
-|   `-- wsgi.py
-`-- manage.py
+|-- MyWorld				# 项目的容器
+|   |-- __init__.py		# 空文件，实意目录为Python包
+|   |-- settings.py		# 项目配置
+|   |-- urls.py			# 项目URL声明，及网站URL目录
+|   `-- wsgi.py			# WSGI 兼容的 Web 服务器的入口
+`-- manage.py			# 使用命令行工具，依此可多种方式操作该Django项目
 ```
 
-- **`manage.py`**：一个实用的命令行工具，可让你以各种方式与该 Django 项目进行交互。
-- **`MyWorld`**：项目的容器。
-- **`MyWorld`/`__init__.py`**：一个空文件，告诉 Python 该目录是一个 Python 包。
-- **`MyWorld`/`settings.py`**：该 Django 项目的设置/配置。
-- **`MyWorld`/`urls.py`**： 该 Django 项目的 URL 声明; 一份由 Django 驱动的网站"目录"。
-- **`MyWorld`/`wsgi.py`**： 一个 WSGI 兼容的 Web 服务器的入口，以便运行你的项目。
+- **`MyWorld`/`__init__.py`**：虽然为空文件，但是包的载入以此为入口点。因此，可以做成许多事。
 
+- **`MyWorld`/`urls.py`**： 一般而言，此处的URL目录为总体目录，更多细化会在各个应用中体现。
 
+    
 
 #### 2.3 运行默认开发服务器
 
@@ -203,6 +214,8 @@ MyWorld
 
 ```
 
+- 此处注释仅为明确目录关系及作用。不遵循PEP8。
+
 
 
 #### 注册安装子应用
@@ -257,6 +270,8 @@ INSTALLED_APPS = (
 
 ### 4. 配置数据库
 
+#### 4.1 配置MySQL数据库
+
 Django 框架默认使用 **SQLite3** 数据库。也可自定义：
 
 打开 `MyWorld/settings.py`文件，找到 `DATABASES`项，修改为MySQL数据库。
@@ -269,7 +284,7 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',  # raw line
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # raw line
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_name', # 数据库名字，
+        'NAME': 'db_name', # 数据库名字
         'USER': 'root', # 数据库登录用户名
         'PASSWORD': 'mysql', # 数据库登录密码
         'HOST': 'localhost', # 数据库所在主机
@@ -286,14 +301,21 @@ DATABASES = {
 
 
 
+#### 4.2 配置MySQL数据库支持
 
-#### 配置数据库支持
+1. 安装MySQL数据库模块支持`PyMySQL for Python3` 。
 
-MySQLdb is the interface to MySQL database. As mentioned by other posts, MySQLdb doesn't support Python 3.x. I used PyMySQL as the replacement. You need to install it first:
+`MySQLdb` is the interface to MySQL database. As mentioned by other posts, MySQLdb doesn't support Python 3.x. I used `PyMySQL` as the replacement. So you need to install it first:
 
 ```
 pip install PyMySQL
 ```
+
+- 若是Python2，那么直接使用模块 `MySQLdb` 即可。
+
+
+
+2.  在使用到MySQL数据库的应用包的文件 `__init__.py` 中添加代码。比如：主项目容器 `MyWorld`包的`__init__.py`文件。
 
 The next step is to replace 'MySQLdb' with 'pymysql' in all the codes, which is intimidating. Luckily, PyMySQL can be loaded as MySQLdb dyanamically. 
 
@@ -301,14 +323,44 @@ In order to achieve it in Django, you need to add the following lines to `__init
 
 ```
 import pymysql
+
 pymysql.install_as_MySQLdb()
 ```
 
-This __init__.py would be executed when you run the Django project, and MySQLdb will be replaced.
+This `__init__.py` would be executed when you run the Django project, and MySQLdb will be replaced.
 
 
 
-### 5. 运行服务器
+### 5. 配置视图URL
+
+#### 5.1 项目URL匹配
+
+```python
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),  # 默认后台管理页面匹配
+]
+
+
+```
+
+
+
+
+
+
+
+#### 5.2 应用URL匹配
+
+
+
+
+
+
+
+### 6. 运行服务器
 
 配置于此，便可以运行 `Django` 提供的开发服务器
 
@@ -318,11 +370,13 @@ $ python manage.py runserver ip:端口
 $ python manage.py runserver
 ```
 
+- 此时，便可以查验数据库，视图配置是否正确
 
 
-### 6. 其他可提前设置项
 
-#### 配置本地化
+### 7. 其他可提前设置项
+
+#### 7.1 配置本地化
 
 在 `settings.py` 中配置本地化设置如下：
 
@@ -343,7 +397,7 @@ USE_TZ = True
 
 
 
-#### 配置静态文件目录
+#### 7.2 配置静态文件目录
 
 新建 `MyWorld/static` 文件夹，在 `settings.py` 中配置静态文件目录如下：
 
@@ -359,11 +413,35 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 
 
+#### 7.3 配置模板文件目录
+
+新建 `MyWorld/templates` 文件夹，在 `settings.py` 中配置模板文件目录如下：
+
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+```
+
+
+
 ## 模型设计
 
 ### ORM框架
 
-
+把类和数据表进行了一个映射，从而可以**通过类和类对象就能操作它所对应的表格中的数据**。也可以**根据我们设计的类自动帮我们生成数据库中的表格**。
 
 - O是object，也就**类对象**
 
@@ -371,15 +449,15 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 - M是mapping，是**映射**
 
-把类和数据表进行了一个映射，从而可以**通过类和类对象就能操作它所对应的表格中的数据**。也可以**根据我们设计的类自动帮我们生成数据库中的表格**
 
 
+### 数据库开发步骤
 
 使用 `django` 进行数据库开发的步骤：
 
-- 1.在models.py中定义模型类
-- 2.迁移
-- 3.通过类和对象完成数据增删改查操作
+- 1，在 **各个应用** 的 `models.py` 中**定义模型类**
+- 2，**迁移**
+- 3，通过类和对象完成数据**增删改查操作**
 
 
 
@@ -387,18 +465,30 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 模型类定义在 `models.py` 文件中，继承自 `models.Model`类。
 
-##### 设计模型类
+#### 设计模型类
 
-##### 定义模型类
+- 依据数据库进行模型类数据类型映射即可。
+
+#### 定义模型类
 
 在 `models.py` 中定义模型类。
 
 ```python
 from django.db import models
 
+# Create your models here.
 class BookInfo(models.Model):
+    """依据数据库字段进行的数据表字段映射"""
     btitle = models.CharField(max_length=20)
     bpub_date = models.DateField()
+    
+    class Meta:
+        db_table = 'bookinfo'  # 定义数据库对应的表名称
+        verboser_name = '图书'  # 在admin站点中显示的名称
+    
+    def __str__(self):
+        """定义后台页面中，数据对象的显示信息"""
+        return self.name
 ```
 
 
@@ -407,23 +497,23 @@ class BookInfo(models.Model):
 
 迁移由两步完成:
 
-- 1.生成迁移文件：根据模型类生成创建表的迁移文件。
+1, 生成迁移文件：根据模型类生成创建表的迁移文件。
 
-  ```
-  python manage.py makemigrations
-  ```
-
-- 2.执行迁移：根据第一步生成的迁移文件在数据库中创建表。
-
-```
-python manage.py migrate
+```bash
+$ python manage.py makemigrations
 ```
 
+2, 执行迁移：根据第一步生成的迁移文件在数据库中创建表。
 
-
-数据库迁移
-
+```bash
+$ python manage.py migrate
 ```
+
+
+
+数据库迁移更新
+
+```bash
 $ python manage.py migrate   # 创建表结构
 
 $ python manage.py makemigrations TestModel  # 让 Django 知道模型有变更
@@ -477,7 +567,7 @@ b.heroinfo_set.all()
 
 
 
-## 后台管理
+## 后台站点管理
 
 > 解决快速生成数据库中数据的操作
 
@@ -492,11 +582,11 @@ b.heroinfo_set.all()
 
 ### 1. 管理界面本地化
 
-设置语言编码、时区：`settings.py`
+设置语言编码、时区：`MyWorld/settings.py`
 
-```
-LANGUAGE_CODE = 'zh-hans' #使用中国语言
-TIME_ZONE = 'Asia/Shanghai' #使用中国上海时间
+```python
+LANGUAGE_CODE = 'zh-hans' # 使用中国语言
+TIME_ZONE = 'Asia/Shanghai' # 使用中国上海时间
 ```
 
 
