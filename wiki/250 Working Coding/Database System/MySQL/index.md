@@ -122,4 +122,4 @@
 
 - Database Interaction with Python
 
-  - [Database Interaction](..\..\..\250 Working Coding Python\Database Interaction\index.md)
+  - [Database Interaction](\250 Working Coding Python\Database Interaction\index.md)
