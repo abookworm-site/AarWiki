@@ -214,7 +214,7 @@ docker rm <-f> container_id
 docker rmi <-f> image_name<:tags>
 ```
 
-1. 在官方远程镜像仓库：[hub.docker.com](hub.docker.com)搜索镜像
+1. 在官方远程镜像仓库：[hub.docker.com](http://hub.docker.com)搜索镜像
 	- Supported tags and respective `Dockerfile` links
 	- Quick reference
 	- What is xxx?

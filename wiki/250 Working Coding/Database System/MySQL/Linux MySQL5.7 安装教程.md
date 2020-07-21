@@ -11,7 +11,7 @@
 > - 按照之前的经验，阿里云镜像使用的是国内电信运营商，速度很快
 > - 而在家里面的联通运营商使用阿里云镜像速度一般，相反选择xx镜像（忘了>__<）速度很快。
 
-1、打开 [mirrors.aliyun.com](mirrors.aliyun.com)，选择centos的系统，点击帮助
+1、打开 [mirrors.aliyun.com](http://mirrors.aliyun.com)，选择centos的系统，点击帮助
 
 2、执行命令：`yum install wget -y`
 

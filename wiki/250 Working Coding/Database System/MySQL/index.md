@@ -13,6 +13,7 @@
 - [Ubuntu MySQL 安装教程](Ubuntu MySQL 安装教程.md)
     - 服务端
     - 客户端，包括命令行客户端与图形化客户端Navicat
+- [MySQL重置管理员密码](MySQL重置管理员密码.md)
 - [Linux MySQL5.7 安装教程](Linux MySQL5.7 安装教程.md)
 
 - [Linux MySQL5.7 彻底卸载](Linux MySQL5.7 彻底卸载.md)
@@ -108,6 +109,8 @@
 
 - Database Interaction with C
 
+
+
 - Database Interaction with Java
 
     - JDBC及代码分层
@@ -118,8 +121,8 @@
 
     - 数据库连接池（druid、hikariCP）
 
-        
+
 
 - Database Interaction with Python
 
-  - [Database Interaction](\250 Working Coding Python\Database Interaction\index.md)
+  - [Database Interaction](https://wiki.abookworm.site/250 Working Coding Python/Database Interaction/)

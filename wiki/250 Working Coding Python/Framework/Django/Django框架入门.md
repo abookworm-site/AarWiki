@@ -207,9 +207,7 @@ MyWorld
 
 #### 注册安装子应用
 
-##### 建立应用和项目之间的关联
-
-在 `MyWorld/settings.py` 中 `INSTALLED_APPS` 下添加应用的名称以完成安装
+建立应用和项目之间的关联，在 `MyWorld/settings.py` 中 `INSTALLED_APPS` 下添加应用的名称以完成安装
 
 ```python
 INSTALLED_APPS = (
@@ -268,6 +266,8 @@ Django 框架默认使用 **SQLite3** 数据库。也可自定义：
 ```python
 DATABASES = {
     'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',  # raw line
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # raw line
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_name', # 数据库名字，
         'USER': 'root', # 数据库登录用户名
@@ -351,7 +351,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/'  # raw line
 
 # 配置静态文件目录
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
