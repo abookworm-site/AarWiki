@@ -1,11 +1,11 @@
 # Site info.
-site_name: abookworm's Wiki
+site_name: Abookworm's Wiki
 site_author: Aaron Loong
 site_url: https://wiki.abookworm.site
 
 # Repository
-repo_name: abookworm-site/WikiPage
-repo_url: https://github.com/abookworm-site/WikiPage
+repo_name: abookworm-site/AarWiki
+repo_url: https://github.com/abookworm-site/AarWiki
 
 # Site Pre
 # pip3 install mkdocs
