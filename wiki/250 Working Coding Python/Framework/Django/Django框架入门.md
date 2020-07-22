@@ -224,12 +224,12 @@ MyWorld
 
 ```python
 INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.admin',  # 默认admin管理后台站点
+    'django.contrib.auth',  # 默认身份认证系统
+    'django.contrib.contenttypes',  # 默认内容类型框架
+    'django.contrib.sessions',  # 默认会话框架
+    'django.contrib.messages',  # 默认消息框架
+    'django.contrib.staticfiles',  # 默认文件管理框架
     'apps.user', # 用户模块
     'apps.goods', # 商品模块
     'apps.cart', # 购物车模块
@@ -293,6 +293,12 @@ DATABASES = {
 }
 ```
 
+- `ENGINE`
+
+    - `django.db.backends.sqlite3`、`django.db.backends.postgresql`、`django.db.backends.mysql`、`django.db.backends.oracle`
+
+- 
+
 - 注意：这里的数据库 **db_name** 需要自己进入数据库去**手动创建**。
 
 - ```sql
@@ -335,28 +341,90 @@ This `__init__.py` would be executed when you run the Django project, and MySQLd
 
 #### 5.1 项目URL匹配
 
+此配置为默认生成的 `url.py` 文件。只需要添加相应的视图即可。
+
 ```python
 from django.contrib import admin
 from django.urls import path
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),  # 默认后台管理页面匹配
+    path('book/', include('book.urls'))
 ]
-
-
 ```
 
+- `include()` 即插即用。
 
+- 除了admin路由外，尽量给每个应用app设计自己独立的二级路由。
 
+- 应用解耦：项目根路由不关心具体应用app的路由策略，只管往指定的二级路由转发。
 
-
-
+    
 
 #### 5.2 应用URL匹配
 
+应用URL需要自己在各个应用下新建 `url.py` 而后依据项目URL进行二级目录下的URL匹配视图即可。
+
+```python
+from django.urls import path
+
+# 导入各应用视图
+from . import views
+
+
+urlpatterns = [
+    path('', views.index, name='index')，
+]
+```
+
+- 应用所属的二级路由可以根据自己的需要随意编写，不会和其它的app路由发生冲突。
 
 
 
+`path()` 方法：
+
+`path()` 方法接收4个参数。2个必须：`route`和`view`，以及2个可选：`kwargs`和`name`。
+
+> `route`
+
+- route 是一个匹配 URL 的准则（类似正则表达式）。
+- URL路由的编写顺序非常重要！
+    - Django 响应一个请求时，它会从 urlpatterns 的第一项开始，按顺序依次匹配列表中的项，直到找到匹配的项，然后执行该条目映射的视图函数或下级路由，其后的条目将不再继续匹配。
+
+- route不会匹配 GET 和 POST 参数或域名。
+    - 例如，URLconf 在处理请求 `https://www.example.com/myapp/`时，它会尝试匹配 `myapp/`。
+    - 处理请求 `https://www.example.com/myapp/?page=3` 时，也只会尝试匹配 `myapp/`。
+
+> `view`
+
+- `view` 指处理当前url请求的视图函数。
+- 当Django匹配到某个路由条目时，自动将封装的`HttpRequest`对象作为第一个参数，被“捕获”的参数以关键字参数的形式，传递给该条目指定的视图view。
+
+> `kwargs`
+
+- 任意数量的关键字参数可以作为一个字典传递给目标视图。
+
+> `name`
+
+- 对URL命名。能够在Django的任意处，尤其是模板内 **显式地引用它**。
+- 给URL取全局变量名，不会将url匹配地址写死。
+
+
+
+#### 5.3 应用视图
+
+
+
+```python
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+def index(request):
+	"""Homepage"""
+	return HttpResponse("Hello, My World! Here is the homepage!")
+```
 
 
 
@@ -500,25 +568,53 @@ class BookInfo(models.Model):
 1, 生成迁移文件：根据模型类生成创建表的迁移文件。
 
 ```bash
-$ python manage.py makemigrations
+# 初次迁移模型
+$ python manage.py makemigrations  
+
+# 模型更改命令
+$ python manage.py makemigrations Models  
 ```
+
+- 运行`makemigrations`命令，Django 会检测你对模型文件的修改
+
+
 
 2, 执行迁移：根据第一步生成的迁移文件在数据库中创建表。
 
 ```bash
+# 初次迁移模型
 $ python manage.py migrate
+
+# 变更表结构
+$ python manage.py migrate Models
 ```
+
+- `migrate` 命令将遍历`INSTALLED_APPS`设置中的所有项目，在数据库中创建对应的表，并打印出每一条动作信息。
+- `migrate` 命令对所有还未实施的迁移记录进行操作
 
 
 
 数据库迁移更新
 
 ```bash
-$ python manage.py migrate   # 创建表结构
+$ python manage.py makemigrations Model  # 模型变更
 
-$ python manage.py makemigrations TestModel  # 让 Django 知道模型有变更
-$ python manage.py migrate TestModel   # 创建表结构
+$ python manage.py migrate Model   # 迁移变更表结构
 ```
+
+
+
+数据库变更查验
+
+检查项目中的错误，并不实际进行迁移或者链接数据库的操作。
+
+```bash
+$ python manage.py check
+```
+
+
+
+
 
 
 
@@ -641,9 +737,9 @@ admin.site.register(BookInfo, BookInfoAdmin)
 
 
 
----
 
----
+
+
 
 ## 视图及URL
 
