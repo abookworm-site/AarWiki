@@ -350,9 +350,11 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # 默认后台管理页面匹配
-    path('book/', include('book.urls'))
+    path('index/', include('book.urls'))
 ]
 ```
+
+- `admin/` ：请务必修改得更加复杂一些，不要轻易暴露后台管理页面地址。
 
 - `include()` 即插即用。
 
@@ -379,6 +381,7 @@ urlpatterns = [
 ```
 
 - 应用所属的二级路由可以根据自己的需要随意编写，不会和其它的app路由发生冲突。
+- 此处编写为所有从一级目录 `/index` 的所有试图均为视图 `index`。
 
 
 
@@ -438,6 +441,7 @@ $ python manage.py runserver ip:端口
 $ python manage.py runserver
 ```
 
+- 访问：http://127.0.0.1:8000/book
 - 此时，便可以查验数据库，视图配置是否正确
 
 
@@ -602,6 +606,9 @@ $ python manage.py makemigrations Model  # 模型变更
 $ python manage.py migrate Model   # 迁移变更表结构
 ```
 
+- Django通过表 `django_migration` 记录并跟踪已经实施的migrate动作，并通过对比获得哪些 migrations 尚未提交。
+- 同时，将数据库创建和实施迁移分两步有利于版本控制系统。`migration` 文件上传github 后，版本控制系统便可以指导所有操作信息。
+
 
 
 数据库变更查验
@@ -611,10 +618,6 @@ $ python manage.py migrate Model   # 迁移变更表结构
 ```bash
 $ python manage.py check
 ```
-
-
-
-
 
 
 
@@ -676,9 +679,9 @@ b.heroinfo_set.all()
 
 
 
-### 1. 管理界面本地化
+### 1. 确认管理界面本地化
 
-设置语言编码、时区：`MyWorld/settings.py`
+确认设置语言编码、时区：`MyWorld/settings.py`
 
 ```python
 LANGUAGE_CODE = 'zh-hans' # 使用中国语言
@@ -689,17 +692,29 @@ TIME_ZONE = 'Asia/Shanghai' # 使用中国上海时间
 
 ### 2. 创建管理员
 
-创建管理员用户：
+创建管理员用户
 
-```
-python manage.py createsuperuser
+```bash
+$ python manage.py createsuperuser
+
+# 输入用户名
+Username: admin
+
+# 输入邮箱地址
+Email address: xxxx@xxx.com
+
+# 输入密码
+Password: ******
+Password (again): ******
+Superuser create successful
 ```
 
-测试默认后台管理页面接口：
 
-```
-http://127.0.0.1:8000/admin/
-```
+
+访问后台管理页面
+
+- 启动服务器，访问：http://127.0.0.1:8000/admin/ 
+- 不要轻易暴露后台管理页面地址，并将其URL地址设置得更加复杂一些。
 
 
 
@@ -743,7 +758,7 @@ admin.site.register(BookInfo, BookInfoAdmin)
 
 ## 视图及URL
 
-在django的设计框架MVT中，用户在URL中请求的是视图，视图接收请求后进行处理，并将处理的结果返回给请求者。
+Django的设计框架MVT中，用户在URL中请求的是视图，视图接收请求后进行处理，并将处理的结果返回给请求者。
 
 使用视图时需要进行两步操作：
 
@@ -754,16 +769,16 @@ admin.site.register(BookInfo, BookInfoAdmin)
 
 ### 1. 定义视图
 
-视图就是定义在`views.py` 文件的python函数。
+视图就是定义在各应用 `views.py` 文件的Python函数。
 
 - 必须有`request` 参数
 - 必须返回 HttpResponse 对象， HttpResponse 中参数内容会显示在浏览器的页面上。
 
-```
+```python
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("index")
+    return HttpResponse("Here is Home page")
 ```
 
 
@@ -825,15 +840,20 @@ urlpatterns = [
 
 
 
+
+
+
+
 ## 模板
 
 > 解决**返回页面需要携带复杂数据**的问题
 
-在Django中，将前端的内容定义在模板中，然后再把模板交给视图调用，以便获得各种漂亮、炫酷的效果。
+Django将前端的内容定义在模板中，然后再把模板交给视图调用，以便获得各种漂亮、炫酷的效果。
 
 ### 创建模板
 
 1. 创建相关模板文件：`Booktest/templates/booktest/index.html`
+    - `templates` 文件夹在一级目录，下面将是对应各个应用的二级目录，再下面为各个视图模板文件。模板文件将会和试图进行一一对应。
 2. 设置查找模板路径：在 `settings.py` 中，设置TEMPLATES的DIRS值
 
 ```
