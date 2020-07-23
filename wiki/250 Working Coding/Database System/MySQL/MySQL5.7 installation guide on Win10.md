@@ -1,6 +1,6 @@
 
 
-# MySQL5.7 installation guide on Win10
+# MySQL5.7 安装教程 on Win10
 
 ## Preface
 

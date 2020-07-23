@@ -29,6 +29,16 @@ oracle视图、用户管理、序列、DML
 
 
 
+Oracle函数
+
+- [Oracle函数大全.chm](Oracle函数大全.chm)
+
+
+
+
+
+
+
 - [Oracle数据库练习](Oracle数据库练习.md)
 
 
