@@ -288,7 +288,7 @@ select * from emp where sal > 1000 minus (select * from emp where deptno = 30);
 -- (1)查询DEPT表显示所有部门名称.
 select dname from dept;
 
--- (2)查询EMP表显示所有雇员名及其全年收入(月收入=工资+补助),处理NULL行,幵指定列别名为"年收入"
+-- (2)查询EMP表显示所有雇员名及其全年收入(月收入=工资+补助),处理NULL行,并指定列别名为"年收入"
 
 
 -- (3)查询显示不存在雇员的所有部门号。
