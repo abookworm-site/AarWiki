@@ -431,33 +431,10 @@ print(f.BAR)
 
 
 
-## 元类实现ORM
+### 9. 元类应用
+
+#### 9.1. 实现ORM
 
 - [Database Interaction 数据库交互](https://wiki.abookworm.site/Database Interaction/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
