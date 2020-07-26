@@ -30,8 +30,13 @@
 ## 基本操作
 
 - [MySQL基础入门](MySQL基础入门.md)
-
 - [MySQL练习题](MySQL练习题.md)
+
+
+
+
+
+- [MySQL经典笔试题](MySQL经典笔试题.md)
 
 
 
