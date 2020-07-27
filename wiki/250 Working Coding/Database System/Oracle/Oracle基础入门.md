@@ -35,7 +35,7 @@ SQL：即结构化查询语言 (Structured Query Language)，具有定义、查�
 
 ### `SCOTT` 基础表
 
-Oracle 安装完成后，在 `scott` 用户下有几张基础表可供操作。以下是各表字段信息：
+Oracle 安装完成后，在 `scott` 用户下有几张基础表可供操作。以下是各表字段信息及数据：
 
 Table：`emp`雇员表(employee)
 
@@ -75,6 +75,53 @@ Table：`bonus`奖金表：表示一个雇员的工资及奖金。
 
 
 
+**Table：`Emp`**
+
+|      | EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL      | COMM    | DEPTNO |
+| ---- | ----- | ------ | --------- | ---- | ---------- | -------- | ------- | ------ |
+| 1    | 1234  | CAI%10 | ANALYST   | 7782 | 2020/6/1   | 12000.00 |         | 10     |
+| 2    | 7369  | SMITH  | CLERK     | 7902 | 1980/12/17 | 800.00   |         | 20     |
+| 3    | 7499  | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600.00  | 300.00  | 30     |
+| 4    | 7521  | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250.00  | 500.00  | 30     |
+| 5    | 7566  | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975.00  |         | 20     |
+| 6    | 7654  | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250.00  | 1400.00 | 30     |
+| 7    | 7698  | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850.00  |         | 30     |
+| 8    | 7782  | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450.00  |         | 10     |
+| 9    | 7788  | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000.00  |         | 20     |
+| 10   | 7839  | KING   | PRESIDENT |      | 1981/11/17 | 5000.00  |         | 10     |
+| 11   | 7844  | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500.00  | 0.00    | 30     |
+| 12   | 7876  | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100.00  |         | 20     |
+| 13   | 7900  | JAMES  | CLERK     | 7698 | 1981/12/3  | 950.00   |         | 30     |
+| 14   | 7902  | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000.00  |         | 20     |
+| 15   | 7934  | MILLER | CLERK     | 7782 | 1982/1/23  | 1300.00  |         | 10     |
+
+- 原始表格并没有第一列，第一列数据为手工添加。便于查询练习。
+
+
+
+**Table：`Dept`**
+
+| id   | DEPTNO | DNAME      | LOC      |
+| ---- | ------ | ---------- | -------- |
+| 1    | 10     | ACCOUNTING | NEW YORK |
+| 2    | 20     | RESEARCH   | DALLAS   |
+| 3    | 30     | SALES      | CHICAGO  |
+| 4    | 40     | OPERATIONS | BOSTON   |
+
+
+
+**Table：`salgrade`**
+
+|      | GRADE | LOSAL | HISAL |
+| ---- | ----- | ----- | ----- |
+| 1    | 1     | 700   | 1200  |
+| 2    | 2     | 1201  | 1400  |
+| 3    | 3     | 1401  | 2000  |
+| 4    | 4     | 2001  | 3000  |
+| 5    | 5     | 3001  | 9999  |
+
+
+
 ### 基本查询
 
  `select ... from ...where` 语法
@@ -85,7 +132,7 @@ select [distinct] [*, column, alias, ...]
 	where 表达式条件
 ```
 
-alias
+别名命名方式 `alias`
 
 - Column alias
 - Column “alias”
@@ -103,12 +150,17 @@ alias
     - `select job "gong zuo" from emp;`
     - `select job as "gong zuo" from emp;`
 
-`distinct` 去重
+字段数据去重 `distinct` 
 
 - `distinct`必须放在开头
 - 多字段：每个字段不一样才去重
 
 ```sql
+/* SQL 语句语法：
+-- SELECT [DISTINCT] {*,column alias,..}
+--	FROM table alias
+--	Where 条件表达式
+*/
 -- 查询雇员表中部门编号是10的员工
 select * from emp where deptno = 10;
 
@@ -284,6 +336,14 @@ select * from user_col_comments;
 案例：
 
 ```sql
+/* 条件查询练习：
+-- ＝，！＝,<>，<,>,<=,>=,any,some,all
+-- is null,is not null
+-- between x and y
+-- in（list），not in（list）
+-- exists（sub－query）
+-- like  _ ,%,escape ‘\‘   _\% escape ‘\’
+*/
 -- =
 select * from emp where deptno = 20;
 
@@ -385,8 +445,6 @@ select * from emp where ename like ('S%T_');
 -- 查询名字中带%的用户
 -- 此处，需要自行插入一列数据：ename = CAI%KK
 select * from emp where ename like ('%.%%') escape('.');
-
-
 ```
 
 
@@ -431,8 +489,6 @@ select * from emp order by ename;
 
 -- 排序可以指定多个字段，而且多个字段可以使用不同的排序方式
 select * from emp order by sal desc, ename desc;
-
-
 ```
 
 
@@ -501,12 +557,11 @@ select 100 + null from dual;
 
 ### 并集，全集，交集，差集
 
-1. `union all` 全集：将两个集合中所有数据全部显示，不完成去重的操作(即：包含重复数据）。
-
-2. `union` 并集（去重）：将两个集合中所有数据都进行显示，但是不包含重复的数据。
-
+1. `union all` 全集：
+    - 将两个集合中所有数据全部显示，不完成去重的操作(即：包含重复数据）。
+2. `union` 并集（去重）：
+    - 将两个集合中所有数据都进行显示，但是不包含重复的数据。
 3. `intersect` 交集：将两个集合中交叉的数据集显示一次。
-
 4. `minus` 差集：跟A和B的集合顺序相关
     - A 差 B： 包含在A集合而不包含在B集合中的数据
     - B 差 A： 包含在B集合而不包含在A集合中的数据，
@@ -541,6 +596,66 @@ select * from emp where sal > 1000;
 select * from emp where sal > 1000 minus
 select * from emp where deptno = 30;
 ```
+
+
+
+### 复习练习
+
+```sql
+-- 总结复习：
+-- 1、使用基本查询语句.
+-- (1) 查询DEPT表显示所有部门名称.
+select dname from dept;
+
+-- (2) 查询EMP表显示所有雇员名及其全年收入(月收入=工资+补助),处理NULL行,并指定列别名为"年收入"
+select e.ename, (e.sal + nvl(e.comm, 0))*12 "year co" from emp e;
+
+-- (3) 查询显示不存在雇员的所有部门号。***
+select e.deptno from emp e;
+
+select deptno from dept where deptno not in (select e.deptno from emp e);
+
+
+-- 2、限制查询数据
+-- (1) 查询EMP表显示工资超过2850的雇员姓名和工资。
+select e.ename, e.sal from emp e where e.sal > 2850;
+
+-- (2) 查询EMP表显示工资丌在1500～2850乊间的所有雇员及工资。
+select e.ename, e.sal from emp e where e.sal > 1500 and e.sal < 2850;
+
+-- (3) 查询EMP表显示代码为7566的雇员姓名及所在部门代码。
+select e.ename, e.deptno from emp e where e.empno = 7566;
+
+-- (4) 查询EMP表显示部门10和30中工资超过1500的雇员名及工资。
+select e.ename, e.sal from emp e where (deptno = 10 or deptno = 30) and e.sal > 1500;
+
+-- (5) 查询EMP表显示第2个字符为"A"的所有雇员名其工资。
+select e.ename, e.sal from emp e where e.ename like '_A%';
+
+-- (6) 查询EMP表显示补助非空的所有雇员名及其补助。
+select e.ename, e.comm from emp e where e.comm is not null;
+
+
+-- 3、排序数据
+-- (1) 查询EMP表显示所有雇员名、工资、雇佣日期，幵以雇员名的升序进行排序。
+select e.ename, e.sal, e.hiredate from emp e order by e.ename asc;
+
+-- (2) 查询EMP表显示在1981年2月1日到1981年5月1日乊间雇佣的雇员名、岗位及雇佣日期，幵以雇佣日期进行排序。
+select e.ename, e.job, e.hiredate from emp e where e.hiredate between to_date('1981-2-1', 'YYYY-MM-DD') and to_date('1981-5-1', 'YYYY-MM-DD') order by e.hiredate;
+
+-- (3) 查询EMP表显示获得补助的所有雇员名、工资及补助，幵以工资升序和补助降序排序。
+select e.ename, e.sal, e.comm from emp e where e.comm is not null order by e.sal asc, e.comm desc;
+```
+
+- 关于
+
+
+
+
+
+
+
+
 
 
 
@@ -997,7 +1112,10 @@ select * from user_ind_columns where index_name = 'INDEXS_NAME';
 
 
 
-
+Oracle 不支持 limit():
+- 限时输出
+- 在前面过滤的时候依然会有大数量的操作，仍然会可能挂机
+- 
 
 
 

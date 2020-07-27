@@ -1,3 +1,6 @@
+/* Aar Homework SQL语句练习
+-- 根据Oracle数据库scott模式下的 `emp` 表和 `dept` 表，完成下列操作。
+*/
 -- 查询20号部门的所有员工信息。
 
 
