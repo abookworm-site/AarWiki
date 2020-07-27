@@ -164,7 +164,7 @@ select [distinct] [*, column, alias, ...]
 -- 查询雇员表中部门编号是10的员工
 select * from emp where deptno = 10;
 
--- 查询表中的所有字段,可以使用*,但是在项目中千万不要随便使用*,浪费IO带宽，可能造成严重后果
+-- 查询表中的所有字段,可以使用 *,但是在项目中千万不要随便使用 *,浪费IO带宽，可能造成严重后果
 select empno,ename,job from emp where deptno = 10;
 
 -- distinct 去除重复数据
@@ -266,7 +266,6 @@ select * from dba_tab_columns where Table_Name='用户表';
 
 -- 表dba_tab_columns：字段
 -- dba_tab_columns： ower,table_name,column_name,data_type,data_length,data_precision,data_scale,nullable,column_id等
-
 ```
 
 
@@ -288,6 +287,7 @@ select * from user_tab_comments user_tab_comments：table_name,table_type,commen
 
 -- 获取字段注释：
 select * from user_col_comments;
+
 -- 字段注释表：字段
 -- user_col_comments：table_name,column_name,comments
 ```
@@ -393,8 +393,8 @@ select * from emp where sal >= 1500 and sal <= 3000;
 select * from emp where deptno in (10, 20);
 
 -- 关键字 and 和 or
--- and相当于是 与操作，or相当于是 或操作
--- and和or可能出现在同一个sql语句中，此时需要注意and和or的优先级
+-- and 相当于是 与操作，or相当于是 或操作
+-- and 和 or 可能出现在同一个sql语句中，此时需要注意and和or的优先级
 -- and 的优先级要高于or，所以一定要将or的相关操作用（）括起来，提高优先级
 select * from emp where deptno = 10 or deptno = 20;
 
@@ -647,15 +647,41 @@ select e.ename, e.job, e.hiredate from emp e where e.hiredate between to_date('1
 select e.ename, e.sal, e.comm from emp e where e.comm is not null order by e.sal asc, e.comm desc;
 ```
 
-- 关于
+- 关于 `3. 排序数据` 中 **Oracle数据库日期范围查询**  介绍如下。
 
 
 
+#### Oracle数据库日期范围查询
 
+关于  **Oracle数据库日期范围查询** 有两种方式：**to_char()方式** 和 **to_date()方式**。这里查询1981-02-01到1981-05-01之间的数据，实现方式如下：
 
+##### `to_date() ` 方式：
 
+```sql
+select * from emp where hiredate >= to_date('1981-02-01','yyyy-mm-dd') and hiredate <= to_date('1981-05-01','yyyy-mm-dd');
+```
 
+运行的结果是：可以显示02-01的数据，但是不能显示05-01的数据。
 
+所有可以得出结论：
+
+- ①如果想显示 `05-01` 的数据可以 `<to_date('1981-05-02','yyyy-mm-dd')` ，这样就能显示01号的了。即：**to_date() 多加一天**
+
+- ②如果想要显示 `05-01` 的数据可以 `<=to_date('1981-05-01 23:59:59 999','yyyy-mm-dd hh24:mi:ss')` 也是可以查出来的。即：**添加具体小时时间**。
+
+##### `to_char()`方式：
+
+同样查询上面两个日期
+
+```sql
+select * from tablename where to_char(hiredate,'yyyy-mm-dd') >= '1981-02-01' and to_char(hiredate,'yyyy-mm-dd') <= '1981-05-01';
+```
+
+查询结果：可以同时显示05-02和05-30的数据。
+
+##### Reference
+
+- [Oracle数据库日期范围查询的两种实现方式](https://database.51cto.com/art/201108/288058.htm)
 
 
 
@@ -714,14 +740,14 @@ select e.ename, e.sal, e.comm from emp e where e.comm is not null order by e.sal
   -- 组函数仅可用于选择列表或查询的having子句
   -- 单行函数： 输入一个值，输出一个值
 
---查询所有员工的薪水总和
+-- 查询所有员工的薪水总和
 select sum(sal) from emp;
 
---查看表中有多少条记录
+-- 查看表中有多少条记录
 select count(*) from emp;
 select deptno, count(*) from emp group by deptno having count(*) > 3;
 
---字符函数
+-- 字符函数
 --concat：表示字符串的连接  等同于 ||
 select concat('my name is ', ename) from emp;
 
@@ -754,9 +780,6 @@ select ename, substr(ename, 0, 2) from emp;
 
 --替换操作
 select ename, replace(ename, 'A', 'AA') from emp;
-
-
-
 ```
 
 
@@ -829,6 +852,57 @@ select power(2, 3) from dual;
 
 
 
+Oracle 内部数字格式存储日期：`世纪，年，月，日，小时，分钟，秒`。
+
+- `sysdate/current_date`：以date类型返回当前的日期
+
+- `Add_months(d,x)`：返回加上x月后的日期d的值
+- `LAST_DAY(d)`：返回的所在月份的最后一天
+- `Months_between(date1,date2)`：返回 `date1` 和 `date2` 之间月的数目
+    - 工作年限30以上
+
+
+
+从日期中加或减一个数值，以得当一个日期结果值
+
+```sql
+select sysdate+2 from dual;
+
+select sysdate-2 from dual;
+```
+
+
+
+两个日期相减以便得到他们相差多少天
+
+```sql
+select ename, round((sysdate-hiredate)/7) weeks from emp where deptno = 10;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 实例：
 
 ```sql
@@ -890,7 +964,23 @@ from dual;
 
 ### 转换函数
 
+标量数据可以有类型的转换，转换分为两种，隐式类型转换和显示类型转换。
+- 隐式类型转换可用亍：
+- 字符和数字的相互转换 &字符和日期的相互转换
+- VARCHAR2 or char－－number
+- VARCHAR2 or char －－date
+- number－－varchar2
+- date－－varchar2
+- select * from emp where empno=to_number('8000')
+- select * from emp where hiredate='20-2月-1981'
+- 尽管数据类型之间可以进行隐式转换，仍建议使用显示转换函数，以保持良好的设计风格。
+- Select ‘999’-10 from dual;
 
+
+
+- to_char
+- to_number
+- to_date
 
 
 
@@ -1052,7 +1142,8 @@ select ename, deptno
 
 ### 其他函数
 
-
+decode
+case when
 
 
 
