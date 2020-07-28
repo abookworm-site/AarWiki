@@ -718,16 +718,16 @@ select * from tablename where to_char(hiredate,'yyyy-mm-dd') >= '1981-02-01' and
 - `lower(string)`：以小写形式返回string
 - `upper(string)`：以大写形式返回string
 - `lpad`，`rpad`：填充字符型数据
-- `ltrim/rtrim (string1,string2)`：
-- `trim(A from B)`：
-- `Substr()`： 提取字符串的一部分 
+- `trim(A from B)`：去除空格
+    - `ltrim/rtrim (string1,string2)`：
+- `substr()`： 提取字符串的一部分 
     - `substr(string，1，2)`
 
 返回数字：
 
-- `Instr()`：**返回** 字符串出现的位置, 
+- `instr()`：**返回** 字符串出现的位置, 
     - `instr(string, 'A')`：字符A在 `string` 中出现的位置
-- `Length()`：**返回** 字符串长度
+- `length()`：**返回** 字符串长度
 
 
 
@@ -745,40 +745,43 @@ select sum(sal) from emp;
 
 -- 查看表中有多少条记录
 select count(*) from emp;
+
+-- 查看不同部门的人数记录
 select deptno, count(*) from emp group by deptno having count(*) > 3;
 
 -- 字符函数
---concat：表示字符串的连接  等同于 ||
+-- concat：表示字符串的连接，等同于 `||`
 select concat('my name is ', ename) from emp;
 
---将字符串的首字母大写
+-- 将字符串的首字母大写
 select initcap(ename) from emp;
---将字符串全部转换为大写
+
+-- 将字符串全部转换为大写
 select upper(ename) from emp;
 
---将字符串全部转换为小写
+-- 将字符串全部转换为小写
 select lower(ename) from emp;
 
---填充字符串
+-- 填充字符串
 select lpad(ename, 10, '*') from emp;
 select rpad(ename, 10, '*') from emp;
 
---去除空格
+-- 去除空格
 select trim(ename) from emp;
 select ltrim(ename) from emp;
 select rtrim(ename) from emp;
 
---查找指定字符串的位置
+-- 查找指定字符串的位置
 select instr('ABCDEF'， 'C') from emp;
 select ename, instr(ename, 'A') from emp;
 
---查看字符串的长度
+-- 查看字符串的长度
 select ename, length(ename) from emp;
 
---截取字符串的操作
+-- 截取字符串的操作
 select ename, substr(ename, 0, 2) from emp;
 
---替换操作
+-- 替换操作
 select ename, replace(ename, 'A', 'AA') from emp;
 ```
 
@@ -833,7 +836,7 @@ select floor(13.99) from dual;
 -- 取绝对值
 select abs(-100) from dual;
 
--- 获取正负值
+-- 获取正负值：+1 or 1
 select sign(-100) from dual;
 
 -- x的y次幂
@@ -844,22 +847,31 @@ select power(2, 3) from dual;
 
 ### 日期函数
 
-- MySQL 时间：`select current_time() from dual;`
+一般而言，公司业务在日期定义到秒。
 
-- MySQL 日期：`select current_date() form dual;` 
+```sql
+-- 以下都是获取 日期 & 时间
+select sysdate from dual;
+select current_date from dual;
 
-- MySQL 日期时间：`select current_timestamp() from dual;`
+-- 获取当前时间 only MySQL
+select current_time from dual;
+
+-- 获取时间戳
+select current_timestamp from dual;
+```
 
 
 
 Oracle 内部数字格式存储日期：`世纪，年，月，日，小时，分钟，秒`。
 
-- `sysdate/current_date`：以date类型返回当前的日期
+- `sysdate/current_date`：以date类型返回当前的日期和时间
 
-- `Add_months(d,x)`：返回加上x月后的日期d的值
-- `LAST_DAY(d)`：返回的所在月份的最后一天
-- `Months_between(date1,date2)`：返回 `date1` 和 `date2` 之间月的数目
-    - 工作年限30以上
+- `add_months(d,x)`：返回加上 `x月` 后的 `日期d` 的值
+    - 可用于计算试用期等等预定后的日期
+- `last_day(d)`：返回 `日期d` 所在月份的最后一天
+- `months_between(date1,date2)`：返回 `date1` 和 `date2` 之间月的数目
+    - 可用于计算在职日期，工作年限等等时间
 
 
 
@@ -881,44 +893,30 @@ select ename, round((sysdate-hiredate)/7) weeks from emp where deptno = 10;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 实例：
 
 ```sql
 --- 日期函数 ---
 --- 一般而言，公司业务在日期定义到秒。
 select sysdate from dual;
+
 select current_date from dual;
 
--- add_months,添加指定的月份
-select add_months(hiredate, 2), hiredate from emp;
+---- 获取当前日期时间戳（依据系统而定）
+select current_timestamp from dual;
 
--- 返回输入日期所在月份的最后一天
+-- add_months(): 返回添加指定的月份后的日期
+-- 可用于计算试用期等等预定的日期
+select hiredate, add_months(hiredate, 3) "试用期结束" from emp;
+
+-- last_day(): 返回输入日期所在月份的最后一天
+---- 参数sysdate：将会返回本月最后一天，与此时相同的时间
 select last_day(sysdate) from dual;
 
--- 两个日期相间隔的月份
-select months_between(sysdate, hiredate) from emp;
+-- months_between(): 返回两个日期相间隔的月份，小数
+-- 可用于计算在职日期：floor()向下取整
+select hiredate, months_between(sysdate, hiredate) from emp;
+select hiredate, floor(months_between(sysdate, hiredate)) from emp;
 
 -- 返回四舍五入的第一天
 select sysdate 当前日期,
@@ -973,14 +971,165 @@ from dual;
 - date－－varchar2
 - select * from emp where empno=to_number('8000')
 - select * from emp where hiredate='20-2月-1981'
+
+```sql
+select * from emp where empno=to_number('8000');
+
+select * from emp where hiredate='20-2月-1981';
+```
+
+
+
 - 尽管数据类型之间可以进行隐式转换，仍建议使用显示转换函数，以保持良好的设计风格。
 - Select ‘999’-10 from dual;
+
+```sql
+Select ‘999’-10 from dual;
+```
+
+
+
+
 
 
 
 - to_char
 - to_number
 - to_date
+
+|   Number   | ----------------->>> |   Character   | ----------------->>> |   Date   |
+| :--------: | :------------------: | :-----------: | :------------------: | :------: |
+|            |    `to_number()`     |               |     `to_date()`      |          |
+| **Number** | <<<----------------- | **Character** | <<<----------------- | **Date** |
+|            |     `to_char()`      |               |     `to_char()`      |          |
+
+
+
+TO_CHAR 函数操作日期
+
+| 格式元素 | 含义 |
+| -------- | ---- |
+|YYYY、YY|代表四位、两位数字的年份|
+|MM|用数字表示的月份|
+|MON|月份的缩写、对中文月份来说就是全称|
+|DD|数字表示的日|
+|DY|星期的缩写，对中文的星期来说就是全称|
+|HH24，HH12|12小时或者24小时进制下的时间|
+|MI|分钟数|
+|SS|秒数|
+
+- `to_char(date, ' fmt ')`
+- 用于将日期或时间戳转换成 `varchar2` 类型字符串，如果指定了格式字符串，则用它控制结果的结果。
+	- 格式控制串由格式元素构成。
+	- 格式控制串必须用单引号括起来
+
+
+
+```sql
+select to_char(sysdate, 'dd-mon-yy hh24:mi:ss') "Rigth Now" from dual;
+
+select ename, hiredate, to_char(hiredate,'yyyy/mm/dd') from emp;
+
+select sysdate, to_char(sysdate,'yyyy-mon-dd hh12:mi:ss') from dual;
+```
+
+
+
+TO_CHAR 函数操作数字（A）
+
+| 控制符 | 含义 |
+| ------ | ---- |
+|9|代表一位数字，如果该位没有数字则不进行显示，但对于小数点后面的部分仍会强制显示|
+|0|代表一位数字，如果该位没有数字则强制显示0|
+|$|显示美元符号|
+|L|显示本地货币符号|
+|.|显示小数点|
+|,|显示千分位符号|
+
+- `to_char(num,format)`
+- 用于将 `Number类型` 参数转换为 `varchar2类型` ，如果指定了format，它会控制整个转换。
+
+
+
+TO_CHAR 函数操作数字
+
+```sql
+select to_char(sal, „$99,999.9999‟) salary from emp where ename = "ALLEN";
+
+select to_char(sal, „$00,000.0000‟) salary from emp where ename = "ALLEN";
+
+
+select to_char(123456, '99,99,00') from dual;
+
+```
+
+
+
+
+
+to_number & to_date
+
+- to_date (String,format)
+
+- 将char戒varchar2类型的string转换为date类型
+
+- Select to_date('04,05,19,10,23,40','yy,mm,dd,hh12,mi,ss') from dual;
+
+- select to_date('2004-09-19','yyyy-mm-dd') from dual;
+
+    
+
+```sql
+Select to_date('04,05,19,10,23,40','yy,mm,dd,hh12,mi,ss') from dual;
+
+select to_date('2004-09-19','yyyy-mm-dd') from dual;
+```
+
+
+
+
+
+to_number(String,format)
+
+- 将char戒varchar2类型的string转换为number类型
+- select to_number('$39343.783','$99990.000') from dual;
+- select to_number('11.231','999.999') from dual;
+
+
+
+```sql
+select to_number('$39343.783','$99990.000') from dual;
+
+select to_number('11.231','999.999') from dual;
+
+```
+
+
+
+
+
+
+
+单行函数嵌套
+
+- 单行函数可被嵌入到任何层
+- 嵌套函数从最深层到最低层求值
+
+```sql
+-- 显示没有上级管理的公司首脑
+-- 没有上级领导的雇员 mgr显示为boss
+select ename,nvl(to_char(mgr),"no manager") from emp where mgr is null;
+
+-- 显示员工雇佣期满6个月后下一个星期五的日期
+Select to_char(next_day(add_months(hiredate,6),"Friday")," fmDay, Month ddth,YYYY") "review" from emp order by hiredate;
+ 
+
+
+```
+
+
+
+
 
 
 
@@ -1136,10 +1285,6 @@ select ename, deptno
 
 
 
-
-
-
-
 ### 其他函数
 
 decode
@@ -1147,6 +1292,9 @@ case when
 
 
 
+```sql
+
+```
 
 
 
@@ -1154,6 +1302,15 @@ case when
 
 
 
+### 课堂练习
+
+```sql
+-- 1. 查询82年员工
+-- 2. 查询37年工龄的人员
+-- 3. 显示员工雇佣期 6 个月后下一个星期一的日期
+-- 4. 找没有上级的员工，把mgr的字段信息输出为 "boss"
+-- 5. 为所有人长工资，标准是：10部门长10%；20部门长15%；30部门长20%其他部门长18%
+```
 
 
 
