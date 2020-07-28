@@ -9,15 +9,15 @@
 select sum() from emp;
 
 -- 查看表中有多少条记录
-select count() from emp;
+select count(ename) from emp;
 
 
 -- 字符函数
 -- concat：表示字符串的连接  等同于 ||
-
-
+select concat('My name: ', ename) from emp;
 
 -- 将字符串的首字母大写
+select 
 
 -- 将字符串全部转换为大写
 
