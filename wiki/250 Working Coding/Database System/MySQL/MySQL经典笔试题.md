@@ -1,30 +1,30 @@
 # MySQL 经典笔试题
 
-## 使用SQL语句创建的数据完成要求
+## 数据重排
 
-- 此题为中国移动SQL面试题
+中国移动SQL面试题：使用SQL语句创建的数据完成要求。
 
 ### 创建数据
 
 ```sql
-create table test(
+create table CMCC(
    id number(10) primary key,
    type number(10) ,
    t_id number(10),
    value varchar2(5)
 );
 
-insert into test values(100,1,1,'张三');
-insert into test values(200,2,1,'男');
-insert into test values(300,3,1,'50');
+insert into CMCC values(100,1,1,'张三');
+insert into CMCC values(200,2,1,'男');
+insert into CMCC values(300,3,1,'50');
 
-insert into test values(101,1,2,'刘二');
-insert into test values(201,2,2,'男');
-insert into test values(301,3,2,'30');
+insert into CMCC values(101,1,2,'刘二');
+insert into CMCC values(201,2,2,'男');
+insert into CMCC values(301,3,2,'30');
 
-insert into test values(102,1,3,'刘三');
-insert into test values(202,2,3,'女');
-insert into test values(302,3,3,'10');
+insert into CMCC values(102,1,3,'刘三');
+insert into CMCC values(202,2,3,'女');
+insert into CMCC values(302,3,3,'10');
 ```
 
 ### 题目
@@ -36,13 +36,23 @@ insert into test values(302,3,3,'10');
 | ---- | ---- | ---- |
 |张三|男|50|
 
+### 解答
 
+```mysql
+-- 表单查询
+select * from CMCC;
 
+select decode(type, 1, value) 姓名,
+       decode(type, 2, value) 性别,
+       decode(type, 3, value) 年龄,
+  from CMCC;
 
-
-
-
-
+-- 首先分组，再过滤 null
+select max(decode(type, 1, value)) 姓名,
+       max(decode(type, 2, value)) 性别,
+       max(decode(type, 3, value)) 年龄,
+  from CMCC group by t_id;
+```
 
 
 
@@ -69,19 +79,19 @@ insert into test values(302,3,3,'10');
 
 ### 1. 创建数据
 
-```sqk
-create table tmp(
+```sql
+create table group(
 	rq varchar2(10),
 	shengfu varchar2(5)
 );
 
-insert into tmp values('2005-05-09','胜');
-insert into tmp values('2005-05-09','胜');
-insert into tmp values('2005-05-09','负');
-insert into tmp values('2005-05-09','负');
-insert into tmp values('2005-05-10','胜');
-insert into tmp values('2005-05-10','负');
-insert into tmp values('2005-05-10','负');
+insert into group values('2005-05-09','胜');
+insert into group values('2005-05-09','胜');
+insert into group values('2005-05-09','负');
+insert into group values('2005-05-09','负');
+insert into group values('2005-05-10','胜');
+insert into group values('2005-05-10','负');
+insert into group values('2005-05-10','负');
 ```
 
 

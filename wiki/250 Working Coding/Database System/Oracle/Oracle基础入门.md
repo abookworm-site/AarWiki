@@ -1070,68 +1070,55 @@ from dual;
 
 ### 转换函数
 
-标量数据可以有类型的转换，转换分为两种，隐式类型转换和显示类型转换。
-- 隐式类型转换可用亍：
-- 字符和数字的相互转换 &字符和日期的相互转换
-- VARCHAR2 or char－－number
-- VARCHAR2 or char －－date
-- number－－varchar2
-- date－－varchar2
-- select * from emp where empno=to_number('8000')
-- select * from emp where hiredate='20-2月-1981'
+标量数据可以有两种类型的转换：隐式类型转换和显示类型转换。隐式类型转换可用于：**字符和数字的相互转换 & 字符和日期的相互转换**。
+- `VARCHAR2` or `char`－to－`number`
+- `VARCHAR2` or `char `－to－`date`
+- `number`－to－`varchar2`
+- `date`－to－`varchar2`
 
 ```sql
+-- 隐式转换指字符串可以转换为数值或者日期
+-- str to number
 select * from emp where empno=to_number('8000');
-
+-- str to date
 select * from emp where hiredate='20-2月-1981';
+-- str to number
+select '999'-10 from dual;
 ```
 
 
 
-- 尽管数据类型之间可以进行隐式转换，仍建议使用显示转换函数，以保持良好的设计风格。
-- Select ‘999’-10 from dual;
+尽管数据类型之间可进行隐式转换，仍 **建议使用显示转换函数**，以保持良好的设计风格。
 
-```sql
-Select ‘999’-10 from dual;
-```
+- `to_char()`：操作 **日期** 或 **数字**
+- `to_number()`：操作 **字符串**
+- `to_date()`：操作 **字符串**
 
-
-
-
-
-
-
-- to_char
-- to_number
-- to_date
-
-|   Number   | ----------------->>> |   Character   | ----------------->>> |   Date   |
-| :--------: | :------------------: | :-----------: | :------------------: | :------: |
-|            |    `to_number()`     |               |     `to_date()`      |          |
-| **Number** | <<<----------------- | **Character** | <<<----------------- | **Date** |
-|            |     `to_char()`      |               |     `to_char()`      |          |
+|   Number   |   ----------------->>>   |   Character   |   ----------------->>>   |   Date   |
+| :--------: | :----------------------: | :-----------: | :----------------------: | :------: |
+|            |      `to_number()`       |               |       `to_date()`        |          |
+| **Number** | **<<<-----------------** | **Character** | **<<<-----------------** | **Date** |
+|            |       `to_char()`        |               |       `to_char()`        |          |
 
 
 
-TO_CHAR 函数操作日期
+#### `TO_CHAR()` 操作日期
 
 | 格式元素 | 含义 |
 | -------- | ---- |
 |YYYY、YY|代表四位、两位数字的年份|
-|MM|用数字表示的月份|
-|MON|月份的缩写、对中文月份来说就是全称|
-|DD|数字表示的日|
+|MM|数字表示的 `月份`|
+|MON|月份的缩写，对中文月份来说就是全称|
+|DD|数字表示的 `日`|
 |DY|星期的缩写，对中文的星期来说就是全称|
 |HH24，HH12|12小时或者24小时进制下的时间|
 |MI|分钟数|
 |SS|秒数|
 
-- `to_char(date, ' fmt ')`
+- 格式：`to_char(date, 'fmt')`
 - 用于将日期或时间戳转换成 `varchar2` 类型字符串，如果指定了格式字符串，则用它控制结果的结果。
-	- 格式控制串由格式元素构成。
+	- 格式控制串由格式元素构成
 	- 格式控制串必须用单引号括起来
-
-
 
 ```sql
 select to_char(sysdate, 'dd-mon-yy hh24:mi:ss') "Rigth Now" from dual;
@@ -1143,7 +1130,7 @@ select sysdate, to_char(sysdate,'yyyy-mon-dd hh12:mi:ss') from dual;
 
 
 
-TO_CHAR 函数操作数字（A）
+#### `TO_CHAR() ` 操作数字
 
 | 控制符 | 含义 |
 | ------ | ---- |
@@ -1154,67 +1141,73 @@ TO_CHAR 函数操作数字（A）
 |.|显示小数点|
 |,|显示千分位符号|
 
-- `to_char(num,format)`
+- 格式：`to_char(num,format)`
 - 用于将 `Number类型` 参数转换为 `varchar2类型` ，如果指定了format，它会控制整个转换。
 
-
-
-TO_CHAR 函数操作数字
-
 ```sql
-select to_char(sal, „$99,999.9999‟) salary from emp where ename = "ALLEN";
+select to_char(sal, '$99,999.9999') salary from emp where ename = "ALLEN";
 
-select to_char(sal, „$00,000.0000‟) salary from emp where ename = "ALLEN";
-
+select to_char(sal, '$00,000.0000') salary from emp where ename = "ALLEN";
 
 select to_char(123456, '99,99,00') from dual;
-
 ```
 
 
 
+#### `to_date()` 转换字符串
 
+- 格式：`to_date(String, format)`
 
-to_number & to_date
+- 作用：将 `char`或`varchar2 `类型的 `string` 转换为 `date` 类型 
 
-- to_date (String,format)
-
-- 将char戒varchar2类型的string转换为date类型
-
-- Select to_date('04,05,19,10,23,40','yy,mm,dd,hh12,mi,ss') from dual;
-
-- select to_date('2004-09-19','yyyy-mm-dd') from dual;
-
-    
 
 ```sql
-Select to_date('04,05,19,10,23,40','yy,mm,dd,hh12,mi,ss') from dual;
+select to_date('04,05,19,10,23,40','yy,mm,dd,hh12,mi,ss') from dual;
 
 select to_date('2004-09-19','yyyy-mm-dd') from dual;
 ```
 
 
 
+#### `to_number()` 转换字符串
 
+- 格式：`to_number(String, format)`
 
-to_number(String,format)
-
-- 将char戒varchar2类型的string转换为number类型
-- select to_number('$39343.783','$99990.000') from dual;
-- select to_number('11.231','999.999') from dual;
-
-
+- 将 `char`或`varchar2`类型的 `string` 转换为 `number` 类型
 
 ```sql
 select to_number('$39343.783','$99990.000') from dual;
 
 select to_number('11.231','999.999') from dual;
-
 ```
 
 
 
+#### 转换函数总结
 
+```sql
+-- 转换函数
+---- 在oracle中存在数值的隐式转换和显式转换
+
+-- 隐式转换指的是字符串可以转换为数值或者日期，反之亦可。
+select '999' + 10 from dual;
+
+-- 显式转换：
+---- to_char: 当由数值或者日期转成字符串的时候，必须要规定格式
+-- date：to_char()
+select to_char(sysdate, 'YYYY-MM-DD HH:MI') from dual;
+
+-- number: to_char()
+select to_char(123.456778, '9999.99') from dual;
+select to_char(123.456778, '0000.000') from dual;
+select to_char(123456789, '999,999,999,999') from dual;
+
+-- to_date: 转换之后都是固定的格式
+select to_date('2020/10/10 10:10:10', 'YYYY-MM-DD HH24:MI:SS') from dual;
+
+-- to_number:转成数字
+select to_number('123,456,789', '999,999,999') from dual;
+```
 
 
 
@@ -1224,60 +1217,26 @@ select to_number('11.231','999.999') from dual;
 - 嵌套函数从最深层到最低层求值
 
 ```sql
+-- 单行函数嵌套---
 -- 显示没有上级管理的公司首脑
 -- 没有上级领导的雇员 mgr显示为boss
-select ename,nvl(to_char(mgr),"no manager") from emp where mgr is null;
+select ename, nvl(to_char(mgr), 'boss') from emp where mgr is null;
 
 -- 显示员工雇佣期满6个月后下一个星期五的日期
-Select to_char(next_day(add_months(hiredate,6),"Friday")," fmDay, Month ddth,YYYY") "review" from emp order by hiredate;
- 
-
-
+select hiredate, next_day(add_months(hiredate, 6), '星期五') "Free Day" from emp;
 ```
 
 
 
+### 条件函数
 
-
-
-
-
+- `decode` & `case when`
 
 ```sql
+-- 条件函数
+-- decode,case when
 
--- 转换函数
-     -- 在oracle中存在数值的隐式转换和显式转换
-     -- 隐式转换指的是字符串可以转换为数值或者日期
--- 显式转换：
-    -- to_char: 当由数值或者日期转成字符串的时候，必须要规定格式
-
-
---date ：to_char
-select '999' + 10 from dual;
-select to_char(sysdate, 'YYYY-MM-DD HH:MI') from dual;
-
--- number : to_char
-select to_char(123.456778, '9999.99') from dual;
-select to_char(123.456778, '0000.000') from dual;
-select to_char(123456789, '999,999,999,999') from dual;
-
---to_date:转换之后都是固定的格式
-select to_date('2020/10/10 10:10:10', 'YYYY-MM-DD HH24:MI:SS') from dual;
-
---to_number:转成数字
-select to_number('123,456,789', '999,999,999') from dual;
-
---- 单元函数嵌套---
---显示没有上级管理的公司首脑
-select ename, nvl(to_char(mgr), 'boss') from emp where mgr is null;
-
---显示员工雇佣期满6个月后下一个星期五的日期
-select hiredate,next_day(add_months(hiredate, 6), '星期五')  from emp;
-
----条件函数---
---decode,case when
-
---给不同部门的人员涨薪，10部门涨10%，20部门涨20%，30部门涨30%
+-- 给不同部门的人员涨薪，10部门涨10%，20部门涨20%，30部门涨30%
 select ename,
        deptno,
        sal,
@@ -1297,48 +1256,123 @@ select ename,
        end
   from emp;
 
-------------------------------------------------
---- 案例如下；
+
+
+
+```
+
+
+
+#### 案例：中国移动面试题
+
+```sql
 -- 表单创建
-create table test(
+/*
+create table CMCC(
    id number(10) primary key,
    type number(10) ,
    t_id number(10),
    value varchar2(5)
 );
-insert into test values(100,1,1,'张三');
-insert into test values(200,2,1,'男');
-insert into test values(300,3,1,'50');
+insert into CMCC values(100,1,1,'张三');
+insert into CMCC values(200,2,1,'男');
+insert into CMCC values(300,3,1,'50');
 
-insert into test values(101,1,2,'刘二');
-insert into test values(201,2,2,'男');
-insert into test values(301,3,2,'30');
+insert into CMCC values(101,1,2,'刘二');
+insert into CMCC values(201,2,2,'男');
+insert into CMCC values(301,3,2,'30');
 
-insert into test values(102,1,3,'刘三');
-insert into test values(202,2,3,'女');
-insert into test values(302,3,3,'10');
-
-/*
-需求: 将表的显示转换为
-姓名      性别     年龄
---------- -------- ----
-张三       男        50
+insert into CMCC values(102,1,3,'刘三');
+insert into CMCC values(202,2,3,'女');
+insert into CMCC values(302,3,3,'10');
 */
+
+-- 需求发布
+/* 将表的显示转换为：
+-- 姓名      性别    年龄
+--------  -------  ----
+-- 张三       男     50
+*/
+
 -- 表单查询
-select * from test;
+select * from CMCC;
 
 select decode(type, 1, value) 姓名,
        decode(type, 2, value) 性别,
        decode(type, 3, value) 年龄,
-  from test;
+  from CMCC;
 
--- 首先分组
--- 再过滤 null
+-- 首先分组，再过滤 null
 select max(decode(type, 1, value)) 姓名,
        max(decode(type, 2, value)) 性别,
        max(decode(type, 3, value)) 年龄,
-  from test group by t_id;
+  from CMCC group by t_id;
+```
 
+
+
+### 课堂练习
+
+```sql
+-- 1. 查询82年员工
+select * from emp where to_char(hiredate, 'YY') = '82';
+
+-- 2. 查询38年工龄的人员
+select * from emp where floor(months_between(sysdate, hiredate)/12) = 38;
+
+-- 3. 显示员工雇佣期 6 个月后下一个星期一的日期
+select ename, next_day(add_months(hiredate, 6), '星期一') from emp;
+
+-- 4. 找没有上级的员工，把mgr的字段信息输出为 "boss"
+select ename, nvl(to_char(mgr), 'boss') "Mgt" from emp where mgr is null;
+
+-- 5. 为所有人长工资，标准是：10部门长10%；20部门长15%；30部门长20%其他部门长18%
+select ename, decode(deptno, 10, sal*1.1, 20, sal*1.15, 30, sal*1.2, 40, sal*1.18) "Add sal" from emp;
+```
+
+
+
+### 组函数（A）
+
+- 组函数基亍多行数据返回单个值
+
+- `avg()`：返回某列的平均值
+- `min()`：返回某列的最小值
+- `max()`：返回某列的最大值
+- `sum()`：返回某列值的和
+- `count()`：返回某列的行数
+
+- 组函数仅在选择列表和Having子句中有效
+
+在数字类型数据使用AVG and SUM 函数
+
+select sum(sal), avg(sal), max(sal) , min(sal) from emp;
+
+- MIN and MAX适用亍任何数据类型
+
+select min(hiredate ) ,max(hiredate) from emp;
+
+- 组函数除了count(*)外，都跳过空值而处理非空值
+
+select count(*) from emp;
+select count(comm) from emp;
+select count(1) from emp;
+
+– 不能计算空值
+
+select count(distinct deptno) from emp;
+
+在分组函数中使用NVL函数
+- 组函数不能处理null
+- select avg(comm) from emp;
+- NVL函数迫使分组函数包括空值
+- select avg(nvl(comm,0)) from emp;
+
+
+
+
+
+```sql
 
 /*
 组函数,一般情况下，组函数都要和 group by 组合使用
@@ -1393,70 +1427,9 @@ select ename, deptno
 
 
 
-### 其他函数
-
-decode
-case when
 
 
 
-```sql
-
-```
-
-
-
-
-
-
-
-### 课堂练习
-
-```sql
--- 1. 查询82年员工
--- 2. 查询37年工龄的人员
--- 3. 显示员工雇佣期 6 个月后下一个星期一的日期
--- 4. 找没有上级的员工，把mgr的字段信息输出为 "boss"
--- 5. 为所有人长工资，标准是：10部门长10%；20部门长15%；30部门长20%其他部门长18%
-```
-
-
-
-### 组函数（A）
-
-- 组函数基亍多行数据返回单个值
-
-- `avg()`：返回某列的平均值
-- `min()`：返回某列的最小值
-- `max()`：返回某列的最大值
-- `sum()`：返回某列值的和
-- `count()`：返回某列的行数
-
-- 组函数仅在选择列表和Having子句中有效
-
-在数字类型数据使用AVG and SUM 函数
-
-select sum(sal), avg(sal), max(sal) , min(sal) from emp;
-
-- MIN and MAX适用亍任何数据类型
-
-select min(hiredate ) ,max(hiredate) from emp;
-
-- 组函数除了count(*)外，都跳过空值而处理非空值
-
-select count(*) from emp;
-select count(comm) from emp;
-select count(1) from emp;
-
-– 不能计算空值
-
-select count(distinct deptno) from emp;
-
-在分组函数中使用NVL函数
-- 组函数不能处理null
-- select avg(comm) from emp;
-- NVL函数迫使分组函数包括空值
-- select avg(nvl(comm,0)) from emp;
 
 
 
