@@ -203,4 +203,22 @@ Oracle 软件安装完成之后会有如下服务。其中，`OracleServiceORCL`
 #### 2.2 重新配置监听服务
 
 - 启动 `Net Configuration Assistant` 重新配置监听服务。
+- `监听程序配置` and `本地网络配置`
+- 1. 本地网络配置
+
+![01本地网络配置](_resource/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/01%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE.png)
+
+- 2. 重新配置
+
+![02重新配置](_resource/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/02%E9%87%8D%E6%96%B0%E9%85%8D%E7%BD%AE.png)
+
+- 3. 填写服务名
+
+![03填写服务名](_resource/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/03%E5%A1%AB%E5%86%99%E6%9C%8D%E5%8A%A1%E5%90%8D.png)
+
+
+
+- 4. 配置本地网络回路
+
+![04配置本地网络回路](_resource/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/04%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%BB%9C%E5%9B%9E%E8%B7%AF.png)
 
