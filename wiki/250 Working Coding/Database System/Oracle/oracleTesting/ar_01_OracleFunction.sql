@@ -106,8 +106,7 @@ select hiredate, sysdate, floor(months_between(sysdate, hiredate)) from emp;
 select sysdate, round(sysdate, 'day') from dual;
 
 -- 返回下周的星期几
-select next_day(sysdate, ') from dual;
-
+select next_day(sysdate, 3) from dual;
 
 -- 提取日期中的时间
 select current_timestamp,
@@ -128,7 +127,7 @@ select localtimestamp from dual;
 select current_timestamp from dual;
 
 -- 给指定的时间单位增加数值
-select t
+select 
 
 
 
@@ -142,9 +141,9 @@ select t
 
 
 
---  转换函数
-     --  在oracle中存在数值的隐式转换和显式转换
-     --  隐式转换指的是字符串可以转换为数值或者日期
+-- 转换函数
+---- 在oracle中存在数值的隐式转换和显式转换
+---- 隐式转换指的是字符串可以转换为数值或者日期
 --  显式转换：
     --  to_char: 当由数值或者日期转成字符串的时候，必须要规定格式
 

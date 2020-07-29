@@ -31,7 +31,115 @@ SQL：即结构化查询语言 (Structured Query Language)，具有定义、查�
 
 
 
-## Oracle基本操作
+## Oracle 基本介绍
+### 1.  数据库的版本
+
+- Oracle 8及8i：8i是过渡性产品，i表示 `internet`，向网络发展的过渡版本。
+- Oracle9i：之前使用最广泛版本，8i的升级版。
+- Oracle10g：700M过渡性产品，其中g表示的是网格计算。以平面网格，以中心查找。
+- **Oracle11g**：完整性产品，最新版本2G。
+- Oracle12c：The world's first database designed for the cloud。
+
+
+
+### 2. 数据库实例
+
+Oracle 安装时，程序搭建了整体数据库框架。并实例化数据库，即新建全局数据库。
+
+- 设置全局数据库名称：`orcl`，以及系统管理员 `sys` 密码。因此，数据库实例名统一使用`orcl`
+
+- 默认已有用户
+    - `sys` 超级管理员
+    - `system` 普通管理员
+    - `scott` 普通的用户
+
+
+
+### 3. 服务配置
+
+1，将所有的服务改成 **"手动"**。
+2，启动其中的两个服务
+
+- 监听服务，以监听客户端的连接：`OracleOraDb10g_home1TNSListener`
+- 数据库服务：`OracleServiceORCL`
+    - 该服务命名规则为：`OracleService+实例名`
+    - 因此，这里的 `ORCL` 为软件安装时设置的全局数据库实例。若要使用其他数据库实例 `xxxx`，则需要启动其他数据库服务：`OracleServiceXXXX`
+
+
+
+### 4. 账号管理
+
+使用 `scott` 用户登录，第一次登录的时候会显示账户锁定，需要将账户解锁：
+
+1. 运行命令行工具，使用DBA登录
+
+    ```sql
+    sqlplus /nolog;
+    
+    conn sys/*****@orcl as sysdba;
+    ```
+
+    - `sys`：系统管理员账户
+    - `*****` ：这里表示系统管理员密码
+    - `orcl`：全局数据库实例名称
+
+    
+
+2. 解锁命令：
+
+    ```sql
+    alter user scott account unlock|lock;
+    ```
+
+    
+
+3. 测试：
+
+    ```sql
+    conn scott/****@orcl;
+    ```
+
+    - 要求重新输入密码，确认你自己的密码即可
+
+
+
+### 5. 常用命令
+
+1. 使用 `sqlplus` 连接数据库。
+
+```sql
+sqlplus /nolog;
+
+-- 连接数据库
+conn scott/xxxx@orcl;
+
+-- 操作数据库
+show user
+set linesize 150
+set pagesize 20
+
+passw
+
+conn sys/xxxx@orcl as sysdba;
+
+-- 操作数据库表
+select * from emp where ename=‘&ename’;
+
+-- 以管理员身份操作管理用户
+alter user scott account unlock
+```
+
+- `xxxx`：为对应用户的密码。
+
+
+
+## 新建数据库实例
+
+### [Oracle 新建数据库](Oracle新建数据库.md)
+
+
+
+## Oracle 基本操作
 
 ### `SCOTT` 基础表
 
@@ -1314,7 +1422,128 @@ case when
 
 
 
+### 组函数（A）
 
+- 组函数基亍多行数据返回单个值
+
+- `avg()`：返回某列的平均值
+- `min()`：返回某列的最小值
+- `max()`：返回某列的最大值
+- `sum()`：返回某列值的和
+- `count()`：返回某列的行数
+
+- 组函数仅在选择列表和Having子句中有效
+
+在数字类型数据使用AVG and SUM 函数
+
+select sum(sal), avg(sal), max(sal) , min(sal) from emp;
+
+- MIN and MAX适用亍任何数据类型
+
+select min(hiredate ) ,max(hiredate) from emp;
+
+- 组函数除了count(*)外，都跳过空值而处理非空值
+
+select count(*) from emp;
+select count(comm) from emp;
+select count(1) from emp;
+
+– 不能计算空值
+
+select count(distinct deptno) from emp;
+
+在分组函数中使用NVL函数
+- 组函数不能处理null
+- select avg(comm) from emp;
+- NVL函数迫使分组函数包括空值
+- select avg(nvl(comm,0)) from emp;
+
+
+
+### 数据分组
+
+- 创建分组
+– group by 子句
+– Group by 子句可以包含任意数目的列。
+- 除组函数语句外，select语句中的每个列都必须在group by 子句中给出。
+– 如果分组列中具有null值，则null将作为一个分组返回。如果列中有多行null值，他们将分为一组。
+– Group by 子句必须出现在where子句之后，order by 子句之前。
+- 过滤分组（having子句)
+– Where过滤行，having过滤分组。
+– Having支持所有where操作符。
+- 分组和排序
+– 一般在使用group by 子句时，应该也给出order by子句。
+
+SELECT column , group_function 
+FROM table
+[WHERE condition ]
+[GROUP BY group_by_expression ]
+[ORDER BY column ];
+[having condition]
+
+- 使用GROUP BY子句将表分成小组
+- 结果集隐式按降序排列,如果需要改变排序方式可以使用Order by 子句
+
+数据分组
+- 出现在SELECT列表中的字段，如果出现的位置不是在组函数中，那么必须出现在GROUP BY子句中
+- select deptno,avg(sal) from emp group by deptno
+- GROUP BY 列可以不在SELECT列表中
+- select avg(sal) from emp group by deptno
+- 不能在 WHERE 子句中使用组函数.不能在 WHERE 子句中限制组. 使用Having 对分组进行限制
+- select avg(sal) from emp group by deptno having avg(sal) > 1000;
+
+Select子句顺序
+子句 说明 是否必须使用
+select 要返回的列或表达式 是
+from 从中检索数据的表 仅在从表选择数据时使用
+where 行级过滤 否
+group by 分组说明 仅在按组计算聚集时使用
+Having 组级过滤 否
+order by 输出排序顺序 否
+
+Select子句顺序
+- Sql语句执行过程：
+1. 读取from子句中的基本表、视图的数据，[执行笛卡尔积操作]。
+2. 选取满足where子句中给出的条件表达式的元组
+3. 按group子句中指定列的值分组，同时提取满足Having子句中组条件表达
+式的那些组
+4. 按select子句中给出的列名戒列表达式求值输出
+5. Order by子句对输出的目标表进行排序。
+
+题目
+- 求部门下雇员的工资>2000 人数
+例子
+
+```sql
+-- 部门薪水最高
+
+select max(sal) from emp group by deptno;
+
+select max(sal),deptno, job from emp group by deptno, job;
+
+select avg(sal) from emp where sal > 1200 group by deptno having avg(sal) > 1500 order by avg(sal);
+```
+
+案例
+```sql
+-- 部门里面 工龄最小和最大的人找出来
+
+select mm2.deptno, e1.ename,e1.hiredate from emp e1,(select min(e.hiredate) mind,max(e.hiredate) maxd,e.deptno from emp e group by e.deptno) mm2 where e1.hiredate=mm2.mind or e1.hiredate=mm2.maxd;
+
+```
+
+课堂练习
+```sql
+-- 1. 查询10号部门中编号最新入职的员工，工龄最长的员工的个人信息。
+-- 2. 从‚software‛找到‘f’的位置，用‘*’左戒右填充到15位，去除其中的‘a’。
+-- 3. 查询员工的奖金，如果奖金不为NULL显示‘有奖金’，为null则显示无奖金
+-- 4. 写一个查询显示当前日期，列标题显示为Date。再显示六个月后的日期，下一个星期 日的日期，该月最后一天的日期。
+-- 5. 查询EMP表按管理者编号升序排列，如果管理者编号为空则把为空的在最前显示
+-- 6. 求部门平均薪水
+-- 7. 按部门求出工资大亍1300人员的 部门编号、平均工资、最小佣金、最大佣金,幵且最大佣金大亍100
+-- 8. 找出每个部门的平均、最小、最大薪水
+-- 9. 查询出雇员名，雇员所在部门名称， 工资等级。
+```
 
 
 

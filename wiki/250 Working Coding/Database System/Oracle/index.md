@@ -1,22 +1,20 @@
 # Oracle Overview
 
-## 安装与配置
+## Oracle 安装与配置
+
+### 1. [Oracle 数据库安装](Oracle数据库安装.md)
+
+### 2. [Oracle 数据库配置](Oracle数据库配置.md)
+
+### 3. [Oracle 数据库卸载](Oracle数据库卸载.md)
 
 
 
-- [Oracle数据库安装](Oracle数据库安装.md)
+## Oracle 基本操作
 
-- [Oracle数据库配置](Oracle数据库配置.md)
+### 1. [Oracle 新建数据库](Oracle新建数据库.md)
 
-- [Oracle数据库卸载](Oracle数据库卸载.md)
-
-
-
-- [Oracle新建数据库](Oracle新建数据库.md)
-
-
-
-### Oracle 基本操作
+### 2. [Oracle 基础入门](Oracle基础入门.md)
 
 
 
@@ -29,24 +27,18 @@ oracle视图、用户管理、序列、DML
 
 
 
-Oracle函数
-
-- [Oracle函数大全.chm](Oracle函数大全.chm)
-
-
-
-
-
-
-
 - [Oracle数据库练习](Oracle数据库练习.md)
 
 
 
 
 
+- 
 
-### 数据库事务
+
+
+
+## 数据库事务
 
 
 
@@ -54,7 +46,7 @@ Oracle函数
 
 
 
-### 数据库索引
+## 数据库索引
 
 
 
@@ -62,7 +54,7 @@ Oracle函数
 
 
 
-### 数据库外部连接
+## 数据库外部连接
 
 
 
@@ -105,16 +97,17 @@ There are my oracle database learning files.
 
 
 
-## File Description
+### File Description
 
 - Folder `rawBlankFiles` is the exercise description 
 
 - The others are SQL files
 
-
-
-## Files list
-
-1.  the base file
-
 - 
+
+
+
+## Oracle参考资料
+
+- [Oracle函数大全.chm](Oracle函数大全.chm)
+

@@ -26,13 +26,7 @@
 - [ ] `win64_11gR2_database_2of2.zip`
 - [ ] `win64_11gR2_database_1of2.zip`
 
-
-
-- [ ] 
-- [ ] win64_11gR2_database_2of2.zip
-- [ ] win64_11gR2_database_1of2.zip
-
-    
+  
 
 ### 2. 安装 `setup.exe`
 
