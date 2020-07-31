@@ -793,9 +793,9 @@ select * from tablename where to_char(hiredate,'yyyy-mm-dd') >= '1981-02-01' and
 
 
 
-## Oracle 函数
+## Oracle 函数调用
 
-### SQL 函数
+### 1. SQL 函数概述
 
 #### 概念
 
@@ -817,7 +817,7 @@ select * from tablename where to_char(hiredate,'yyyy-mm-dd') >= '1981-02-01' and
 
 ### 字符函数
 
-字符函数：以字符作为参数，返回值分为两类：一类返回字符值，一类返回数字值
+字符函数：以字符作为参数的函数。返回值分为两类：一类返回字符值，一类返回数字值
 
 返回字符：
 
@@ -1102,7 +1102,7 @@ select '999'-10 from dual;
 
 
 
-#### `TO_CHAR()` 操作日期
+#### `to_char()` 操作日期
 
 | 格式元素 | 含义 |
 | -------- | ---- |
@@ -1130,7 +1130,7 @@ select sysdate, to_char(sysdate,'yyyy-mon-dd hh12:mi:ss') from dual;
 
 
 
-#### `TO_CHAR() ` 操作数字
+#### `to_char() ` 操作数字
 
 | 控制符 | 含义 |
 | ------ | ---- |
@@ -1211,7 +1211,7 @@ select to_number('123,456,789', '999,999,999') from dual;
 
 
 
-单行函数嵌套
+#### 单行函数嵌套
 
 - 单行函数可被嵌入到任何层
 - 嵌套函数从最深层到最低层求值
@@ -1555,9 +1555,241 @@ select mm2.deptno, e1.ename, e1.hiredate
 -- 9. 查询出雇员名，雇员所在部门名称， 工资等级。
 ```
 
+解答
+
+```plsql
+-- 1. 查询10号部门中编号最新入职的员工，工龄最长的员工的个人信息。
+select max(hiredate), min(hiredate) from emp where deptno = 10;
+
+select * from emp where hiredate in (select max(hiredate) from emp where deptno = 10) or hiredate in (select min(hiredate) from emp where deptno = 10);
+
+-- 2. 从'software'找到'f'的位置，用'*'左或右填充到15位，去除其中的'a'。
+select instr('software', 'f') from dual;
+
+select lpad('software', 15, '*') from dual;
+select rpad('software', 15, '*') from dual;
+
+select replace('software', 'a', '') from dual;
+
+-- 3. 查询员工的奖金，如果奖金不为NULL显示'有奖金'，为null则显示无奖金
+select ename, decode(comm, null, '无奖金', '有奖金') "Bouncs" from emp;
+
+-- 4. 写一个查询显示当前日期，列标题显示为Date。再显示六个月后的日期，下一个星期日的日期，该月最后一天的日期。
+select sysdate "Date", add_months(sysdate, 6) "六月后", next_day(sysdate, '星期日') "本周日", last_day(sysdate) "本月末" from dual;
+
+-- 5. 查询EMP表按管理者编号升序排列，如果管理者编号为空则把为空的在最前显示
+select * from emp order by mgr asc nulls first;
+
+-- 6. 求部门平均薪水
+select deptno, avg(sal) from emp group by deptno;
+
+-- 7. 按部门求出工资大于1300人员的 部门编号、平均工资、最小佣金、最大佣金,幵且最大佣金大于100
+select deptno, avg(sal), min(sal), max(sal) from emp where sal>1300 group by deptno having max(nvl(comm, 0)) > 100;
+
+-- 8. 找出每个部门的平均、最小、最大薪水
+select deptno, avg(sal), min(sal), max(sal) from emp group by deptno;
+
+-- 9. 查询出雇员名，雇员所在部门名称， 工资等级。
+select e.ename,d.dname,s.grade from emp e ,dept d,salgrade s where e.deptno=d.deptno and e.sal between s.losal and s.hisal
+```
+
+
+
+### Oracle 不支持 `limit()` 函数:
+
+MySQL 中，函数 `limit()` 用来限制输出。同时，在前面过滤的时候依然会有大数量的操作，仍然会可能挂机
+
 
 
 ## 多表查询
+
+### `SQL-1992` 语法的连接
+
+- 语法规则：
+```sql
+SELECT table1.column, table2.column
+FROM table1, table2
+WHERE table1.column1 = table2.column2;
+```
+- 在 WHERE 子句中写入连接条件
+- 当多个表中有重名列时，必须在列的名字前加上表名作为前缀
+- 连接的类型：
+1. 等值连接 -- Equijoin
+2. 非等值连接 -- Non-equijoin
+3. 外连接 -- Outer join
+4. 自连接 -Self join
+
+
+
+### `92语法`
+
+- 数据来自亍多张表 ,92表连接
+- 注意: 明确引用同名的列，必须使用表名 戒者别名区分
+- 一、迪卡尔积
+
+```plsql
+select 字段列表 from 表1,表2,表3....
+```
+
+- 二、等值连接: 取关系列相同的记录
+
+```plsql
+select 字段列表 from 表1,表2,表3....
+where 表1.列=表2.列 and 表1.列=表3.列
+```
+
+- 三、非等值连接：取关系列丌同的记录 != > < >= <= between and
+
+```plsql
+select 字段列表 from 表1,表2,表3....
+where 表1.列!=表2.列 and 表1.列!=表3.列
+```
+
+- 四、自连接:(特殊的等值连接) 列来自亍同一张表,丌同角度看待表
+
+```plsql
+select 字段列表 from 表1 e,表1 m
+where e.列1=m.列2
+```
+
+- 五、外连接: 在等值基础上，确保 一张表(主表)的记录都存在 从表满足则匹配，丌满足补充null
+- 1、左外: 主表在左边
+- 2、右外: 主表在右边
+
+等值连接
+- 语法规则：
+
+```plsql
+SELECT table1.column, table2.column
+FROM table1, table2
+WHERE table1.column1 = table2.column2;
+```
+
+- 笛卡尔积：表*表
+- 主外键
+- 在外键表中的映射字段称为 外键 Foreign key
+- 在主键表中的唯一字段称为主键 Primary key
+
+非等值连接
+- 非等值连接
+- <,>,<=,>=,!=连接时称非等值连接
+
+```plsql
+select * from emp,salgrade where sal between losal and hisal
+```
+
+外连接运算符是 (+)
+- 外连接运算符是 (+)
+笛卡尔积
+
+```plsql
+select count(*) from emp;
+
+
+select count(*) from dept;
+
+
+select emp.empno,dept.loc from emp,dept;
+```
+- 检索出的行的数目将是第一个表中的行数乘以第二个表中的行数
+- 检索出的列的数目将是第一个表中的列数加上第二个表中的列数
+- 应该保证所有联结都有where子句，丌然数据库返回比想要的数
+据多得多的数据
+等值连接
+- 使用 AND 操作符增加查询条件
+等值连接
+
+```plsql
+select emp.empno,emp.ename,dept.deptno,dept.loc
+from emp,dept
+where emp.deptno=dept.deptno
+and emp.deptno=10
+```
+
+
+```plsql
+select emp.empno,emp.ename,dept.deptno,dept.loc
+from emp,dept
+where emp.deptno=dept.deptno
+and ename='JAMES'
+```
+
+连接中使用表的别名
+- 使用表的别名简化了查询
+
+```plsql
+select e.empno,e.ename,e.deptno,d.deptno,d.loc
+from emp e,dept d
+where e.deptno=d.deptno
+```
+
+多亍两个表的连接
+- 为了连接n个表，至少需要n-1个连接条件。
+多亍两个表的连接
+- create table manager
+as
+select * from emp;
+Manager ,emp ,dept
+
+```plsql
+select e.empno,e.ename,m.ename,d.loc
+from emp e,manager m,dept d
+where e.mgr=m.empno
+and e.deptno=d.deptno
+and e.job=‘ANALYST’
+```
+
+非等值连接
+
+```plsql
+select *
+from emp,salgrade
+where sal between losal and hisal
+```
+
+外连接
+外连接
+- 为了在操作时能保持这些将被舍弃的元组，提出了外连接的概念，使用外连接
+可以看到丌满足连接条件的记录
+- 外连接运算符是 (+)
+- 有左外连接和右外连接
+- 左外连接显示左边表的全部行
+
+```plsql
+SELECT table.column, table.column
+FROM table1, table2
+WHERE table1.column = table2.column(+);
+```
+- 右外连接显示右边表的全部行
+
+```plsql
+SELECT table.column, table.column
+FROM table1, table2
+WHERE table1.column(+) = table2.column;
+```
+
+外连接
+
+```plsql
+select e.ename,d.deptno,d.dname
+from emp e,dept d
+where d.deptno=e.deptno(+);
+
+
+select e.ename,d.deptno,d.dname
+from emp e,dept d
+where e.deptno(+)=d.deptno;
+```
+
+自连接
+- 查找每个员工的上级主管
+
+
+```plsql
+select worker.ename||’ works for ‘||manager.ename
+from emp worker,emp manager
+where worker.mgr=manager.empno
+```
 
 
 
@@ -1598,13 +1830,6 @@ select * from user_ind_columns where index_name = 'INDEXS_NAME';
 ```
 
 
-
-
-
-Oracle 不支持 limit():
-- 限时输出
-- 在前面过滤的时候依然会有大数量的操作，仍然会可能挂机
-- 
 
 
 
