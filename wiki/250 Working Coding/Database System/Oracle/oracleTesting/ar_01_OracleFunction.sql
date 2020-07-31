@@ -239,43 +239,93 @@ select max(decode(type, 1, value)) 姓名,
        max(decode(type, 3, value)) 年龄,
   from CMCC group by t_id;
 
-/*
-组函数,一般情况下，组函数都要和 group by 组合使用
-组函数一般用于选择列表或者having条件判断
 
-常用的组函数有5个
-- avg()  平均值,只用于数值类型的数据
-- min()  最小值，适用于任何类型
-- max()  最大值，适用于任何类型
-- sum()   求和，只适合数值类型的数据
-- count() 记录数, 处理的时候会跳过空值而处理非空值
-    count 一般用来获取表中的记录条数，
-    获取条数时, 可以使用*或者某一个具体的列, 甚至可以使用纯数字来代替，
-    但是从运行效率的角度考虑，建议使用数字或者某一个具体的列, 而不要使用*
+/* 组函数：聚组函数或者分组函数
+-- 一般情况下，组函数都要和 group by 组合使用
+-- 组函数一般用于选择列表或者having条件判断
 
+-- 常用的组函数有5个
+---- avg()  平均值,只用于数值类型的数据
+---- min()  最小值，适用于任何类型
+---- max()  最大值，适用于任何类型
+---- sum()   求和，只适合数值类型的数据
+---- count() 记录数, 处理的时候会跳过空值而处理非空值
+------    count 一般用来获取表中的记录条数，
+------    获取条数时, 可以使用*或者某一个具体的列, 甚至可以使用纯数字来代替，
+------    但是从运行效率的角度考虑，建议使用数字或者某一个具体的列, 而不要使用 *
 */
+-- 求员工薪水的最大，最小，平均，总和
+select max(sal), min(sal), sum(sal), avg(sal) from emp;
 
 
+-- count() 不要使用 * 
+select count(*) from emp;
+select count(comm) from emp;
+select count(1) from emp;
 
---  不要使用 * 
-
-
-
+select count(distinct deptno) from emp;
 
 --  group by: 按照某些相同的值去进行分组操作
 -- - group进行分组操作的时候，可以指定一个列或者多个列，
 -- - 但是使用groupby 之后，选择列表中只能包含组函数的值或者group by 的普通字段
 -- 求每个部门的平均薪水
+select deptno, avg(sal) from emp group by deptno;
 
+-- 求平均新水大于2000的部门
+select deptno, avg(sal) from emp group by deptno having avg(sal) > 2000;
 
--- 求平均新书大于2000的部门
-
-
--- 部门下雇员的工资>2000 人数
+-- 部门下雇员的工资 >2000 人数
+select deptno, count(sal) from emp where sal > 2000 group by deptno;
 
 
 -- 部门薪水最高
+select deptno, max(sal) from emp group by deptno;
 
+select max(sal), deptno, job from emp group by deptno, job;
 
 -- 部门里面 工龄最小和最大的人找出来, 找到员工姓名
+select deptno, max(hiredate), min(hiredate) from emp group by deptno;
+
+select ename, hiredate from emp where hiredate in (select max(hiredate) from emp group by deptno) or hiredate in (select min(hiredate) from emp group by deptno);
+
+select mm2.deptno, e1.ename, e1.hiredate
+  from emp e1,
+       (select min(e.hiredate) mind, max(e.hiredate) maxd, e.deptno
+          from emp e
+         group by e.deptno) mm2
+ where e1.hiredate = mm2.mind
+    or e1.hiredate = mm2.maxd;
+
+-- 课堂练习
+-- 1. 查询10号部门中编号最新入职的员工，工龄最长的员工的个人信息。
+select max(hiredate), min(hiredate) from emp where deptno = 10;
+
+select * from emp where hiredate in (select max(hiredate) from emp where deptno = 10) or hiredate in (select min(hiredate) from emp where deptno = 10);
+
+-- 2. 从 'software'找到'f'的位置，用'*'左戒右填充到15位，去除其中的'a'。
+
+
+-- 3. 查询员工的奖金，如果奖金不为NULL显示'有奖金'，为null则显示无奖金
+
+
+-- 4. 写一个查询显示当前日期，列标题显示为Date。再显示六个月后的日期，下一个星期 日的日期，该月最后一天的日期。
+
+
+-- 5. 查询EMP表按管理者编号升序排列，如果管理者编号为空则把为空的在最前显示
+
+
+-- 6. 求部门平均薪水
+select deptno, avg(sal) from emp group by deptno;
+
+-- 7. 按部门求出工资大于1300人员的 部门编号、平均工资、最小佣金、最大佣金,幵且最大佣金大于100
+
+
+-- 8. 找出每个部门的平均、最小、最大薪水
+select deptno, avg(sal), min(sal), max(sal) from emp group by deptno;
+
+-- 9. 查询出雇员名，雇员所在部门名称， 工资等级。
+select dname, deptno from dept;
+
+select * from salgrade;
+
 

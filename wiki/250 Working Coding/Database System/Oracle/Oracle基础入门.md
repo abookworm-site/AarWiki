@@ -1236,13 +1236,15 @@ select hiredate, next_day(add_months(hiredate, 6), '星期五') "Free Day" from 
 -- 条件函数
 -- decode,case when
 
--- 给不同部门的人员涨薪，10部门涨10%，20部门涨20%，30部门涨30%
+-- 给不同部门的人员涨薪，10部门涨10%，20部门涨20%，30部门涨30%.
+---- decode
 select ename,
        deptno,
        sal,
        decode(deptno, 10, sal * 1.1, 20, sal * 1.2, 30, sal * 1.3)
   from emp;
 
+---- case when .. then ... end
 select ename,
        deptno,
        sal,
@@ -1255,10 +1257,6 @@ select ename,
           sal * 1.3
        end
   from emp;
-
-
-
-
 ```
 
 
@@ -1332,9 +1330,9 @@ select ename, decode(deptno, 10, sal*1.1, 20, sal*1.15, 30, sal*1.2, 40, sal*1.1
 
 
 
-### 组函数（A）
+### 组函数：聚组/分组
 
-- 组函数基亍多行数据返回单个值
+组函数基于多行数据返回单个值。**组函数仅在选择列表和Having子句中有效**，同时一般情况下，组函数都要和 `group by` 组合使用。
 
 - `avg()`：返回某列的平均值
 - `min()`：返回某列的最小值
@@ -1342,52 +1340,69 @@ select ename, decode(deptno, 10, sal*1.1, 20, sal*1.15, 30, sal*1.2, 40, sal*1.1
 - `sum()`：返回某列值的和
 - `count()`：返回某列的行数
 
-- 组函数仅在选择列表和Having子句中有效
+    
 
-在数字类型数据使用AVG and SUM 函数
+`AVG()` and `SUM()` 函数仅在 **数字类型数据** 中使用
 
-select sum(sal), avg(sal), max(sal) , min(sal) from emp;
+```plsql
+select sum(sal), avg(sal), max(sal), min(sal) from emp;
+```
 
-- MIN and MAX适用亍任何数据类型
 
+
+`MIN()` and `MAX()` 函数适用于 **任何数据类型**  
+
+```plsql
 select min(hiredate ) ,max(hiredate) from emp;
+```
 
-- 组函数除了count(*)外，都跳过空值而处理非空值
 
-select count(*) from emp;
-select count(comm) from emp;
-select count(1) from emp;
 
-– 不能计算空值
+组函数 **除了** `count(*)` 外，**都跳过空值而处理非空值**。
 
+- `count()` 一般用来获取表中的记录条数。
+- 获取条数时, 可以使用 `*` 或者某一个具体的列, 甚至可以使用纯数字来代替。但是，从运行效率的角度考虑，建议使用数字或者某一个具体的列, 而不要使用 `*`
+
+```plsql
+-- count() 记录数, 处理的时候会跳过空值而处理非空值
+select count(*) from emp; -- 15
+select count(comm) from emp;  -- 3
+select count(1) from emp;  --15
+
+-- 不能计算空值
 select count(distinct deptno) from emp;
-
-在分组函数中使用NVL函数
-- 组函数不能处理null
-- select avg(comm) from emp;
-- NVL函数迫使分组函数包括空值
-- select avg(nvl(comm,0)) from emp;
+```
 
 
 
+#### 分组函数中使用 `NVL()` 函数
+
+- 组函数不能处理 `null`
+```plsql
+select avg(comm) from emp;
+```
+- `NVL()` 函数迫使分组函数包括空值
+```plsql
+select avg(nvl(comm,0)) from emp;
+```
 
 
-```sql
 
-/*
-组函数,一般情况下，组函数都要和 group by 组合使用
-组函数一般用于选择列表或者having条件判断
 
-常用的组函数有5个
-- avg()  平均值,只用于数值类型的数据
-- min()  最小值，适用于任何类型
-- max()  最大值，适用于任何类型
-- sum()   求和，只适合数值类型的数据
-- count() 记录数, 处理的时候会跳过空值而处理非空值
-    count 一般用来获取表中的记录条数，
-    获取条数时, 可以使用*或者某一个具体的列, 甚至可以使用纯数字来代替，
-    但是从运行效率的角度考虑，建议使用数字或者某一个具体的列, 而不要使用*
+```plsql
+/* 组函数
+-- 一般情况下，组函数都要和 group by 组合使用
+-- 组函数一般用于选择列表或者having条件判断
 
+-- 常用的组函数有5个
+---- avg()  平均值,只用于数值类型的数据
+---- min()  最小值，适用于任何类型
+---- max()  最大值，适用于任何类型
+---- sum()   求和，只适合数值类型的数据
+---- count() 记录数, 处理的时候会跳过空值而处理非空值
+------    count 一般用来获取表中的记录条数，
+------    获取条数时, 可以使用*或者某一个具体的列, 甚至可以使用纯数字来代替，
+------    但是从运行效率的角度考虑，建议使用数字或者某一个具体的列, 而不要使用 *
 */
 
 select avg(sal) from emp;
@@ -1396,11 +1411,95 @@ select max(sal) from emp;
 select count(sal) from emp;
 select sum(sal) from emp;
 
--- 不要使用 * 
+-- count() 不要使用 * 
 select count(*) from emp;
 select count(1) from emp;
 select count(10000) from emp;
+```
 
+
+
+### 数据分组
+
+#### 分组过程
+
+1， 创建分组（`group by` 子句）
+
+- `group by` 子句可以包含任意数目的列。
+- 除组函数语句外，**select语句中的每个列都必须在 `group by` 子句中给出**。
+- 如果分组列中具有 `null`值，则 `null`将作为一个分组返回。如果列中有多行null值，他们将分为一组。
+
+- `group by `子句必须出现在 `where`子句之后，`order by` 子句之前。
+
+
+
+2， 过滤分组（`having` 子句)
+
+- `Where` 过滤行，`having` 过滤分组
+- `Having` 支持所有 `where操作符` 。
+
+
+
+3， 分组和排序
+
+- 一般在使用 `group by` 子句时，应该也给出 `order by` 子句。
+
+
+
+#### SQL语法
+
+```plsql
+SELECT column , group_function 
+FROM table
+[WHERE condition ]
+[GROUP BY group_by_expression ]
+[ORDER BY column ];
+[having condition]
+```
+
+- 使用 `GROUP BY` 子句将表分成小组
+- 所得结果集隐式按降序排列，如果需要改变排序方式可以使用 `Order by` 子句
+
+- 出现在SELECT列表中的字段，如果出现的位置不是在组函数中，那么必须出现在 `GROUP BY` 子句中
+```plsql
+select deptno, avg(sal) from emp group by deptno
+```
+- `GROUP BY` 列可以不在 `SELECT列表` 中
+```plsql
+select avg(sal) from emp group by deptno
+```
+- 不能在 `WHERE` 子句中使用组函数，不能在 `WHERE` 子句中限制组，只使用Having 对分组进行限制。
+```plsql
+select avg(sal) from emp group by deptno having avg(sal) > 1000;
+```
+
+
+
+#### `Select子句` 顺序
+
+| 子句 | 说明 | 是否必须使用 |
+| :--: | :--: | :----------: |
+|select|要返回的列或表达式|是|
+|from|从中检索数据的表|仅在从表选择数据时使用|
+|where|行级过滤|否|
+|group by|分组说明|仅在按组计算聚集时使用|
+|Having|组级过滤|否|
+|order by|输出排序顺序|否|
+
+
+
+SQL语句执行过程：
+
+1. **读取** `from子句`中的基本表、视图的数据，[执行笛卡尔积操作]。
+2. 选取满足 `where子句` 中给出的条件表达式的元组
+3. 按 `group子句` 中指定列的值分组，同时提取满足 `Having子句` 中组条件表达式的那些组
+4. 按 `select子句` 中给出的列名或列表达式 **求值输出**
+5. `Order by子句` 对输出的目标表进行 **排序**。
+
+
+案例
+
+```plsql
 -- group by: 按照某些相同的值去进行分组操作
 --- group进行分组操作的时候，可以指定一个列或者多个列，
 --- 但是使用groupby 之后，选择列表中只能包含组函数的值或者group by 的普通字段
@@ -1416,109 +1515,49 @@ select deptno, count(1) from emp where sal > 2000 group by deptno;
 --部门薪水最高
 select deptno, max(sal) from emp group by deptno;
 
+select max(sal), deptno, job from emp group by deptno, job;
+
+select avg(sal) from emp where sal > 1200 group by deptno having avg(sal) > 1500 order by avg(sal);
+
 --部门里面 工龄最小和最大的人找出来, 找到员工姓名
+---- the first one
 select deptno, min(hiredate), max(hiredate) from emp group by deptno; 
 
 select ename, deptno
   from emp
- where hiredate in (select min(hiredate) from emp group by deptno)
+ where hiredate in (select max(hiredate) from emp group by deptno)
     or hiredate in (select min(hiredate) from emp group by deptno);
+
+---- The second methods
+select mm2.deptno, e1.ename, e1.hiredate
+  from emp e1,
+       (select min(e.hiredate) mind, max(e.hiredate) maxd, e.deptno
+          from emp e
+         group by e.deptno) mm2
+ where e1.hiredate = mm2.mind
+    or e1.hiredate = mm2.maxd;
 ```
 
 
 
-
-
-
-
-
-
-### 数据分组
-
-- 创建分组
-– group by 子句
-– Group by 子句可以包含任意数目的列。
-- 除组函数语句外，select语句中的每个列都必须在group by 子句中给出。
-– 如果分组列中具有null值，则null将作为一个分组返回。如果列中有多行null值，他们将分为一组。
-– Group by 子句必须出现在where子句之后，order by 子句之前。
-- 过滤分组（having子句)
-– Where过滤行，having过滤分组。
-– Having支持所有where操作符。
-- 分组和排序
-– 一般在使用group by 子句时，应该也给出order by子句。
-
-SELECT column , group_function 
-FROM table
-[WHERE condition ]
-[GROUP BY group_by_expression ]
-[ORDER BY column ];
-[having condition]
-
-- 使用GROUP BY子句将表分成小组
-- 结果集隐式按降序排列,如果需要改变排序方式可以使用Order by 子句
-
-数据分组
-- 出现在SELECT列表中的字段，如果出现的位置不是在组函数中，那么必须出现在GROUP BY子句中
-- select deptno,avg(sal) from emp group by deptno
-- GROUP BY 列可以不在SELECT列表中
-- select avg(sal) from emp group by deptno
-- 不能在 WHERE 子句中使用组函数.不能在 WHERE 子句中限制组. 使用Having 对分组进行限制
-- select avg(sal) from emp group by deptno having avg(sal) > 1000;
-
-Select子句顺序
-子句 说明 是否必须使用
-select 要返回的列或表达式 是
-from 从中检索数据的表 仅在从表选择数据时使用
-where 行级过滤 否
-group by 分组说明 仅在按组计算聚集时使用
-Having 组级过滤 否
-order by 输出排序顺序 否
-
-Select子句顺序
-- Sql语句执行过程：
-1. 读取from子句中的基本表、视图的数据，[执行笛卡尔积操作]。
-2. 选取满足where子句中给出的条件表达式的元组
-3. 按group子句中指定列的值分组，同时提取满足Having子句中组条件表达
-式的那些组
-4. 按select子句中给出的列名戒列表达式求值输出
-5. Order by子句对输出的目标表进行排序。
-
-题目
-- 求部门下雇员的工资>2000 人数
-例子
+### 课堂练习
 
 ```sql
--- 部门薪水最高
-
-select max(sal) from emp group by deptno;
-
-select max(sal),deptno, job from emp group by deptno, job;
-
-select avg(sal) from emp where sal > 1200 group by deptno having avg(sal) > 1500 order by avg(sal);
-```
-
-案例
-```sql
--- 部门里面 工龄最小和最大的人找出来
-
-select mm2.deptno, e1.ename,e1.hiredate from emp e1,(select min(e.hiredate) mind,max(e.hiredate) maxd,e.deptno from emp e group by e.deptno) mm2 where e1.hiredate=mm2.mind or e1.hiredate=mm2.maxd;
-
-```
-
-课堂练习
-```sql
+-- 课堂练习
 -- 1. 查询10号部门中编号最新入职的员工，工龄最长的员工的个人信息。
--- 2. 从‚software‛找到‘f’的位置，用‘*’左戒右填充到15位，去除其中的‘a’。
+-- 2. 从 software‛找到‘f’的位置，用‘*’左戒右填充到15位，去除其中的‘a’。
 -- 3. 查询员工的奖金，如果奖金不为NULL显示‘有奖金’，为null则显示无奖金
 -- 4. 写一个查询显示当前日期，列标题显示为Date。再显示六个月后的日期，下一个星期 日的日期，该月最后一天的日期。
 -- 5. 查询EMP表按管理者编号升序排列，如果管理者编号为空则把为空的在最前显示
 -- 6. 求部门平均薪水
--- 7. 按部门求出工资大亍1300人员的 部门编号、平均工资、最小佣金、最大佣金,幵且最大佣金大亍100
+-- 7. 按部门求出工资大于1300人员的 部门编号、平均工资、最小佣金、最大佣金,幵且最大佣金大于100
 -- 8. 找出每个部门的平均、最小、最大薪水
 -- 9. 查询出雇员名，雇员所在部门名称， 工资等级。
 ```
 
 
+
+## 多表查询
 
 
 
