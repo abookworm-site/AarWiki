@@ -302,30 +302,40 @@ select max(hiredate), min(hiredate) from emp where deptno = 10;
 
 select * from emp where hiredate in (select max(hiredate) from emp where deptno = 10) or hiredate in (select min(hiredate) from emp where deptno = 10);
 
--- 2. 从 'software'找到'f'的位置，用'*'左戒右填充到15位，去除其中的'a'。
+-- 2. 从'software'找到'f'的位置，用'*'左或右填充到15位，去除其中的'a'。
+select instr('software', 'f') from dual;
 
+select lpad('software', 15, '*') from dual;
+
+select replace('software', 'a', '') from dual;
 
 -- 3. 查询员工的奖金，如果奖金不为NULL显示'有奖金'，为null则显示无奖金
+select * from emp;
 
+select ename, decode(comm, null, '无奖金', '有奖金') "Bouncs" from emp;
 
--- 4. 写一个查询显示当前日期，列标题显示为Date。再显示六个月后的日期，下一个星期 日的日期，该月最后一天的日期。
-
+-- 4. 写一个查询显示当前日期，列标题显示为Date。再显示六个月后的日期，下一个星期日的日期，该月最后一天的日期。
+select sysdate "Date", add_months(sysdate, 6) "六月后", next_day(sysdate, '星期日') "本周日", last_day(sysdate) "本月末" from dual;
 
 -- 5. 查询EMP表按管理者编号升序排列，如果管理者编号为空则把为空的在最前显示
-
+select * from emp order by mgr asc nulls first;
 
 -- 6. 求部门平均薪水
 select deptno, avg(sal) from emp group by deptno;
 
 -- 7. 按部门求出工资大于1300人员的 部门编号、平均工资、最小佣金、最大佣金,幵且最大佣金大于100
-
+select deptno, avg(sal), min(sal), max(sal) from emp where sal>1300 group by deptno having max(nvl(comm, 0)) > 100;
 
 -- 8. 找出每个部门的平均、最小、最大薪水
 select deptno, avg(sal), min(sal), max(sal) from emp group by deptno;
 
--- 9. 查询出雇员名，雇员所在部门名称， 工资等级。
-select dname, deptno from dept;
+-- 9. 查询出雇员名，雇员所在部门名称，工资等级。
+select * from emp;
+
+select * from dept;
 
 select * from salgrade;
+
+select e.ename, d.dname, s.grade from emp e, dept d, salgrade s where e.deptno=d.deptno and e.sal between s.losal and s.hisal;
 
 
