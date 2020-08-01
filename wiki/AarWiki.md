@@ -1,3 +1,5 @@
+# Welcome to AarWiki
+
 ## Why Wiki？
 
 ### 起于笔记
@@ -6,15 +8,27 @@
 
 后来，学习地多了，脑子也混乱了。于是便开始整理所学。笔记也就渐渐多了起来。
 
-麦库笔记开始，到OneNote, 再到印象笔记。但是，总会在笔记数量达到一定程度之后便变得混乱起来。同时，**收藏瘾** 也会慢慢袭来。从而导致整个笔记体系更加浑浊。
+麦库笔记开始，到OneNote，再到印象笔记。但是，总会在笔记数量达到一定程度之后便变得混乱起来。同时，随着笔记的增多，每每写一篇满意的笔记之后，那种成就感也会让自己对这种混乱更加抓狂。
 
-再后，慢慢接触到了 **搜索意识**。也算缓解了一部分执著。
+再到后来，渐渐看得多了优秀的文章之后。**收藏瘾** 也会慢慢袭来。从而导致整个笔记体系更加浑浊。对于自己与外界的边界也更加模糊。
+
+再后，在这个信息爆炸的时代，也慢慢接触到了 **搜索意识**。也算缓解了一部分执著。
 
 然而对于系统性作品，总会觉得不太过瘾。感觉会有太多的勾连，就像世界浩瀚到无穷边界。
 
 ... ...
 
-故此，而后尝试使用 **wiki记录系统性总结**。
+故此，而后尝试使用 **Wiki记录系统性总结**。
+
+
+
+### 承于笔记
+
+从日志开始，又或者叫日记，晨间笔记。这是一个梳理自身，察觉自身的过程。会慢慢地建立自己的知识体系，同时，对外界与自身的边界渐渐明晰。这是最
+
+
+
+
 
 ### 统筹规划
 
@@ -62,11 +76,17 @@
 
 - [网络爬虫]
 
-- [数据分析]
+- [数据分析](250 Working Coding Python\Data Analysis\an-Overview of data analysis.md)
 
     
 
 ### [260 Working Operating System](260 Working Operating System\index.md)
+
+- [Linux System](260 Working Operating System\Linux System\Linux Overall.md)
+
+
+
+### [310 Learning English](310 Learning Language\an-Overview of English Learning.md)
 
 
 
@@ -113,6 +133,7 @@
 - Linux System
 
 310 Learning English 万物有灵
+- 学习笔记
 
 410 Loving Reading 天地立心
 
