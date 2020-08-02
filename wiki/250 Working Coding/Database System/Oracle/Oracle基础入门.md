@@ -728,7 +728,7 @@ select deptno from dept where deptno not in (select e.deptno from emp e);
 -- (1) 查询EMP表显示工资超过2850的雇员姓名和工资。
 select e.ename, e.sal from emp e where e.sal > 2850;
 
--- (2) 查询EMP表显示工资丌在1500～2850乊间的所有雇员及工资。
+-- (2) 查询EMP表显示工资不在1500～2850乊间的所有雇员及工资。
 select e.ename, e.sal from emp e where e.sal > 1500 and e.sal < 2850;
 
 -- (3) 查询EMP表显示代码为7566的雇员姓名及所在部门代码。
@@ -1601,63 +1601,312 @@ MySQL 中，函数 `limit()` 用来限制输出。同时，在前面过滤的时
 
 
 
-## 多表查询
+## 关联查询
 
-### `SQL-1992` 语法的连接
+### `SQL` 语句的表连接
 
-- 语法规则：
+#### 语法规则
+
 ```sql
 SELECT table1.column, table2.column
 FROM table1, table2
 WHERE table1.column1 = table2.column2;
 ```
-- 在 WHERE 子句中写入连接条件
+- 在 `WHERE` 子句中写入 **连接条件**
 - 当多个表中有重名列时，必须在列的名字前加上表名作为前缀
 - 连接的类型：
-1. 等值连接 -- Equijoin
-2. 非等值连接 -- Non-equijoin
-3. 外连接 -- Outer join
-4. 自连接 -Self join
+    1. 等值连接 -- `Equi join`
+    2. 非等值连接 -- `Non-equi join`
+    3. 外连接 -- `Outer join`
+    4. 自连接 -- `Self join`
 
 
 
-### `92语法`
+#### 笛卡尔积
 
-- 数据来自亍多张表 ,92表连接
-- 注意: 明确引用同名的列，必须使用表名 戒者别名区分
-- 一、迪卡尔积
+```plsql
+select count(*) from emp;
+
+select count(*) from dept;
+
+select emp.empno, dept.loc from emp, dept;
+```
+
+- 检索出的行的数目将是第一个表中的行数乘以第二个表中的行数
+- 检索出的列的数目将是第一个表中的列数加上第二个表中的列数
+
+
+
+```plsql
+--关联查询
+/*
+select t1.c1,t2.c2 
+from t1,t2 
+where t1.c3 = t2.c4
+
+-- where 在进行连接的时候，可以使用等值连接，可以使用非等值连接
+*/
+--查询雇员的名称和部门的名称
+select * from emp, dept where emp.deptno = dept.deptno;
+
+-- 查询雇员名称以及自己的薪水等级
+select e.ename, sg.grade from emp e, salgrade sg where e.sal between sg.losal and sg.hisal;
+
+-- 等值连接，两个表中包含相同的列名
+select * from emp e, dept d where e.deptno = d.deptno;
+
+-- 非等值连接，两个表中没有相同的列名，但是某一个列在另一张表的列的范围之中
+
+-- 外连接
+select * from emp;
+select * from dept;
+
+--需要将雇员表中的所有数据都进行显示,利用等值连接的话只会把关联到的数据显示，
+select * from emp e, dept d where e.deptno = d.deptno; 
+
+--没有关联到的数据不会显示，此时需要外连接
+--分类：左外连接（把左表的全部数据显示）和右外连接（把右表的全部数据显示）
+-- 连接查询符号(+): 所具有的一方会是被连接对象
+-- 左外连接: 左表empt, 右表dept
+select * from emp e, dept d where e.deptno = d.deptno(+);
+
+-- 右外连接：左表empt, 右表dept
+select * from emp e, dept d where e.deptno(+) = d.deptno;
+
+--  左表dept, 右表emp
+select * from dept d, emp e where e.deptno = d.deptno(+);
+-- 右外连接
+select * from dept d, emp e where d.deptno = e.deptno(+);
+
+select * from dept d, emp e where e.deptno(+) = d.deptno;
+
+
+--自连接：将一张表当成不同的表来看待，自己关联自己
+--将雇员和他经理的名称查出来
+select e.ename, m.ename from emp e, emp m where e.mgr = m.empno;
+
+-- 笛卡尔积：当关联多张表，但是不指定连接条件的时候，会进行笛卡尔积，
+-- 关联后的总记录条数为M*n，一般不要使用
+select * from emp e, dept d;
+
+
+-- 92的表连接语法有什么问题？？？？
+-- 在92语法中，多张表的连接条件会方法where子句中，同时where需要对表进行条件过滤
+-- 因此，相当于将过滤条件和连接条件揉到一起，太乱了，因此出现了99语法
+
+--99语法
+/*
+CROSS　JOIN
+NATURAL JOIN
+USING 子句
+ON子句
+LEFT OUTER JOIN
+RIGHT OUTER JOIN
+FULL OUTER JOIN
+Inner join
+*/
+
+--cross join 等同于92语法中的笛卡儿积
+select * from emp cross join dept;
+
+--natural join  相当于是等值连接，但是注意，不需要写连接条件，会从两张表中找到相同的列做连接
+--当两张表中不具有相同的列名的时候，会进行笛卡儿积操作,自然连接跟92语法的自连接没有任何关系
+-- 因此，使用nature join 一定要确定具有相同的列来做连接。
+select * from emp e natural join dept d;
+
+select * from emp e natural join salgrade sg;
+
+--on子句，可以添加任意的连接条件，
+--添加连接条件 相当于92语法中的等值连接
+select * from emp e join dept d on e.deptno = d.deptno;
+
+--相当于92语法中的非等值连接，
+select * from emp e join salgrade sg on e.sal between sg.losal and hisal;
+
+--left outer join ,会把左表中的全部数据正常显示，右表没有对应的数据直接显示空即可
+select * from emp e left outer join dept d on e.deptno = d.deptno;
+
+--right outer join ,会把右表中的全部数据正常显示，左表中没有对应的记录的话显示空即可
+select * from emp e right outer join dept d on e.deptno = d.deptno;
+
+--full outer join ,相当于左外连接和右外连接的合集
+select * from emp e full outer join dept d on e.deptno = d.deptno;
+
+--inner outer join，两张表的连接查询，只会查询出有匹配记录的数据
+select * from emp e inner join dept d on e.deptno = d.deptno; 
+
+-- using,除了可以使用on表示连接条件之外，也可以使用using作为连接条件,
+-- 此时连接条件的列不再归属于任何一张表, 作为独立的列而存在。
+select * from emp e join dept d using(deptno);
+
+select * from emp e join dept d on e.deptno = d.deptno;
+
+--总结:两种语法的SQL语句没有任何限制，在公司中可以随意使用，但是建议使用99语法，不要使用92语法，SQL显得清楚明了
+
+
+--------------------------------------------
+--------------------------------------------
+--检索雇员名字、所在单位、薪水等级
+select e.ename, d.loc, sg.grade
+  from emp e
+  join dept d
+    on e.deptno = d.deptno
+  join salgrade sg
+    on e.sal between sg.losal and sg.hisal;
+
+
+/*
+子查询：
+    -- 嵌套再其他sql语句中的完整sql语句，可以称之为子查询
+分类：
+    单行子查询
+    多行子查询
+*/
+--有哪些人的薪水是在整个雇员的平均薪水之上的
+--1、先求平均薪水
+select avg(e.sal) from emp e;
+
+--2、把所有人的薪水与平均薪水比较
+select * from emp where sal > (select avg(sal) from emp);
+
+--我们要查在雇员中有哪些人是经理人
+--1、查询所有的经理人编号
+select * from emp;
+select distinct e.mgr from emp e;
+
+--2、在雇员表中过滤这些编号即可
+select * from emp where empno in (select distinct mgr from emp);
+
+--每个部门平均薪水的等级
+--1、先求出部门的平均薪水
+select deptno, avg(sal) from emp e group by e.deptno;
+
+--2、跟薪水登记表做关联，求出平均薪水的等级
+select * from salgrade;
+
+select t.deptno, sg.grade
+  from salgrade sg
+  join (select deptno, avg(sal) vsal from emp e group by e.deptno) t
+    on t.vsal between sg.losal and hisal;
+
+--- 子查询练习-----
+--1、求平均薪水最高的部门的部门编号 -- 部门编号
+--求部门的平均薪水
+select e.deptno,avg(e.sal) vsal from emp e group by e.deptno;
+
+--求平均薪水最高的部门
+select max(vsal) from (select avg(e.sal) vsal from emp e group by e.deptno);
+
+--求部门编号
+select t.deptno
+  from (select e.deptno, avg(e.sal) vsal from emp e group by e.deptno) t
+ where t.vsal =
+       (select max(vsal)
+          from (select avg(e.sal) vsal from emp e group by e.deptno));
+
+--2、求部门平均薪水的等级
+-- 部门平均薪水
+select e.deptno, avg(e.sal) vsal from emp e group by e.deptno;
+
+-- 薪水等级
+select t.deptno, sg.grade from salgrade sg join (select e.deptno, avg(e.sal) vsal from emp e group by e.deptno) t on t.vsal between sg.losal and sg.hisal;
+
+--3、求部门平均的薪水等级
+-- 求部门每个人的薪水等级
+select * from emp;
+
+select e.deptno, sg.grade from emp e join salgrade sg on e.sal between sg.losal and sg.hisal;
+
+-- 按照部门求平均等级
+select t.deptno, avg(t.grade) from (select e.deptno, sg.grade from emp e join salgrade sg on e.sal between sg.losal and sg.hisal) t group by t.deptno;
+
+-- 限制输出: limit 是 MySQL 用来做限制输出的，但是oracle中不是
+--oracle中，如果需要使用限制输出和分页的功能的话，必须要使用rownum，
+--但是rownum不能直接使用，需要嵌套使用
+--4、求薪水最高的前5名雇员
+-- 按照薪水降序排序
+select * from emp e order by e.sal desc;
+
+select * from (select * from emp e order by e.sal desc) where rownum <= 5;
+
+
+-- 5、求薪水最高的第6到10名雇员
+-- 查询 1-10 (这里也可以不限制， 仅添加rownum)
+select t.*, rownum rn from (select * from emp e order by e.sal desc) t where rownum <=10;
+
+select t.*, rownum rn from (select * from emp e order by e.sal desc) t;
+
+-- 再次查询 6 - 10
+-- 使用rownum的时候必须要再外层添加嵌套，此时才能将rownum作为其中的一个列，然后再进行限制输出
+select * from (select t.*, rownum rn from (select * from emp e order by e.sal desc) t where rownum <=10) where rn >5 and rn <= 10;
+
+```
+
+
+
+
+
+
+
+
+
+### `SQL-92语法` 表连接
+
+#### 基本概念
+
+- 数据来自于多张表，92表连接
+- 引用同名的列时，若需要明确表，则必须使用表名或者别名区分
+
+
+
+一、迪卡尔积
 
 ```plsql
 select 字段列表 from 表1,表2,表3....
 ```
 
-- 二、等值连接: 取关系列相同的记录
+
+
+二、等值连接: 取 **关系列相同** 的记录
 
 ```plsql
-select 字段列表 from 表1,表2,表3....
+select 字段列表 
+from 表1,表2,表3....
 where 表1.列=表2.列 and 表1.列=表3.列
 ```
 
-- 三、非等值连接：取关系列丌同的记录 != > < >= <= between and
+
+
+三、非等值连接：取 **关系列不同** 的记录 ` !=` ` >` `<` `>=` `<=` `between and`
 
 ```plsql
-select 字段列表 from 表1,表2,表3....
-where 表1.列!=表2.列 and 表1.列!=表3.列
+select 字段列表 
+from 表1,表2,表3....
+where 表1.列 != 表2.列 and 表1.列 != 表3.列
 ```
 
-- 四、自连接:(特殊的等值连接) 列来自亍同一张表,丌同角度看待表
+
+
+四、自连接：(特殊的等值连接) 列来自于同一张表，不同角度看待表
 
 ```plsql
-select 字段列表 from 表1 e,表1 m
+select 字段列表 
+from 表1 e,表1 m
 where e.列1=m.列2
 ```
 
-- 五、外连接: 在等值基础上，确保 一张表(主表)的记录都存在 从表满足则匹配，丌满足补充null
-- 1、左外: 主表在左边
-- 2、右外: 主表在右边
 
-等值连接
-- 语法规则：
+
+五、外连接: 在等值基础上，确保一张表(主表)的记录都存在，从表满足则匹配，不满足则填充 `null`
+
+- 左外连接: 主表在左边
+- 右外连接: 主表在右边
+
+
+
+#### 等值连接
+
+语法规则
 
 ```plsql
 SELECT table1.column, table2.column
@@ -1665,39 +1914,19 @@ FROM table1, table2
 WHERE table1.column1 = table2.column2;
 ```
 
-- 笛卡尔积：表*表
+- 笛卡尔积：表1 * 表2
+
+
+
+对于等值连接而言，能够连接的字段必须是相关连的外键与主键。
+
 - 主外键
-- 在外键表中的映射字段称为 外键 Foreign key
-- 在主键表中的唯一字段称为主键 Primary key
-
-非等值连接
-- 非等值连接
-- <,>,<=,>=,!=连接时称非等值连接
-
-```plsql
-select * from emp,salgrade where sal between losal and hisal
-```
-
-外连接运算符是 (+)
-- 外连接运算符是 (+)
-笛卡尔积
-
-```plsql
-select count(*) from emp;
+    - 在外键表中的映射字段称为 **外键 `Foreign key`**
+    - 在主键表中的唯一字段称为 **主键 `Primary key`**
 
 
-select count(*) from dept;
 
-
-select emp.empno,dept.loc from emp,dept;
-```
-- 检索出的行的数目将是第一个表中的行数乘以第二个表中的行数
-- 检索出的列的数目将是第一个表中的列数加上第二个表中的列数
-- 应该保证所有联结都有where子句，丌然数据库返回比想要的数
-据多得多的数据
-等值连接
-- 使用 AND 操作符增加查询条件
-等值连接
+使用 AND 操作符增加查询条件
 
 ```plsql
 select emp.empno,emp.ename,dept.deptno,dept.loc
@@ -1714,8 +1943,9 @@ where emp.deptno=dept.deptno
 and ename='JAMES'
 ```
 
-连接中使用表的别名
-- 使用表的别名简化了查询
+
+
+使用表的别名简化查询
 
 ```plsql
 select e.empno,e.ename,e.deptno,d.deptno,d.loc
@@ -1723,91 +1953,497 @@ from emp e,dept d
 where e.deptno=d.deptno
 ```
 
-多亍两个表的连接
+
+
+多于两个表的连接
 - 为了连接n个表，至少需要n-1个连接条件。
-多亍两个表的连接
-- create table manager
-as
-select * from emp;
-Manager ,emp ,dept
 
 ```plsql
+create table manager
+as
+select * from emp;
+
+-- All tables are Manager ,emp ,dept.
 select e.empno,e.ename,m.ename,d.loc
 from emp e,manager m,dept d
 where e.mgr=m.empno
 and e.deptno=d.deptno
-and e.job=‘ANALYST’
+and e.job=‘ANALYST’;
 ```
 
-非等值连接
+
+
+#### 非等值连接
+
+概念：
+
+- 使用 `<`, `>`, `<=`, `>=`, `!=`， `between ... and` 等连接表。
 
 ```plsql
-select *
-from emp,salgrade
-where sal between losal and hisal
+select * from emp,salgrade where sal between losal and hisal;
 ```
 
-外连接
-外连接
-- 为了在操作时能保持这些将被舍弃的元组，提出了外连接的概念，使用外连接
-可以看到丌满足连接条件的记录
-- 外连接运算符是 (+)
-- 有左外连接和右外连接
-- 左外连接显示左边表的全部行
+
+
+#### 外连接
+
+基本概念
+
+- 为了在操作时能保持这些将被舍弃的元组，提出了外连接的概念，使用外连接可以看到不满足连接条件的记录
+
+- 外连接运算符：`(+)`
+
+
+
+笛卡尔积太大
 
 ```plsql
-SELECT table.column, table.column
+select count(*) from emp;
+
+select count(*) from dept;
+
+select emp.empno, dept.loc from emp, dept;
+```
+- 检索出的行的数目将是第一个表中的行数乘以第二个表中的行数
+- 检索出的列的数目将是第一个表中的列数加上第二个表中的列数
+- 因此，使用外连接时，应保证所有联结都有 `where` 子句，不然数据库返回比想要的数据多得多的数据
+
+
+
+外连接类别：
+
+1. **左外连接**，显示左边表的全部行
+
+```plsql
+SELECT table1.column, table2.column
 FROM table1, table2
 WHERE table1.column = table2.column(+);
 ```
-- 右外连接显示右边表的全部行
+
+
+2. **右外连接**，显示右边表的全部行
 
 ```plsql
-SELECT table.column, table.column
+SELECT table1.column, table2.column
 FROM table1, table2
 WHERE table1.column(+) = table2.column;
 ```
 
-外连接
+
 
 ```plsql
-select e.ename,d.deptno,d.dname
-from emp e,dept d
+-- 左外连接
+select e.ename, d.deptno, d.dname
+from emp e, dept d
 where d.deptno=e.deptno(+);
 
+-- 右外连接
+select e.ename, d.deptno, d.dname
+from emp e, dept d
+where e.deptno(+)=d.deptno;
+```
+
+
+
+#### 自连接
+
+- 查找每个员工的上级主管
+
+
+```plsql
+-- 查找每个员工的上级主管
+select worker.ename ||’ works for ‘||manager.ename
+
+from emp worker, emp manager
+where worker.mgr = manager.empno;
+```
+
+
+
+### `SQL-99语法` 表连接
+
+`SQL1992` 的语法暴露的缺点：
+
+- 语句过滤条件和表连接的条件都放到了 `where` 子句中 。当条件过多时，联结条件多，过滤条件多时，就容易造成混淆。
+
+`SQL1999` 修正了整个缺点：
+
+- 把联结条件，过滤条件分开来，包括以下新的 `TABLE JOIN` 的句法
+
+
+
+#### 语法结构
+
+- `CROSS JOIN`
+- `NATURAL JOIN`
+- `USING子句`
+- `ON子句`
+- `LEFT OUTER JOIN`
+- `RIGHT OUTER JOIN`
+- `FULL OUTER JOIN`
+- `Inner outer join`
+
+
+
+#### 交叉连接 `cross join`
+
+`CROSS JOIN` 产生了一个笛卡尔积，就象是在连接两个表格时忘记加入一个 `WHERE`子句一样
+
+```plsql
+-- 不加 where 子句限定
+select emp.empno, emp.ename, emp.deptno, dept.loc
+from emp, dept;
+
+-- 使用 cross join 是相同效果
+select emp.empno, emp.ename, emp.deptno, dept.loc
+from emp cross join dept;
+```
+
+
+#### 自然连接 `natural join`
+
+`NATURAL JOIN` 子句基于两个表中 **列名完全相同的列** 产生连接
+
+- 两表有相同名字的列
+
+- 列数据类型相同
+- 从两个表中选出连接列的值相等的所有行
+```plsql
+select *
+from emp natural join dept
+Where deptno = 10;
+```
+
+- 自然连接的结果不保留重复的属性
+
+
+
+#### `using` 子句创建连接
+
+`using` 子句引用的列在 `SQL` 任何地方不能使用表名或者别名做前缀，同样适合 `natural` 子句
+
+- 同样是两表相同名字的列，相同的数据类型
+
+```plsql
+select e.ename, d.dname, e.sal, deptno, d.loc
+from emp e join dept d using (deptno)
+where deptno=20
+```
+
+
+
+#### `on`子句创建连接
+
+基本概念
+
+自然连接的条件是基于表中所有同名列的等值连接。为了 **设置任意的连接条件或者指定连接的列**，需要使用 `ON` 子句
+
+- 连接条件与其它的查询条件分开书写
+- 使用 `ON` 子句使查询语句更容易理解
+```plsql
+select ename, dname
+from emp join dept on emp.deptno=dept.deptno
+where emp.deptno = 30;
+```
+
+
+
+使用 `on` 子句创建 **三表连接**
+
+检索雇员名字、所在单位、薪水等级
+
+- 这三个信息在三个表里面，所以只能用多表联结
+
+```plsql
+-- 检索雇员名字、所在单位、薪水等级
+select ename, dname, grade
+from emp
+join dept on emp.deptno=dept.deptno
+join salgrade on emp.sal between salgrade.losal and salgrade.hisal;
+```
+
+
+
+#### 左外连接
+
+- 左外连接 `LEFT OUTER JOIN` 会返回所有左边表中的行，即使在右边的表中没有可对应的列值。
+```plsql
+select e.ename,d.deptno, d.dname
+from dept d
+left outer join emp e
+on e.deptno=d.deptno;
+
+select e.ename, d.deptno, d.dname
+from emp e, dept d
+where d.deptno=e.deptno(+);
+```
+
+
+
+#### 右外连接
+
+- 右外连接 `RIGHT OUTER JOIN` 会返回所有右边表中的行，即使在左边的表中没有可对应的列值。
+
+```plsql
+select e.ename, d.deptno, d.dname
+from emp e
+right outer join dept d
+on e.deptno=d.deptno;
 
 select e.ename,d.deptno,d.dname
 from emp e,dept d
 where e.deptno(+)=d.deptno;
 ```
 
-自连接
-- 查找每个员工的上级主管
 
+#### 默认内连接 `inner join` 
+
+- `on` 连接表的条件
 
 ```plsql
-select worker.ename||’ works for ‘||manager.ename
-from emp worker,emp manager
-where worker.mgr=manager.empno
+select * from emp e inner join dept d on e.deptno=d.deptno;
+
+select * from emp e join dept d on e.deptno=d.deptno;
+
+select * from emp e join dept d using (deptno);
 ```
 
 
 
+### 子查询
+
+#### 基本概念
+
+SQL允许多层嵌套。子查询，即嵌套在其他查询中的查询。理解子查询的关键在于把子查询当作一张表来看待。外层的语句可以把内嵌的子查询返回的结果当成一张表使用。
+
+```plsql
+SELECT select_list
+FROM table
+WHERE expr operator
+  (SELECT select_list
+FROM table);
+```
+
+- 子查询要用括号括起来
+- 将子查询放在比较运算符的右边(增强可读性)
 
 
 
+#### 子查询的种类
+
+按照子查询返回的记录数，子查询可以分为 **单行子查询** 和 **多行子查询**
 
 
 
+#### 单行子查询
+
+- 子查询返回一行记录
+- 使用单行记录比较运算符
+
+
+| Operator | Meaning |
+| -------- | ------- |
+|`=`|Equal to|
+|`>`|Greater than|
+|`>=`|Greater than or equal to|
+|`<`|Less than|
+|`<=`|Less than or equal to|
+|`<>`|Not equal to|
+
+案例：
+
+```plsql
+-- 我们要查询有哪些人的薪水是在整个雇员的平均薪水之上的：
+
+-- 1. 首先求所有雇员的平均薪水
+
+select avg(sal+nvl(comm,0)) from emp;
+
+-- 2. 然后求：
+select ename,empno, sal, sal+nvl(comm,0)
+from emp
+where sal+nvl(comm,0)>(select avg(sal+nvl(comm,0)) from emp);
+```
+- 此处嵌套的子查询在外层查询处理之前执行
 
 
 
+#### 多行子查询
+
+- 子查询结果返回多行记录
+- 使用集合比较运算符
+
+| 运算符 | 含义 |
+| :----: | ---- |
+|`IN`|等于列表中的任何值|
+|`some`|将值与子查询返回的任意一个值进行比较|
+|`ALL`|比较子查询返回的每一个值|
+
+
+多行子查询中使用 `in`
+
+- 查询在雇员中有哪些人是经理人，即：有哪些人的empno号在mgr这个字段中出现过
+- 应当首先查询mgr中有哪些号码，然后再看看有哪些人的雇员号码在此出现
+
+```plsql
+-- 查询在雇员中有哪些人是经理人
+select empno, ename
+from emp
+where empno in (
+select distinct mgr from emp
+);
+```
 
 
 
+多行子查询中使用 `some all`
+
+- 找出部门编号为20的所有员工中收入最高的职员
+```plsql
+-- 找出部门编号为20的所有员工中收入最高的职员
+select * from emp
+where sal >= all(
+select sal
+from emp
+where deptno = 20)
+and deptno = 20
+```
+
+
+在From子句中使用子查询
+
+- 求每个部门平均薪水的等级，
+
+- 首先将每个部门的平均薪水求出来，
+- 然后把结果当成一张表，
+- 再用这张结果表和salgrade表做连接，以此求得薪水等级。
+
+```plsql
+-- 求每个部门平均薪水的等级
+-- 1. 先求出每个部门平均薪水的表t
+select deptno, avg(sal) "avg_sal" from emp group by deptno;
+
+-- 2. 将t和salgrade进行关联查询就可以了。
+select * 
+from salgrade s, 
+	(select deptno,avg(sal) avg_sal
+	  from emp 
+      group by deptno
+    ) t
+where t.avg_sal between s.losal and s.hisal;
+```
 
 
 
+#### 作业
+
+```plsql
+-- 1. 求平均薪水最高的部门的部门编号
+-- 2. 求部门平均薪水的等级
+-- 3. 求部门平均的薪水等级
+-- 4. 求薪水最高的前5名雇员
+-- 5. 求薪水最高的第6到10名雇员
+```
+
+
+
+### 分页
+
+查询语句中，`rownum` 不能直接使用
+
+```plsql
+select emp.*, rownum from emp where rownum>=5;
+
+select * 
+from (select * from emp e order by e.sal desc) t1 
+where rownum<=5;
+
+select *
+from (select rownum rn, t2.ename, t2.sal
+	  from (select e.ename, e.sal from emp e order by e.sal desc) t2
+	  where rownum <= 10
+	) t1
+where t1.rn >= 6
+
+分页
+
+select *
+from (select rownum rn, t2.ename, t2.sal
+	  from (select e.ename, e.sal from emp e order by e.sal desc) t2
+	 ) t1
+where t1.rn >= 6
+and t1.rn <= 10;
+```
+
+- `select * from t_user limit 0,10;`
+- `limit startRow, pageSize`
+
+
+
+### 练习
+
+```plsql
+-- 使用99语法更改相应作业：
+-- 1. 列出所有雇员的姓名及其上级的姓名。
+-- 2. 列出入职日期早亍其直接上级的所有雇员。
+-- 3. 列出所有部门名称及雇员
+-- 4. 列出所有 'CLERK'（办事员）的姓名及其部门名称。
+-- 5. 列出从事 'SALES'（销售）工作的雇员的姓名，假定丌知道销售部的部门编号。
+-- 6. 列出在每个部门工作的雇员的数量以及其他信息。
+-- 7. 列出所有雇员的雇员名称、部门名称和薪金。
+-- 8. 求出部门编号为20的雇员名、部门名、薪水等级
+```
+
+
+
+## MySQL日期格式的转换
+
+MySQL日期和字符相互转换方法
+
+| MySQL日期，字符转换方法 | Oracle日期，字符转换方法 |
+| ----------------------- | ------------------------ |
+|`date_format(date,'%Y-%m-%d')`|`to_char()`|
+|`str_to_date(‘date’,’%Y-%m-%d')`|`to_date()`|
+
+对应格式及其含义
+
+| 格式 | 含义 |
+| ---- | ---- |
+|`%Y`|代表4位的年份|
+|`%y`|代表2为的年份|
+|`%m`|代表月, 格式为(01……12)|
+|`%c`|代表月, 格式为(1……12)|
+|`%d`|代表月份中的天数,格式为(00……31)|
+|`%e`|代表月份中的天数, 格式为(0……31)|
+|`%H`|代表小时,格式为(00……23)|
+|`%k`|代表 小时,格式为(0……23)|
+|`%h`|代表小时,格式为(01……12)|
+|`%I`|代表小时,格式为(01……12)|
+|`%l`|代表小时,格式为(1……12)|
+|`%i`|代表分钟, 格式为(00……59)|
+|`%r`|代表 时间,格式为12 小时(hh:mm:ss [AP]M)|
+|`%T`|代表 时间,格式为24 小时(hh:mm:ss)|
+|`%S`|代表 秒,格式为(00……59)|
+|`%s`|代表 秒,格式为(00……59)|
+
+
+
+## MySQL 时间字符转换
+
+```plsql
+select date_format(now(), '%Y');
+
+select date_format(now(), '%Y-%c-%d %h:%i:%s');
+
+SELECT STR_TO_DATE('Jul 20 2013 7:49:14:610AM','%b %d %Y %h:%i:%s:%f%p') from DUAL;
+
+-- 结果:
+-- '2013-07-20 07:49:14.610000'
+```
+
+- http://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_str-to-date
+- http://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_date-format
+- http://dev.mysql.com/doc/refman/5.7/en/
 
 
 
