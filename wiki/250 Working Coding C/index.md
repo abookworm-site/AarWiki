@@ -2,9 +2,9 @@
 
 ## 环境配置
 
-- [C++环境搭建](C Basics\C++环境搭建.md)
+- [C/C++环境搭建 with VS](C Basics\C++环境搭建 with VS.md)
 
-
+- [C/C++环境搭建 with VS Code](C Basics\C++环境搭建 with VS Code.md)
 
 
 
@@ -13,6 +13,8 @@
 C语言基础
 
 C语言提升
+
+
 
 ## 网络编程
 
