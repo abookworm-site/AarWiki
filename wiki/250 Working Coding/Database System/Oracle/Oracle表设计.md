@@ -590,8 +590,6 @@ select * from emp where emp.deptno=10;
 
 
 
-
-
 ### `DELETE` 语句
 
 SQL的删除操作是指从基本表中删除元组，语法如下：
@@ -913,9 +911,15 @@ RENAME old_name TO new_name
 
 
 
-## 约束 constraint
+## 约束 `constraint`
 
-约束：创建表时，指定插入数据的规则。约束是在表上强制执行的数据校验规则。Oracle 支持下面五类完整性约束:
+### 约束简介
+
+约束用于确保数据库数据满足特定的商业逻辑或者企业规则，如果定义了约束，并且数据不符合约束，那么DML操作（INSERT、UPDATE、DELETE）将不能成功执行。
+
+- 创建表时，指定插入数据的规则。
+- 约束是在表上强制执行的数据校验规则。
+- Oracle 支持下面五类完整性约束:
 
 1. `NOT NULL`非空
 2. `UNIQUE Key` 唯一键
@@ -944,9 +948,7 @@ RENAME old_name TO new_name
 
 
 
-### 约束简介
-
-- 约束用于确保数据库数据满足特定的商业逻辑或者企业规则，如果定义了约束，并且数据不符合约束，那么DML操作（INSERT、UPDATE、DELETE）将不能成功执行。约束包括NOT NULL、UNIQUE、PRIMARY KEY、FOREING KEY 以及CHECK等五种类型
+- 
 
   
 
@@ -962,85 +964,95 @@ column ,..., [CONSTRAINT constraint_name] constraint_type (column,...)
 
 
 
+### `NOT NULL` 约束
 
+- 确保字段值不允许为空
 
-1.定义NOT NULL约束
-
-- NOT NULL 约束只能在列级定义，不能在表级定义
-- 例：
+- **只能在列级定义**，不能在表级定义
 
 ```plsql
+-- 定义列级 not null 约束
 CREATE TABLE emp01(
-eno INT NOT NULL,
-name VARCHAR2(10) CONSTRAINT nn_name2 NOT NULL,
-salary NUMBER(6,2)
+	eno INT NOT NULL,
+	name VARCHAR2(10) CONSTRAINT nn_name2 NOT NULL,
+	salary NUMBER(6,2)
 );
-```
 
-
-
-
-
-- 列级约束: 从形式上看，在每列定义完后马上定义的约束，在逗号之前就定义好了。
-- carete table parent(c1 number primary key );
-- create table child (c number primary key , c2 number references parent(c1));
-- 表级约束: 从形式上可以看出与列级约束的区别了吧。
-- create table child( c number , c2 number , primary key (c2), foreign key(c2)
-references parent(c1));
-- 有些时候，列级约束无法实现某种约束的定义，比如联合主键的定义，就要用到表级约束:
-- create table test(id1 number , id2 number, primary key(id1, id2));
-
-
-
-主键约束（ PRIMARY KEY）
-
-- 主键约束是数据库中最重要的一种约束。在关系中，主键值不可
-为空，也不允许出现重复，即关系要满足实体完整性规则。
-- 主键从功能上看相当于非空且唯一
-- 一个表中只允许一个主键
-- 主键是表中能够唯一确定一个行数据的字段
-- 主键字段可以是单字段或者是多字段的组合
-- Oracle为主键创建对应的唯一性索引
-
-
-
-建议命名
-
-- 建议命名
-- 约束_表名_字段 可以保证唯一性。 如果太长，可用缩写。
-- 同一字段可以有多个约束，但是约束之间不要冲突
-
-
-
-主键约束
-
-- 主键可用下列两种形式之一定义
-1. 主键子句
-在表的定义中加上如下子句 primary key(列)
-2. 主键短语
-在主属性的定义之后加上primary key字样。
-- 上述形式Oracle会自动命名约束，可自己给约束起名
-◼ create table t3(
-id number(4),
-constraint t3_pk primary key(id)
-)
-非空约束（NOT NULL）
-- 确保字段值不允许为空
-- 只能在字段级定义
+-- 
 CREATE TABLE employees(
 employee_id NUMBER(6),
 name VARCHAR2(25) NOT NULL,
 salary NUMBER(8,2),
 hire_date DATE CONSTRAINT emp_hire_date_nn NOT NULL
-)
+);
+```
 
 
 
-唯一性约束（UNIQUE）
+列级约束和表级约束
 
-- 唯一性约束条件确保所在的字段或者字段组合不出现重复值
-- 唯一性约束条件的字段允许出现空值
-- Oracle将为唯一性约束条件创建对应的唯一性索引
+- 列级约束: 从形式上看，在每列字段定义完后马上定义的约束即是列级约束。
+
+```plsql
+create table parent(c1 number primary key );
+
+create table child(c number primary key, c2 number references parent(c1));
+```
+- 表级约束: 从形式上看，在每列字段定义后，再次补充附加的约束即是表级约束
+
+```plsql
+create table child(c number, c2 number, primary key (c2), foreign key(c2) references parent(c1));
+```
+- 有些时候，列级约束无法实现某种约束的定义，比如 **联合主键的定义**，就要用到表级约束:
+```plsql
+create table test(id1 number , id2 number, primary key(id1, id2));
+```
+
+
+
+
+### 主键约束 `PRIMARY KEY`
+
+主键约束是数据库中最重要的一种约束。在关系中，主键值不可为空，也不允许出现重复，即关系要满足实体完整性规则。
+
+- 主键从功能上看相当于非空且唯一
+- 一个表中只允许一个主键
+- 主键是表中能够唯一确定一个行数据的字段
+- 主键字段可以是单字段或者是多字段的组合
+- Oracle为主键创建对应的 **唯一性索引**
+
+
+
+主键定义形式
+
+1. 主键子句：在表的定义中加上如下子句： `primary key(列)`
+2. 主键短语：在主属性的定义之后加上 `primary key` 字样。
+
+
+
+```plsql
+create table t3(
+id number(4),
+constraint t3_pk primary key(id)
+);
+```
+
+- 上述形式Oracle会 **自动命名约束**，可自己给约束起名
+
+- 约束建议命名
+    - `约束_表名_字段` 可以保证唯一性。 如果太长，可用缩写。
+    - 同一字段可以有多个约束，但是约束之间不要冲突
+
+
+
+### 唯一性约束 `UNIQUE`
+
+- 唯一性约束条件确保所在的字段或者字段组合 **不出现重复值**
+- 唯一性约束条件的字段 **允许出现空值**
+- **Oracle 将为唯一性约束条件创建对应的唯一性索引**
+
+
+```plsql
 CREATE TABLE employees(
 id NUMBER(6),
 name VARCHAR2(25) NOT NULL UNIQUE,
@@ -1049,61 +1061,63 @@ salary NUMBER(8,2),
 hire_date DATE NOT NULL,
 CONSTRAINT emp_email_uk UNIQUE(email)
 );
+```
 
 
 
-CHECK 约束
+### `CHECK` 约束
 
 - Check约束用于对一个属性的值加以限制
-- 在check中定义检查的条件表达式，数据需要符合设置的条件
+- Check约束中定义检查的条件表达式，那么，数据就需要符合设置的条件
+
+```plsql
 create table emp3
-( id number(4) primary key,
+(id number(4) primary key,
 age number(2) check(age > 0 and age < 100),
 salary number(7,2),
 sex char(1),
 constraint salary_check check(salary > 0)
-)
-- 在这种约束下，插入记录或修改记录时，系统要测试新的记录的值是否满足条件
+);
+```
+
+- 在 Check 约束下，插入记录或修改记录时，系统要测试新的记录的值是否满足条件
 
 
 
-关系模型的三类完整性规则
-
-- 为了维护数据库中的数据与现实世界的一致性，关系数据库的数据与更新操
-作必须遵循下列三类完整性规则：
-1. 实体完整性规则
-这条规则要求关系中在组成主键的属性上不能有空值。
-2. 参照完整性规则
-这条规则要求“不引用不存在的实体”。例如：deptno是dept表的主键，而相应的属性
-也在表emp中出现，此时deptno是表emp的外键。在emp表中，deptno的取值要么
-为空，要么等于dept中的某个主键值。
-3. 用户定义的完整性规则
-用户定义的完整性规则反应了某一具体的应用涉及的数据必须满足的语义要求。
-
-
-
-外键约束（ FOREIGN KEY）
+### 外键约束 `FOREIGN KEY`
 
 - 外键是表中的一个列，其值必须在另一表的主键或者唯一键中列出
 - 作为主键的表称为“主表”，作为外键的关系称为“依赖表”
 - 外键参照的是主表的主键或者唯一键
-- 对于主表的删除和修改主键值的操作，会对依赖关系产生影响，以删除为例：当要删除
-主表的某个记录（即删除一个主键值，那么对依赖的影响可采取下列3种做法：
-1. RESTRICT方式：只有当依赖表中没有一个外键值与要删除的主表中主键值相对应时，才可执行删
-除操作。
+- 对于主表的删除和修改主键值的操作，会对依赖关系产生影响，以删除为例：当要删除主表的某个记录（即删除一个主键值，那么对依赖的影响可采取下列3种做法：
+1. RESTRICT方式：只有当依赖表中没有一个外键值与要删除的主表中主键值相对应时，才可执行删除操作。
 2. CASCADE方式：将依赖表中所有外键值与主表中要删除的主键值相对应的记录一起删除
 3. SET NULL方式：将依赖表中所有与主表中被删除的主键值相对应的外键值设为空值
 FOREIGN KEY (DEPTNO) REFERENCES DEPT(DEPTNO)
 [ON DELETE [CASCADE|SET NULL]] 如省略on短语，缺省为第一中处理方式。
-约束的添加和撤销
-- 可增加或删除约束，但不能直接修改
-alter table tablename
-增加
+
+
+
+### 约束的添加和撤销
+
+可增加或删除约束，但不能直接修改
+
+```plsql
+-- 可增加或删除约束，但不能直接修改
+-- alter table tablename
+
+-- 增加
 add constraint con_name unique(col)
-删除
+
+-- 删除
 drop constraint com_name [cascade]
+```
+
+
+
 查询constraint
 
+```plsql
 
 select constraint_name,constraint_type
 from user_constraints
@@ -1118,9 +1132,7 @@ where owner='SCOTT'
 select constraint_name,column_name from user_cons_columns
 where table_name=upper(‘tablename')
 
-
-
-
+```
 
 
 
@@ -1152,26 +1164,35 @@ where table_name=upper(‘tablename')
 
 开发中使用索引的要点：
 
-1. 索引改善检索操作的性能，但降低数据插入、修改和删除的性能。在执行这些操作时，DBMS必须动态地更新索引。
+1. 索引改善检索操作的性能，**但降低数据插入、修改和删除的性能**。在执行这些操作时，DBMS必须动态地更新索引。
 
-2. 索引数据可能要占用大量的存储空间。
+2. 索引数据可能 **要占用大量的存储空间**。
 
-3. 并非所有的数据都适合于索引。唯一性不好的数据（如省）从索引的到的好处不比具有更多可能值的数据（如姓名）从索引得到的好处多。
+3. 并非所有的数据都适合于索引。**唯一性不好的数据（如省）** 使用索引到的好处不比具有更多可能值的数据（如姓名）从索引得到的好处多。
 
-4. 索引用于数据过滤和数据排序。如果你经常以某种特定的顺序排序数据，则该数据可能是索引的备选。
+4. 索引用于 **数据过滤和数据排序**。如果你经常以某种特定的顺序排序数据，则该数据可能是索引的备选。
 
-5. 可以在索引中定义多个列（如省加城市），这样的索引只在以省加城市的顺序排序时有用。如果想按城市排序，则这种索引没有用处。
+5. 可以 **在索引中定义多个列（如省加城市）**，这样的索引只在以省加城市的顺序排序时有用。如果想按城市排序，则这种索引没有用处。
 
 
 
-索引
+索引的使用
 
-- 在一列或者多列上创建索引.
+- 在一列或者多列上 **创建索引**：`CREATE INDEX index ON table ( column [, column ]...);`
+- **删掉索引**：`DROP INDEX index_name`
+
+```plsql
+-- 在一列或者多列上创建索引
 CREATE INDEX index ON table ( column [, column ]...);
-- 下面的索引将会提高对EMP表基于 ENAME 字段的查询速度.
-CREATE INDEX emp_last_name_idx
-ON emp (ename)
-- 通过DROP INDEX 命令删掉一个索引.
-- DROP INDEX index ;
-- 删掉 UPPER_LAST_NAME_IDX 索引.
-- DROP INDEX upper_last_name_idx;
+
+-- 建立 EMP 表对 ename 字段的索引，有助与对该字段的查询速度
+-- 下面的索引将会提高对EMP表基于 ENAME 字段的查询速度
+CREATE INDEX emp_last_name_idx ON emp (ename);
+
+-- 通过DROP INDEX 命令删掉一个索引
+DROP INDEX index ;
+
+-- 删掉 UPPER_LAST_NAME_IDX 索引
+DROP INDEX upper_last_name_idx;
+```
+
