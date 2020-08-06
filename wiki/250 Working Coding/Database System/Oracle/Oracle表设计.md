@@ -495,7 +495,78 @@ drop sequence seq_empcopy_id;
 
 
 
-## SQL数据更新
+```plsql
+-- 序列： 
+-- 在Oracle中， 如果需要完成一个列的自增操作，则必须要使用序列
+-- 语法：
+/*
+create sequence seq_name
+  increment by n  每次增长几
+  start with n    从哪个值开始增长
+  maxvalue n|nomaxvalue 10^27 or -1  最大值
+  minvalue n|no minvalue  最小值
+  cycle|nocycle           是否有循环
+  cache n|nocache          是否有缓存
+*/
+create sequence my_sequence increment by 2 start with 1;
+ 
+
+-- How 如何使用？
+-- 注意:如果创建好序列之后，没有经过任何的使用，那么不能获取当前的值，必须要先执行 nextval 之后才能获取当前值
+-- dual是oracle中提供的一张虚拟表，不表示任何意义，在测试的时候可以随意使用
+
+-- 1/3. 首次运行必须运行一次 nextval ，获取序列的下一个值（初始值）
+select my_sequence.nextval from dual;
+
+-- 2. 查看当前序列的值
+select my_sequence.currval from dual;
+
+-- 1/3. 获取序列的下一个值
+select my_sequence.nextval from dual;
+
+-- 4. 使用：插入数据
+insert into emp(empno, ename) values(my_sequence.nextval, 'Hello Oracle');
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## SQL数据更新 `DML`
 
 SQL的数据更新包括 **数据插入**， **删除** 和 **修改** 三个操作。
 
@@ -621,6 +692,94 @@ SET column = value [, column = value ] …
 ```
 
 - 语义是：修改基本表中满足条件表达式的那些元组的列值，需修改的列值在set子句中指出。
+
+
+
+```plsql
+--DML：数据库操作语言
+--  增  --  删  --  改
+
+-- 在实际项目中，使用最多的是读取操作，但是插入数据和删除数据同等重要，而修改操作相对较少
+
+/*
+插入操作：
+  元组值的插入
+  查询结果的插入
+
+*/
+-- 最基本的插入方式 2 种：
+--向部分列插入数据的时候，不是想向哪个列插入就插入的，要遵循创建表的时候定义的规范(约束)
+
+--insert into tablename values(val1,val2,....) 如果表名之后没有列，那么只能将所有的列都插入
+insert into emp values(2222, 'Hello', 'Cleark', '7902', to_date('2019-01-23', 'YYYY-MM-dd'), 1002, 500, 10);
+
+--insert into tablename(col1,col2,...) values(val1,val2,...) 可以指定向哪些列中插入数据
+insert into emp(empno, ename) values(3333, 'Wangwu');
+
+-- check it
+select * from emp;
+
+
+-- 创建表的其他方式
+-- 复制表同时复制表数据，不会复制约束
+create table emp2 as select * from emp;
+
+--复制表结构但是不复制表数据，不会复制约束
+create table emp3 as select * from emp where 1=2;
+
+--如果有一个集合的数据，把集合中的所有数据都挨条插入的话，效率如何？一般在实际的操作中，很少一条条插入，更多的是批量插入
+
+/*
+删除操作：
+delete from tablename where condition
+
+*/
+--删除满足条件的数据
+delete from emp2 where deptno = 10;
+
+--把整张表的数据全部清空
+delete from emp2;
+
+--truncate: 跟delete有所不同，delete在进行删除的时候经过事务，而truncate不经过事务，一旦删除就是永久删除，不具备回滚的操作
+--效率比较高，但是容易发生误操作，所以不建议使用
+truncate table emp2;
+
+/*
+修改操作：
+   update tablename set col = val1,col2 = val2 where condition;
+   可以更新或者修改满足条件的一个列或者多个列
+*/
+--更新单列
+update emp set ename = 'HeiHei' where ename = 'Hello';
+
+--更新多个列的值
+update emp set jobs='teacher', mgr=7902 where empno = 15;
+
+/*
+增删改是数据库的常用操作，在进行操作的时候都需要《事务》的保证， 也就是说每次在pl/sql中执行sql语句之后都需要完成commit的操作
+事务变得非常关键：
+    最主要的目的是为了数据一致性
+    如果同一份数据，在同一个时刻只能有一个人访问，就不会出现数据错乱的问题，但是在现在的项目中，更多的是并发访问
+    并发访问的同时带来的就是数据的不安全，也就是不一致
+    如果要保证数据的安全，最主要的方式就是加锁的方式，MVCC
+    
+    事务的延申：
+        最基本的数据库事务
+        声明式事务
+        分布式事务
+    
+    为了提高效率，有可能多个操作会在同一个事务中执行，那么就有可能部分成功，部分失败，基于这样的情况就需要事务的控制。
+    select * from emp where id = 7902 for update
+    select * from emp where id = 7902 lock in share mode.
+    
+    如果不保证事务的话，会造成脏读，不可重复读，幻读。
+*/
+
+```
+
+
+
+
 
 
 
@@ -767,6 +926,78 @@ commit;
 
 
 
+```plsql
+--事务：表示操作集合，不可分割，要么全部成功，要么全部失败
+
+--事务的开始取决于一个DML (Detelete, Modification, )语句
+/*
+事务的结束
+  1、正常的commit（使数据修改生效）或者rollback（将数据恢复到上一个状态）
+  2、自动提交，但是一般情况下要将自动提交进行关闭，(每条语句提交)效率太低
+  3、用户关闭会话之后，会自动提交事务
+  4、系统崩溃或者断电的时候会回滚事务，也就是将数据恢复到上一个状态
+*/
+insert into emp2(empno, ename) values(3333, 'Zhangsan');
+insert into emp2(empno, ename) values(4444, 'Zhangsan')
+commit;
+--commit;
+--rollback;
+select * from emp2;
+
+
+--savepoint  保存点
+-- 当一个操作集合中包含多条SQL语句，但是只想让其中某部分成功，某部分失败，此时可以使用保存点
+-- 此时如果需要回滚到某一个状态的话使用 rollback to sp1;
+delete from emp2 where empno = 3333;
+delete from emp2 where empno = 4444;
+savepoint sp1;
+delet from emp2 where empno = 1234;
+rollback to sp1;
+
+/*
+事务的四个特性：ACID -- AID-C
+-- 原子性：表示不可分割，一个操作集合要么全部成功，要么全部失败，不可以从中间做切分
+-- 一致性：最终是为了保证数据的一致性，当经过N多个操作之后，数据的状态不会改变（转账）
+          从一个一致性状态到另一个一致性状态，也就是数据不可以发生错乱
+-- 隔离性：各个事务之间相关不会产生影响，（隔离级别）
+          严格的隔离性会导致效率降低，在某些情况下为了提高程序的执行效率，需要降低隔离的级别
+          隔离级别：
+            -- 读未提交
+            -- 读已提交
+            -- 可重复读
+            -- 序列化
+          数据不一致的问题：
+            -- 脏读
+            -- 不可重复读
+            -- 幻读
+-- 持久性：所有数据的修改都必须要持久化到存储介质中，不会因为应用程序的关闭而导致数据丢失
+
+  四个特性中，哪个是最关键的？
+     -- 所有的特性中都是为了保证数据的一致性，所以一致性是最终的追求
+     -- 事务中的一致性是通过原子性、隔离性、持久性来保证的
+
+     锁的机制：
+     为了解决在并发访问的时候，数据不一致的问题，需要给数据加锁
+     加锁的同时需要考虑《粒度》的问题：
+         操作的对象
+           -- 数据库
+           -- 表
+           -- 行
+     一般情况下，锁的粒度越小，效率越高，粒度越大，效率越低 
+            在实际的工作环境中，大部分的操作都是行级锁  
+
+*/
+
+```
+
+
+
+
+
+
+
+
+
 ## 常用数据类型
 
 
@@ -818,7 +1049,7 @@ ORACLE常用数据类型
 
 
 
-## 表的创建
+## 表的创建 `DDL`
 
 ### 标准的建表语法：
 
@@ -908,6 +1139,88 @@ drop table emp cascade constraints;
 ```plsql
 RENAME old_name TO new_name
 ```
+
+
+
+```plsql
+/*
+
+CREATE TABLE [schema.]table
+  (column datatype [DEFAULT expr] , …
+  );
+
+*/
+
+-- 设计要求：建立一张用来存储学生信息的表，表中的字段包含了学生的学号、姓名、年龄、入学日期、年级、班级、email等信息，
+-- 并且为grade指定了默认值为1，如果在插入数据时不指定grade得值，就代表是一年级的学生
+
+create table student
+(
+stu_id number(10),
+name varchar2(20),
+age number(3),
+hiredate date,
+grade varchar2(10),
+classes varchar2(10) default 1,
+email varchar2(50)
+)
+
+insert into student values(2020601, 'zhangsan', 22, to_date('20200101', 'YYYY-MM-DD'), '2', '1', '12334235@qq.com');
+
+select * from student;
+
+-- 正规的表结构设计需要使用第三方工具 powerdesigner
+-- 再添加表的列的时候，不能允许设置成not null
+alter table student add address varchar2(100);
+-- 删除字段
+alter table student drop column address;
+alter table student modify(email varchar2(100));
+
+--重新命名表
+rename student to stu;
+
+--删除表
+/*
+在删除表的时候，经常会遇到多个表关联的情况，多个表关联的时候不能随意删除，需要使用级联删除
+restrict: 
+cascade: 有A,B两张表，如果 A 中的某一个字段跟B表中的某一个字段做关联，那么再删除表A的时候，需要先将表B删除
+set null: 在删除的时候，把表的关联字段设置成空
+*/
+drop table stu;
+
+
+-- 创建表的时候可以给表中的数据添加数据校验规则，这些规则称之为约束
+ /*
+ 约束分为五大类
+ -- not null: 非空约束，插入数据的时候某些列不允许为空
+ -- unique key: 唯一键约束，可以限定某一个列的值是唯一的，唯一键的列一般被用作索引列。
+ -- primary key: 主键：非空且唯一，任何一张表一般情况下最好有主键，用来唯一的标识一行记录，
+ -- foreign key: 外键，当多个表之间有关联关系（一个表的某个列的值依赖与另一张表的某个值）的时候，需要使用外键
+ -- check约束:可以根据用户自己的需求去限定某些列的值
+ */
+ --个人建议：再创建表的时候直接将各个表的约束条件添加好，如果包含外键约束的话，最好先把外键关联表的数据优先插入
+ 
+ create table student
+(
+stu_id number(10) primary key ,
+name varchar2(20) not null,
+age number(3) check(age>0 and age < 120),
+hiredate date,
+grade varchar2(10),
+classes varchar2(10) default 1,
+email varchar2(50) unique
+deptno number(2)
+);
+
+alter table student add constraint fk_0001 foreign key(deptno) reference dept(deptno);
+
+```
+
+
+
+
+
+
 
 
 
@@ -1195,4 +1508,32 @@ DROP INDEX index ;
 -- 删掉 UPPER_LAST_NAME_IDX 索引
 DROP INDEX upper_last_name_idx;
 ```
+
+
+
+```plsql
+--索引：加快数据的检索
+--创建索引
+create index i_ename on emp(ename);
+
+--删除索引
+drop index i_ename;
+
+select * from emp where ename = 'SMITH';
+
+-- 局部性原理：
+-- 磁盘预读：
+
+-- 回表： 走两次索引， 首先走 ename 索引，而后依据 ID 索引查询字段
+-- 覆盖索引
+-- 组合索引
+-- 最左匹配
+
+```
+
+
+
+
+
+
 

@@ -20,6 +20,8 @@
 
 
 
+
+
 oracle SQL
 oracle函数和多表连接
 oracle的join语法及行专列
@@ -32,17 +34,11 @@ oracle视图、用户管理、序列、DML
 
 
 
-
-- 
-
-
-
-
 ## 数据库事务
 
 
 
-数据库表的创建、表的约束、索引、数据库设计的范式
+数据库表的创建、表的约束、
 
 
 
@@ -52,58 +48,50 @@ oracle视图、用户管理、序列、DML
 
 
 
-
-
-## 数据库外部连接
-
-
-
-- [Oracle-Java 数据类型对比](Oracle-Java 数据类型对比.md)
+## 数据库设计范式
 
 
 
-
-
-JDBC及代码分层
-
-反射技术实现及封装
-DBUtil及数据库连接池（dbcp、c3p0）
-数据库连接池（druid、hikariCP）
-
-
-
-
-目录结构
-
-- oracle安装介绍
-- oracle SQL
-- oracle函数和多表连接
-- oracle的join语法及行专列
-- oracle视图、用户管理、序列、DML
-- 数据库的事务
-- 数据库表的创建、表的约束、索引、数据库设计的范式
-- JDBC及代码分层
-- 反射技术实现及封装
-- DBUtil及数据库连接池（dbcp、c3p0）
-- 数据库连接池（druid、hikariCP）及索引原理
-- 索引原理2、mysql基本架构及日志实现
+- 索引原理、mysql基本架构及日志实现
 - mysql的执行计划
 - mysql的锁机制
 - mysql的主从复制和读写分离
 
 
 
-There are my oracle database learning files.
+## 数据库外部连接
 
 
 
-### File Description
 
-- Folder `rawBlankFiles` is the exercise description 
 
-- The others are SQL files
+Oracle Interaction with Java
 
-- 
+- [Oracle-Java 数据类型对比](Oracle-Java 数据类型对比.md)
+
+- JDBC及代码分层
+
+- 反射技术实现及封装
+- DBUtil及数据库连接池（dbcp、c3p0）
+- 数据库连接池（druid、hikariCP）
+
+Oracle Interaction with Python
+
+
+
+
+
+## 练习指导
+
+SQL 语句要熟练，即 **多练！！！**。
+
+附件文件有三个文件夹：
+
+- `oracleCourses`：练习文件第一版。
+- `oracleTesting` ： 笔者个人的练习文件，可供 `oracleBlank` 需求参考。
+- `oracleBlank` ：供练习的空白文件，仅包含诸多注释以及需求。
+
+读者可直接采用 `oracleBlank` 中的文件练习 SQL 语句。均是文档教程的最佳实践案例。
 
 
 
