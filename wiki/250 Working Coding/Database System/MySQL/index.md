@@ -59,6 +59,7 @@
 ### 数据库索引
 
 - [MySQL索引基础](MySQL索引基础.md)
+- 
 
 
 
@@ -112,22 +113,28 @@
 
 ## MySQL数据库外部连接
 
-- Database Interaction with C
+### Database Interaction with C
 
 
 
-- Database Interaction with Java
+### Database Interaction with Java
 
-    - JDBC及代码分层
+- JDBC及代码分层
 
-    - 反射技术实现及封装
+- 反射技术实现及封装
 
-    - DBUtil及数据库连接池（dbcp、c3p0）
+- DBUtil及数据库连接池（dbcp、c3p0）
 
-    - 数据库连接池（druid、hikariCP）
+- 数据库连接池（druid、hikariCP）
 
 
 
-- Database Interaction with Python
+### Database Interaction with Python
 
-  - [Database Interaction](https://wiki.abookworm.site/250 Working Coding Python/Database Interaction/)
+- [Database Interaction](https://wiki.abookworm.site/250 Working Coding Python/Database Interaction/)
+
+
+
+## 其他
+
+### 1. [廖雪峰的 MySQL 教程笔记](MySQL from liaoxuefeng.com.md)
