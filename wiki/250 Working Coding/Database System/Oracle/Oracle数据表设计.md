@@ -57,7 +57,7 @@
 
 
 
-序列创建语法
+### 序列创建语法
 
 ```plsql
 create sequence seq_name
@@ -71,7 +71,7 @@ create sequence seq_name
 
 
 
-序列使用
+### 序列使用
 
 - 创建好序列之后，没有经过任何的使用，那么不能获取当前的值，必须要 **先执行 `nextval` 之后** 才能获取当前值
 
@@ -94,7 +94,7 @@ select my_sequence.nextval from dual;
 
 
 
-删除序列
+### 删除序列
 
 ```plsql
 drop sequence 序列名;
@@ -102,11 +102,13 @@ drop sequence 序列名;
 
 
 
-实际使用
+### 实际操作
 
 ```plsql
 -- 序列使用语法
 create sequence 序列名称 start with 1 increment by 1;
+
+create sequence seq_score_id start with 1 increment by 1;
 
 -- 序列.nextval： 下个值
 select seq_score_id.nextval from dual;
@@ -118,32 +120,22 @@ select seq_score_id.currval from dual;
 -- 删除序列
 drop sequence 序列名;
 
+drop sequence seq_score_id;
+
 -- 案例
 create sequence seq_empcopy_id start with 1 increment by 1;
 
-insert into tb_course values(seq_course.nextval,'dsaf','dsaf);
-```
+insert into tb_course values(seq_course.nextval,'dsaf','dsaf');
 
-
-
-使用序列
-
-```plsql
--- 使用序列
+-- 案例
 select seq_empcopy_id.nextval from dual;
 
 insert into empcopy(empno, ename) values (seq_empcopy_id.nextval, ‘TEST’);
-
--- 查看序列状态
-select seq_empcopy_id.currval from dual
-
--- 删除序列
-drop sequence seq_empcopy_id;
 ```
 
 
 
-最佳实践
+### 最佳实践
 
 ```plsql
 /* 序列： 
@@ -242,7 +234,7 @@ AS subquery ;
 
 在基本表建立并使用一段时间后，可以根据实际需要对基本表的结构进行修改。
 
-1，增加新的列：`alter table … add … ` 语句
+1，增加新字段/列：`alter table … add … ` 语句
 
 ```plsql
 alter table emp add address varchar(20)
@@ -252,7 +244,7 @@ alter table emp add address varchar(20)
 
 
 
-2， 删除原有的列：`alter table 表名 drop column 列名`
+2， 删除原有的字段/列：`alter table 表名 drop column 列名`
 
 ```plsql
 alter table emp drop column address
@@ -268,15 +260,9 @@ alter table emp modify(job varchar(50))
 
 
 
-4， 在基本表不需要时，可以使用“drop table”语句撤消。在一个基本表撤消后，所有的数据都丢弃。所有相关的索引被删除
+### 数据表的修改
 
-```plsql
-drop table emp cascade constraints;
-```
-
-
-
-5， 可以使用 `RENAME语句` 改变表名（视图），要求必须是表（视图）的所有者
+1， 使用 `RENAME 语句` 改变表名（视图），要求必须是 **表（视图）的所有者**
 
 ```plsql
 RENAME old_name TO new_name
@@ -284,7 +270,20 @@ RENAME old_name TO new_name
 
 
 
-最佳实践
+2， 在基本表不需要时，使用 `drop table`语句撤消删除。在一个基本表撤消后，所有的数据都丢弃。所有相关的索引被删除
+
+```plsql
+drop table emp cascade constraints;
+```
+
+- 在删除表的时候，经常会遇到多个表关联的情况，多个表关联的时候不能随意删除，需要使用 **级联删除**
+- `restrict`: 
+- `cascade`: 有 A,B 两张表，如果 A 中的某一个字段跟 B 表中的某一个字段做关联，那么再删除表 A 的时候，需要先将 表B 删除
+- `set null`: 在删除的时候，把表的关联字段设置成空
+
+
+
+### 最佳实践
 
 ```plsql
 /* 数据表创建语法
@@ -317,47 +316,17 @@ alter table student add address varchar2(100);
 alter table student drop column address;
 alter table student modify(email varchar2(100));
 
---重新命名表
+-- 重新命名表
 rename student to stu;
 
---删除表
-/*
-在删除表的时候，经常会遇到多个表关联的情况，多个表关联的时候不能随意删除，需要使用级联删除
-restrict: 
-cascade: 有A,B两张表，如果 A 中的某一个字段跟B表中的某一个字段做关联，那么再删除表A的时候，需要先将表B删除
-set null: 在删除的时候，把表的关联字段设置成空
+/* 删除表
+-- 在删除表的时候，经常会遇到多个表关联的情况，多个表关联的时候不能随意删除，需要使用级联删除
+-- restrict: 
+-- cascade: 有 A,B 两张表，如果 A 中的某一个字段跟 B 表中的某一个字段做关联，那么再删除表 A 的时候，需要先将 表B 删除
+-- set null: 在删除的时候，把表的关联字段设置成空
 */
 drop table stu;
-
-
-/* 创建表的时候可以给表中的数据添加数据校验规则，这些规则称之为约束
- -- 约束分为五大类
- -- not null: 非空约束，插入数据的时候某些列不允许为空
- -- unique key: 唯一键约束，可以限定某一个列的值是唯一的，唯一键的列一般被用作索引列。
- -- primary key: 主键：非空且唯一，任何一张表一般情况下最好有主键，用来唯一的标识一行记录，
- -- foreign key: 外键，当多个表之间有关联关系（一个表的某个列的值依赖与另一张表的某个值）的时候，需要使用外键
- -- check约束:可以根据用户自己的需求去限定某些列的值
- */
- -- 个人建议：再创建表的时候直接将各个表的约束条件添加好，如果包含外键约束的话，最好先把外键关联表的数据优先插入
- 
- create table student
-(
-stu_id number(10) primary key ,
-name varchar2(20) not null,
-age number(3) check(age>0 and age < 120),
-hiredate date,
-grade varchar2(10),
-classes varchar2(10) default 1,
-email varchar2(50) unique
-deptno number(2)
-);
-
-alter table student add constraint fk_0001 foreign key(deptno) reference dept(deptno);
 ```
-
-
-
-
 
 
 
@@ -392,7 +361,7 @@ alter table student add constraint fk_0001 foreign key(deptno) reference dept(de
 
 约束从作用上分类，可以分成两大类：
 
-- 表级约束：可以约束表中的任意一列或多列。可以定义除了Not Null以外的任何约束。
+- 表级约束：可以约束表中的任意一列或多列。可以定义除了 `Not Null` 以外的任何约束。
 
 - 列级约束：只能约束其所在的某一列。可以定义任何约束。
 
@@ -585,45 +554,34 @@ where table_name=upper(‘tablename');
 
 
 
+### 最佳实践
 
+```plsql
+/* 创建表的时候可以给表中的数据添加数据校验规则，这些规则称之为约束
 
+-- 约束分为五大类
+-- not null: 非空约束，插入数据的时候某些列不允许为空
+-- unique key: 唯一键约束，可以限定某一个列的值是唯一的，唯一键的列一般被用作索引列。
+-- primary key: 主键：非空且唯一，任何一张表一般情况下最好有主键，用来唯一的标识一行记录，
+-- foreign key: 外键，当多个表之间有关联关系（一个表的某个列的值依赖与另一张表的某个值）的时候，需要使用外键
+-- check约束:可以根据用户自己的需求去限定某些列的值
+*/
+-- 个人建议：再创建表的时候直接将各个表的约束条件添加好，如果包含外键约束的话，最好先把外键关联表的数据优先插入
 
+create table student
+(
+stu_id number(10) primary key ,
+name varchar2(20) not null,
+age number(3) check(age>0 and age < 120),
+hiredate date,
+grade varchar2(10),
+classes varchar2(10) default 1,
+email varchar2(50) unique
+deptno number(2)
+);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+alter table student add constraint fk_0001 foreign key(deptno) reference dept(deptno);
+```
 
 
 
@@ -1585,6 +1543,7 @@ $ REVOKE SELECT, INSERT, DELETE ON 表名 FROM 用户名1, 用户名2;
 
 - 数据库的设计主要包含 **设计表结构和表之间的联系**
 - 范式：在数据库设计的过程中，需要遵循的规则（默认规则）
+- 正规的表结构设计需要使用第三方工具 **powerdesigner**
 
 
 
