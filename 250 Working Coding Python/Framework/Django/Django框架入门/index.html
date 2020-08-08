@@ -1,0 +1,2066 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding%20Python/Framework/Django/Django%E6%A1%86%E6%9E%B6%E5%85%A5%E9%97%A8/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Django 框架入门 - Abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#django" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Django 框架入门
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../AarWiki/" title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      310 Learning English
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="310 Learning English" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        310 Learning English
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../310%20Learning%20Language/an-Overview%20of%20English%20Learning/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#web-mvc" class="md-nav__link">
+    Web框架核心 - MVC
+  </a>
+  
+    <nav class="md-nav" aria-label="Web框架核心 - MVC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web-mvc_1" class="md-nav__link">
+    Web MVC简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web-mvc_2" class="md-nav__link">
+    Ｗeb MVC各部分的功能
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django-mvc-mvt" class="md-nav__link">
+    Django MVC - MVT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django-mvt" class="md-nav__link">
+    Django MVT各部分的功能
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#django_1" class="md-nav__link">
+    Django简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#django_2" class="md-nav__link">
+    Django 搭建
+  </a>
+  
+    <nav class="md-nav" aria-label="Django 搭建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 搭建虚拟环境
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 搭建虚拟环境">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#virtualenv" class="md-nav__link">
+    Virtualenv 环境隔离
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conda" class="md-nav__link">
+    Conda 环境隔离
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    安装模块包
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 创建项目
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 创建项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 创建命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 默认目录说明
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    2.3 运行默认开发服务器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 创建应用
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 创建应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    注册安装子应用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 配置数据库
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 配置数据库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-mysql" class="md-nav__link">
+    4.1 配置MySQL数据库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-mysql" class="md-nav__link">
+    4.2 配置MySQL数据库支持
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-url" class="md-nav__link">
+    5. 配置视图URL
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 配置视图URL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-url" class="md-nav__link">
+    5.1 项目URL匹配
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-url" class="md-nav__link">
+    5.2 应用URL匹配
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    5.3 应用视图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 运行服务器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 其他可提前设置项
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 其他可提前设置项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    7.1 配置本地化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    7.2 配置静态文件目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    7.3 配置模板文件目录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    模型设计
+  </a>
+  
+    <nav class="md-nav" aria-label="模型设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orm" class="md-nav__link">
+    ORM框架
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    数据库开发步骤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1. 定义模型类
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 定义模型类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    设计模型类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    定义模型类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 迁移
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 迁移">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    默认生成的表名称
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3. 数据操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    后台站点管理
+  </a>
+  
+    <nav class="md-nav" aria-label="后台站点管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    1. 确认管理界面本地化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    2. 创建管理员
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    3. 注册模型类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    4. 自定义管理页面
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#url" class="md-nav__link">
+    视图及URL
+  </a>
+  
+    <nav class="md-nav" aria-label="视图及URL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    1. 定义视图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-urlconf" class="md-nav__link">
+    2. 配置URLconf
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 配置URLconf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    查找视图的过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    请求访问，进行测试~
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    模板
+  </a>
+  
+    <nav class="md-nav" aria-label="模板">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    创建模板
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    定义模板
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    视图调用模板
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    视图调用模板简写
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    更多业务细化
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/AarWiki/edit/master/docs/250 Working Coding Python/Framework/Django/Django框架入门.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="django">Django 框架入门<a class="headerlink" href="#django" title="Permanent link">&para;</a></h1>
+<h2 id="web-mvc">Web框架核心 - MVC<a class="headerlink" href="#web-mvc" title="Permanent link">&para;</a></h2>
+<h3 id="web-mvc_1">Web MVC简介<a class="headerlink" href="#web-mvc_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>全称：Model-View-Controller</p>
+</blockquote>
+<ul>
+<li>
+<p>核心观念：<strong>分工的思想</strong></p>
+</li>
+<li>
+<p>核心思想：<strong>解耦</strong>。让不同的代码块之间降低耦合，增强代码的可扩展性和可移植性，实现向后兼容。</p>
+</li>
+</ul>
+<h3 id="web-mvc_2">Ｗeb MVC各部分的功能<a class="headerlink" href="#web-mvc_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>M全拼为<code>Model</code>，主要封装对数据库层的访问，对数据库中的数据进行增、删、改、查操作。</p>
+</li>
+<li>
+<p>V全拼为<code>View</code>，用于封装结果，生成页面展示的html内容。</p>
+</li>
+<li>
+<p>C全拼为<code>Controller</code>，用于接收请求，处理业务逻辑，与Model和View交互，返回结果。</p>
+</li>
+</ul>
+<p><img alt="mvc" src="../_resource/Django%E6%A1%86%E6%9E%B6%E5%85%A5%E9%97%A8/mvc.png" /></p>
+<h3 id="django-mvc-mvt">Django MVC - MVT<a class="headerlink" href="#django-mvc-mvt" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Django框架遵循MVC设计，并且有一个专有名词：MVT。</li>
+</ul>
+<h3 id="django-mvt">Django MVT各部分的功能<a class="headerlink" href="#django-mvt" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>M全拼为<code>Model</code>，与MVC中的M功能相同，负责和数据库交互，进行数据处理。</p>
+</li>
+<li>
+<p>V全拼为<code>View</code>，与MVC中的C功能相同，接收请求，进行业务处理，返回应答。</p>
+</li>
+<li>
+<p>T全拼为<code>Template</code>，与MVC中的V功能相同，负责封装构造要返回的html。</p>
+</li>
+</ul>
+<p><img alt="mvt" src="../_resource/Django%E6%A1%86%E6%9E%B6%E5%85%A5%E9%97%A8/mvt-1575601682035.png" /></p>
+<h2 id="django_1">Django简介<a class="headerlink" href="#django_1" title="Permanent link">&para;</a></h2>
+<p><em>Django makes it easier to build better web apps more quickly and with less code.</em></p>
+<ul>
+<li>
+<p>主要目的是简便、快速的开发数据库驱动的网站。</p>
+</li>
+<li>
+<p>很强的可扩展性：强调代码复用，多个组件可以很方便的以"插件"形式服务于整个框架。</p>
+</li>
+<li>
+<p>强调快速开发和DRY(<code>DoNotRepeatYourself</code>)原则。</p>
+</li>
+</ul>
+<p>特点</p>
+<ol>
+<li>重量级框架：原生提供众多功能组建。</li>
+<li>MTV模式</li>
+</ol>
+<p>更多信息：</p>
+<ul>
+<li><a href="https://www.djangoproject.com/">Django官方网站</a></li>
+<li><a href="https://github.com/django/django">Django源码</a></li>
+<li><a href="http://python.usyiyi.cn/django/index.html">1.8.2官方中文文档</a></li>
+<li><a href="http://djangobook.com/">Django Book</a></li>
+<li><a href="http://www.tangowithdjango.com/book17/">Tange With Django</a></li>
+</ul>
+<h2 id="django_2">Django 搭建<a class="headerlink" href="#django_2" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 搭建虚拟环境<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h4 id="virtualenv"><code>Virtualenv</code> 环境隔离<a class="headerlink" href="#virtualenv" title="Permanent link">&para;</a></h4>
+<ul>
+<li>创建：<code>`mkvirtualenv my_project</code></li>
+<li>工作：<code>workon my_project</code></li>
+<li>停用：<code>deactivate</code></li>
+<li>删除：<code>rmvirtualenv my_project</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>- 您可以创建一个项目，它会创建虚拟环境，并在 `$WORKON_HOME` 中创建一个项目目录。 当您使用 workon myproject 时，会 `cd` 到项目目录中。$ mkproject myproject**virtualenvwrapper** 提供环境名字的tab补全功能。当您有很多环境， 并且很难记住它们的名字时，这就显得很有用。`workon` 也能停止您当前所在的环境，所以您可以在环境之间快速的切换。停止是一样的：
+- 
+</code></pre></div>
+
+<h4 id="conda"><code>Conda</code> 环境隔离<a class="headerlink" href="#conda" title="Permanent link">&para;</a></h4>
+<ul>
+<li>创建：<code>conda</code></li>
+<li>工作：<code>conda activate myEnv</code></li>
+<li>停用：</li>
+<li>删除：</li>
+</ul>
+<h4 id="_1">安装模块包<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>模块名称</th>
+<th>说明</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>django</td>
+<td>主程序框架</td>
+<td><code>All</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>PyMySQL</td>
+<td>MySQL数据库支持</td>
+<td><code>Python3</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>mysqldb</td>
+<td>MySQL数据库支持</td>
+<td><code>Python2</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2">2. 创建项目<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h4 id="21">2.1 创建命令<a class="headerlink" href="#21" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>$ django-admin startproject 项目名称
+<span class="c1"># 例：</span>
+$ django-admin startproject MyWorld
+</code></pre></div>
+
+<h4 id="22">2.2 默认目录说明<a class="headerlink" href="#22" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">MyWorld</span>
+<span class="o">|</span>
+<span class="o">|--</span> <span class="n">MyWorld</span>             <span class="c1"># 项目的容器</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>     <span class="c1"># 空文件，实意目录为Python包</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="n">settings</span><span class="o">.</span><span class="n">py</span>     <span class="c1"># 项目配置</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="n">urls</span><span class="o">.</span><span class="n">py</span>         <span class="c1"># 项目URL声明，及网站URL目录</span>
+<span class="o">|</span>   <span class="err">`</span><span class="o">--</span> <span class="n">wsgi</span><span class="o">.</span><span class="n">py</span>         <span class="c1"># WSGI 兼容的 Web 服务器的入口</span>
+<span class="err">`</span><span class="o">--</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span>           <span class="c1"># 使用命令行工具，依此可多种方式操作该Django项目</span>
+</code></pre></div>
+
+<ul>
+<li>
+<p><strong><code>MyWorld</code>/<code>__init__.py</code></strong>：虽然为空文件，但是包的载入以此为入口点。因此，可以做成许多事。</p>
+</li>
+<li>
+<p><strong><code>MyWorld</code>/<code>urls.py</code></strong>： 一般而言，此处的URL目录为总体目录，更多细化会在各个应用中体现。</p>
+</li>
+</ul>
+<h4 id="23">2.3 运行默认开发服务器<a class="headerlink" href="#23" title="Permanent link">&para;</a></h4>
+<p>命令如下：</p>
+<div class="highlight"><pre><span></span><code>$ python manage.py runserver ip:端口
+<span class="c1"># 示例</span>
+$ python manage.py runserver
+</code></pre></div>
+
+<ul>
+<li>可不写IP和端口，默认IP是<code>127.0.0.1</code>，默认端口为<code>8000</code>。打开浏览器即可访问。</li>
+<li>Django默认工作在调式Debug模式下，如果增加、修改、删除文件，服务器会自动重启。</li>
+<li><code>ctrl+c</code> 停止服务器。</li>
+</ul>
+<h3 id="3">3. 创建应用<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>创建应用， 并将所有应用移动到 python package - <code>apps</code> 中：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 创建所有需要建立的应用</span>
+$ python manage.py startapp 子应用名称
+<span class="c1"># 示例：</span>
+$ python manage.py startapp user
+$ python manage.py startapp goods
+$ python manage.py startapp cart
+$ python manage.py startapp order
+</code></pre></div>
+
+<ul>
+<li><code>manage.py</code>为上述创建工程时自动生成的管理文件。</li>
+</ul>
+<p>应用目录说明</p>
+<div class="highlight"><pre><span></span><code>MyWorld
+<span class="p">|</span>
+├── book
+│   ├── admin.py            <span class="c1"># 文件跟网站的后台管理站点配置相关</span>
+│   ├── apps.py             <span class="c1"># 配置当前子应用的相关信息</span>
+│   ├── __init__.py
+│   ├── migrations          <span class="c1"># 存放数据库迁移历史文件</span>
+│   │   └── __init__.py
+│   ├── models.py           <span class="c1"># 保存数据库模型类</span>
+│   ├── tests.py            <span class="c1"># 开发测试用例，编写单元测试</span>
+│   └── views.py            <span class="c1"># 编写Web应用视图</span>
+├── manage.py
+└── MyWorld
+    ├── asgi.py
+    ├── __init__.py
+    ├── __pycache__
+    │   ├── __init__.cpython-36.pyc
+    │   └── settings.cpython-36.pyc
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+</code></pre></div>
+
+<ul>
+<li>此处注释仅为明确目录关系及作用。不遵循PEP8。</li>
+</ul>
+<h4 id="_2">注册安装子应用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>建立应用和项目之间的关联，在 <code>MyWorld/settings.py</code> 中 <code>INSTALLED_APPS</code> 下添加应用的名称以完成安装</p>
+<div class="highlight"><pre><span></span><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>  <span class="c1"># 默认admin管理后台站点</span>
+    <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>  <span class="c1"># 默认身份认证系统</span>
+    <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>  <span class="c1"># 默认内容类型框架</span>
+    <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>  <span class="c1"># 默认会话框架</span>
+    <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>  <span class="c1"># 默认消息框架</span>
+    <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>  <span class="c1"># 默认文件管理框架</span>
+    <span class="s1">&#39;apps.user&#39;</span><span class="p">,</span> <span class="c1"># 用户模块</span>
+    <span class="s1">&#39;apps.goods&#39;</span><span class="p">,</span> <span class="c1"># 商品模块</span>
+    <span class="s1">&#39;apps.cart&#39;</span><span class="p">,</span> <span class="c1"># 购物车模块</span>
+    <span class="s1">&#39;apps.order&#39;</span><span class="p">,</span> <span class="c1"># 订单模块</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>或者此步直接在配置文件 <code>settings.py</code> 中，添加应用搜索路径：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>  <span class="c1"># raw line</span>
+<span class="kn">import</span> <span class="nn">sys</span>  <span class="c1"># import modules of sys</span>
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>  <span class="c1"># raw line</span>
+<span class="c1"># 添加 apps 搜索路径</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;apps&#39;</span><span class="p">))</span>
+
+<span class="c1"># ...</span>
+
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="c1"># 用户模块</span>
+    <span class="s1">&#39;goods&#39;</span><span class="p">,</span> <span class="c1"># 商品模块</span>
+    <span class="s1">&#39;cart&#39;</span><span class="p">,</span> <span class="c1"># 购物车模块</span>
+    <span class="s1">&#39;order&#39;</span><span class="p">,</span> <span class="c1"># 订单模块</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h3 id="4">4. 配置数据库<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<h4 id="41-mysql">4.1 配置MySQL数据库<a class="headerlink" href="#41-mysql" title="Permanent link">&para;</a></h4>
+<p>Django 框架默认使用 <strong>SQLite3</strong> 数据库。也可自定义：</p>
+<p>打开 <code>MyWorld/settings.py</code>文件，找到 <code>DATABASES</code>项，修改为MySQL数据库。</p>
+<ul>
+<li>将引擎改为 <strong>mysql</strong>，提供连接的主机HOST、端口PORT、数据库名NAME、用户名USER、密码PASSWORD。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># &#39;ENGINE&#39;: &#39;django.db.backends.sqlite3&#39;,  # raw line</span>
+        <span class="c1"># &#39;NAME&#39;: os.path.join(BASE_DIR, &#39;db.sqlite3&#39;),  # raw line</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.mysql&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;db_name&#39;</span><span class="p">,</span> <span class="c1"># 数据库名字</span>
+        <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="c1"># 数据库登录用户名</span>
+        <span class="s1">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="s1">&#39;mysql&#39;</span><span class="p">,</span> <span class="c1"># 数据库登录密码</span>
+        <span class="s1">&#39;HOST&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="c1"># 数据库所在主机</span>
+        <span class="s1">&#39;PORT&#39;</span><span class="p">:</span> <span class="s1">&#39;3306&#39;</span><span class="p">,</span> <span class="c1"># 数据库端口</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>
+<p><code>ENGINE</code></p>
+<ul>
+<li><code>django.db.backends.sqlite3</code>、<code>django.db.backends.postgresql</code>、<code>django.db.backends.mysql</code>、<code>django.db.backends.oracle</code></li>
+</ul>
+</li>
+<li></li>
+<li>
+<p>注意：这里的数据库 <strong>db_name</strong> 需要自己进入数据库去**手动创建**。</p>
+</li>
+<li>
+<p><code>sql
+  create database test2 default charset=utf8;</code></p>
+</li>
+</ul>
+<h4 id="42-mysql">4.2 配置MySQL数据库支持<a class="headerlink" href="#42-mysql" title="Permanent link">&para;</a></h4>
+<ol>
+<li>安装MySQL数据库模块支持<code>PyMySQL for Python3</code> 。</li>
+</ol>
+<p><code>MySQLdb</code> is the interface to MySQL database. As mentioned by other posts, MySQLdb doesn't support Python 3.x. I used <code>PyMySQL</code> as the replacement. So you need to install it first:</p>
+<div class="highlight"><pre><span></span><code>pip install PyMySQL
+</code></pre></div>
+
+<ul>
+<li>
+<p>若是Python2，那么直接使用模块 <code>MySQLdb</code> 即可。</p>
+</li>
+<li>
+<p>在使用到MySQL数据库的应用包的文件 <code>__init__.py</code> 中添加代码。比如：主项目容器 <code>MyWorld</code>包的<code>__init__.py</code>文件。</p>
+</li>
+</ul>
+<p>The next step is to replace 'MySQLdb' with 'pymysql' in all the codes, which is intimidating. Luckily, PyMySQL can be loaded as MySQLdb dyanamically. </p>
+<p>In order to achieve it in Django, you need to add the following lines to <code>__init__.py</code> file under the dir of the project's default app (If your have a project named 'myproject', add lines to myproject/myproject/init.py):</p>
+<div class="highlight"><pre><span></span><code>import pymysql
+
+pymysql.install_as_MySQLdb()
+</code></pre></div>
+
+<p>This <code>__init__.py</code> would be executed when you run the Django project, and MySQLdb will be replaced.</p>
+<h3 id="5-url">5. 配置视图URL<a class="headerlink" href="#5-url" title="Permanent link">&para;</a></h3>
+<h4 id="51-url">5.1 项目URL匹配<a class="headerlink" href="#51-url" title="Permanent link">&para;</a></h4>
+<p>此配置为默认生成的 <code>url.py</code> 文件。只需要添加相应的视图即可。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>  <span class="c1"># 默认后台管理页面匹配</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;index/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;book.urls&#39;</span><span class="p">))</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<ul>
+<li>
+<p><code>admin/</code> ：请务必修改得更加复杂一些，不要轻易暴露后台管理页面地址。</p>
+</li>
+<li>
+<p><code>include()</code> 即插即用。</p>
+</li>
+<li>
+<p>除了admin路由外，尽量给每个应用app设计自己独立的二级路由。</p>
+</li>
+<li>
+<p>应用解耦：项目根路由不关心具体应用app的路由策略，只管往指定的二级路由转发。</p>
+</li>
+</ul>
+<h4 id="52-url">5.2 应用URL匹配<a class="headerlink" href="#52-url" title="Permanent link">&para;</a></h4>
+<p>应用URL需要自己在各个应用下新建 <code>url.py</code> 而后依据项目URL进行二级目录下的URL匹配视图即可。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="c1"># 导入各应用视图</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="err">，</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<ul>
+<li>应用所属的二级路由可以根据自己的需要随意编写，不会和其它的app路由发生冲突。</li>
+<li>此处编写为所有从一级目录 <code>/index</code> 的所有试图均为视图 <code>index</code>。</li>
+</ul>
+<p><code>path()</code> 方法：</p>
+<p><code>path()</code> 方法接收4个参数。2个必须：<code>route</code>和<code>view</code>，以及2个可选：<code>kwargs</code>和<code>name</code>。</p>
+<blockquote>
+<p><code>route</code></p>
+</blockquote>
+<ul>
+<li>route 是一个匹配 URL 的准则（类似正则表达式）。</li>
+<li>
+<p>URL路由的编写顺序非常重要！</p>
+<ul>
+<li>Django 响应一个请求时，它会从 urlpatterns 的第一项开始，按顺序依次匹配列表中的项，直到找到匹配的项，然后执行该条目映射的视图函数或下级路由，其后的条目将不再继续匹配。</li>
+</ul>
+</li>
+<li>
+<p>route不会匹配 GET 和 POST 参数或域名。</p>
+<ul>
+<li>例如，URLconf 在处理请求 <code>https://www.example.com/myapp/</code>时，它会尝试匹配 <code>myapp/</code>。</li>
+<li>处理请求 <code>https://www.example.com/myapp/?page=3</code> 时，也只会尝试匹配 <code>myapp/</code>。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><code>view</code></p>
+</blockquote>
+<ul>
+<li><code>view</code> 指处理当前url请求的视图函数。</li>
+<li>当Django匹配到某个路由条目时，自动将封装的<code>HttpRequest</code>对象作为第一个参数，被“捕获”的参数以关键字参数的形式，传递给该条目指定的视图view。</li>
+</ul>
+<blockquote>
+<p><code>kwargs</code></p>
+</blockquote>
+<ul>
+<li>任意数量的关键字参数可以作为一个字典传递给目标视图。</li>
+</ul>
+<blockquote>
+<p><code>name</code></p>
+</blockquote>
+<ul>
+<li>对URL命名。能够在Django的任意处，尤其是模板内 <strong>显式地引用它</strong>。</li>
+<li>给URL取全局变量名，不会将url匹配地址写死。</li>
+</ul>
+<h4 id="53">5.3 应用视图<a class="headerlink" href="#53" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="c1"># Create your views here.</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Homepage&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Hello, My World! Here is the homepage!&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="6">6. 运行服务器<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p>配置于此，便可以运行 <code>Django</code> 提供的开发服务器</p>
+<div class="highlight"><pre><span></span><code>$ python manage.py runserver ip:端口
+<span class="c1"># 示例：</span>
+$ python manage.py runserver
+</code></pre></div>
+
+<ul>
+<li>访问：<a href="http://127.0.0.1:8000/book">http://127.0.0.1:8000/book</a></li>
+<li>此时，便可以查验数据库，视图配置是否正确</li>
+</ul>
+<h3 id="7">7. 其他可提前设置项<a class="headerlink" href="#7" title="Permanent link">&para;</a></h3>
+<h4 id="71">7.1 配置本地化<a class="headerlink" href="#71" title="Permanent link">&para;</a></h4>
+<p>在 <code>settings.py</code> 中配置本地化设置如下：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Internationalization</span>
+<span class="c1"># https://docs.djangoproject.com/en/1.8/topics/i18n/</span>
+
+<span class="n">LANGUAGE_CODE</span> <span class="o">=</span> <span class="s1">&#39;en-hans&#39;</span>
+
+<span class="n">TIME_ZONE</span> <span class="o">=</span> <span class="s1">&#39;Asia/Shanghai&#39;</span>
+
+<span class="n">USE_I18N</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">USE_L10N</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">USE_TZ</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre></div>
+
+<h4 id="72">7.2 配置静态文件目录<a class="headerlink" href="#72" title="Permanent link">&para;</a></h4>
+<p>新建 <code>MyWorld/static</code> 文件夹，在 <code>settings.py</code> 中配置静态文件目录如下：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Static files (CSS, JavaScript, Images)</span>
+<span class="c1"># https://docs.djangoproject.com/en/1.8/howto/static-files/</span>
+
+<span class="n">STATIC_URL</span> <span class="o">=</span> <span class="s1">&#39;/static/&#39;</span>  <span class="c1"># raw line</span>
+
+<span class="c1"># 配置静态文件目录</span>
+<span class="n">STATIC_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="73">7.3 配置模板文件目录<a class="headerlink" href="#73" title="Permanent link">&para;</a></h4>
+<p>新建 <code>MyWorld/templates</code> 文件夹，在 <code>settings.py</code> 中配置模板文件目录如下：</p>
+<div class="highlight"><pre><span></span><code><span class="n">TEMPLATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.template.backends.django.DjangoTemplates&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;DIRS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;templates&#39;</span><span class="p">)],</span>
+        <span class="s1">&#39;APP_DIRS&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;context_processors&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s1">&#39;django.template.context_processors.debug&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;django.template.context_processors.request&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;django.contrib.auth.context_processors.auth&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;django.contrib.messages.context_processors.messages&#39;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h2 id="_3">模型设计<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="orm">ORM框架<a class="headerlink" href="#orm" title="Permanent link">&para;</a></h3>
+<p>把类和数据表进行了一个映射，从而可以**通过类和类对象就能操作它所对应的表格中的数据**。也可以**根据我们设计的类自动帮我们生成数据库中的表格**。</p>
+<ul>
+<li>
+<p>O是object，也就**类对象**</p>
+</li>
+<li>
+<p>R是relation，关系数据库中**数据表**</p>
+</li>
+<li>
+<p>M是mapping，是**映射**</p>
+</li>
+</ul>
+<h3 id="_4">数据库开发步骤<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>使用 <code>django</code> 进行数据库开发的步骤：</p>
+<ul>
+<li>1，在 <strong>各个应用</strong> 的 <code>models.py</code> 中**定义模型类**</li>
+<li>2，<strong>迁移</strong></li>
+<li>3，通过类和对象完成数据**增删改查操作**</li>
+</ul>
+<h3 id="1_1">1. 定义模型类<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<p>模型类定义在 <code>models.py</code> 文件中，继承自 <code>models.Model</code>类。</p>
+<h4 id="_5">设计模型类<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<ul>
+<li>依据数据库进行模型类数据类型映射即可。</li>
+</ul>
+<h4 id="_6">定义模型类<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>在 <code>models.py</code> 中定义模型类。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="c1"># Create your models here.</span>
+<span class="k">class</span> <span class="nc">BookInfo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;依据数据库字段进行的数据表字段映射&quot;&quot;&quot;</span>
+    <span class="n">btitle</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">bpub_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;bookinfo&#39;</span>  <span class="c1"># 定义数据库对应的表名称</span>
+        <span class="n">verboser_name</span> <span class="o">=</span> <span class="s1">&#39;图书&#39;</span>  <span class="c1"># 在admin站点中显示的名称</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;定义后台页面中，数据对象的显示信息&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+</code></pre></div>
+
+<h3 id="2_1">2. 迁移<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p>迁移由两步完成:</p>
+<p>1, 生成迁移文件：根据模型类生成创建表的迁移文件。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 初次迁移模型</span>
+$ python manage.py makemigrations  
+
+<span class="c1"># 模型更改命令</span>
+$ python manage.py makemigrations Models  
+</code></pre></div>
+
+<ul>
+<li>运行<code>makemigrations</code>命令，Django 会检测你对模型文件的修改</li>
+</ul>
+<p>2, 执行迁移：根据第一步生成的迁移文件在数据库中创建表。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 初次迁移模型</span>
+$ python manage.py migrate
+
+<span class="c1"># 变更表结构</span>
+$ python manage.py migrate Models
+</code></pre></div>
+
+<ul>
+<li><code>migrate</code> 命令将遍历<code>INSTALLED_APPS</code>设置中的所有项目，在数据库中创建对应的表，并打印出每一条动作信息。</li>
+<li><code>migrate</code> 命令对所有还未实施的迁移记录进行操作</li>
+</ul>
+<p>数据库迁移更新</p>
+<div class="highlight"><pre><span></span><code>$ python manage.py makemigrations Model  <span class="c1"># 模型变更</span>
+
+$ python manage.py migrate Model   <span class="c1"># 迁移变更表结构</span>
+</code></pre></div>
+
+<ul>
+<li>Django通过表 <code>django_migration</code> 记录并跟踪已经实施的migrate动作，并通过对比获得哪些 migrations 尚未提交。</li>
+<li>同时，将数据库创建和实施迁移分两步有利于版本控制系统。<code>migration</code> 文件上传github 后，版本控制系统便可以指导所有操作信息。</li>
+</ul>
+<p>数据库变更查验</p>
+<p>检查项目中的错误，并不实际进行迁移或者链接数据库的操作。</p>
+<div class="highlight"><pre><span></span><code>$ python manage.py check
+</code></pre></div>
+
+<h5 id="_7">默认生成的表名称<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h5>
+<p>数据表的默认名称为：</p>
+<div class="highlight"><pre><span></span><code>&lt;app_name&gt;_&lt;model_name&gt;
+例：
+booktest_bookinfo
+</code></pre></div>
+
+<p><strong>在我们之后迁移生成表的时候，Django框架就会自动帮我们在图书表和英雄表之间建立一个外键关系。</strong></p>
+<h3 id="3_1">3. 数据操作<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<p>完成数据表的迁移之后，可以通过进入项目的shell，进行简单的API操作。</p>
+<ul>
+<li>退出项目：可以使用<code>ctrl+d</code>快捷键或输入<code>quit()</code></li>
+<li>进入项目shell ： <code>python manage.py shell</code></li>
+</ul>
+<p>对数据模型类进行增删改查：</p>
+<ul>
+<li>查询所有图书信息：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>BookInfo.objects.all()
+</code></pre></div>
+
+<p>进行对象的关联操作：</p>
+<div class="highlight"><pre><span></span><code>b.heroinfo_set.all()
+</code></pre></div>
+
+<h2 id="_8">后台站点管理<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>解决快速生成数据库中数据的操作</p>
+</blockquote>
+<p>使用Django的管理模块，需要按照如下步骤操作：</p>
+<ul>
+<li>1.管理界面本地化</li>
+<li>2.创建管理员</li>
+<li>3.注册模型类</li>
+<li>4.自定义管理页面</li>
+</ul>
+<h3 id="1_2">1. 确认管理界面本地化<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<p>确认设置语言编码、时区：<code>MyWorld/settings.py</code></p>
+<div class="highlight"><pre><span></span><code><span class="n">LANGUAGE_CODE</span> <span class="o">=</span> <span class="s1">&#39;zh-hans&#39;</span> <span class="c1"># 使用中国语言</span>
+<span class="n">TIME_ZONE</span> <span class="o">=</span> <span class="s1">&#39;Asia/Shanghai&#39;</span> <span class="c1"># 使用中国上海时间</span>
+</code></pre></div>
+
+<h3 id="2_2">2. 创建管理员<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
+<p>创建管理员用户</p>
+<div class="highlight"><pre><span></span><code>$ python manage.py createsuperuser
+
+<span class="c1"># 输入用户名</span>
+Username: admin
+
+<span class="c1"># 输入邮箱地址</span>
+Email address: xxxx@xxx.com
+
+<span class="c1"># 输入密码</span>
+Password: ******
+Password <span class="o">(</span>again<span class="o">)</span>: ******
+Superuser create successful
+</code></pre></div>
+
+<p>访问后台管理页面</p>
+<ul>
+<li>启动服务器，访问：<a href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a> </li>
+<li>不要轻易暴露后台管理页面地址，并将其URL地址设置得更加复杂一些。</li>
+</ul>
+<h3 id="3_2">3. 注册模型类<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h3>
+<p>在应用 <code>admin.py</code> 中，注册数据库模型类：</p>
+<div class="highlight"><pre><span></span><code>from django.contrib import admin
+from booktest.models import BookInfo,HeroInfo
+
+# 注册数据库模型类
+admin.site.register(BookInfo)
+admin.site.register(HeroInfo)
+</code></pre></div>
+
+<h3 id="4_1">4. 自定义管理页面<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h3>
+<p>自定义继承自<code>admin.ModelAdmin</code>的管理类，用户自定义管理页面的功能：</p>
+<ul>
+<li>属性list_display表示要显示哪些属性</li>
+</ul>
+<div class="highlight"><pre><span></span><code>class BookInfoAdmin(admin.ModelAdmin):
+    list_display = [&#39;id&#39;, &#39;btitle&#39;, &#39;bpub_date&#39;]
+</code></pre></div>
+
+<ul>
+<li>修改模型类BookInfo的注册代码如下</li>
+</ul>
+<div class="highlight"><pre><span></span><code>admin.site.register(BookInfo, BookInfoAdmin)
+</code></pre></div>
+
+<h2 id="url">视图及URL<a class="headerlink" href="#url" title="Permanent link">&para;</a></h2>
+<p>Django的设计框架MVT中，用户在URL中请求的是视图，视图接收请求后进行处理，并将处理的结果返回给请求者。</p>
+<p>使用视图时需要进行两步操作：</p>
+<ol>
+<li>定义视图函数</li>
+<li>配置URLconf</li>
+</ol>
+<h3 id="1_3">1. 定义视图<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
+<p>视图就是定义在各应用 <code>views.py</code> 文件的Python函数。</p>
+<ul>
+<li>必须有<code>request</code> 参数</li>
+<li>必须返回 HttpResponse 对象， HttpResponse 中参数内容会显示在浏览器的页面上。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Here is Home page&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="2-urlconf">2. 配置URLconf<a class="headerlink" href="#2-urlconf" title="Permanent link">&para;</a></h3>
+<h4 id="_9">查找视图的过程<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p>请求者在浏览器地址栏中输入url，请求到网站后，获取url信息，然后与编写好的URLconf逐条匹配，如果匹配成功则调用对应的视图函数，如果所有的URLconf都没有匹配成功，则返回404错误。</p>
+<p>一条URLconf包括url规则、视图两部分：</p>
+<ul>
+<li>url规则使用正则表达式定义。</li>
+<li>视图就是在<code>views.py</code>中定义的视图函数。</li>
+</ul>
+<p>需要两步完成URLconf配置：</p>
+<ul>
+<li>1.在应用中定义URLconf</li>
+<li>
+<p>2.包含到项目的URLconf中</p>
+</li>
+<li>
+<p><strong>在应用中定义</strong>：创建 <code>booktest/urls.py</code> 文件，代码如下：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>from django.conf.urls import url
+from booktest import views
+
+urlpatterns = [
+    url(r&#39;^$&#39;, views.index),
+]
+</code></pre></div>
+
+<ol>
+<li><strong>包含到项目中</strong>：打开test1/urls.py文件，为urlpatterns列表增加项如下：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>url(r&#39;^&#39;, include(&#39;booktest.urls&#39;)),
+</code></pre></div>
+
+<p><code>test1/urls.py</code>文件完整代码如下：</p>
+<div class="highlight"><pre><span></span><code>from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+    url(r&#39;^admin/&#39;, include(admin.site.urls)),
+    url(r&#39;^&#39;, include(&#39;booktest.urls&#39;)),
+]
+</code></pre></div>
+
+<h4 id="_10">请求访问，进行测试~<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<h2 id="_11">模板<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>解决**返回页面需要携带复杂数据**的问题</p>
+</blockquote>
+<p>Django将前端的内容定义在模板中，然后再把模板交给视图调用，以便获得各种漂亮、炫酷的效果。</p>
+<h3 id="_12">创建模板<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ol>
+<li>创建相关模板文件：<code>Booktest/templates/booktest/index.html</code><ul>
+<li><code>templates</code> 文件夹在一级目录，下面将是对应各个应用的二级目录，再下面为各个视图模板文件。模板文件将会和试图进行一一对应。</li>
+</ul>
+</li>
+<li>设置查找模板路径：在 <code>settings.py</code> 中，设置TEMPLATES的DIRS值</li>
+</ol>
+<div class="highlight"><pre><span></span><code>&#39;DIRS&#39;: [os.path.join(BASE_DIR, &#39;templates&#39;)],
+</code></pre></div>
+
+<h3 id="_13">定义模板<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>在模板中输出变量语法如下，变量可能是从视图中传递过来的，也可能是在模板中定义的。</p>
+<div class="highlight"><pre><span></span><code>{{ 变量名 }}
+</code></pre></div>
+
+<p>在模板中编写代码段语法如下：</p>
+<div class="highlight"><pre><span></span><code>{% 代码段 %}
+</code></pre></div>
+
+<h3 id="_14">视图调用模板<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>调用模板分为三步骤：</p>
+<ul>
+<li>1.找到模板</li>
+<li>2.定义上下文</li>
+<li>3.渲染模板</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">loader</span><span class="p">,</span><span class="n">RequestContext</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="c1"># 1.获取模板</span>
+    <span class="n">template</span><span class="o">=</span><span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;booktest/index.html&#39;</span><span class="p">)</span>
+    <span class="c1"># 2.定义上下文</span>
+    <span class="n">context</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">,{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s1">&#39;图书列表&#39;</span><span class="p">,</span><span class="s1">&#39;list&#39;</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)})</span>
+    <span class="c1"># 3.渲染模板</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+</code></pre></div>
+
+<h3 id="_15">视图调用模板简写<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>视图调用模板都要执行以上三部分，于是Django提供了一个函数render封装了以上代码。 方法render()包含3个参数：</p>
+<ul>
+<li>第一个参数为request对象</li>
+<li>第二个参数为模板文件路径</li>
+<li>第三个参数为字典，表示向模板中传递的上下文数据</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s1">&#39;图书列表&#39;</span><span class="p">,</span><span class="s1">&#39;list&#39;</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;booktest/index.html&#39;</span><span class="p">,</span><span class="n">context</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="_16">更多业务细化<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<p>现在还需要的代码包括三个方面，三个方面顺序不分先后。</p>
+<ul>
+<li>1.定义视图</li>
+<li>2.定义URLconf</li>
+<li>3.定义模板</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

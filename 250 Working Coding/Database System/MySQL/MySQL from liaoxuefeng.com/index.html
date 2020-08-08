@@ -1,0 +1,1325 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Database%20System/MySQL/MySQL%20from%20liaoxuefeng.com/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>SQL 教程 - 廖雪峰的官方网站 - Abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sql-" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              SQL 教程 - 廖雪峰的官方网站
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../AarWiki/" title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      310 Learning English
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="310 Learning English" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        310 Learning English
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../310%20Learning%20Language/an-Overview%20of%20English%20Learning/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 关系数据库概述
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 关系数据库概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    1.1.1. 为什么需要数据库？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    1.1.2. 数据模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-sql" class="md-nav__link">
+    1.1.3. SQL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mysql" class="md-nav__link">
+    2. 安装MySQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 关系模型
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 关系模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1. 主键
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1. 主键">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    3.1.1. 联合主键
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2. 外键
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3. 索引
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    .4. 查询数据
+  </a>
+  
+    <nav class="md-nav" aria-label=".4. 查询数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1. 基本查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2. 条件查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    4.3. 投影查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    4.4. 排序
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    4.5. 分页查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    4.6. 聚合查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47" class="md-nav__link">
+    4.7. 多表查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48" class="md-nav__link">
+    4.8. 连接查询
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 修改数据
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 修改数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-insert" class="md-nav__link">
+    5.1. INSERT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-update" class="md-nav__link">
+    5.2. UPDATE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-delete" class="md-nav__link">
+    5.3. DELETE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-mysql" class="md-nav__link">
+    6. MySQL
+  </a>
+  
+    <nav class="md-nav" aria-label="6. MySQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-mysql" class="md-nav__link">
+    6.1. 管理MySQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-sql" class="md-nav__link">
+    6.2. 实用SQL语句
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 事务
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 事务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-read-uncommitted" class="md-nav__link">
+    7.1. Read Uncommitted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-read-committed" class="md-nav__link">
+    7.2. Read Committed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-repeatable-read" class="md-nav__link">
+    7.3. Repeatable Read
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-serializable" class="md-nav__link">
+    7.4. Serializable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/AarWiki/edit/master/docs/250 Working Coding/Database System/MySQL/MySQL from liaoxuefeng.com.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="sql-">SQL 教程 - 廖雪峰的官方网站<a class="headerlink" href="#sql-" title="Permanent link">&para;</a></h1>
+<p>本文档为笔记文档，原创教程为：<a href="https://www.liaoxuefeng.com/wiki/1177760294764384">廖雪峰的官方网站 SQL教程</a></p>
+<h2 id="1">1. <a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1179613436834240">关系数据库概述</a><a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h4 id="111">1.1.1. 为什么需要数据库？<a class="headerlink" href="#111" title="Permanent link">&para;</a></h4>
+<ul>
+<li>如何管理大数据？<ul>
+<li>读写文件并解析出数据需要大量重复代码；</li>
+<li>从成千上万的数据中快速查询出指定数据需要复杂的逻辑。</li>
+</ul>
+</li>
+<li>通过数据库软件提供的接口来统一读写数据<ul>
+<li>数据存储直接采用数据库软件，应用程序只需专注自身业务，而不用自己管理数据</li>
+</ul>
+</li>
+</ul>
+<h4 id="112">1.1.2. 数据模型<a class="headerlink" href="#112" title="Permanent link">&para;</a></h4>
+<ul>
+<li>数据库按照数据结构来组织、存储和管理数据，实际上，数据库一共有三种模型：</li>
+<li>层次模型</li>
+<li>网状模型</li>
+<li>关系模型</li>
+</ul>
+<h4 id="113-sql">1.1.3. SQL<a class="headerlink" href="#113-sql" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>什么是SQL？SQL是结构化查询语言的缩写，用来访问和操作数据库系统。</p>
+</li>
+<li>
+<p>SQL语言定义了这么几种操作数据库的能力：</p>
+<ul>
+<li>
+<p><strong>DDL：Data Definition Language</strong>
+  DDL允许用户定义数据，也就是创建表、删除表、修改表结构这些操作。通常，DDL由数据库管理员执行。</p>
+</li>
+<li>
+<p><strong>DML：Data Manipulation Language</strong>
+  DML为用户提供添加、删除、更新数据的能力，这些是应用程序对数据库的日常操作。</p>
+</li>
+<li>
+<p><strong>DQL：Data Query Language</strong>
+  DQL允许用户查询数据，这也是通常最频繁的数据库日常操作。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-mysql">2. 安装MySQL<a class="headerlink" href="#2-mysql" title="Permanent link">&para;</a></h2>
+<h2 id="3">3. <a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1218728991649984">关系模型</a><a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>二维表结构：<ul>
+<li>表的每一行称为记录（Record），记录是一个逻辑意义上的数据。</li>
+<li>表的每一列称为字段（Column），同一个表的每一行记录都拥有相同的若干字段。</li>
+</ul>
+</li>
+<li>在关系数据库中，关系是通过*主键*和*外键*来维护的。</li>
+</ul>
+<h3 id="31">3.1. 主键<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<ul>
+<li>能够通过某个字段唯一区分出不同的记录，这个字段被称为*主键*。</li>
+<li>选取主键的一个基本原则是：不使用任何业务相关的字段作为主键。</li>
+<li>使用一种全局唯一的字符串作为主键，常见下面两种类型：<ul>
+<li>自增整数类型</li>
+<li>全局唯一GUID类型：
+GUID算法通过网卡MAC地址、时间戳和随机数保证任意计算机在任意时间生成的字符串都是不同的，大部分编程语言都内置了GUID算法，可以自己预算出主键。</li>
+</ul>
+</li>
+</ul>
+<h4 id="311">3.1.1. 联合主键<a class="headerlink" href="#311" title="Permanent link">&para;</a></h4>
+<ul>
+<li>关系数据库实际上还允许通过多个字段唯一标识记录，即两个或更多的字段都设置为主键，这种主键被称为联合主键。<ul>
+<li>对于联合主键，允许一列有重复，只要不是所有主键列都重复即可。</li>
+</ul>
+</li>
+</ul>
+<p>总结：
+- 主键是关系表中记录的唯一标识。主键的选取非常重要：主键不要带有业务含义，而应该使用BIGINT自增或者GUID类型。主键也不应该允许<code>NULL</code>。
+- 可以使用多个列作为联合主键，但联合主键并不常用。</p>
+<h3 id="32">3.2. 外键<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<ul>
+<li>外键既可以通过数据库来约束，也可以不设置约束，仅依靠应用程序的逻辑来保证。</li>
+<li>删除外键约束并没有删除外键这一列</li>
+<li>把一个大表拆成两个一对一的表<ul>
+<li>目的是把经常读取和不经常读取的字段分开，以获得更高的性能</li>
+</ul>
+</li>
+</ul>
+<h3 id="33">3.3. 索引<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<ul>
+<li>索引是关系数据库中对某一列或多个列的值进行预排序的数据结构。</li>
+<li>对于主键，关系数据库会自动对其创建主键索引。使用主键索引的效率是最高的，因为主键会保证绝对唯一。</li>
+<li>唯一索引<ul>
+<li>通过对数据库表创建索引，可以提高查询速度。</li>
+<li>通过创建唯一索引，可以保证某一列的值具有唯一性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4">.4. 查询数据<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1. 基本查询<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<ul>
+<li>不带<code>FROM</code>子句的<code>SELECT</code>语句有一个有用的用途<ul>
+<li>就是用来判断当前到数据库的连接是否有效。</li>
+<li>许多检测工具会执行一条<code>SELECT 1;</code>来测试数据库连接。</li>
+</ul>
+</li>
+</ul>
+<h3 id="42">4.2. 条件查询<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<h3 id="43">4.3. 投影查询<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<ul>
+<li>使用<code>SELECT *</code>表示查询表的所有列，使用<code>SELECT 列1, 列2, 列3</code>则可以仅返回指定列，这种操作称为投影。</li>
+<li><code>SELECT</code>语句可以对结果集的列进行重命名。</li>
+</ul>
+<h3 id="44">4.4. 排序<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<ul>
+<li>默认的排序规则是<code>ASC</code>：“升序”，即从小到大。<code>ASC</code>可以省略，</li>
+<li>使用<code>ORDER BY</code>可以对结果集进行排序；</li>
+</ul>
+<h3 id="45">4.5. 分页查询<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
+<ul>
+<li>分页查询的关键在于，首先要确定每页需要显示的结果数量<code>pageSize</code>（这里是3），然后根据当前页的索引<code>pageIndex</code>（从1开始），确定<code>LIMIT</code>和<code>OFFSET</code>应该设定的值：<ul>
+<li><code>LIMIT</code>总是设定为<code>pageSize</code>；</li>
+<li>使用<code>LIMIT  OFFSET</code>分页时，随着<code>N</code>越来越大，查询效率也会越来越低。</li>
+<li><code>OFFSET</code>计算公式为<code>pageSize * (pageIndex - 1)</code>。</li>
+<li><code>OFFSET</code>超过了查询的最大数量并不会报错，而是得到一个空的结果集。</li>
+</ul>
+</li>
+</ul>
+<h3 id="46">4.6. 聚合查询<a class="headerlink" href="#46" title="Permanent link">&para;</a></h3>
+<ul>
+<li>除了<code>COUNT()</code>函数外，SQL还提供了如下聚合函数：<ul>
+<li>SUM计算某一列的合计值，该列必须为数值类型</li>
+<li>AVG计算某一列的平均值，该列必须为数值类型</li>
+<li>MAX计算某一列的最大值</li>
+<li>MIN计算某一列的最小值</li>
+</ul>
+</li>
+<li>如果聚合查询的<code>WHERE</code>条件没有匹配到任何行，<code>COUNT()</code>会返回0，</li>
+<li>而<code>SUM()</code>、<code>AVG()</code>、<code>MAX()</code>和<code>MIN()</code>会返回<code>NULL</code>：</li>
+</ul>
+<h3 id="47">4.7. 多表查询<a class="headerlink" href="#47" title="Permanent link">&para;</a></h3>
+<ul>
+<li>SQL还允许给表设置一个别名，</li>
+<li>使用多表查询可以获取M x N行记录；</li>
+</ul>
+<h3 id="48">4.8. 连接查询<a class="headerlink" href="#48" title="Permanent link">&para;</a></h3>
+<ul>
+<li>JOIN查询需要先确定主表，然后把另一个表的数据“附加”到结果集上；</li>
+<li>INNER JOIN是最常用的一种JOIN查询，它的语法是<code>SELECT ... FROM &lt;表1&gt; INNER JOIN &lt;表2&gt; ON &lt;条件...&gt;</code>；</li>
+<li>JOIN查询仍然可以使用<code>WHERE</code>条件和<code>ORDER BY</code>排序。</li>
+</ul>
+<h2 id="5">5. 修改数据<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="51-insert">5.1. INSERT<a class="headerlink" href="#51-insert" title="Permanent link">&para;</a></h3>
+<ul>
+<li>INSERT INTO &lt;表名&gt; (字段1, 字段2, ...) VALUES (值1, 值2, ...);</li>
+</ul>
+<h3 id="52-update">5.2. UPDATE<a class="headerlink" href="#52-update" title="Permanent link">&para;</a></h3>
+<ul>
+<li>UPDATE &lt;表名&gt; SET 字段1=值1, 字段2=值2, ... WHERE ...;</li>
+<li>在<code>UPDATE</code>语句中，更新字段时可以使用表达式。</li>
+<li>最好先用<code>SELECT</code>语句来测试<code>WHERE</code>条件是否筛选出了期望的记录集，然后再用<code>UPDATE</code>更新。</li>
+<li>在使用MySQL这类真正的关系数据库时，<code>UPDATE</code>语句会返回更新的行数以及<code>WHERE</code>条件匹配的行数。</li>
+</ul>
+<h3 id="53-delete">5.3. DELETE<a class="headerlink" href="#53-delete" title="Permanent link">&para;</a></h3>
+<h2 id="6-mysql">6. MySQL<a class="headerlink" href="#6-mysql" title="Permanent link">&para;</a></h2>
+<h3 id="61-mysql">6.1. 管理MySQL<a class="headerlink" href="#61-mysql" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code># 查看表的结构
+DESC students;
+# 增加表列的结构
+ALTER TABLE students ADD COLUMN birth VARCHAR(10) NOT NULL;
+# 修改表列的结构
+ALTER TABLE students CHANGE COLUMN birth birthday VARCHAR(20) NOT NULL;
+</code></pre></div>
+
+<h3 id="62-sql">6.2. 实用SQL语句<a class="headerlink" href="#62-sql" title="Permanent link">&para;</a></h3>
+<p>插入或替换
+- 若<code>id=1</code>的记录不存在，<code>REPLACE</code>语句将插入新记录，否则，当前<code>id=1</code>的记录将被删除，然后再插入新记录。
+<code>replace into students (id, class_id, name, gender, score) values (1, 1, '小明', 'F', 99);</code></p>
+<p>插入或更新
+- 如果记录已经存在，则更新，若不存在，则新增
+<code>INSERT INTO students (id, class_id, name, gender, score) VALUES (1, 1, '小明', 'F', 99) ON DUPLICATE KEY UPDATE name='小明', gender='F', score=99;</code></p>
+<p>插入或忽略
+- 如果我们希望插入一条新记录（INSERT），但如果记录已经存在，就啥事也不干直接忽略
+<code>insert ignore into students (id, class_id, name, gendar, score) values (1, 1, '小花', 'F', 100);</code></p>
+<p>快照
+- 如果想要对一个表进行快照，即复制一份当前表的数据到一个新表，可以结合<code>CREATE TABLE</code>和<code>SELECT</code>：
+<code>create table students_of_class1 select * from students where class_id = 1;</code></p>
+<p>写入查询结果集
+<code>INSERT INTO statistics (class_id, average) SELECT class_id, AVG(score) FROM students GROUP BY class_id;</code></p>
+<p>强制使用指定索引
+- 在查询的时候，数据库系统会自动分析查询语句，并选择一个最合适的索引。但是很多时候，数据库系统的查询优化器并不一定总是能使用最优索引。如果我们知道如何选择索引，可以使用<code>FORCE INDEX</code>强制查询使用指定的索引。例如：
+<code>SELECT * FROM students FORCE INDEX (idx_class_id) WHERE class_id = 1 ORDER BY id DESC;</code>
+    - 指定索引的前提是索引<code>idx_class_id</code>必须存在。</p>
+<h2 id="7">7. <a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1179611198786848">事务</a><a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>数据库事务具有ACID这4个特性：</li>
+<li>A：Atomic，原子性，将所有SQL作为原子工作单元执行，要么全部执行，要么全部不执行；</li>
+<li>C：Consistent，一致性，事务完成后，所有数据的状态都是一致的，即A账户只要减去了100，B账户则必定加上了100；</li>
+<li>I：Isolation，隔离性，如果有多个事务并发执行，每个事务作出的修改必须与其他事务隔离；</li>
+<li>D：Duration，持久性，即事务完成后，对数据库数据的修改被持久化存储。</li>
+<li>隐式事务<ul>
+<li>对于单条SQL语句，数据库系统自动将其作为一个事务执行，这种事务被称为*隐式事务*。</li>
+</ul>
+</li>
+<li>显式事务<ul>
+<li>要手动把多条SQL语句作为一个事务执行，使用<code>BEGIN</code>开启一个事务，使用<code>COMMIT</code>提交一个事务，这种事务被称为*显式事务*</li>
+</ul>
+</li>
+<li>四种隔离级别<ul>
+<li>Read uncommitted</li>
+<li>Read committed</li>
+<li>Repeatable read</li>
+<li>Serializable</li>
+</ul>
+</li>
+</ul>
+<h3 id="71-read-uncommitted">7.1. Read Uncommitted<a class="headerlink" href="#71-read-uncommitted" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Read Uncommitted是隔离级别最低的一种事务级别。在这种隔离级别下，一个事务会读到另一个事务更新后但未提交的数据，如果另一个事务回滚，那么当前事务读到的数据就是脏数据，这就是脏读（Dirty Read）。<ul>
+<li>在Read Uncommitted隔离级别下，一个事务可能读取到另一个事务更新但未提交的数据，这个数据有可能是脏数据。</li>
+</ul>
+</li>
+</ul>
+<h3 id="72-read-committed">7.2. Read Committed<a class="headerlink" href="#72-read-committed" title="Permanent link">&para;</a></h3>
+<ul>
+<li>在Read Committed隔离级别下，一个事务可能会遇到不可重复读（Non Repeatable Read）的问题。</li>
+<li>在Read Committed隔离级别下，事务不可重复读同一条记录，因为很可能读到的结果不一致。</li>
+</ul>
+<h3 id="73-repeatable-read">7.3. Repeatable Read<a class="headerlink" href="#73-repeatable-read" title="Permanent link">&para;</a></h3>
+<ul>
+<li>在Repeatable Read隔离级别下，一个事务可能会遇到幻读（Phantom Read）的问题。</li>
+<li>幻读是指，在一个事务中，第一次查询某条记录，发现没有，但是，当试图更新这条不存在的记录时，竟然能成功，并且，再次读取同一条记录，它就神奇地出现了。</li>
+</ul>
+<h3 id="74-serializable">7.4. Serializable<a class="headerlink" href="#74-serializable" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Serializable是最严格的隔离级别。在Serializable隔离级别下，所有事务按照次序依次执行，因此，脏读、不可重复读、幻读都不会出现。</li>
+<li>默认隔离级别
+    如果没有指定隔离级别，数据库就会使用默认的隔离级别。在MySQL中，如果使用InnoDB，默认的隔离级别是Repeatable Read。</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

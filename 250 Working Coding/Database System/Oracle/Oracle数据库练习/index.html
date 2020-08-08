@@ -1,0 +1,1404 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Database%20System/Oracle/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%83%E4%B9%A0/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Oracle 数据库练习 - Abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#oracle" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Oracle 数据库练习
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../AarWiki/" title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      310 Learning English
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="310 Learning English" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        310 Learning English
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../310%20Learning%20Language/an-Overview%20of%20English%20Learning/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    原始数据
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    练习题目
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    SQL文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    参考答案
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/AarWiki/edit/master/docs/250 Working Coding/Database System/Oracle/Oracle数据库练习.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="oracle">Oracle 数据库练习<a class="headerlink" href="#oracle" title="Permanent link">&para;</a></h1>
+<h2 id="_1">原始数据<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>安装完成Oracle 数据库后，即可得到以下数据：</p>
+<p><strong>Table：<code>Emp</code></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>EMPNO</th>
+<th>ENAME</th>
+<th>JOB</th>
+<th>MGR</th>
+<th>HIREDATE</th>
+<th>SAL</th>
+<th>COMM</th>
+<th>DEPTNO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1234</td>
+<td>CAI%10</td>
+<td>ANALYST</td>
+<td>7782</td>
+<td>2020/6/1</td>
+<td>12000.00</td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>7369</td>
+<td>SMITH</td>
+<td>CLERK</td>
+<td>7902</td>
+<td>1980/12/17</td>
+<td>800.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>3</td>
+<td>7499</td>
+<td>ALLEN</td>
+<td>SALESMAN</td>
+<td>7698</td>
+<td>1981/2/20</td>
+<td>1600.00</td>
+<td>300.00</td>
+<td>30</td>
+</tr>
+<tr>
+<td>4</td>
+<td>7521</td>
+<td>WARD</td>
+<td>SALESMAN</td>
+<td>7698</td>
+<td>1981/2/22</td>
+<td>1250.00</td>
+<td>500.00</td>
+<td>30</td>
+</tr>
+<tr>
+<td>5</td>
+<td>7566</td>
+<td>JONES</td>
+<td>MANAGER</td>
+<td>7839</td>
+<td>1981/4/2</td>
+<td>2975.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>6</td>
+<td>7654</td>
+<td>MARTIN</td>
+<td>SALESMAN</td>
+<td>7698</td>
+<td>1981/9/28</td>
+<td>1250.00</td>
+<td>1400.00</td>
+<td>30</td>
+</tr>
+<tr>
+<td>7</td>
+<td>7698</td>
+<td>BLAKE</td>
+<td>MANAGER</td>
+<td>7839</td>
+<td>1981/5/1</td>
+<td>2850.00</td>
+<td></td>
+<td>30</td>
+</tr>
+<tr>
+<td>8</td>
+<td>7782</td>
+<td>CLARK</td>
+<td>MANAGER</td>
+<td>7839</td>
+<td>1981/6/9</td>
+<td>2450.00</td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>9</td>
+<td>7788</td>
+<td>SCOTT</td>
+<td>ANALYST</td>
+<td>7566</td>
+<td>1987/4/19</td>
+<td>3000.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>10</td>
+<td>7839</td>
+<td>KING</td>
+<td>PRESIDENT</td>
+<td></td>
+<td>1981/11/17</td>
+<td>5000.00</td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>11</td>
+<td>7844</td>
+<td>TURNER</td>
+<td>SALESMAN</td>
+<td>7698</td>
+<td>1981/9/8</td>
+<td>1500.00</td>
+<td>0.00</td>
+<td>30</td>
+</tr>
+<tr>
+<td>12</td>
+<td>7876</td>
+<td>ADAMS</td>
+<td>CLERK</td>
+<td>7788</td>
+<td>1987/5/23</td>
+<td>1100.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>13</td>
+<td>7900</td>
+<td>JAMES</td>
+<td>CLERK</td>
+<td>7698</td>
+<td>1981/12/3</td>
+<td>950.00</td>
+<td></td>
+<td>30</td>
+</tr>
+<tr>
+<td>14</td>
+<td>7902</td>
+<td>FORD</td>
+<td>ANALYST</td>
+<td>7566</td>
+<td>1981/12/3</td>
+<td>3000.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>15</td>
+<td>7934</td>
+<td>MILLER</td>
+<td>CLERK</td>
+<td>7782</td>
+<td>1982/1/23</td>
+<td>1300.00</td>
+<td></td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>原始表格并没有第一列，第一列数据为手工添加。便于查询练习。</li>
+</ul>
+<p><strong>Table：<code>Dept</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>DEPTNO</th>
+<th>DNAME</th>
+<th>LOC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>ACCOUNTING</td>
+<td>NEW YORK</td>
+</tr>
+<tr>
+<td>2</td>
+<td>20</td>
+<td>RESEARCH</td>
+<td>DALLAS</td>
+</tr>
+<tr>
+<td>3</td>
+<td>30</td>
+<td>SALES</td>
+<td>CHICAGO</td>
+</tr>
+<tr>
+<td>4</td>
+<td>40</td>
+<td>OPERATIONS</td>
+<td>BOSTON</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table：<code>salgrade</code></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>GRADE</th>
+<th>LOSAL</th>
+<th>HISAL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>700</td>
+<td>1200</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>1201</td>
+<td>1400</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>1401</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>2001</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>5</td>
+<td>5</td>
+<td>3001</td>
+<td>9999</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">练习题目<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>题目要求：根据Oracle数据库scott模式下的 <code>emp</code> 表和 <code>dept</code> 表，完成下列操作。</p>
+<ol>
+<li>查询20号部门的所有员工信息。</li>
+<li>查询所有工种为CLERK的员工的工号、员工名和部门名。</li>
+<li>查询奖金（COMM）高于工资（SAL）的员工信息。</li>
+<li>查询奖金高于工资的20%的员工信息。</li>
+<li>查询10号部门中工种为MANAGER和20号部门中工种为CLERK的员工的信息。</li>
+<li>查询所有工种不是MANAGER和CLERK，且工资大于或等于2000的员工的详细信息。</li>
+<li>查询有奖金的员工的不同工种。</li>
+<li>查询所有员工工资和奖金的和。</li>
+<li>查询没有奖金或奖金低于100的员工信息。</li>
+<li>查询各月倒数第2天入职的员工信息。</li>
+<li>查询员工工龄大于或等于10年的员工信息。</li>
+<li>查询员工信息，要求以首字母大写的方式显示所有员工的姓名。</li>
+<li>查询员工名正好为6个字符的员工的信息。</li>
+<li>查询员工名字中不包含字母"S"员工。</li>
+<li>查询员工姓名的第2个字母为"M"的员工信息。</li>
+<li>查询所有员工姓名的前3个字符。</li>
+<li>查询所有员工的姓名，如果包含字母"s"，则用"S"替换。</li>
+<li>查询员工的姓名和入职日期，并按入职日期从先到后进行排列。</li>
+<li>显示所有的姓名、工种、工资和奖金，按工种降序排列，若工种相同则按工资升序排列。</li>
+<li>显示所有员工的姓名、入职的年份和月份，若入职日期所在的月份排序，若月份相同则按入职的年份排序。</li>
+<li>查询在2月份入职的所有员工信息。</li>
+<li>查询所有员工入职以来的工作期限，用"**年**月**日"的形式表示。</li>
+<li>查询至少有一个员工的部门信息。</li>
+<li>查询工资比SMITH员工工资高的所有员工信息。</li>
+<li>查询所有员工的姓名及其直接上级的姓名。</li>
+<li>查询入职日期早于其直接上级领导的所有员工信息。</li>
+<li>查询所有部门及其员工信息，包括那些没有员工的部门。</li>
+<li>查询所有员工及其部门信息，包括那些还不属于任何部门的员工。</li>
+<li>查询所有工种为CLERK的员工的姓名及其部门名称。</li>
+<li>查询最低工资大于2500的各种工作。</li>
+<li>查询最低工资低于2000的部门及其员工信息。</li>
+<li>查询在SALES部门工作的员工的姓名信息。</li>
+<li>查询工资高于公司平均工资的所有员工信息。</li>
+<li>查询与SMITH员工从事相同工作的所有员工信息。</li>
+<li>列出工资等于30号部门中某个员工工资的所有员工的姓名和工资。</li>
+<li>查询工资高于30号部门中工作的所有员工的工资的员工姓名和工资。</li>
+<li>查询每个部门中的员工数量、平均工资和平均工作年限。</li>
+<li>查询从事同一种工作但不属于同一部门的员工信息。</li>
+<li>查询各个部门的详细信息以及部门人数、部门平均工资。</li>
+<li>查询各种工作的最低工资。</li>
+<li>查询各个部门中的不同工种的最高工资。</li>
+<li>查询10号部门员工以及领导的信息。</li>
+<li>查询各个部门的人数及平均工资。</li>
+<li>查询工资为某个部门平均工资的员工信息。</li>
+<li>查询工资高于本部门平均工资的员工的信息。</li>
+<li>查询工资高于本部门平均工资的员工的信息及其部门的平均工资。</li>
+<li>查询工资高于20号部门某个员工工资的员工的信息。</li>
+<li>统计各个工种的人数与平均工资。</li>
+<li>统计每个部门中各个工种的人数与平均工资。</li>
+<li>查询工资、奖金与10 号部门某个员工工资、奖金都相同的员工的信息。</li>
+<li>查询部门人数大于5的部门的员工的信息。</li>
+<li>查询所有员工工资都大于1000的部门的信息。</li>
+<li>查询所有员工工资都大于1000的部门的信息及其员工信息。</li>
+<li>查询所有员工工资都在900~3000之间的部门的信息。</li>
+<li>查询所有工资都在900~3000之间的员工所在部门的员工信息。</li>
+<li>查询每个员工的领导所在部门的信息。</li>
+<li>查询人数最多的部门信息。</li>
+<li>查询30号部门中工资排序前3名的员工信息。</li>
+<li>查询所有员工中工资排在5~10名之间的员工信息。</li>
+<li>向emp表中插入一条记录，员工号为1357，员工名字为oracle，工资为2050元，部门号为20，入职日期为2002年5月10日。</li>
+<li>向emp表中插入一条记录，员工名字为FAN，员工号为8000，其他信息与SMITH员工的信息相同。</li>
+<li>将各部门员工的工资修改为该员工所在部门平均工资加1000。</li>
+</ol>
+<p>1、查询82年员工</p>
+<p>2、查询32年工龄的人员</p>
+<p>3、显示员工雇佣期 6 个月后下一个星期一的日期</p>
+<p>4、找没有上级的员工，把mgr的字段信息输出为 \"boss\"</p>
+<p>5、为所有人长工资，标准是：10部门长10%；20部门长15%；30部门长20%其他部门长18%</p>
+<p>Oracle_练习与答案</p>
+<ol>
+<li>
+<p>求部门中薪水最高的人</p>
+</li>
+<li>
+<p>求部门平均薪水的等级</p>
+</li>
+</ol>
+<p>3. 求部门平均的薪水等级 </p>
+<p>4. 雇员中有哪些人是经理人 </p>
+<p>5. 不准用组函数，求薪水的最高值 </p>
+<ol>
+<li>求平均薪水最高的部门的部门编号 </li>
+</ol>
+<blockquote>
+<p>组函数嵌套写法(对多可以嵌套一次，group by 只对内层函数有效) </p>
+</blockquote>
+<ol>
+<li>
+<p>求平均薪水最高的部门的部门名称 </p>
+</li>
+<li>
+<p>求平均薪水的等级最低的部门的部门名称 </p>
+</li>
+<li>
+<p>求部门经理人中平均薪水最低的部门名称</p>
+</li>
+</ol>
+<p>10. 求比普通员工的最高薪水还要高的经理人名称(not in) </p>
+<p>11. 求薪水最高的前5名雇员 </p>
+<ol>
+<li>求薪水最高的第6到第10名雇(!important) </li>
+</ol>
+<p>13. 求最后入职的5名员工 </p>
+<h2 id="sql">SQL文件<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 根据Oracle数据库scott模式下的 `emp` 表和 `dept` 表，完成下列操作。</span>
+
+<span class="c1">-- 1.  查询20号部门的所有员工信息。</span>
+
+<span class="c1">-- 2.  查询所有工种为CLERK的员工的工号、员工名和部门名。</span>
+
+<span class="c1">-- 3.  查询奖金（COMM）高于工资（SAL）的员工信息。</span>
+
+<span class="c1">-- 4.  查询奖金高于工资的20%的员工信息。</span>
+
+<span class="c1">-- 5.  查询10号部门中工种为MANAGER和20号部门中工种为CLERK的员工的信息。</span>
+
+<span class="c1">-- 6.  查询所有工种不是MANAGER和CLERK，且工资大于或等于2000的员工的详细信息。</span>
+
+<span class="c1">-- 7.  查询有奖金的员工的不同工种。</span>
+
+<span class="c1">-- 8.  查询所有员工工资和奖金的和。</span>
+
+<span class="c1">-- 9.  查询没有奖金或奖金低于100的员工信息。</span>
+
+<span class="c1">-- 10.  查询各月倒数第2天入职的员工信息。</span>
+
+<span class="c1">-- 11.  查询员工工龄大于或等于10年的员工信息。</span>
+
+<span class="c1">-- 12.  查询员工信息，要求以首字母大写的方式显示所有员工的姓名。</span>
+
+<span class="c1">-- 13.  查询员工名正好为6个字符的员工的信息。</span>
+
+<span class="c1">-- 14.  查询员工名字中不包含字母&quot;S&quot;员工。</span>
+
+<span class="c1">-- 15.  查询员工姓名的第2个字母为&quot;M&quot;的员工信息。</span>
+
+<span class="c1">-- 16.  查询所有员工姓名的前3个字符。</span>
+
+<span class="c1">-- 17.  查询所有员工的姓名，如果包含字母&quot;s&quot;，则用&quot;S&quot;替换。</span>
+
+<span class="c1">-- 18.  查询员工的姓名和入职日期，并按入职日期从先到后进行排列。</span>
+
+<span class="c1">-- 19.  显示所有的姓名、工种、工资和奖金，按工种降序排列，若工种相同则按工资升序排列。</span>
+
+<span class="c1">-- 20.  显示所有员工的姓名、入职的年份和月份，若入职日期所在的月份排序，若月份相同则按入职的年份排序。</span>
+
+<span class="c1">-- 21.  查询在2月份入职的所有员工信息。</span>
+
+<span class="c1">-- 22.  查询所有员工入职以来的工作期限，用&quot;\*\*年\*\*月\*\*日&quot;的形式表示。</span>
+
+<span class="c1">-- 23.  查询至少有一个员工的部门信息。</span>
+
+<span class="c1">-- 24.  查询工资比SMITH员工工资高的所有员工信息。</span>
+
+<span class="c1">-- 25.  查询所有员工的姓名及其直接上级的姓名。</span>
+
+<span class="c1">-- 26.  查询入职日期早于其直接上级领导的所有员工信息。</span>
+
+<span class="c1">-- 27.  查询所有部门及其员工信息，包括那些没有员工的部门。</span>
+
+<span class="c1">-- 28.  查询所有员工及其部门信息，包括那些还不属于任何部门的员工。</span>
+
+<span class="c1">-- 29.  查询所有工种为CLERK的员工的姓名及其部门名称。</span>
+
+<span class="c1">-- 30.  查询最低工资大于2500的各种工作。</span>
+
+<span class="c1">-- 31.  查询最低工资低于2000的部门及其员工信息。</span>
+
+<span class="c1">-- 32.  查询在SALES部门工作的员工的姓名信息。</span>
+
+<span class="c1">-- 33.  查询工资高于公司平均工资的所有员工信息。</span>
+
+<span class="c1">-- 34.  查询与SMITH员工从事相同工作的所有员工信息。</span>
+
+<span class="c1">-- 35.  列出工资等于30号部门中某个员工工资的所有员工的姓名和工资。</span>
+
+<span class="c1">-- 36.  查询工资高于30号部门中工作的所有员工的工资的员工姓名和工资。</span>
+
+<span class="c1">-- 37.  查询每个部门中的员工数量、平均工资和平均工作年限。</span>
+
+<span class="c1">-- 38.  查询从事同一种工作但不属于同一部门的员工信息。</span>
+
+<span class="c1">-- 39.  查询各个部门的详细信息以及部门人数、部门平均工资。</span>
+
+<span class="c1">-- 40.  查询各种工作的最低工资。</span>
+
+<span class="c1">-- 41.  查询各个部门中的不同工种的最高工资。</span>
+
+<span class="c1">-- 42.  查询10号部门员工以及领导的信息。</span>
+
+<span class="c1">-- 43.  查询各个部门的人数及平均工资。</span>
+
+<span class="c1">-- 44.  查询工资为某个部门平均工资的员工信息。</span>
+
+<span class="c1">-- 45.  查询工资高于本部门平均工资的员工的信息。</span>
+
+<span class="c1">-- 46.  查询工资高于本部门平均工资的员工的信息及其部门的平均工资。</span>
+
+<span class="c1">-- 47.  查询工资高于20号部门某个员工工资的员工的信息。</span>
+
+<span class="c1">-- 48.  统计各个工种的人数与平均工资。</span>
+
+<span class="c1">-- 49.  统计每个部门中各个工种的人数与平均工资。</span>
+
+<span class="c1">-- 50.  查询工资、奖金与10 号部门某个员工工资、奖金都相同的员工的信息。</span>
+
+<span class="c1">-- 51.  查询部门人数大于5的部门的员工的信息。</span>
+
+<span class="c1">-- 52.  查询所有员工工资都大于1000的部门的信息。</span>
+
+<span class="c1">-- 53.  查询所有员工工资都大于1000的部门的信息及其员工信息。</span>
+
+<span class="c1">-- 54.  查询所有员工工资都在900\~3000之间的部门的信息。</span>
+
+<span class="c1">-- 55.  查询所有工资都在900\~3000之间的员工所在部门的员工信息。</span>
+
+<span class="c1">-- 56.  查询每个员工的领导所在部门的信息。</span>
+
+<span class="c1">-- 57.  查询人数最多的部门信息。</span>
+
+<span class="c1">-- 58.  查询30号部门中工资排序前3名的员工信息。</span>
+
+<span class="c1">-- 59.  查询所有员工中工资排在5\~10名之间的员工信息。</span>
+
+<span class="c1">-- 60.  向emp表中插入一条记录，员工号为1357，员工名字为oracle，工资为2050元，部门号为20，入职日期为2002年5月10日。</span>
+
+<span class="c1">-- 61.  向emp表中插入一条记录，员工名字为FAN，员工号为8000，其他信息与SMITH员工的信息相同。</span>
+
+<span class="c1">-- 62.  将各部门员工的工资修改为该员工所在部门平均工资加1000。</span>
+
+<span class="c1">-- 1、查询82年员工</span>
+
+<span class="c1">-- 2、查询32年工龄的人员</span>
+
+<span class="c1">-- 3、显示员工雇佣期 6 个月后下一个星期一的日期</span>
+
+<span class="c1">-- 4、找没有上级的员工，把mgr的字段信息输出为 \&quot;boss\&quot;</span>
+
+<span class="c1">-- 5、为所有人长工资，标准是：10部门长10%；20部门长15%；30部门长20%其他部门长18%</span>
+
+<span class="c1">-- Oracle\_练习与答案</span>
+
+<span class="c1">-- 1.求部门中薪水最高的人</span>
+
+<span class="c1">-- 2.求部门平均薪水的等级</span>
+
+<span class="c1">-- 3. 求部门平均的薪水等级 </span>
+
+<span class="c1">-- 4. 雇员中有哪些人是经理人 </span>
+
+<span class="c1">-- 5. 不准用组函数，求薪水的最高值 </span>
+
+<span class="c1">-- 6. 求平均薪水最高的部门的部门编号 </span>
+
+<span class="c1">-- &gt; 组函数嵌套写法(对多可以嵌套一次，group by 只对内层函数有效) </span>
+
+<span class="c1">-- 7. 求平均薪水最高的部门的部门名称 </span>
+
+<span class="c1">-- 8. 求平均薪水的等级最低的部门的部门名称 </span>
+
+<span class="c1">-- 9. 求部门经理人中平均薪水最低的部门名称</span>
+
+<span class="c1">-- 10. 求比普通员工的最高薪水还要高的经理人名称(not in) </span>
+
+<span class="c1">-- 11. 求薪水最高的前5名雇员 </span>
+
+<span class="c1">-- 12. 求薪水最高的第6到第10名雇(!important) </span>
+
+<span class="c1">-- 13. 求最后入职的5名员工 </span>
+</code></pre></div>
+
+<h2 id="_3">参考答案<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

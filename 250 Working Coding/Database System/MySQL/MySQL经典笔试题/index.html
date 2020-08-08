@@ -1,0 +1,1241 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Database%20System/MySQL/MySQL%E7%BB%8F%E5%85%B8%E7%AC%94%E8%AF%95%E9%A2%98/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>MySQL 经典笔试题 - Abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mysql" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              MySQL 经典笔试题
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../AarWiki/" title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      310 Learning English
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="310 Learning English" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        310 Learning English
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../310%20Learning%20Language/an-Overview%20of%20English%20Learning/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    数据重排
+  </a>
+  
+    <nav class="md-nav" aria-label="数据重排">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    创建数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    题目
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    解答
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-by-sql" class="md-nav__link">
+    关于 group by 的SQL面试题
+  </a>
+  
+    <nav class="md-nav" aria-label="关于 group by 的SQL面试题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    表内容
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    题目
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 创建数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    创建数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    题目
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    请用一句SQL得出结果
+  </a>
+  
+    <nav class="md-nav" aria-label="请用一句SQL得出结果">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    题目
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1. 创建数据
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/AarWiki/edit/master/docs/250 Working Coding/Database System/MySQL/MySQL经典笔试题.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="mysql">MySQL 经典笔试题<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h1>
+<h2 id="_1">数据重排<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>中国移动SQL面试题：使用SQL语句创建的数据完成要求。</p>
+<h3 id="_2">创建数据<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">table</span> <span class="n">CMCC</span><span class="p">(</span>
+   <span class="n">id</span> <span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+   <span class="k">type</span> <span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">,</span>
+   <span class="n">t_id</span> <span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+   <span class="n">value</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">CMCC</span> <span class="k">values</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;张三&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">CMCC</span> <span class="k">values</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;男&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">CMCC</span> <span class="k">values</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;50&#39;</span><span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">CMCC</span> <span class="k">values</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;刘二&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">CMCC</span> <span class="k">values</span><span class="p">(</span><span class="mi">201</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;男&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">CMCC</span> <span class="k">values</span><span class="p">(</span><span class="mi">301</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;30&#39;</span><span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">CMCC</span> <span class="k">values</span><span class="p">(</span><span class="mi">102</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;刘三&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">CMCC</span> <span class="k">values</span><span class="p">(</span><span class="mi">202</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;女&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">CMCC</span> <span class="k">values</span><span class="p">(</span><span class="mi">302</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;10&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="_3">题目<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>请写出一条查询语句结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>性别</th>
+<th>年龄</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>张三</td>
+<td>男</td>
+<td>50</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">解答<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 表单查询</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">CMCC</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="nf">decode</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="err">姓名</span><span class="p">,</span>
+       <span class="nf">decode</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="err">性别</span><span class="p">,</span>
+       <span class="nf">decode</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="err">年龄</span><span class="p">,</span>
+  <span class="k">from</span> <span class="n">CMCC</span><span class="p">;</span>
+
+<span class="c1">-- 首先分组，再过滤 null</span>
+<span class="k">select</span> <span class="nf">max</span><span class="p">(</span><span class="nf">decode</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span> <span class="err">姓名</span><span class="p">,</span>
+       <span class="nf">max</span><span class="p">(</span><span class="nf">decode</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span> <span class="err">性别</span><span class="p">,</span>
+       <span class="nf">max</span><span class="p">(</span><span class="nf">decode</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span> <span class="err">年龄</span><span class="p">,</span>
+  <span class="k">from</span> <span class="n">CMCC</span> <span class="k">group</span> <span class="k">by</span> <span class="n">t_id</span><span class="p">;</span>
+</code></pre></div>
+
+<h2 id="group-by-sql">关于 <code>group by</code> 的SQL面试题<a class="headerlink" href="#group-by-sql" title="Permanent link">&para;</a></h2>
+<h3 id="_5">表内容<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>2005-05-09 胜
+2005-05-09 胜
+2005-05-09 负
+2005-05-09 负
+2005-05-10 胜
+2005-05-10 负
+2005-05-10 负
+</code></pre></div>
+
+<h3 id="_6">题目<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>如果要生成下列结果, 该如何写sql语句?</p>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>胜</th>
+<th>负</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2005-05-09</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2005-05-10</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1">1. 创建数据<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">table</span> <span class="k">group</span><span class="p">(</span>
+    <span class="n">rq</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">shengfu</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="k">group</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;2005-05-09&#39;</span><span class="p">,</span><span class="s1">&#39;胜&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="k">group</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;2005-05-09&#39;</span><span class="p">,</span><span class="s1">&#39;胜&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="k">group</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;2005-05-09&#39;</span><span class="p">,</span><span class="s1">&#39;负&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="k">group</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;2005-05-09&#39;</span><span class="p">,</span><span class="s1">&#39;负&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="k">group</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;2005-05-10&#39;</span><span class="p">,</span><span class="s1">&#39;胜&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="k">group</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;2005-05-10&#39;</span><span class="p">,</span><span class="s1">&#39;负&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="k">group</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;2005-05-10&#39;</span><span class="p">,</span><span class="s1">&#39;负&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<p>## 编写SQL语句完成要求</p>
+<h3 id="_7">创建数据<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">table</span> <span class="n">STUDENT_SCORE</span>
+<span class="p">(</span>
+  <span class="n">name</span>    <span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+  <span class="n">subject</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+  <span class="n">score</span>   <span class="nb">NUMBER</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">student_score</span> <span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">SUBJECT</span><span class="p">,</span> <span class="n">SCORE</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span> <span class="s1">&#39;语文&#39;</span><span class="p">,</span> <span class="mi">78</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">student_score</span> <span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">SUBJECT</span><span class="p">,</span> <span class="n">SCORE</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span> <span class="s1">&#39;数学&#39;</span><span class="p">,</span> <span class="mi">88</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">student_score</span> <span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">SUBJECT</span><span class="p">,</span> <span class="n">SCORE</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span> <span class="s1">&#39;英语&#39;</span><span class="p">,</span> <span class="mi">98</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">student_score</span> <span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">SUBJECT</span><span class="p">,</span> <span class="n">SCORE</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;李四&#39;</span><span class="p">,</span> <span class="s1">&#39;语文&#39;</span><span class="p">,</span> <span class="mi">89</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">student_score</span> <span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">SUBJECT</span><span class="p">,</span> <span class="n">SCORE</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;李四&#39;</span><span class="p">,</span> <span class="s1">&#39;数学&#39;</span><span class="p">,</span> <span class="mi">76</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">student_score</span> <span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">SUBJECT</span><span class="p">,</span> <span class="n">SCORE</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;李四&#39;</span><span class="p">,</span> <span class="s1">&#39;英语&#39;</span><span class="p">,</span> <span class="mi">90</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">student_score</span> <span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">SUBJECT</span><span class="p">,</span> <span class="n">SCORE</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;王五&#39;</span><span class="p">,</span> <span class="s1">&#39;语文&#39;</span><span class="p">,</span> <span class="mi">99</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">student_score</span> <span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">SUBJECT</span><span class="p">,</span> <span class="n">SCORE</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;王五&#39;</span><span class="p">,</span> <span class="s1">&#39;数学&#39;</span><span class="p">,</span> <span class="mi">66</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">student_score</span> <span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="n">SUBJECT</span><span class="p">,</span> <span class="n">SCORE</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;王五&#39;</span><span class="p">,</span> <span class="s1">&#39;英语&#39;</span><span class="p">,</span> <span class="mi">91</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="_8">题目<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>1， 得到类似下面的结果</p>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>语文</th>
+<th>数学</th>
+<th>英语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>王五</td>
+<td>89</td>
+<td>56</td>
+<td>89</td>
+</tr>
+</tbody>
+</table>
+<p>2， 有一张表，里面有3个字段：语文，数学，英语。其中有3条记录分别表示语文70分，数学80分，英语58分，请用一条sql语句查询出这三条记录并按以下条件显示出来（并写出您的思路）：  </p>
+<p>按照分数分级
+- 大于或等于80表示优秀
+- 大于或等于60表示及格
+- 小于60分表示不及格</p>
+<p>显示格式：</p>
+<table>
+<thead>
+<tr>
+<th>语文</th>
+<th>数学</th>
+<th>英语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>及格</td>
+<td>优秀</td>
+<td>不及格</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sql">请用一句SQL得出结果<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
+<h3 id="_9">题目<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>从 <code>table1</code>, <code>table2</code> 中取出如 <code>table3</code> 所列格式数据。注意提供的数据及结果不准确，这里只是作为一个格式向大家请教。</p>
+<p><strong>Table1</strong></p>
+<table>
+<thead>
+<tr>
+<th>月份Mon</th>
+<th>部门Dep</th>
+<th>业绩yj</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一月份</td>
+<td>01</td>
+<td>10</td>
+</tr>
+<tr>
+<td>一月份</td>
+<td>02</td>
+<td>10</td>
+</tr>
+<tr>
+<td>一月份</td>
+<td>03</td>
+<td>5</td>
+</tr>
+<tr>
+<td>二月份</td>
+<td>02</td>
+<td>8</td>
+</tr>
+<tr>
+<td>二月份</td>
+<td>04</td>
+<td>9</td>
+</tr>
+<tr>
+<td>三月份</td>
+<td>03</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table2</strong></p>
+<table>
+<thead>
+<tr>
+<th>部门Dep</th>
+<th>部门名称dname</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>国内业务一部</td>
+</tr>
+<tr>
+<td>02</td>
+<td>国内业务二部</td>
+</tr>
+<tr>
+<td>03</td>
+<td>国内业务三部</td>
+</tr>
+<tr>
+<td>04</td>
+<td>国际业务部</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ttable3 （result）</strong></p>
+<table>
+<thead>
+<tr>
+<th>部门Dep</th>
+<th>一月份</th>
+<th>二月份</th>
+<th>三月份</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>02</td>
+<td>10</td>
+<td>8</td>
+<td></td>
+</tr>
+<tr>
+<td>03</td>
+<td></td>
+<td>5</td>
+<td>8</td>
+</tr>
+<tr>
+<td>04</td>
+<td></td>
+<td></td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1_1">1. 创建数据<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">create</span> <span class="k">table</span> <span class="n">yj01</span><span class="p">(</span>
+       <span class="k">month</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+       <span class="n">deptno</span> <span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+       <span class="n">yj</span> <span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yj01</span><span class="p">(</span><span class="k">month</span><span class="p">,</span><span class="n">deptno</span><span class="p">,</span><span class="n">yj</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;一月份&#39;</span><span class="p">,</span><span class="mi">01</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yj01</span><span class="p">(</span><span class="k">month</span><span class="p">,</span><span class="n">deptno</span><span class="p">,</span><span class="n">yj</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;二月份&#39;</span><span class="p">,</span><span class="mi">02</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yj01</span><span class="p">(</span><span class="k">month</span><span class="p">,</span><span class="n">deptno</span><span class="p">,</span><span class="n">yj</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;二月份&#39;</span><span class="p">,</span><span class="mi">03</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yj01</span><span class="p">(</span><span class="k">month</span><span class="p">,</span><span class="n">deptno</span><span class="p">,</span><span class="n">yj</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;三月份&#39;</span><span class="p">,</span><span class="mi">02</span><span class="p">,</span><span class="mi">8</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yj01</span><span class="p">(</span><span class="k">month</span><span class="p">,</span><span class="n">deptno</span><span class="p">,</span><span class="n">yj</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;三月份&#39;</span><span class="p">,</span><span class="mi">04</span><span class="p">,</span><span class="mi">9</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yj01</span><span class="p">(</span><span class="k">month</span><span class="p">,</span><span class="n">deptno</span><span class="p">,</span><span class="n">yj</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;三月份&#39;</span><span class="p">,</span><span class="mi">03</span><span class="p">,</span><span class="mi">8</span><span class="p">);</span>
+
+<span class="k">create</span> <span class="k">table</span> <span class="n">yjdept</span><span class="p">(</span>
+       <span class="n">deptno</span> <span class="nb">number</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+       <span class="n">dname</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yjdept</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="mi">01</span><span class="p">,</span><span class="s1">&#39;国内业务一部&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yjdept</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="mi">02</span><span class="p">,</span><span class="s1">&#39;国内业务二部&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yjdept</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="mi">03</span><span class="p">,</span><span class="s1">&#39;国内业务三部&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">yjdept</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span><span class="n">dname</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="mi">04</span><span class="p">,</span><span class="s1">&#39;国际业务部&#39;</span><span class="p">);</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4058 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Database%20System/Oracle/Oracle%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Oracle 基础入门 - Abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#oracle" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Oracle 基础入门
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../AarWiki/" title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      310 Learning English
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="310 Learning English" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        310 Learning English
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../310%20Learning%20Language/an-Overview%20of%20English%20Learning/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    SQL语言
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL语言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基本概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_1" class="md-nav__link">
+    SQL分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oracle_1" class="md-nav__link">
+    Oracle 基本介绍
+  </a>
+  
+    <nav class="md-nav" aria-label="Oracle 基本介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1.  数据库的版本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 数据库实例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 服务配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 账号管理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 常用命令
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    新建数据库实例
+  </a>
+  
+    <nav class="md-nav" aria-label="新建数据库实例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oracle_2" class="md-nav__link">
+    Oracle 新建数据库
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oracle_3" class="md-nav__link">
+    Oracle 基本操作
+  </a>
+  
+    <nav class="md-nav" aria-label="Oracle 基本操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scott" class="md-nav__link">
+    SCOTT 基础表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    基本查询
+  </a>
+  
+    <nav class="md-nav" aria-label="基本查询">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    表结构认知
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    注释
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    条件查询 where
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    排序 order by
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    计算字段
+  </a>
+  
+    <nav class="md-nav" aria-label="计算字段">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nvl" class="md-nav__link">
+    通用函数 nvl()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    并集，全集，交集，差集
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    复习练习
+  </a>
+  
+    <nav class="md-nav" aria-label="复习练习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oracle_4" class="md-nav__link">
+    Oracle数据库日期范围查询
+  </a>
+  
+    <nav class="md-nav" aria-label="Oracle数据库日期范围查询">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to_date" class="md-nav__link">
+    to_date() 方式：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_char" class="md-nav__link">
+    to_char()方式：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    Reference
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oracle_5" class="md-nav__link">
+    Oracle 函数调用
+  </a>
+  
+    <nav class="md-nav" aria-label="Oracle 函数调用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sql" class="md-nav__link">
+    1. SQL 函数概述
+  </a>
+  
+    <nav class="md-nav" aria-label="1. SQL 函数概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    字符函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    数字函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    日期函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    转换函数
+  </a>
+  
+    <nav class="md-nav" aria-label="转换函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to_char_1" class="md-nav__link">
+    to_char() 操作日期
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_char_2" class="md-nav__link">
+    to_char() 操作数字
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_date_1" class="md-nav__link">
+    to_date() 转换字符串
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_number" class="md-nav__link">
+    to_number() 转换字符串
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    转换函数最佳实践
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    单行函数嵌套
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    条件函数
+  </a>
+  
+    <nav class="md-nav" aria-label="条件函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    案例：中国移动面试题
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    课堂练习
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    组函数：聚组/分组
+  </a>
+  
+    <nav class="md-nav" aria-label="组函数：聚组/分组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nvl_1" class="md-nav__link">
+    分组函数中使用 NVL() 函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    数据分组
+  </a>
+  
+    <nav class="md-nav" aria-label="数据分组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    分组过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_2" class="md-nav__link">
+    SQL语法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select" class="md-nav__link">
+    Select子句 顺序
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    课堂练习
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oracle_6" class="md-nav__link">
+    Oracle 关联查询
+  </a>
+  
+    <nav class="md-nav" aria-label="Oracle 关联查询">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sql_3" class="md-nav__link">
+    SQL 语句的表连接
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL 语句的表连接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    语法规则
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-92" class="md-nav__link">
+    SQL-92语法 表连接
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL-92语法 表连接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    基本概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    笛卡尔积
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equi-join" class="md-nav__link">
+    等值连接 Equi join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-equi-join" class="md-nav__link">
+    非等值连接 Non-equi join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outer-join" class="md-nav__link">
+    外连接 Outer join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-join" class="md-nav__link">
+    自连接 Self join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    最佳实践
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-99" class="md-nav__link">
+    SQL-99语法 表连接
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL-99语法 表连接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#92-to-99" class="md-nav__link">
+    92语法 to 99语法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-99_1" class="md-nav__link">
+    SQL-99 语法结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-join" class="md-nav__link">
+    交叉连接 cross join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#natural-join" class="md-nav__link">
+    自然连接 natural join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using" class="md-nav__link">
+    using 子句创建连接
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#join-on" class="md-nav__link">
+    join ... on子句创建连接
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#left-outer-join" class="md-nav__link">
+    左外连接 left outer join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#right-outer-join" class="md-nav__link">
+    右外连接 Right outer join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inner-join" class="md-nav__link">
+    默认内连接 inner join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    最佳实践
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_4" class="md-nav__link">
+    SQL 子查询
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL 子查询">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    基本概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    子查询的种类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    单行子查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    多行子查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    最佳实践
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_5" class="md-nav__link">
+    SQL 分页
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL 分页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mysql-limit" class="md-nav__link">
+    MySQL 的 limit() 函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oracle-limit" class="md-nav__link">
+    Oracle 不支持 limit() 函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    最佳实践
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    练习
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oracle_7" class="md-nav__link">
+    Oracle 索引
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/AarWiki/edit/master/docs/250 Working Coding/Database System/Oracle/Oracle基础入门.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="oracle">Oracle 基础入门<a class="headerlink" href="#oracle" title="Permanent link">&para;</a></h1>
+<h2 id="sql">SQL语言<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
+<h3 id="_1">基本概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>SQL：即结构化查询语言 (Structured Query Language)，具有定义、查询、更新和控制等多种功能，是关系数据库的标准语言。</p>
+<h3 id="sql_1">SQL分类<a class="headerlink" href="#sql_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>数据操纵语言DML：<code>Data Manipulation Language</code> <ul>
+<li><code>SELECT</code></li>
+<li><code>INSERT</code></li>
+<li><code>UPDATE</code></li>
+<li><code>DELETE</code></li>
+</ul>
+</li>
+<li>数据定义语言DDL：<code>Data definition language</code> <ul>
+<li><code>CREATE</code></li>
+<li><code>ALTER</code></li>
+<li><code>DROP</code></li>
+<li><code>RENAME</code></li>
+<li><code>TRUNCATE</code></li>
+</ul>
+</li>
+<li>数据控制语言DCL： <code>Data Control Language</code> <ul>
+<li><code>GRANT</code></li>
+<li><code>REVOKE</code></li>
+</ul>
+</li>
+<li>Transaction：<ul>
+<li><code>commit</code></li>
+<li><code>rollback</code></li>
+<li><code>savepoint</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="oracle_1">Oracle 基本介绍<a class="headerlink" href="#oracle_1" title="Permanent link">&para;</a></h2>
+<h3 id="1">1.  数据库的版本<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Oracle 8及8i：8i是过渡性产品，i表示 <code>internet</code>，向网络发展的过渡版本。</li>
+<li>Oracle9i：之前使用最广泛版本，8i的升级版。</li>
+<li>Oracle10g：700M过渡性产品，其中g表示的是网格计算。以平面网格，以中心查找。</li>
+<li><strong>Oracle11g</strong>：完整性产品，最新版本2G。</li>
+<li>Oracle12c：The world's first database designed for the cloud。</li>
+</ul>
+<h3 id="2">2. 数据库实例<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>Oracle 安装时，程序搭建了整体数据库框架。并实例化数据库，即新建全局数据库。</p>
+<ul>
+<li>
+<p>设置全局数据库名称：<code>orcl</code>，以及系统管理员 <code>sys</code> 密码。因此，数据库实例名统一使用<code>orcl</code></p>
+</li>
+<li>
+<p>默认已有用户</p>
+<ul>
+<li><code>sys</code> 超级管理员</li>
+<li><code>system</code> 普通管理员</li>
+<li><code>scott</code> 普通的用户</li>
+</ul>
+</li>
+</ul>
+<h3 id="3">3. 服务配置<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>1，将所有的服务改成 <strong>"手动"</strong>。
+2，启动其中的两个服务</p>
+<ul>
+<li>监听服务，以监听客户端的连接：<code>OracleOraDb10g_home1TNSListener</code></li>
+<li>数据库服务：<code>OracleServiceORCL</code><ul>
+<li>该服务命名规则为：<code>OracleService+实例名</code></li>
+<li>因此，这里的 <code>ORCL</code> 为软件安装时设置的全局数据库实例。若要使用其他数据库实例 <code>xxxx</code>，则需要启动其他数据库服务：<code>OracleServiceXXXX</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="4">4. 账号管理<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>使用 <code>scott</code> 用户登录，第一次登录的时候会显示账户锁定，需要将账户解锁：</p>
+<ol>
+<li>
+<p>运行命令行工具，使用DBA登录</p>
+<div class="highlight"><pre><span></span><code><span class="n">sqlplus</span> <span class="o">/</span><span class="n">nolog</span><span class="p">;</span>
+
+<span class="n">conn</span> <span class="n">sys</span><span class="cm">/*****@orcl as sysdba;</span>
+</code></pre></div>
+
+<ul>
+<li><code>sys</code>：系统管理员账户</li>
+<li><code>*****</code> ：这里表示系统管理员密码</li>
+<li><code>orcl</code>：全局数据库实例名称</li>
+</ul>
+</li>
+<li>
+<p>解锁命令：</p>
+<div class="highlight"><pre><span></span><code><span class="k">alter</span> <span class="k">user</span> <span class="n">scott</span> <span class="n">account</span> <span class="n">unlock</span><span class="o">|</span><span class="k">lock</span><span class="p">;</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>测试：</p>
+<div class="highlight"><pre><span></span><code><span class="n">conn</span> <span class="n">scott</span><span class="cm">/****@orcl;</span>
+</code></pre></div>
+
+<ul>
+<li>要求重新输入密码，确认你自己的密码即可</li>
+</ul>
+</li>
+</ol>
+<h3 id="5">5. 常用命令<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<ol>
+<li>使用 <code>sqlplus</code> 连接数据库。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">sqlplus</span> <span class="o">/</span><span class="n">nolog</span><span class="p">;</span>
+
+<span class="c1">-- 连接数据库</span>
+<span class="n">conn</span> <span class="n">scott</span><span class="o">/</span><span class="n">xxxx</span><span class="o">@</span><span class="n">orcl</span><span class="p">;</span>
+
+<span class="c1">-- 操作数据库</span>
+<span class="k">show</span> <span class="k">user</span>
+<span class="k">set</span> <span class="n">linesize</span> <span class="mi">150</span>
+<span class="k">set</span> <span class="n">pagesize</span> <span class="mi">20</span>
+
+<span class="n">passw</span>
+
+<span class="n">conn</span> <span class="n">sys</span><span class="o">/</span><span class="n">xxxx</span><span class="o">@</span><span class="n">orcl</span> <span class="k">as</span> <span class="n">sysdba</span><span class="p">;</span>
+
+<span class="c1">-- 操作数据库表</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">ename</span><span class="o">=</span><span class="err">‘</span><span class="o">&amp;</span><span class="n">ename</span><span class="err">’</span><span class="p">;</span>
+
+<span class="c1">-- 以管理员身份操作管理用户</span>
+<span class="k">alter</span> <span class="k">user</span> <span class="n">scott</span> <span class="n">account</span> <span class="n">unlock</span>
+</code></pre></div>
+
+<ul>
+<li><code>xxxx</code>：为对应用户的密码。</li>
+</ul>
+<h2 id="_2">新建数据库实例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="oracle_2"><a href="../Oracle%E6%96%B0%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93/">Oracle 新建数据库</a><a class="headerlink" href="#oracle_2" title="Permanent link">&para;</a></h3>
+<h2 id="oracle_3">Oracle 基本操作<a class="headerlink" href="#oracle_3" title="Permanent link">&para;</a></h2>
+<h3 id="scott"><code>SCOTT</code> 基础表<a class="headerlink" href="#scott" title="Permanent link">&para;</a></h3>
+<p>Oracle 安装完成后，在 <code>scott</code> 用户下有几张基础表可供操作。以下是各表字段信息及数据：</p>
+<p>Table：<code>emp</code>雇员表(employee)</p>
+<ul>
+<li><code>Empno</code>： 雇员工号</li>
+<li><code>Ename</code>： 雇员名字</li>
+<li><code>Job</code>：工作（秘书、销售、经理、分析员、保管）</li>
+<li><code>Mgr</code>(manager)：经理的工号</li>
+<li><code>Hiredate</code>：雇用日期</li>
+<li><code>Sal</code>：工资 </li>
+<li><code>Comm</code>：津贴 </li>
+<li><code>Deptno</code>：所属部门号</li>
+</ul>
+<p>Table：<code>dept</code>部门表（department）</p>
+<ul>
+<li><code>Deptno</code>：部门号</li>
+<li><code>Dname</code>：部门名字</li>
+<li><code>Loc</code>：地址</li>
+</ul>
+<p>Table：<code>salgrade</code>薪资等级表：一个公司是有等级制度，用此表表示一个工资的等级</p>
+<ul>
+<li><code>grade</code>：等级</li>
+<li><code>losal</code>：最低工资</li>
+<li><code>hisal</code>：最高工资</li>
+</ul>
+<p>Table：<code>bonus</code>奖金表：表示一个雇员的工资及奖金。</p>
+<ul>
+<li><code>Ename</code>：雇员名字</li>
+<li><code>job</code>：工作</li>
+<li><code>sal</code>：工资 </li>
+<li><code>comm</code>：津贴</li>
+</ul>
+<p><strong>Table：<code>Emp</code></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>EMPNO</th>
+<th>ENAME</th>
+<th>JOB</th>
+<th>MGR</th>
+<th>HIREDATE</th>
+<th>SAL</th>
+<th>COMM</th>
+<th>DEPTNO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1234</td>
+<td>CAI%10</td>
+<td>ANALYST</td>
+<td>7782</td>
+<td>2020/6/1</td>
+<td>12000.00</td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>7369</td>
+<td>SMITH</td>
+<td>CLERK</td>
+<td>7902</td>
+<td>1980/12/17</td>
+<td>800.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>3</td>
+<td>7499</td>
+<td>ALLEN</td>
+<td>SALESMAN</td>
+<td>7698</td>
+<td>1981/2/20</td>
+<td>1600.00</td>
+<td>300.00</td>
+<td>30</td>
+</tr>
+<tr>
+<td>4</td>
+<td>7521</td>
+<td>WARD</td>
+<td>SALESMAN</td>
+<td>7698</td>
+<td>1981/2/22</td>
+<td>1250.00</td>
+<td>500.00</td>
+<td>30</td>
+</tr>
+<tr>
+<td>5</td>
+<td>7566</td>
+<td>JONES</td>
+<td>MANAGER</td>
+<td>7839</td>
+<td>1981/4/2</td>
+<td>2975.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>6</td>
+<td>7654</td>
+<td>MARTIN</td>
+<td>SALESMAN</td>
+<td>7698</td>
+<td>1981/9/28</td>
+<td>1250.00</td>
+<td>1400.00</td>
+<td>30</td>
+</tr>
+<tr>
+<td>7</td>
+<td>7698</td>
+<td>BLAKE</td>
+<td>MANAGER</td>
+<td>7839</td>
+<td>1981/5/1</td>
+<td>2850.00</td>
+<td></td>
+<td>30</td>
+</tr>
+<tr>
+<td>8</td>
+<td>7782</td>
+<td>CLARK</td>
+<td>MANAGER</td>
+<td>7839</td>
+<td>1981/6/9</td>
+<td>2450.00</td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>9</td>
+<td>7788</td>
+<td>SCOTT</td>
+<td>ANALYST</td>
+<td>7566</td>
+<td>1987/4/19</td>
+<td>3000.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>10</td>
+<td>7839</td>
+<td>KING</td>
+<td>PRESIDENT</td>
+<td></td>
+<td>1981/11/17</td>
+<td>5000.00</td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>11</td>
+<td>7844</td>
+<td>TURNER</td>
+<td>SALESMAN</td>
+<td>7698</td>
+<td>1981/9/8</td>
+<td>1500.00</td>
+<td>0.00</td>
+<td>30</td>
+</tr>
+<tr>
+<td>12</td>
+<td>7876</td>
+<td>ADAMS</td>
+<td>CLERK</td>
+<td>7788</td>
+<td>1987/5/23</td>
+<td>1100.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>13</td>
+<td>7900</td>
+<td>JAMES</td>
+<td>CLERK</td>
+<td>7698</td>
+<td>1981/12/3</td>
+<td>950.00</td>
+<td></td>
+<td>30</td>
+</tr>
+<tr>
+<td>14</td>
+<td>7902</td>
+<td>FORD</td>
+<td>ANALYST</td>
+<td>7566</td>
+<td>1981/12/3</td>
+<td>3000.00</td>
+<td></td>
+<td>20</td>
+</tr>
+<tr>
+<td>15</td>
+<td>7934</td>
+<td>MILLER</td>
+<td>CLERK</td>
+<td>7782</td>
+<td>1982/1/23</td>
+<td>1300.00</td>
+<td></td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>原始表格并没有第一列，第一列数据为手工添加。便于查询练习。</li>
+</ul>
+<p><strong>Table：<code>Dept</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>DEPTNO</th>
+<th>DNAME</th>
+<th>LOC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>ACCOUNTING</td>
+<td>NEW YORK</td>
+</tr>
+<tr>
+<td>2</td>
+<td>20</td>
+<td>RESEARCH</td>
+<td>DALLAS</td>
+</tr>
+<tr>
+<td>3</td>
+<td>30</td>
+<td>SALES</td>
+<td>CHICAGO</td>
+</tr>
+<tr>
+<td>4</td>
+<td>40</td>
+<td>OPERATIONS</td>
+<td>BOSTON</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table：<code>salgrade</code></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>GRADE</th>
+<th>LOSAL</th>
+<th>HISAL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>700</td>
+<td>1200</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>1201</td>
+<td>1400</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>1401</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>2001</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>5</td>
+<td>5</td>
+<td>3001</td>
+<td>9999</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">基本查询<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><code>select ... from ...where</code> 语法</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="p">[</span><span class="k">distinct</span><span class="p">]</span> <span class="p">[</span><span class="o">*</span><span class="p">,</span> <span class="k">column</span><span class="p">,</span> <span class="k">alias</span><span class="p">,</span> <span class="p">...]</span> 
+    <span class="k">from</span> <span class="k">table</span> <span class="k">alias</span> 
+    <span class="k">where</span> <span class="err">表达式条件</span>
+</code></pre></div>
+
+<p>别名命名方式 <code>alias</code></p>
+<ul>
+<li>Column alias</li>
+<li>Column “alias”</li>
+<li>Column as alias</li>
+</ul>
+<p>检索</p>
+<ul>
+<li>检索单个列：<code>select col from tableName;</code></li>
+<li>检索多个列：<code>select col1, col2,col3 from tableName;</code></li>
+<li>
+<p>检索所有列：<code>select * from tableName;</code></p>
+<ul>
+<li>使用通配符优点：书写方便、可检索未知列</li>
+<li>使用通配符缺点：降低检索性能</li>
+</ul>
+</li>
+<li>
+<p>给检索出的列起个别名</p>
+<ul>
+<li><code>select job "gong zuo" from emp;</code></li>
+<li><code>select job as "gong zuo" from emp;</code></li>
+</ul>
+</li>
+</ul>
+<p>字段数据去重 <code>distinct</code> </p>
+<ul>
+<li><code>distinct</code>必须放在开头</li>
+<li>多字段：每个字段不一样才去重</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cm">/* SQL 语句语法：</span>
+<span class="cm">-- SELECT [DISTINCT] {*,column alias,..}</span>
+<span class="cm">--  FROM table alias</span>
+<span class="cm">--  Where 条件表达式</span>
+<span class="cm">*/</span>
+<span class="c1">-- 查询雇员表中部门编号是10的员工</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="c1">-- 查询表中的所有字段,可以使用 *,但是在项目中千万不要随便使用 *,浪费IO带宽，可能造成严重后果</span>
+<span class="k">select</span> <span class="n">empno</span><span class="p">,</span><span class="n">ename</span><span class="p">,</span><span class="n">job</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="c1">-- distinct 去除重复数据</span>
+<span class="k">select</span> <span class="k">distinct</span> <span class="n">deptno</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 去重也可以针对多个字段，多个字段值只要有一个不匹配就算是不同的记录</span>
+<span class="k">select</span> <span class="k">distinct</span> <span class="n">deptno</span><span class="p">,</span><span class="n">sal</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 在查询的过程中可以给列添加别名，同时也可以给表添加别名</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">empno</span> <span class="err">雇员编号</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">ename</span> <span class="err">雇员名称</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">job</span> <span class="err">雇员工作</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="c1">-- 给列起别名时，可以加as，也可以不加</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">empno</span> <span class="k">as</span> <span class="err">雇员编号</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">ename</span>  <span class="k">as</span> <span class="err">雇员名称</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">job</span> <span class="k">as</span> <span class="err">雇员工作</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="c1">-- 给列起别名时，如果别名中包含空格，那么需要将别名整体用“”包含起来</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">empno</span> <span class="k">as</span> <span class="ss">&quot;雇员 编号&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">ename</span>  <span class="k">as</span> <span class="ss">&quot;雇员 名称&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">job</span> <span class="k">as</span> <span class="ss">&quot;雇员 工作&quot;</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>这里的中文汉字需要特别设置，若Oracle安装后不支持汉字，那么请直接使用英文。</li>
+</ul>
+<h4 id="_4">表结构认知<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 查看用户下的所有表</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tab</span><span class="p">;</span>
+
+<span class="c1">-- 详细查询当前用户下的所有表</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">user_tables</span><span class="p">;</span>
+
+<span class="c1">-- 查看所有表名称</span>
+<span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">user_tables</span><span class="p">;</span>
+
+<span class="c1">-- 查看表结构：命令窗口</span>
+<span class="k">describe</span> <span class="n">dept</span><span class="p">;</span>
+
+<span class="c1">-- 查看表结构：mysql</span>
+<span class="k">desc</span> <span class="err">表名</span><span class="p">;</span>
+
+<span class="c1">-- 查看表结构：&#39;DEPT&#39;:表必须大写。</span>
+<span class="k">select</span> <span class="n">dbms_metadata</span><span class="p">.</span><span class="n">get_ddl</span><span class="p">(</span><span class="s1">&#39;TABLE&#39;</span><span class="p">,</span><span class="s1">&#39;DEPT&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+<span class="c1">--output------------------------------------------------------------</span>
+<span class="c1">-- CREATE TABLE &quot;SCOTT&quot;.&quot;DEPT&quot; </span>
+<span class="c1">--   (&quot;DEPTNO&quot; NUMBER(2,0), </span>
+<span class="c1">--  &quot;DNAME&quot; VARCHAR2(14), </span>
+<span class="c1">--  &quot;LOC&quot; VARCHAR2(13), </span>
+<span class="c1">--   CONSTRAINT &quot;PK_DEPT&quot; PRIMARY KEY (&quot;DEPTNO&quot;)</span>
+<span class="c1">--  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS </span>
+<span class="c1">--  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645</span>
+<span class="c1">--  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)</span>
+<span class="c1">--  TABLESPACE &quot;USERS&quot;  ENABLE</span>
+<span class="c1">--   ) SEGMENT CREATION IMMEDIATE </span>
+<span class="c1">--  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING</span>
+<span class="c1">--  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645</span>
+<span class="c1">--  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)</span>
+<span class="c1">--  TABLESPACE &quot;USERS&quot; </span>
+<span class="c1">---------------------------------------------------------------------</span>
+
+<span class="c1">-- 获取表</span>
+<span class="c1">-- 当前用户的表</span>
+<span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">user_tables</span><span class="p">;</span>
+
+<span class="c1">-- 查看所有用户的表  </span>
+<span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">all_tables</span><span class="p">;</span>
+
+<span class="c1">-- 查看所有系统表 </span>
+<span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">dba_tables</span><span class="p">;</span>
+
+<span class="c1">-- 查看某用户的表</span>
+<span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">dba_tables</span> <span class="k">where</span> <span class="k">owner</span><span class="o">=</span><span class="s1">&#39;用户名&#39;</span><span class="p">;</span>
+
+<span class="c1">-- 表user_tables：字段</span>
+<span class="c1">-- user_tables： table_name,tablespace_name,last_analyzed等</span>
+
+<span class="c1">-- 表dba_tables：字段</span>
+<span class="c1">-- dba_tables： ower,table_name,tablespace_name,last_analyzed等</span>
+
+<span class="c1">-- 表all_tables：字段</span>
+<span class="c1">-- all_tables： ower,table_name,tablespace_name,last_analyzed等</span>
+
+<span class="c1">-- 表all_objects：字段</span>
+<span class="c1">-- all_objects： ower,object_name,subobject_name,object_id,created,last_ddl_time,timestamp,status等  </span>
+
+
+<span class="c1">-- 获取表字段：</span>
+
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">user_tab_columns</span> <span class="k">where</span> <span class="k">Table_Name</span><span class="o">=</span><span class="s1">&#39;用户表&#39;</span><span class="p">;</span> 
+
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">all_tab_columns</span> <span class="k">where</span> <span class="k">Table_Name</span><span class="o">=</span><span class="s1">&#39;用户表&#39;</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">dba_tab_columns</span> <span class="k">where</span> <span class="k">Table_Name</span><span class="o">=</span><span class="s1">&#39;用户表&#39;</span><span class="p">;</span> 
+
+<span class="c1">-- 表user_tab_columns：字段</span>
+<span class="c1">-- user_tab_columns： table_name,column_name,data_type,data_length,data_precision,data_scale,nullable,column_id等 </span>
+
+<span class="c1">-- 表all_tab_columns：字段</span>
+<span class="c1">-- all_tab_columns ： ower,table_name,column_name,data_type,data_length,data_precision,data_scale,nullable,column_id等 </span>
+
+<span class="c1">-- 表dba_tab_columns：字段</span>
+<span class="c1">-- dba_tab_columns： ower,table_name,column_name,data_type,data_length,data_precision,data_scale,nullable,column_id等</span>
+</code></pre></div>
+
+<h4 id="_5">注释<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>添加和获取注释</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 为表添加注释</span>
+<span class="k">comment</span> <span class="k">on</span> <span class="k">table</span> <span class="n">emp</span> <span class="k">is</span> <span class="err">‘雇员表</span><span class="s1">&#39;;</span>
+
+<span class="s1">-- 为列添加注释</span>
+<span class="s1">comment on column emp.Empno is &#39;</span><span class="err">雇员工号&#39;</span><span class="p">;</span>
+
+<span class="c1">-- 获取表注释：</span>
+<span class="c1">-- 相应的还有dba_tab_comments，all_tab_comments. 这两个比user_tab_comments多了ower列。 </span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">user_tab_comments</span> <span class="n">user_tab_comments</span><span class="err">：</span><span class="k">table_name</span><span class="p">,</span><span class="n">table_type</span><span class="p">,</span><span class="n">comments</span> 
+
+<span class="c1">-- 获取字段注释：</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">user_col_comments</span><span class="p">;</span>
+
+<span class="c1">-- 字段注释表：字段</span>
+<span class="c1">-- user_col_comments：table_name,column_name,comments</span>
+</code></pre></div>
+
+<p>查看注释</p>
+<p><img alt="image-20200723143945167" src="../_resource/Oracle%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/image-20200723143945167.png" /></p>
+<h3 id="where">条件查询 <code>where</code><a class="headerlink" href="#where" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>＝</code>，<code>!＝</code>，<code>&lt;&gt;</code>，<code>&lt;</code>，<code>&gt;</code>， <code>&lt;=</code>，<code>&gt;=</code></li>
+<li><code>any</code>，<code>some</code>，<code>all</code></li>
+<li><code>is null</code>，<code>is not null</code><ul>
+<li>SQL的语法中，<code>null</code> 表示一个特殊的含义，<code>null != null</code></li>
+<li>因此，不能使用 <code>=</code>，<code>!=</code> 判断，需要使用 <code>is</code> ，<code>is not</code></li>
+</ul>
+</li>
+<li><code>between x and y</code> <ul>
+<li>逻辑判断区间</li>
+</ul>
+</li>
+<li><code>and</code>，<code>or</code><ul>
+<li>逻辑判断与操作，逻辑或操作</li>
+<li>同时出现时，注意有限级：<code>and</code> &gt; <code>or</code>。</li>
+<li>因此，<strong>对于计算次序问题，最好添加括号分组处理</strong>。</li>
+<li>语句 <strong>优化</strong><ul>
+<li><strong><code>and</code> 把检索结果较少的条件放前面</strong></li>
+<li><strong><code>or</code> 把检索结果较多的条件放前面</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>in（list）</code>，<code>not in（list）</code><ul>
+<li><code>in</code> or <code>not in</code> 可以跟区间，也可以单个值。</li>
+</ul>
+</li>
+<li><code>exists（sub-query）</code><ul>
+<li>子查询：当 <code>exists</code> 中的子查询语句能查到对应结果时，意味着条件满足</li>
+</ul>
+</li>
+<li><code>like '_/%'</code> &amp; <code>like '\_\%' escape '\'</code><ul>
+<li><code>like</code> 语句中，需要使用占位符或者通配符<ul>
+<li>通配符<code>_</code> : 代表某个字符或者数字仅出现一次</li>
+<li>通配符<code>%</code>：代表任意字符出现任意次数</li>
+<li><code>escape</code>: 使用转义字符,可以自己规定转义字符</li>
+</ul>
+</li>
+<li>使用 <code>like</code> 语言要慎重，因为效率比较低<ul>
+<li>若其他操作符可以达到目录，那么 就不要使用通配符</li>
+</ul>
+</li>
+<li>使用 <code>like</code> 语句可以参考使用索引，但语句要求不能以 <code>%</code> 开头<ul>
+<li>此时，此种通配符搜索模式特别慢</li>
+<li><code>select ename from emp where ename like '%ALL%';</code></li>
+</ul>
+</li>
+<li>涉及到大文本检索的时候，可借用某些框架 <code>luence</code>，<code>solr</code>，<code>elastic search</code>。</li>
+<li>IK 分词器：信息的提取，提前的反馈，一句话的分值进行通知。</li>
+</ul>
+</li>
+</ul>
+<p>最佳实践</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* 条件查询练习：</span>
+<span class="cm">-- ＝，！＝,&lt;&gt;，&lt;,&gt;,&lt;=,&gt;=,any,some,all</span>
+<span class="cm">-- is null,is not null</span>
+<span class="cm">-- between x and y</span>
+<span class="cm">-- in（list），not in（list）</span>
+<span class="cm">-- exists（sub－query）</span>
+<span class="cm">-- like  _ ,%,escape ‘\‘   _\% escape ‘\’</span>
+<span class="cm">*/</span>
+<span class="c1">-- =</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">-- !=</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">!=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">-- &lt;&gt; 不等于</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">&lt;&gt;</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">-- &lt;,</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">-- &gt;,</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">-- &lt;=,</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">-- &gt;=,</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">-- any,取其中任意一个</span>
+<span class="k">select</span> <span class="n">sal</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;</span> <span class="k">any</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">3000</span><span class="p">);</span>
+
+<span class="c1">-- some,跟 any 同样的效果，只要大于其中某一个值都会成立</span>
+<span class="k">select</span> <span class="n">sal</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;</span> <span class="k">some</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">3000</span><span class="p">);</span>
+
+<span class="c1">-- all，大于所有的值才会成立</span>
+<span class="k">select</span> <span class="n">sal</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;</span> <span class="k">all</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">3000</span><span class="p">);</span>
+
+<span class="c1">-- is null</span>
+<span class="c1">-- SQL的语法中，null表示一个特殊的含义，null != null</span>
+<span class="c1">-- 因此，不能使用=，！=判断，需要使用is ,is not</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">comm</span> <span class="o">==</span> <span class="k">null</span><span class="p">;</span> <span class="c1">-- 查询结果为空</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">comm</span> <span class="k">is</span> <span class="k">null</span><span class="p">;</span>
+
+<span class="c1">-- is not null</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">comm</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="k">null</span> <span class="k">is</span> <span class="k">null</span><span class="p">;</span>
+
+<span class="c1">-- between x and y,包含x和y的值</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="k">between</span> <span class="mi">1500</span> <span class="k">and</span> <span class="mi">3000</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;=</span> <span class="mi">1500</span> <span class="k">and</span> <span class="n">sal</span> <span class="o">&lt;=</span> <span class="mi">3000</span><span class="p">;</span>
+
+<span class="c1">-- 进行某些值的等值判断的时候可以使用in和not in</span>
+<span class="c1">-- in（list）</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="k">in</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+
+<span class="c1">-- 关键字 and 和 or</span>
+<span class="c1">-- and 相当于是 与操作，or相当于是 或操作</span>
+<span class="c1">-- and 和 or 可能出现在同一个sql语句中，此时需要注意and和or的优先级</span>
+<span class="c1">-- and 的优先级要高于or，所以一定要将or的相关操作用（）括起来，提高优先级</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">or</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="c1">-- not in（list）</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">!=</span> <span class="mi">10</span> <span class="k">and</span> <span class="n">deptno</span> <span class="o">!=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="cm">/* exists（sub－query）: 子查询</span>
+<span class="cm">--     当exists中的子查询语句能查到对应结果的时候，意味着条件满足</span>
+<span class="cm">--     即整体查询相当于双层for循环</span>
+<span class="cm">*/</span>
+<span class="c1">-- 查询部门编号为10和20的员工，要求使用 exists 实现</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">or</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span>
+  <span class="k">from</span> <span class="n">emp</span>
+ <span class="k">where</span> <span class="k">exists</span> <span class="p">(</span><span class="k">select</span> <span class="n">deptno</span>
+          <span class="k">from</span> <span class="n">dept</span>
+         <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span>
+            <span class="k">or</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
+
+<span class="c1">-- 通过外层循环来规范内层循环</span>
+<span class="k">select</span> <span class="o">*</span>
+  <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span>
+ <span class="k">where</span> <span class="k">exists</span> <span class="p">(</span><span class="k">select</span> <span class="n">deptno</span>
+          <span class="k">from</span> <span class="n">dept</span> <span class="n">d</span>
+         <span class="k">where</span> <span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">or</span> <span class="n">d</span><span class="p">.</span><span class="n">deptno</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+           <span class="k">and</span> <span class="n">e</span><span class="p">.</span><span class="n">deptno</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">deptno</span><span class="p">);</span>
+
+<span class="cm">/*</span>
+<span class="cm">模糊查询：like  _ ,%,escape ‘\‘   _\% escape ‘\’</span>
+
+<span class="cm">在like的语句中，需要使用占位符或者通配符</span>
+<span class="cm">           _: 代表某个字符或者数字仅出现一次</span>
+<span class="cm">           %：代表任意字符出现任意次数</span>
+<span class="cm">           escape: 使用转义字符,可以自己规定转义字符</span>
+
+<span class="cm">-- 使用like的时候要慎重，因为like的效率比较低</span>
+<span class="cm">-- 使用like可以参考使用索引，但是要求不能以%开头</span>
+<span class="cm">-- 涉及到大文本的检索的时候，可以使用某些框架 luence，solr，elastic search</span>
+<span class="cm">  - IK 分词器：信息的提取，提前的反馈，一句话的分值进行通知。</span>
+<span class="cm">*/</span>
+<span class="c1">-- 查询名字以S开头的用户</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">ename</span> <span class="k">like</span> <span class="p">(</span><span class="s1">&#39;S%&#39;</span><span class="p">);</span>
+
+<span class="c1">-- 查询名字以S开头且倒数第二个字符为T的用户</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">ename</span> <span class="k">like</span> <span class="p">(</span><span class="s1">&#39;S%T_&#39;</span><span class="p">);</span>
+
+<span class="c1">-- 查询名字中带%的用户</span>
+<span class="c1">-- 此处，需要自行插入一列数据：ename = CAI%KK</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">ename</span> <span class="k">like</span> <span class="p">(</span><span class="s1">&#39;%.%%&#39;</span><span class="p">)</span> <span class="k">escape</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="order-by">排序 <code>order by</code><a class="headerlink" href="#order-by" title="Permanent link">&para;</a></h3>
+<p>选择 <strong>业务不太繁忙时</strong> 进行排序</p>
+<ul>
+<li>
+<p>执行 <code>order by</code> 的时候相当于是做了全排序，会比较耗费系统的资源</p>
+</li>
+<li>
+<p>全排序的效率会比较低，有可能影响正常业务</p>
+</li>
+</ul>
+<p>默认情况下，进行升序排序：</p>
+<ul>
+<li><code>asc</code> ：默认排序方式，表升序</li>
+<li><code>desc</code> ：降序排序方式</li>
+</ul>
+<p>排序按照自然顺序进行</p>
+<ul>
+<li>数值：按照从大到小</li>
+<li>字符串：按照字典序排序</li>
+</ul>
+<p>实例：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* 排序： order by</span>
+<span class="cm">-- 每次在执行order by的时候相当于是做了全排序，此时，会比较耗费系统的资源，因此选择在业务不太繁忙的时候进行</span>
+<span class="cm">-- 全排序的效率会比较低，有可能影响正常业务</span>
+
+<span class="cm">-- 默认情况下完成的是升序的操作，</span>
+<span class="cm">-- asc:是默认的排序方式，表示升序</span>
+<span class="cm">-- desc：降序的排序方式</span>
+<span class="cm">*/</span>
+<span class="c1">-- 按照销售额进行升序排序、降序排序。</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">order</span> <span class="k">by</span> <span class="n">sal</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">order</span> <span class="k">by</span> <span class="n">sal</span> <span class="k">desc</span><span class="p">;</span>
+
+<span class="c1">-- 排序是按照自然顺序进行排序的</span>
+<span class="c1">-- 如果是数值，那么按照从大到小</span>
+<span class="c1">-- 如果是字符串，那么按照字典序排序</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">order</span> <span class="k">by</span> <span class="n">ename</span><span class="p">;</span>
+
+<span class="c1">-- 排序可以指定多个字段，而且多个字段可以使用不同的排序方式</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">order</span> <span class="k">by</span> <span class="n">sal</span> <span class="k">desc</span><span class="p">,</span> <span class="n">ename</span> <span class="k">desc</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_6">计算字段<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>为什么需要计算字段？
+需要直接从数据库中检索出转换、计算或格式化过的数据；而不是检索出数据，然后再在客户机应用程序中重新格式化。</p>
+<ul>
+<li>计算字段并不实际存在数据库表中</li>
+<li>SQL允许 <code>select</code> 子句中出现 <code>+/-/*//</code> 以及列名和常数的表达式</li>
+<li>拼接字段(<code>||</code>, <code>+</code>)：这里首选 <code>||</code> <ul>
+<li>MySQL 中 <code>||</code> 表示 <code>or</code> ，因此一般用 <code>concat()</code> 。</li>
+<li>字符串连接符：<code>||</code> or <code>concat()</code></li>
+</ul>
+</li>
+</ul>
+<p>实例：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 使用计算字段</span>
+<span class="c1">-- 字符串连接符</span>
+<span class="k">select</span> <span class="s1">&#39;my name is &#39;</span> <span class="o">||</span> <span class="n">ename</span> <span class="n">name</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">concat</span><span class="p">(</span><span class="s1">&#39;my name is &#39;</span><span class="p">,</span> <span class="n">ename</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="nvl">通用函数 <code>nvl()</code><a class="headerlink" href="#nvl" title="Permanent link">&para;</a></h4>
+<p>why <code>nvl()</code>?</p>
+<ul>
+<li>
+<p>SQL中允许列值为空，空值用保留字 <code>NULL</code> 表示。</p>
+</li>
+<li>
+<p><code>null</code> 就是代表了一个不确定的内容。</p>
+</li>
+<li>任何含有 <code>null</code> 值的数学表达式最后的结果都为空值 <code>null</code>，因此需要转换<ul>
+<li><code>select 100 + null from dual;</code></li>
+</ul>
+</li>
+</ul>
+<p><code>nvl()</code> 函数：</p>
+<ul>
+<li>作用：将 <code>NULL</code> 转换成为一个实际值 <code>actual value</code></li>
+<li><code>nvl(arg1,arg2)</code><ul>
+<li>如果 <code>arg1</code> 是空，那么 <strong>返回</strong>  <code>arg2</code></li>
+<li>如果不是空，则 <strong>返回</strong> 原来的值</li>
+</ul>
+</li>
+</ul>
+<p>实例：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 计算所有员工的年薪</span>
+<span class="c1">-- 此时，仅有少数人有年薪</span>
+<span class="k">select</span> <span class="n">ename</span> <span class="p">,</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="o">+</span> <span class="n">e</span><span class="p">.</span><span class="n">comm</span><span class="p">)</span><span class="o">*</span><span class="mi">12</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span><span class="p">;</span>
+
+<span class="c1">-- null是比较特殊的存在，null做任何运算都还是为null，因此要将空进行转换</span>
+<span class="c1">-- 引入函数nvl，nvl(arg1,arg2),如果arg1是空，那么返回arg2，如果不是空，则返回原来的值</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="o">+</span> <span class="n">nvl</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">comm</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="mi">12</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span><span class="p">;</span>
+
+<span class="c1">-- dual是oracle数据库中的一张虚拟表，没有实际的数据，可以用来做测试</span>
+<span class="k">select</span> <span class="mi">100</span> <span class="o">+</span> <span class="k">null</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li><strong>dual 表</strong> 是Oracle 数据库中一张虚拟表，没有实际数据。可用来做测试。</li>
+</ul>
+<h3 id="_7">并集，全集，交集，差集<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>union all</code> 全集：<ul>
+<li>将两个集合中所有数据全部显示，不完成去重的操作(即：包含重复数据）。</li>
+</ul>
+</li>
+<li><code>union</code> 并集（去重）：<ul>
+<li>将两个集合中所有数据都进行显示，但是不包含重复的数据。</li>
+</ul>
+</li>
+<li><code>intersect</code> 交集：将两个集合中交叉的数据集显示一次。</li>
+<li><code>minus</code> 差集：跟A和B的集合顺序相关<ul>
+<li>A 差 B： 包含在A集合而不包含在B集合中的数据</li>
+<li>B 差 A： 包含在B集合而不包含在A集合中的数据，</li>
+</ul>
+</li>
+</ol>
+<p>实例：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- A</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+<span class="c1">-- B</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">;</span>
+
+<span class="c1">--并集，将两个集合中的所有数据都进行显示，但是不包含重复的数据</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span> <span class="k">union</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">;</span>
+
+<span class="c1">-- 全集，两个集合数据全部显示，不会完成去重的操作(即：包含重复数据)</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span> <span class="k">union</span> <span class="k">all</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">;</span>
+
+<span class="c1">-- 交集，两个集合中交叉的数据集，只显示一次</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span> <span class="k">intersect</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">;</span>
+
+<span class="c1">-- 差集,包含在A集合而不包含在B集合中的数据，跟A和B的集合顺序相关</span>
+<span class="c1">-- A 差 B： A - B</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span> <span class="n">minus</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="c1">-- B 差 A： B - A</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">sal</span> <span class="o">&gt;</span> <span class="mi">1000</span> <span class="n">minus</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_8">复习练习<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 总结复习：</span>
+<span class="c1">-- 1、使用基本查询语句.</span>
+<span class="c1">-- (1) 查询DEPT表显示所有部门名称.</span>
+<span class="k">select</span> <span class="n">dname</span> <span class="k">from</span> <span class="n">dept</span><span class="p">;</span>
+
+<span class="c1">-- (2) 查询EMP表显示所有雇员名及其全年收入(月收入=工资+补助),处理NULL行,并指定列别名为&quot;年收入&quot;</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="o">+</span> <span class="n">nvl</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">comm</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="mi">12</span> <span class="ss">&quot;year co&quot;</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span><span class="p">;</span>
+
+<span class="c1">-- (3) 查询显示不存在雇员的所有部门号。***</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">deptno</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">deptno</span> <span class="k">from</span> <span class="n">dept</span> <span class="k">where</span> <span class="n">deptno</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">deptno</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span><span class="p">);</span>
+
+
+<span class="c1">-- 2、限制查询数据</span>
+<span class="c1">-- (1) 查询EMP表显示工资超过2850的雇员姓名和工资。</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="o">&gt;</span> <span class="mi">2850</span><span class="p">;</span>
+
+<span class="c1">-- (2) 查询EMP表显示工资不在1500～2850乊间的所有雇员及工资。</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="o">&gt;</span> <span class="mi">1500</span> <span class="k">and</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="o">&lt;</span> <span class="mi">2850</span><span class="p">;</span>
+
+<span class="c1">-- (3) 查询EMP表显示代码为7566的雇员姓名及所在部门代码。</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">deptno</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">empno</span> <span class="o">=</span> <span class="mi">7566</span><span class="p">;</span>
+
+<span class="c1">-- (4) 查询EMP表显示部门10和30中工资超过1500的雇员名及工资。</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="p">(</span><span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">or</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="k">and</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="o">&gt;</span> <span class="mi">1500</span><span class="p">;</span>
+
+<span class="c1">-- (5) 查询EMP表显示第2个字符为&quot;A&quot;的所有雇员名其工资。</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span> <span class="k">like</span> <span class="s1">&#39;_A%&#39;</span><span class="p">;</span>
+
+<span class="c1">-- (6) 查询EMP表显示补助非空的所有雇员名及其补助。</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">comm</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">comm</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span><span class="p">;</span>
+
+
+<span class="c1">-- 3、排序数据</span>
+<span class="c1">-- (1) 查询EMP表显示所有雇员名、工资、雇佣日期，幵以雇员名的升序进行排序。</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">hiredate</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">order</span> <span class="k">by</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span> <span class="k">asc</span><span class="p">;</span>
+
+<span class="c1">-- (2) 查询EMP表显示在1981年2月1日到1981年5月1日乊间雇佣的雇员名、岗位及雇佣日期，幵以雇佣日期进行排序。</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">job</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">hiredate</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">hiredate</span> <span class="k">between</span> <span class="n">to_date</span><span class="p">(</span><span class="s1">&#39;1981-2-1&#39;</span><span class="p">,</span> <span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="p">)</span> <span class="k">and</span> <span class="n">to_date</span><span class="p">(</span><span class="s1">&#39;1981-5-1&#39;</span><span class="p">,</span> <span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="p">)</span> <span class="k">order</span> <span class="k">by</span> <span class="n">e</span><span class="p">.</span><span class="n">hiredate</span><span class="p">;</span>
+
+<span class="c1">-- (3) 查询EMP表显示获得补助的所有雇员名、工资及补助，幵以工资升序和补助降序排序。</span>
+<span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">comm</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">comm</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span> <span class="k">order</span> <span class="k">by</span> <span class="n">e</span><span class="p">.</span><span class="n">sal</span> <span class="k">asc</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">comm</span> <span class="k">desc</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>关于 <code>3. 排序数据</code> 中 <strong>Oracle数据库日期范围查询</strong>  介绍如下。</li>
+</ul>
+<h4 id="oracle_4">Oracle数据库日期范围查询<a class="headerlink" href="#oracle_4" title="Permanent link">&para;</a></h4>
+<p>关于  <strong>Oracle数据库日期范围查询</strong> 有两种方式：<strong>to_char()方式</strong> 和 <strong>to_date()方式</strong>。这里查询1981-02-01到1981-05-01之间的数据，实现方式如下：</p>
+<h5 id="to_date"><code>to_date()</code> 方式：<a class="headerlink" href="#to_date" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">hiredate</span> <span class="o">&gt;=</span> <span class="n">to_date</span><span class="p">(</span><span class="s1">&#39;1981-02-01&#39;</span><span class="p">,</span><span class="s1">&#39;yyyy-mm-dd&#39;</span><span class="p">)</span> <span class="k">and</span> <span class="n">hiredate</span> <span class="o">&lt;=</span> <span class="n">to_date</span><span class="p">(</span><span class="s1">&#39;1981-05-01&#39;</span><span class="p">,</span><span class="s1">&#39;yyyy-mm-dd&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<p>运行的结果是：可以显示02-01的数据，但是不能显示05-01的数据。</p>
+<p>所有可以得出结论：</p>
+<ul>
+<li>
+<p>①如果想显示 <code>05-01</code> 的数据可以 <code>&lt;to_date('1981-05-02','yyyy-mm-dd')</code> ，这样就能显示01号的了。即：<strong>to_date() 多加一天</strong></p>
+</li>
+<li>
+<p>②如果想要显示 <code>05-01</code> 的数据可以 <code>&lt;=to_date('1981-05-01 23:59:59 999','yyyy-mm-dd hh24:mi:ss')</code> 也是可以查出来的。即：<strong>添加具体小时时间</strong>。</p>
+</li>
+</ul>
+<h5 id="to_char"><code>to_char()</code>方式：<a class="headerlink" href="#to_char" title="Permanent link">&para;</a></h5>
+<p>同样查询上面两个日期</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tablename</span> <span class="k">where</span> <span class="n">to_char</span><span class="p">(</span><span class="n">hiredate</span><span class="p">,</span><span class="s1">&#39;yyyy-mm-dd&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="s1">&#39;1981-02-01&#39;</span> <span class="k">and</span> <span class="n">to_char</span><span class="p">(</span><span class="n">hiredate</span><span class="p">,</span><span class="s1">&#39;yyyy-mm-dd&#39;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="s1">&#39;1981-05-01&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>查询结果：可以同时显示05-02和05-30的数据。</p>
+<h5 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h5>
+<ul>
+<li><a href="https://database.51cto.com/art/201108/288058.htm">Oracle数据库日期范围查询的两种实现方式</a></li>
+</ul>
+<h2 id="oracle_5">Oracle 函数调用<a class="headerlink" href="#oracle_5" title="Permanent link">&para;</a></h2>
+<h3 id="1-sql">1. SQL 函数概述<a class="headerlink" href="#1-sql" title="Permanent link">&para;</a></h3>
+<h4 id="_9">概念<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p>函数一般是在数据上执行的，它给数据的转换和处理提供了方便。只是将取出的数据进行处理，<strong>不会改变数据库中的值</strong>。</p>
+<h4 id="_10">分类<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<ul>
+<li>单行函数：对单个数值进行操作，并返回一个值。<ul>
+<li>字符函数</li>
+<li>数字函数</li>
+<li>日期函数</li>
+<li>转换函数</li>
+<li>其他函数</li>
+</ul>
+</li>
+<li>组函数<ul>
+<li>即 <strong>聚合函数</strong>，用于对多行数据操作，并返回一个单一的结果。</li>
+<li>组函数仅可用于 <strong>选择列表</strong> 或 <strong>查询的 <code>having</code> 子句</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="_11">字符函数<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>字符函数：以字符作为参数的函数。返回值分为两类：一类返回字符值，一类返回数字值</p>
+<p>返回字符：</p>
+<ul>
+<li><code>concat(string1，string2)</code>：连接两个字符串，同 <code>||</code>。</li>
+<li><code>initcap(string)</code>：大写 <code>String</code> 每个单词的首字母。</li>
+<li><code>lower(string)</code>：以小写形式返回string</li>
+<li><code>upper(string)</code>：以大写形式返回string</li>
+<li><code>lpad</code>，<code>rpad</code>：填充字符型数据</li>
+<li><code>trim(A from B)</code>：去除空格<ul>
+<li><code>ltrim/rtrim (string1,string2)</code>：</li>
+</ul>
+</li>
+<li><code>substr()</code>： 提取字符串的一部分 <ul>
+<li><code>substr(string，1，2)</code></li>
+</ul>
+</li>
+</ul>
+<p>返回数字：</p>
+<ul>
+<li><code>instr()</code>：<strong>返回</strong> 字符串出现的位置, <ul>
+<li><code>instr(string, 'A')</code>：字符A在 <code>string</code> 中出现的位置</li>
+</ul>
+</li>
+<li><code>length()</code>：<strong>返回</strong> 字符串长度</li>
+</ul>
+<p>实例：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">--- Oracle 函数 ---</span>
+<span class="c1">-- 组函数, 即聚合函数</span>
+  <span class="c1">-- 输入多个值，最终只会返回一个值</span>
+  <span class="c1">-- 组函数仅可用于选择列表或查询的having子句</span>
+  <span class="c1">-- 单行函数： 输入一个值，输出一个值</span>
+
+<span class="c1">-- 查询所有员工的薪水总和</span>
+<span class="k">select</span> <span class="k">sum</span><span class="p">(</span><span class="n">sal</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 查看表中有多少条记录</span>
+<span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 查看不同部门的人数记录</span>
+<span class="k">select</span> <span class="n">deptno</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">group</span> <span class="k">by</span> <span class="n">deptno</span> <span class="k">having</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="c1">-- 字符函数</span>
+<span class="c1">-- concat：表示字符串的连接，等同于 `||`</span>
+<span class="k">select</span> <span class="n">concat</span><span class="p">(</span><span class="s1">&#39;my name is &#39;</span><span class="p">,</span> <span class="n">ename</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 将字符串的首字母大写</span>
+<span class="k">select</span> <span class="n">initcap</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 将字符串全部转换为大写</span>
+<span class="k">select</span> <span class="k">upper</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 将字符串全部转换为小写</span>
+<span class="k">select</span> <span class="k">lower</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 填充字符串</span>
+<span class="k">select</span> <span class="n">lpad</span><span class="p">(</span><span class="n">ename</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">rpad</span><span class="p">(</span><span class="n">ename</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 去除空格</span>
+<span class="k">select</span> <span class="k">trim</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">ltrim</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">rtrim</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 查找指定字符串的位置</span>
+<span class="k">select</span> <span class="n">instr</span><span class="p">(</span><span class="s1">&#39;ABCDEF&#39;</span><span class="err">，</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="n">instr</span><span class="p">(</span><span class="n">ename</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 查看字符串的长度</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="k">length</span><span class="p">(</span><span class="n">ename</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 截取字符串的操作</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="n">substr</span><span class="p">(</span><span class="n">ename</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 替换操作</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="k">replace</span><span class="p">(</span><span class="n">ename</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;AA&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_12">数字函数<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>数字函数以 <code>NUMBER</code> 类型为参数，返回 <code>NUMBER</code> 值。
+- <code>round(number，n)</code>：按照位数截取数据，返回四舍五入后的值。
+    - <code>select round(23.652) from dual;</code>
+    - <code>select round(23.652, 2) from dual;</code>
+    - <code>select round(23.652, -1) from dual;</code>
+- <code>trunc(number，n)</code>：按照位数截取数据，不会进行四舍五入。
+    - <code>select trunc(23.652) from dual;</code>
+    - <code>select trunc(23.652, 2) from dual;</code>
+    - <code>select trunc(23.652, -1) from dual;</code>
+- <code>mod(x，y)</code>：求余数，取模操作
+    - <code>select mod(13,5) from dual;</code>
+- <code>ceil()</code>：向上取整
+    -  <code>select ceil(19.2) from dual;</code>
+- <code>floor()</code>：向下取整 
+    - <code>select floor(19.2) from dual;</code></p>
+<ul>
+<li><code>abs()</code>：取绝对值</li>
+<li><code>sign()</code> ：获取正负值</li>
+<li><code>power(x, y)</code>：<code>x</code> 的 <code>y</code> 次幂</li>
+</ul>
+<p>实例：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">---数值函数---</span>
+<span class="c1">-- 截取数据，给小数进行四舍五入操作，指定小数部分的位数</span>
+<span class="k">select</span> <span class="n">round</span><span class="p">(</span><span class="mi">123</span><span class="p">.</span><span class="mi">123</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">round</span><span class="p">(</span><span class="mi">123</span><span class="p">.</span><span class="mi">28</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 截断数据, 按照位数去进行截取，但是不会进行四舍五入的操作</span>
+<span class="k">select</span> <span class="n">trunc</span><span class="p">(</span><span class="mi">123</span><span class="p">.</span><span class="mi">123</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">trunc</span><span class="p">(</span><span class="mi">123</span><span class="p">.</span><span class="mi">128</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 取模操作</span>
+<span class="k">select</span> <span class="k">mod</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">select</span> <span class="k">mod</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 向上取整</span>
+<span class="k">select</span> <span class="n">ceil</span><span class="p">(</span><span class="mi">12</span><span class="p">.</span><span class="mi">12</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 向下取整</span>
+<span class="k">select</span> <span class="n">floor</span><span class="p">(</span><span class="mi">13</span><span class="p">.</span><span class="mi">99</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 取绝对值</span>
+<span class="k">select</span> <span class="k">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 获取正负值：+1 or 1</span>
+<span class="k">select</span> <span class="n">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- x的y次幂</span>
+<span class="k">select</span> <span class="n">power</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_13">日期函数<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>一般而言，公司业务在日期定义到秒。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 以下都是获取 日期 &amp; 时间</span>
+<span class="k">select</span> <span class="n">sysdate</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">select</span> <span class="k">current_date</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 获取当前时间 only MySQL</span>
+<span class="k">select</span> <span class="k">current_time</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 获取时间戳</span>
+<span class="k">select</span> <span class="k">current_timestamp</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Oracle 内部数字格式存储日期：<code>世纪，年，月，日，小时，分钟，秒</code>。</p>
+<ul>
+<li>
+<p><code>sysdate/current_date</code>：以date类型返回当前的日期和时间</p>
+</li>
+<li>
+<p><code>add_months(d,x)</code>：返回加上 <code>x月</code> 后的 <code>日期d</code> 的值</p>
+<ul>
+<li>可用于计算试用期等等预定后的日期</li>
+</ul>
+</li>
+<li><code>last_day(d)</code>：返回 <code>日期d</code> 所在月份的最后一天</li>
+<li><code>months_between(date1,date2)</code>：返回 <code>date1</code> 和 <code>date2</code> 之间月的数目<ul>
+<li>可用于计算在职日期，工作年限等等时间</li>
+</ul>
+</li>
+</ul>
+<p>从日期中加或减一个数值，以得当一个日期结果值</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">sysdate</span><span class="o">+</span><span class="mi">2</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">sysdate</span><span class="o">-</span><span class="mi">2</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<p>两个日期相减以便得到他们相差多少天</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="n">round</span><span class="p">((</span><span class="n">sysdate</span><span class="o">-</span><span class="n">hiredate</span><span class="p">)</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span> <span class="n">weeks</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+
+<p>实例：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">--- 日期函数 ---</span>
+<span class="c1">--- 一般而言，公司业务在日期定义到秒。</span>
+<span class="k">select</span> <span class="n">sysdate</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="k">current_date</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">---- 获取当前日期时间戳（依据系统而定）</span>
+<span class="k">select</span> <span class="k">current_timestamp</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- add_months(): 返回添加指定的月份后的日期</span>
+<span class="c1">-- 可用于计算试用期等等预定的日期</span>
+<span class="k">select</span> <span class="n">hiredate</span><span class="p">,</span> <span class="n">add_months</span><span class="p">(</span><span class="n">hiredate</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="ss">&quot;试用期结束&quot;</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- last_day(): 返回输入日期所在月份的最后一天</span>
+<span class="c1">---- 参数sysdate：将会返回本月最后一天，与此时相同的时间</span>
+<span class="k">select</span> <span class="n">last_day</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- months_between(): 返回两个日期相间隔的月份，小数</span>
+<span class="c1">-- 可用于计算在职日期：floor()向下取整</span>
+<span class="k">select</span> <span class="n">hiredate</span><span class="p">,</span> <span class="n">months_between</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="n">hiredate</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">hiredate</span><span class="p">,</span> <span class="n">floor</span><span class="p">(</span><span class="n">months_between</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="n">hiredate</span><span class="p">))</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 返回四舍五入的第一天</span>
+<span class="k">select</span> <span class="n">sysdate</span> <span class="err">当前日期</span><span class="p">,</span>
+<span class="n">round</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span> <span class="err">最近零点日期</span><span class="p">,</span>
+<span class="n">round</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">)</span> <span class="err">最近星期日</span><span class="p">,</span>
+<span class="n">round</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">)</span> <span class="err">最近月初</span><span class="p">,</span>
+<span class="n">round</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">)</span> <span class="err">最近季初日期</span><span class="p">,</span>
+<span class="n">round</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">)</span> <span class="err">最近年初日期</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 返回下周的星期几</span>
+<span class="k">select</span> <span class="n">next_day</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">&#39;星期一&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 提取日期中的时间</span>
+<span class="k">select</span> 
+<span class="k">extract</span><span class="p">(</span><span class="n">hour</span> <span class="k">from</span> <span class="k">timestamp</span> <span class="s1">&#39;2001-2-16 2:38:40 &#39;</span> <span class="p">)</span> <span class="err">小时</span><span class="p">,</span>
+<span class="k">extract</span><span class="p">(</span><span class="k">minute</span> <span class="k">from</span> <span class="k">timestamp</span> <span class="s1">&#39;2001-2-16 2:38:40 &#39;</span> <span class="p">)</span> <span class="err">分钟</span><span class="p">,</span>
+<span class="k">extract</span><span class="p">(</span><span class="k">second</span> <span class="k">from</span> <span class="k">timestamp</span> <span class="s1">&#39;2001-2-16 2:38:40 &#39;</span> <span class="p">)</span> <span class="err">秒</span><span class="p">,</span>
+<span class="k">extract</span><span class="p">(</span><span class="k">DAY</span> <span class="k">from</span> <span class="k">timestamp</span> <span class="s1">&#39;2001-2-16 2:38:40 &#39;</span> <span class="p">)</span> <span class="err">日</span><span class="p">,</span>
+<span class="k">extract</span><span class="p">(</span><span class="k">MONTH</span> <span class="k">from</span> <span class="k">timestamp</span> <span class="s1">&#39;2001-2-16 2:38:40 &#39;</span> <span class="p">)</span> <span class="err">月</span><span class="p">,</span>
+<span class="k">extract</span><span class="p">(</span><span class="k">YEAR</span> <span class="k">from</span> <span class="k">timestamp</span> <span class="s1">&#39;2001-2-16 2:38:40 &#39;</span> <span class="p">)</span> <span class="err">年</span>
+ <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 返回日期的时间戳</span>
+<span class="k">select</span> <span class="k">localtimestamp</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">select</span> <span class="k">current_timestamp</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 给指定的时间单位增加数值</span>
+<span class="k">select</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">interval</span> <span class="s1">&#39;1&#39;</span> <span class="k">second</span><span class="p">),</span> <span class="c1">--加1秒(1/24/60/60)</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">interval</span> <span class="s1">&#39;1&#39;</span> <span class="k">minute</span><span class="p">),</span> <span class="c1">--加1分钟(1/24/60)</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">interval</span> <span class="s1">&#39;1&#39;</span> <span class="n">hour</span><span class="p">),</span> <span class="c1">--加1小时(1/24)</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">INTERVAL</span> <span class="s1">&#39;1&#39;</span> <span class="k">DAY</span><span class="p">),</span>  <span class="c1">--加1天(1)</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">INTERVAL</span> <span class="s1">&#39;1&#39;</span> <span class="k">MONTH</span><span class="p">),</span> <span class="c1">--加1月</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">INTERVAL</span> <span class="s1">&#39;1&#39;</span> <span class="k">YEAR</span><span class="p">),</span> <span class="c1">--加1年</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">interval</span> <span class="s1">&#39;01:02:03&#39;</span> <span class="n">hour</span> <span class="k">to</span> <span class="k">second</span><span class="p">),</span> <span class="c1">--加指定小时到秒</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">interval</span> <span class="s1">&#39;01:02&#39;</span> <span class="k">minute</span> <span class="k">to</span> <span class="k">second</span><span class="p">),</span> <span class="c1">--加指定分钟到秒</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">interval</span> <span class="s1">&#39;01:02&#39;</span> <span class="n">hour</span> <span class="k">to</span> <span class="k">minute</span><span class="p">),</span> <span class="c1">--加指定小时到分钟</span>
+<span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="nb">interval</span> <span class="s1">&#39;2 01:02&#39;</span> <span class="k">day</span> <span class="k">to</span> <span class="k">minute</span><span class="p">)</span> <span class="c1">--加指定天数到分钟</span>
+<span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_14">转换函数<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>标量数据可以有两种类型的转换：隐式类型转换和显示类型转换。隐式类型转换可用于：<strong>字符和数字的相互转换 &amp; 字符和日期的相互转换</strong>。
+- <code>VARCHAR2</code> or <code>char</code>－to－<code>number</code>
+- <code>VARCHAR2</code> or <code>char</code>－to－<code>date</code>
+- <code>number</code>－to－<code>varchar2</code>
+- <code>date</code>－to－<code>varchar2</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 隐式转换指字符串可以转换为数值或者日期</span>
+<span class="c1">-- str to number</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">empno</span><span class="o">=</span><span class="n">to_number</span><span class="p">(</span><span class="s1">&#39;8000&#39;</span><span class="p">);</span>
+<span class="c1">-- str to date</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">hiredate</span><span class="o">=</span><span class="s1">&#39;20-2月-1981&#39;</span><span class="p">;</span>
+<span class="c1">-- str to number</span>
+<span class="k">select</span> <span class="s1">&#39;999&#39;</span><span class="o">-</span><span class="mi">10</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<p>尽管数据类型之间可进行隐式转换，仍 <strong>建议使用显示转换函数</strong>，以保持良好的设计风格。</p>
+<ul>
+<li><code>to_char()</code>：操作 <strong>日期</strong> 或 <strong>数字</strong></li>
+<li><code>to_number()</code>：操作 <strong>字符串</strong></li>
+<li><code>to_date()</code>：操作 <strong>字符串</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Number</th>
+<th align="center">-----------------&gt;&gt;&gt;</th>
+<th align="center">Character</th>
+<th align="center">-----------------&gt;&gt;&gt;</th>
+<th align="center">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"></td>
+<td align="center"><code>to_number()</code></td>
+<td align="center"></td>
+<td align="center"><code>to_date()</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><strong>Number</strong></td>
+<td align="center"><strong>&lt;&lt;&lt;-----------------</strong></td>
+<td align="center"><strong>Character</strong></td>
+<td align="center"><strong>&lt;&lt;&lt;-----------------</strong></td>
+<td align="center"><strong>Date</strong></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>to_char()</code></td>
+<td align="center"></td>
+<td align="center"><code>to_char()</code></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="to_char_1"><code>to_char()</code> 操作日期<a class="headerlink" href="#to_char_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>格式元素</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YYYY、YY</td>
+<td>代表四位、两位数字的年份</td>
+</tr>
+<tr>
+<td>MM</td>
+<td>数字表示的 <code>月份</code></td>
+</tr>
+<tr>
+<td>MON</td>
+<td>月份的缩写，对中文月份来说就是全称</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>数字表示的 <code>日</code></td>
+</tr>
+<tr>
+<td>DY</td>
+<td>星期的缩写，对中文的星期来说就是全称</td>
+</tr>
+<tr>
+<td>HH24，HH12</td>
+<td>12小时或者24小时进制下的时间</td>
+</tr>
+<tr>
+<td>MI</td>
+<td>分钟数</td>
+</tr>
+<tr>
+<td>SS</td>
+<td>秒数</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>格式：<code>to_char(date, 'fmt')</code></li>
+<li>用于将日期或时间戳转换成 <code>varchar2</code> 类型字符串，如果指定了格式字符串，则用它控制结果的结果。<ul>
+<li>格式控制串由格式元素构成</li>
+<li>格式控制串必须用单引号括起来</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">&#39;dd-mon-yy hh24:mi:ss&#39;</span><span class="p">)</span> <span class="ss">&quot;Rigth Now&quot;</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="n">hiredate</span><span class="p">,</span> <span class="n">to_char</span><span class="p">(</span><span class="n">hiredate</span><span class="p">,</span><span class="s1">&#39;yyyy/mm/dd&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">sysdate</span><span class="p">,</span> <span class="n">to_char</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span><span class="s1">&#39;yyyy-mon-dd hh12:mi:ss&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="to_char_2"><code>to_char()</code> 操作数字<a class="headerlink" href="#to_char_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>控制符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9</td>
+<td>代表一位数字，如果该位没有数字则不进行显示，但对于小数点后面的部分仍会强制显示</td>
+</tr>
+<tr>
+<td>0</td>
+<td>代表一位数字，如果该位没有数字则强制显示0</td>
+</tr>
+<tr>
+<td>$</td>
+<td>显示美元符号</td>
+</tr>
+<tr>
+<td>L</td>
+<td>显示本地货币符号</td>
+</tr>
+<tr>
+<td>.</td>
+<td>显示小数点</td>
+</tr>
+<tr>
+<td>,</td>
+<td>显示千分位符号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>格式：<code>to_char(num,format)</code></li>
+<li>用于将 <code>Number类型</code> 参数转换为 <code>varchar2类型</code> ，如果指定了format，它会控制整个转换。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="n">sal</span><span class="p">,</span> <span class="s1">&#39;$99,999.9999&#39;</span><span class="p">)</span> <span class="n">salary</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">ename</span> <span class="o">=</span> <span class="ss">&quot;ALLEN&quot;</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="n">sal</span><span class="p">,</span> <span class="s1">&#39;$00,000.0000&#39;</span><span class="p">)</span> <span class="n">salary</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">ename</span> <span class="o">=</span> <span class="ss">&quot;ALLEN&quot;</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="mi">123456</span><span class="p">,</span> <span class="s1">&#39;99,99,00&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="to_date_1"><code>to_date()</code> 转换字符串<a class="headerlink" href="#to_date_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>格式：<code>to_date(String, format)</code></p>
+</li>
+<li>
+<p>作用：将 <code>char</code>或<code>varchar2</code>类型的 <code>string</code> 转换为 <code>date</code> 类型 </p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">to_date</span><span class="p">(</span><span class="s1">&#39;04,05,19,10,23,40&#39;</span><span class="p">,</span><span class="s1">&#39;yy,mm,dd,hh12,mi,ss&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">to_date</span><span class="p">(</span><span class="s1">&#39;2004-09-19&#39;</span><span class="p">,</span><span class="s1">&#39;yyyy-mm-dd&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="to_number"><code>to_number()</code> 转换字符串<a class="headerlink" href="#to_number" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>格式：<code>to_number(String, format)</code></p>
+</li>
+<li>
+<p>将 <code>char</code>或<code>varchar2</code>类型的 <code>string</code> 转换为 <code>number</code> 类型</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">to_number</span><span class="p">(</span><span class="s1">&#39;$39343.783&#39;</span><span class="p">,</span><span class="s1">&#39;$99990.000&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">to_number</span><span class="p">(</span><span class="s1">&#39;11.231&#39;</span><span class="p">,</span><span class="s1">&#39;999.999&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="_15">转换函数最佳实践<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 转换函数</span>
+<span class="c1">---- 在oracle中存在数值的隐式转换和显式转换</span>
+
+<span class="c1">-- 隐式转换指的是字符串可以转换为数值或者日期，反之亦可。</span>
+<span class="k">select</span> <span class="s1">&#39;999&#39;</span> <span class="o">+</span> <span class="mi">10</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- 显式转换：</span>
+<span class="c1">---- to_char: 当由数值或者日期转成字符串的时候，必须要规定格式</span>
+<span class="c1">-- date：to_char()</span>
+<span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">&#39;YYYY-MM-DD HH:MI&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- number: to_char()</span>
+<span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="mi">123</span><span class="p">.</span><span class="mi">456778</span><span class="p">,</span> <span class="s1">&#39;9999.99&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="mi">123</span><span class="p">.</span><span class="mi">456778</span><span class="p">,</span> <span class="s1">&#39;0000.000&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+<span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="mi">123456789</span><span class="p">,</span> <span class="s1">&#39;999,999,999,999&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- to_date: 转换之后都是固定的格式</span>
+<span class="k">select</span> <span class="n">to_date</span><span class="p">(</span><span class="s1">&#39;2020/10/10 10:10:10&#39;</span><span class="p">,</span> <span class="s1">&#39;YYYY-MM-DD HH24:MI:SS&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="c1">-- to_number:转成数字</span>
+<span class="k">select</span> <span class="n">to_number</span><span class="p">(</span><span class="s1">&#39;123,456,789&#39;</span><span class="p">,</span> <span class="s1">&#39;999,999,999&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="_16">单行函数嵌套<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<ul>
+<li>单行函数可被嵌入到任何层</li>
+<li>嵌套函数从最深层到最低层求值</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 单行函数嵌套---</span>
+<span class="c1">-- 显示没有上级管理的公司首脑</span>
+<span class="c1">-- 没有上级领导的雇员 mgr显示为boss</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="n">nvl</span><span class="p">(</span><span class="n">to_char</span><span class="p">(</span><span class="n">mgr</span><span class="p">),</span> <span class="s1">&#39;boss&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">mgr</span> <span class="k">is</span> <span class="k">null</span><span class="p">;</span>
+
+<span class="c1">-- 显示员工雇佣期满6个月后下一个星期五的日期</span>
+<span class="k">select</span> <span class="n">hiredate</span><span class="p">,</span> <span class="n">next_day</span><span class="p">(</span><span class="n">add_months</span><span class="p">(</span><span class="n">hiredate</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s1">&#39;星期五&#39;</span><span class="p">)</span> <span class="ss">&quot;Free Day&quot;</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_17">条件函数<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>decode</code> &amp; <code>case when</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 条件函数</span>
+<span class="c1">-- decode,case when</span>
+
+<span class="c1">-- 给不同部门的人员涨薪，10部门涨10%，20部门涨20%，30部门涨30%.</span>
+<span class="c1">---- decode</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span>
+       <span class="n">deptno</span><span class="p">,</span>
+       <span class="n">sal</span><span class="p">,</span>
+       <span class="n">decode</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">sal</span> <span class="o">*</span> <span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">sal</span> <span class="o">*</span> <span class="mi">1</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">sal</span> <span class="o">*</span> <span class="mi">1</span><span class="p">.</span><span class="mi">3</span><span class="p">)</span>
+  <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">---- case when .. then ... end</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span>
+       <span class="n">deptno</span><span class="p">,</span>
+       <span class="n">sal</span><span class="p">,</span>
+       <span class="k">case</span> <span class="n">deptno</span>
+         <span class="k">when</span> <span class="mi">10</span> <span class="k">then</span>
+          <span class="n">sal</span> <span class="o">*</span> <span class="mi">1</span><span class="p">.</span><span class="mi">1</span>
+         <span class="k">when</span> <span class="mi">20</span> <span class="k">then</span>
+          <span class="n">sal</span> <span class="o">*</span> <span class="mi">1</span><span class="p">.</span><span class="mi">2</span>
+         <span class="k">when</span> <span class="mi">30</span> <span class="k">then</span>
+          <span class="n">sal</span> <span class="o">*</span> <span class="mi">1</span><span class="p">.</span><span class="mi">3</span>
+       <span class="k">end</span>
+  <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="_18">案例：中国移动面试题<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 表单创建</span>
+<span class="cm">/*</span>
+<span class="cm">create table CMCC(</span>
+<span class="cm">   id number(10) primary key,</span>
+<span class="cm">   type number(10) ,</span>
+<span class="cm">   t_id number(10),</span>
+<span class="cm">   value varchar2(5)</span>
+<span class="cm">);</span>
+<span class="cm">insert into CMCC values(100,1,1,&#39;张三&#39;);</span>
+<span class="cm">insert into CMCC values(200,2,1,&#39;男&#39;);</span>
+<span class="cm">insert into CMCC values(300,3,1,&#39;50&#39;);</span>
+
+<span class="cm">insert into CMCC values(101,1,2,&#39;刘二&#39;);</span>
+<span class="cm">insert into CMCC values(201,2,2,&#39;男&#39;);</span>
+<span class="cm">insert into CMCC values(301,3,2,&#39;30&#39;);</span>
+
+<span class="cm">insert into CMCC values(102,1,3,&#39;刘三&#39;);</span>
+<span class="cm">insert into CMCC values(202,2,3,&#39;女&#39;);</span>
+<span class="cm">insert into CMCC values(302,3,3,&#39;10&#39;);</span>
+<span class="cm">*/</span>
+
+<span class="c1">-- 需求发布</span>
+<span class="cm">/* 将表的显示转换为：</span>
+<span class="cm">-- 姓名      性别    年龄</span>
+<span class="cm">--------  -------  ----</span>
+<span class="cm">-- 张三       男     50</span>
+<span class="cm">*/</span>
+
+<span class="c1">-- 表单查询</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">CMCC</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">decode</span><span class="p">(</span><span class="k">type</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="err">姓名</span><span class="p">,</span>
+       <span class="n">decode</span><span class="p">(</span><span class="k">type</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="err">性别</span><span class="p">,</span>
+       <span class="n">decode</span><span class="p">(</span><span class="k">type</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="err">年龄</span><span class="p">,</span>
+  <span class="k">from</span> <span class="n">CMCC</span><span class="p">;</span>
+
+<span class="c1">-- 首先分组，再过滤 null</span>
+<span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">decode</span><span class="p">(</span><span class="k">type</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span> <span class="err">姓名</span><span class="p">,</span>
+       <span class="k">max</span><span class="p">(</span><span class="n">decode</span><span class="p">(</span><span class="k">type</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span> <span class="err">性别</span><span class="p">,</span>
+       <span class="k">max</span><span class="p">(</span><span class="n">decode</span><span class="p">(</span><span class="k">type</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span> <span class="err">年龄</span><span class="p">,</span>
+  <span class="k">from</span> <span class="n">CMCC</span> <span class="k">group</span> <span class="k">by</span> <span class="n">t_id</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_19">课堂练习<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 1. 查询82年员工</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">to_char</span><span class="p">(</span><span class="n">hiredate</span><span class="p">,</span> <span class="s1">&#39;YY&#39;</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;82&#39;</span><span class="p">;</span>
+
+<span class="c1">-- 2. 查询38年工龄的人员</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">floor</span><span class="p">(</span><span class="n">months_between</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="n">hiredate</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span> <span class="o">=</span> <span class="mi">38</span><span class="p">;</span>
+
+<span class="c1">-- 3. 显示员工雇佣期 6 个月后下一个星期一的日期</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="n">next_day</span><span class="p">(</span><span class="n">add_months</span><span class="p">(</span><span class="n">hiredate</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s1">&#39;星期一&#39;</span><span class="p">)</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+
+<span class="c1">-- 4. 找没有上级的员工，把mgr的字段信息输出为 &quot;boss&quot;</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="n">nvl</span><span class="p">(</span><span class="n">to_char</span><span class="p">(</span><span class="n">mgr</span><span class="p">),</span> <span class="s1">&#39;boss&#39;</span><span class="p">)</span> <span class="ss">&quot;Mgt&quot;</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">mgr</span> <span class="k">is</span> <span class="k">null</span><span class="p">;</span>
+
+<span class="c1">-- 5. 为所有人长工资，标准是：10部门长10%；20部门长15%；30部门长20%其他部门长18%</span>
+<span class="k">select</span> <span class="n">ename</span><span class="p">,</span> <span class="n">decode</span><span class="p">(</span><span class="n">deptno</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">sal</span><span class="o">*</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">sal</span><span class="o">*</span><span class="mi">1</span><span class="p">.</span><span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">sal</span><span class="o">*</span><span class="mi">1</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">sal</span><span class="o">*</span><span class="mi">1</span><span class="p">.</span><span class="mi">18</span><span class="p">)</span> <span class="ss">&quot;Add sal&quot;</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="_20">组函数：聚组/分组<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<p>组函数基于多行数据返回单个值。<strong>组函数仅在选择列表和Having子句中有效</strong>，同时一般情况下，组函数都要和 <code>group by</code> 组合使用。</p>
+<ul>
+<li><code>avg()</code>：返回某列的平均值</li>
+<li><code>min()</code>：返回某列的最小值</li>
+<li><code>max()</code>：返回某列的最大值</li>
+<li><code>sum()</code>：返回某列值的和</li>
+<li><code>count()</code>：返回某列的行数</li>
+</ul>
+<p><code>AVG()</code> and <code>SUM()</code> 函数仅在 <strong>数字类型数据</strong> 中使用</p>
+<div class="highlight"><pre><span></span><code>select sum(sal), avg(sal), max(sal), min(sal) from emp;
+</code></pre></div>
+
+<p><code>MIN()</code> and <code>MAX()</code> 函数适用于 <strong>任何数据类型</strong>  </p>
+<div class="highlight"><pre><span></span><code>select min(hiredate ) ,max(hiredate) from emp;
+</code></pre></div>
+
+<p>组函数 <strong>除了</strong> <code>count(*)</code> 外，<strong>都跳过空值而处理非空值</strong>。</p>
+<ul>
+<li><code>count()</code> 一般用来获取表中的记录条数。</li>
+<li>获取条数时, 可以使用 <code>*</code> 或者某一个具体的列, 甚至可以使用纯数字来代替。但是，从运行效率的角度考虑，建议使用数字或者某一个具体的列, 而不要使用 <code>*</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- count() 记录数, 处理的时候会跳过空值而处理非空值
+select count(*) from emp; -- 15
+select count(comm) from emp;  -- 3
+select count(1) from emp;  --15
+
+-- 不能计算空值
+select count(distinct deptno) from emp;
+</code></pre></div>
+
+<h4 id="nvl_1">分组函数中使用 <code>NVL()</code> 函数<a class="headerlink" href="#nvl_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>组函数不能处理 <code>null</code>
+<div class="highlight"><pre><span></span><code>select avg(comm) from emp;
+</code></pre></div></li>
+<li><code>NVL()</code> 函数迫使分组函数包括空值
+<div class="highlight"><pre><span></span><code>select avg(nvl(comm,0)) from emp;
+</code></pre></div></li>
+</ul>
+<div class="highlight"><pre><span></span><code>/* 组函数
+-- 一般情况下，组函数都要和 group by 组合使用
+-- 组函数一般用于选择列表或者having条件判断
+
+-- 常用的组函数有5个
+---- avg()  平均值,只用于数值类型的数据
+---- min()  最小值，适用于任何类型
+---- max()  最大值，适用于任何类型
+---- sum()   求和，只适合数值类型的数据
+---- count() 记录数, 处理的时候会跳过空值而处理非空值
+------    count 一般用来获取表中的记录条数，
+------    获取条数时, 可以使用*或者某一个具体的列, 甚至可以使用纯数字来代替，
+------    但是从运行效率的角度考虑，建议使用数字或者某一个具体的列, 而不要使用 *
+*/
+
+select avg(sal) from emp;
+select min(sal) from emp;
+select max(sal) from emp;
+select count(sal) from emp;
+select sum(sal) from emp;
+
+-- count() 不要使用 * 
+select count(*) from emp;
+select count(1) from emp;
+select count(10000) from emp;
+</code></pre></div>
+
+<h3 id="_21">数据分组<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<h4 id="_22">分组过程<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h4>
+<p>1， 创建分组（<code>group by</code> 子句）</p>
+<ul>
+<li><code>group by</code> 子句可以包含任意数目的列。</li>
+<li>除组函数语句外，<strong>select语句中的每个列都必须在 <code>group by</code> 子句中给出</strong>。</li>
+<li>
+<p>如果分组列中具有 <code>null</code>值，则 <code>null</code>将作为一个分组返回。如果列中有多行null值，他们将分为一组。</p>
+</li>
+<li>
+<p><code>group by</code>子句必须出现在 <code>where</code>子句之后，<code>order by</code> 子句之前。</p>
+</li>
+</ul>
+<p>2， 过滤分组（<code>having</code> 子句)</p>
+<ul>
+<li><code>Where</code> 过滤行，<code>having</code> 过滤分组</li>
+<li><code>Having</code> 支持所有 <code>where操作符</code> 。</li>
+</ul>
+<p>3， 分组和排序</p>
+<ul>
+<li>一般在使用 <code>group by</code> 子句时，应该也给出 <code>order by</code> 子句。</li>
+</ul>
+<h4 id="sql_2">SQL语法<a class="headerlink" href="#sql_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>SELECT column , group_function 
+FROM table
+[WHERE condition ]
+[GROUP BY group_by_expression ]
+[ORDER BY column ];
+[having condition]
+</code></pre></div>
+
+<ul>
+<li>使用 <code>GROUP BY</code> 子句将表分成小组</li>
+<li>
+<p>所得结果集隐式按降序排列，如果需要改变排序方式可以使用 <code>Order by</code> 子句</p>
+</li>
+<li>
+<p>出现在SELECT列表中的字段，如果出现的位置不是在组函数中，那么必须出现在 <code>GROUP BY</code> 子句中
+<div class="highlight"><pre><span></span><code>select deptno, avg(sal) from emp group by deptno
+</code></pre></div></p>
+</li>
+<li><code>GROUP BY</code> 列可以不在 <code>SELECT列表</code> 中
+<div class="highlight"><pre><span></span><code>select avg(sal) from emp group by deptno
+</code></pre></div></li>
+<li>不能在 <code>WHERE</code> 子句中使用组函数，不能在 <code>WHERE</code> 子句中限制组，只使用Having 对分组进行限制。
+<div class="highlight"><pre><span></span><code>select avg(sal) from emp group by deptno having avg(sal) &gt; 1000;
+</code></pre></div></li>
+</ul>
+<h4 id="select"><code>Select子句</code> 顺序<a class="headerlink" href="#select" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">子句</th>
+<th align="center">说明</th>
+<th align="center">是否必须使用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">select</td>
+<td align="center">要返回的列或表达式</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">from</td>
+<td align="center">从中检索数据的表</td>
+<td align="center">仅在从表选择数据时使用</td>
+</tr>
+<tr>
+<td align="center">where</td>
+<td align="center">行级过滤</td>
+<td align="center">否</td>
+</tr>
+<tr>
+<td align="center">group by</td>
+<td align="center">分组说明</td>
+<td align="center">仅在按组计算聚集时使用</td>
+</tr>
+<tr>
+<td align="center">Having</td>
+<td align="center">组级过滤</td>
+<td align="center">否</td>
+</tr>
+<tr>
+<td align="center">order by</td>
+<td align="center">输出排序顺序</td>
+<td align="center">否</td>
+</tr>
+</tbody>
+</table>
+<p>SQL语句执行过程：</p>
+<ol>
+<li><strong>读取</strong> <code>from子句</code>中的基本表、视图的数据，[执行笛卡尔积操作]。</li>
+<li>选取满足 <code>where子句</code> 中给出的条件表达式的元组</li>
+<li>按 <code>group子句</code> 中指定列的值分组，同时提取满足 <code>Having子句</code> 中组条件表达式的那些组</li>
+<li>按 <code>select子句</code> 中给出的列名或列表达式 <strong>求值输出</strong></li>
+<li><code>Order by子句</code> 对输出的目标表进行 <strong>排序</strong>。</li>
+</ol>
+<p>最佳实践</p>
+<div class="highlight"><pre><span></span><code>-- group by: 按照某些相同的值去进行分组操作
+--- group进行分组操作的时候，可以指定一个列或者多个列，
+--- 但是使用groupby 之后，选择列表中只能包含组函数的值或者group by 的普通字段
+--求每个部门的平均薪水
+select deptno, avg(sal) from emp group by deptno;
+
+--求平均新书大于2000的部门
+select deptno, avg(sal) from emp group by deptno having avg(sal) &gt; 2000;
+
+--部门下雇员的工资&gt;2000 人数
+select deptno, count(1) from emp where sal &gt; 2000 group by deptno;
+
+--部门薪水最高
+select deptno, max(sal) from emp group by deptno;
+
+select max(sal), deptno, job from emp group by deptno, job;
+
+select avg(sal) from emp where sal &gt; 1200 group by deptno having avg(sal) &gt; 1500 order by avg(sal);
+
+--部门里面 工龄最小和最大的人找出来, 找到员工姓名
+---- the first one
+select deptno, min(hiredate), max(hiredate) from emp group by deptno; 
+
+select ename, deptno
+  from emp
+ where hiredate in (select max(hiredate) from emp group by deptno)
+    or hiredate in (select min(hiredate) from emp group by deptno);
+
+---- The second methods
+select mm2.deptno, e1.ename, e1.hiredate
+  from emp e1,
+       (select min(e.hiredate) mind, max(e.hiredate) maxd, e.deptno
+          from emp e
+         group by e.deptno) mm2
+ where e1.hiredate = mm2.mind
+    or e1.hiredate = mm2.maxd;
+</code></pre></div>
+
+<h3 id="_23">课堂练习<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 课堂练习</span>
+<span class="c1">-- 1. 查询10号部门中编号最新入职的员工，工龄最长的员工的个人信息。</span>
+<span class="c1">-- 2. 从 software‛找到‘f’的位置，用‘*’左戒右填充到15位，去除其中的‘a’。</span>
+<span class="c1">-- 3. 查询员工的奖金，如果奖金不为NULL显示‘有奖金’，为null则显示无奖金</span>
+<span class="c1">-- 4. 写一个查询显示当前日期，列标题显示为Date。再显示六个月后的日期，下一个星期 日的日期，该月最后一天的日期。</span>
+<span class="c1">-- 5. 查询EMP表按管理者编号升序排列，如果管理者编号为空则把为空的在最前显示</span>
+<span class="c1">-- 6. 求部门平均薪水</span>
+<span class="c1">-- 7. 按部门求出工资大于1300人员的 部门编号、平均工资、最小佣金、最大佣金,幵且最大佣金大于100</span>
+<span class="c1">-- 8. 找出每个部门的平均、最小、最大薪水</span>
+<span class="c1">-- 9. 查询出雇员名，雇员所在部门名称， 工资等级。</span>
+</code></pre></div>
+
+<p>解答</p>
+<div class="highlight"><pre><span></span><code>-- 1. 查询10号部门中编号最新入职的员工，工龄最长的员工的个人信息。
+select max(hiredate), min(hiredate) from emp where deptno = 10;
+
+select * from emp where hiredate in (select max(hiredate) from emp where deptno = 10) or hiredate in (select min(hiredate) from emp where deptno = 10);
+
+-- 2. 从&#39;software&#39;找到&#39;f&#39;的位置，用&#39;*&#39;左或右填充到15位，去除其中的&#39;a&#39;。
+select instr(&#39;software&#39;, &#39;f&#39;) from dual;
+
+select lpad(&#39;software&#39;, 15, &#39;*&#39;) from dual;
+select rpad(&#39;software&#39;, 15, &#39;*&#39;) from dual;
+
+select replace(&#39;software&#39;, &#39;a&#39;, &#39;&#39;) from dual;
+
+-- 3. 查询员工的奖金，如果奖金不为NULL显示&#39;有奖金&#39;，为null则显示无奖金
+select ename, decode(comm, null, &#39;无奖金&#39;, &#39;有奖金&#39;) &quot;Bouncs&quot; from emp;
+
+-- 4. 写一个查询显示当前日期，列标题显示为Date。再显示六个月后的日期，下一个星期日的日期，该月最后一天的日期。
+select sysdate &quot;Date&quot;, add_months(sysdate, 6) &quot;六月后&quot;, next_day(sysdate, &#39;星期日&#39;) &quot;本周日&quot;, last_day(sysdate) &quot;本月末&quot; from dual;
+
+-- 5. 查询EMP表按管理者编号升序排列，如果管理者编号为空则把为空的在最前显示
+select * from emp order by mgr asc nulls first;
+
+-- 6. 求部门平均薪水
+select deptno, avg(sal) from emp group by deptno;
+
+-- 7. 按部门求出工资大于1300人员的 部门编号、平均工资、最小佣金、最大佣金,幵且最大佣金大于100
+select deptno, avg(sal), min(sal), max(sal) from emp where sal&gt;1300 group by deptno having max(nvl(comm, 0)) &gt; 100;
+
+-- 8. 找出每个部门的平均、最小、最大薪水
+select deptno, avg(sal), min(sal), max(sal) from emp group by deptno;
+
+-- 9. 查询出雇员名，雇员所在部门名称， 工资等级。
+select e.ename,d.dname,s.grade from emp e ,dept d,salgrade s where e.deptno=d.deptno and e.sal between s.losal and s.hisal
+</code></pre></div>
+
+<h2 id="oracle_6">Oracle 关联查询<a class="headerlink" href="#oracle_6" title="Permanent link">&para;</a></h2>
+<h3 id="sql_3"><code>SQL</code> 语句的表连接<a class="headerlink" href="#sql_3" title="Permanent link">&para;</a></h3>
+<h4 id="_24">语法规则<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code>SELECT table1.column, table2.column
+FROM table1, table2
+WHERE table1.column1 = table2.column2;
+</code></pre></div>
+- 在 <code>WHERE</code> 子句中写入 <strong>连接条件</strong>
+- 当多个表中有重名列时，必须在列的名字前加上表名作为前缀
+- 目前，SQL语法有两种语法规则：<code>92语法</code> &amp; <code>99语法</code></p>
+<ul>
+<li>两种语法的SQL语句没有任何限制，在公司中可以随意使用，但是 <strong>建议使用99语法</strong>，不要使用92语法，SQL显得清楚明了</li>
+</ul>
+<h3 id="sql-92"><code>SQL-92语法</code> 表连接<a class="headerlink" href="#sql-92" title="Permanent link">&para;</a></h3>
+<h4 id="_25">基本概念<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
+<ul>
+<li>表连接的数据来自于多张表</li>
+<li>引用同名的列时，若需要明确表，则必须使用表名或者别名区分</li>
+</ul>
+<p>一、迪卡尔积</p>
+<div class="highlight"><pre><span></span><code>select 字段列表 from 表1,表2,表3....
+</code></pre></div>
+
+<ul>
+<li>检索出的行的数目将是第一个表中的行数乘以第二个表中的行数</li>
+<li>检索出的列的数目将是第一个表中的列数加上第二个表中的列数</li>
+</ul>
+<p>二、等值连接: 取 <strong>关系列相同</strong> 的记录</p>
+<div class="highlight"><pre><span></span><code>select 字段列表 
+from 表1,表2,表3....
+where 表1.列=表2.列 and 表1.列=表3.列
+</code></pre></div>
+
+<p>三、非等值连接：取 <strong>关系列不同</strong> 的记录 <code>!=</code> <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code> <code>between and</code></p>
+<div class="highlight"><pre><span></span><code>select 字段列表 
+from 表1,表2,表3....
+where 表1.列 != 表2.列 and 表1.列 != 表3.列
+</code></pre></div>
+
+<p>四、自连接：(特殊的等值连接) 列来自于同一张表，不同角度看待表</p>
+<div class="highlight"><pre><span></span><code>select 字段列表 
+from 表1 e,表1 m
+where e.列1=m.列2
+</code></pre></div>
+
+<p>五、外连接: 在等值基础上，确保一张表(主表)的记录都存在，从表满足则匹配，不满足则填充 <code>null</code></p>
+<ul>
+<li>左外连接: 主表在左边</li>
+<li>右外连接: 主表在右边</li>
+</ul>
+<h4 id="_26">笛卡尔积<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>select count(*) from emp;
+
+select count(*) from dept;
+
+select emp.empno, dept.loc from emp, dept;
+</code></pre></div>
+
+<ul>
+<li>检索出的行的数目将是第一个表中的行数乘以第二个表中的行数</li>
+<li>检索出的列的数目将是第一个表中的列数加上第二个表中的列数</li>
+</ul>
+<h4 id="equi-join">等值连接 <code>Equi join</code><a class="headerlink" href="#equi-join" title="Permanent link">&para;</a></h4>
+<p>语法规则</p>
+<div class="highlight"><pre><span></span><code>SELECT table1.column, table2.column
+FROM table1, table2
+WHERE table1.column1 = table2.column2;
+</code></pre></div>
+
+<ul>
+<li>笛卡尔积：表1 * 表2</li>
+</ul>
+<p>对于等值连接而言，能够连接的字段必须是相关连的外键与主键。</p>
+<ul>
+<li>主外键<ul>
+<li>在外键表中的映射字段称为 <strong>外键 <code>Foreign key</code></strong></li>
+<li>在主键表中的唯一字段称为 <strong>主键 <code>Primary key</code></strong></li>
+</ul>
+</li>
+</ul>
+<p>使用 AND 操作符增加查询条件</p>
+<div class="highlight"><pre><span></span><code>select emp.empno,emp.ename,dept.deptno,dept.loc
+from emp,dept
+where emp.deptno=dept.deptno
+and emp.deptno=10
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>select emp.empno,emp.ename,dept.deptno,dept.loc
+from emp,dept
+where emp.deptno=dept.deptno
+and ename=&#39;JAMES&#39;
+</code></pre></div>
+
+<p>使用表的别名简化查询</p>
+<div class="highlight"><pre><span></span><code>select e.empno,e.ename,e.deptno,d.deptno,d.loc
+from emp e,dept d
+where e.deptno=d.deptno
+</code></pre></div>
+
+<p>多于两个表的连接
+- 为了连接n个表，至少需要n-1个连接条件。</p>
+<div class="highlight"><pre><span></span><code>create table manager
+as
+select * from emp;
+
+-- All tables are Manager ,emp ,dept.
+select e.empno,e.ename,m.ename,d.loc
+from emp e,manager m,dept d
+where e.mgr=m.empno
+and e.deptno=d.deptno
+and e.job=‘ANALYST’;
+</code></pre></div>
+
+<h4 id="non-equi-join">非等值连接 <code>Non-equi join</code><a class="headerlink" href="#non-equi-join" title="Permanent link">&para;</a></h4>
+<p>基本概念：</p>
+<ul>
+<li>使用 <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>!=</code>， <code>between ... and</code> 等连接表。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>select * from emp,salgrade where sal between losal and hisal;
+</code></pre></div>
+
+<h4 id="outer-join">外连接 <code>Outer join</code><a class="headerlink" href="#outer-join" title="Permanent link">&para;</a></h4>
+<p>基本概念</p>
+<p>为了在操作时能保持这些将被舍弃的元组，提出了外连接的概念，使用外连接可以看到不满足连接条件的记录</p>
+<ul>
+<li>利用等值连接的话只会把关联到的数据显示，没有关联到的数据不会显示</li>
+<li>若需要将雇员表中的所有数据都进行显示，此时需要外连接</li>
+<li>外连接运算符：<code>(+)</code></li>
+</ul>
+<p>笛卡尔积太大</p>
+<p><div class="highlight"><pre><span></span><code>select count(*) from emp;
+
+select count(*) from dept;
+
+select emp.empno, dept.loc from emp, dept;
+</code></pre></div>
+- 检索出的行的数目将是第一个表中的行数乘以第二个表中的行数
+- 检索出的列的数目将是第一个表中的列数加上第二个表中的列数
+- 因此，使用外连接时，应保证所有联结都有 <code>where</code> 子句，不然数据库返回比想要的数据多得多的数据</p>
+<p>外连接分类</p>
+<ol>
+<li><strong>左外连接</strong>，显示左边表的全部行：左表为连接对象，右表为被连接对象。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>SELECT table1.column, table2.column
+FROM table1, table2
+WHERE table1.column = table2.column(+);
+</code></pre></div>
+
+<ol>
+<li><strong>右外连接</strong>，显示右边表的全部行：右表为连接对象，左表为被连接对象。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>SELECT table1.column, table2.column
+FROM table1, table2
+WHERE table1.column(+) = table2.column;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>-- 左外连接
+select e.ename, d.deptno, d.dname
+from emp e, dept d
+where e.deptno = d.deptno(+);
+
+-- 右外连接
+select e.ename, d.deptno, d.dname
+from emp e, dept d
+where e.deptno(+)=d.deptno;
+</code></pre></div>
+
+<p>外连接语句查询显示</p>
+<ul>
+<li>外连接查询语句显示按照 <code>from table1, table2</code> 语句的 <strong>第一位置</strong> 进行显示。<strong>与分类无关</strong></li>
+<li>同时，连接查询符号 <code>(+)</code> : 所具有的一方是 <strong>被连接对象</strong>，即：<strong>与左右分类相反。</strong></li>
+</ul>
+<h4 id="self-join">自连接 <code>Self join</code><a class="headerlink" href="#self-join" title="Permanent link">&para;</a></h4>
+<ul>
+<li>查找每个员工的上级主管</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 查找每个员工的上级主管
+select worker.ename ||’ works for ‘||manager.ename
+
+from emp worker, emp manager
+where worker.mgr = manager.empno;
+</code></pre></div>
+
+<h4 id="_27">最佳实践<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>/*关联查询
+--select t1.c1,t2.c2 
+--from t1,t2 
+--where t1.c3 = t2.c4
+*/
+-- 笛卡尔积：当关联多张表，但是不指定连接条件的时候，会进行笛卡尔积
+-- 关联后的总记录条数为 M*n，一般不要使用
+select * from emp e, dept d;
+
+-- where 在进行连接的时候，可以使用等值连接，可以使用非等值连接
+
+-- 等值连接，两个表中包含相同的列名
+-- 查询雇员的名称和部门的名称
+select * from emp e, dept d where e.deptno = d.deptno;
+
+-- 非等值连接，两个表中没有相同的列名，但是某一个列在另一张表的列的范围之中
+-- 查询雇员名称以及自己的薪水等级
+select e.ename, sg.grade from emp e, salgrade sg where e.sal between sg.losal and sg.hisal;
+
+-- 外连接
+---- 利用等值连接的话只会把关联到的数据显示，没有关联到的数据不会显示
+---- 若需要将雇员表中的所有数据都进行显示，此时需要外连接
+-- 外连接分类：
+-- 左外连接（把左表的全部数据显示）和右外连接（把右表的全部数据显示）
+-- 外连接查询语句显示按照 `from table1, table2` 语句的第一位置进行显示。
+-- 同时，连接查询符号 `(+)` : 所具有的一方是被连接对象，即：与左右分类相反。
+-- 左外连接: 左表emp, 右表 dept
+select * from emp e, dept d where e.deptno = d.deptno(+);
+
+-- 右外连接：左表emp, 右表 dept
+select * from emp e, dept d where e.deptno(+) = d.deptno;
+
+-- 左外连接
+select e.ename, d.deptno, d.dname
+from emp e, dept d
+where e.deptno = d.deptno(+);
+
+-- 右外连接
+select e.ename, d.deptno, d.dname
+from emp e, dept d
+where e.deptno(+)=d.deptno;
+
+-- 自连接：将一张表当成不同的表来看待，自己关联自己
+-- 将雇员和他经理的名称查出来
+select e.ename, m.ename from emp e, emp m where e.mgr = m.empno;
+</code></pre></div>
+
+<h3 id="sql-99"><code>SQL-99语法</code> 表连接<a class="headerlink" href="#sql-99" title="Permanent link">&para;</a></h3>
+<h4 id="92-to-99"><code>92语法</code> to <code>99语法</code><a class="headerlink" href="#92-to-99" title="Permanent link">&para;</a></h4>
+<p><code>SQL1992</code> 的语法暴露的缺点：</p>
+<ul>
+<li>语句过滤条件和表连接的条件都放到了 <code>where</code> 子句中 。当条件过多时，联结条件多，过滤条件多时，就容易造成混淆。</li>
+</ul>
+<p><code>SQL1999</code> 修正了整个缺点：</p>
+<ul>
+<li>把联结条件，过滤条件分开来，包括以下新的 <code>TABLE JOIN</code> 的句法</li>
+</ul>
+<h4 id="sql-99_1"><code>SQL-99</code> 语法结构<a class="headerlink" href="#sql-99_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>CROSS JOIN</code></li>
+<li><code>NATURAL JOIN</code></li>
+<li><code>USING子句</code></li>
+<li><code>ON子句</code></li>
+<li><code>LEFT OUTER JOIN</code></li>
+<li><code>RIGHT OUTER JOIN</code></li>
+<li><code>FULL OUTER JOIN</code></li>
+<li><code>Inner outer join</code></li>
+</ul>
+<h4 id="cross-join">交叉连接 <code>cross join</code><a class="headerlink" href="#cross-join" title="Permanent link">&para;</a></h4>
+<p><code>CROSS JOIN</code> 产生了一个笛卡尔积，就象是在连接两个表格时忘记加入一个 <code>WHERE</code>子句一样</p>
+<div class="highlight"><pre><span></span><code>-- 不加 where 子句限定
+select emp.empno, emp.ename, emp.deptno, dept.loc
+from emp, dept;
+
+-- 使用 cross join 是相同效果
+select emp.empno, emp.ename, emp.deptno, dept.loc
+from emp cross join dept;
+</code></pre></div>
+
+<h4 id="natural-join">自然连接 <code>natural join</code><a class="headerlink" href="#natural-join" title="Permanent link">&para;</a></h4>
+<p><code>NATURAL JOIN</code> 子句基于两个表中 <strong>列名完全相同的列</strong> 产生连接</p>
+<ul>
+<li>
+<p>两表有相同名字的列</p>
+</li>
+<li>
+<p>列数据类型相同</p>
+</li>
+<li>
+<p>从两个表中选出连接列的值相等的所有行
+<div class="highlight"><pre><span></span><code>select *
+from emp natural join dept
+Where deptno = 10;
+</code></pre></div></p>
+</li>
+<li>
+<p>自然连接的结果不保留重复的属性</p>
+</li>
+</ul>
+<h4 id="using"><code>using</code> 子句创建连接<a class="headerlink" href="#using" title="Permanent link">&para;</a></h4>
+<p><code>using</code> 子句引用的列在 <code>SQL</code> 任何地方不能使用表名或者别名做前缀，同样适合 <code>natural</code> 子句</p>
+<ul>
+<li>同样是两表相同名字的列，相同的数据类型</li>
+</ul>
+<div class="highlight"><pre><span></span><code>select * from emp e join dept d using (deptno);
+
+select e.ename, d.dname, e.sal, deptno, d.loc
+from emp e join dept d using (deptno)
+where deptno=20;
+</code></pre></div>
+
+<h4 id="join-on"><code>join ... on</code>子句创建连接<a class="headerlink" href="#join-on" title="Permanent link">&para;</a></h4>
+<p>基本概念</p>
+<p>自然连接的条件是基于表中所有同名列的等值连接。为了 <strong>设置任意的连接条件或者指定连接的列</strong>，需要使用 <code>ON</code> 子句</p>
+<ul>
+<li>连接条件与其它的查询条件分开书写</li>
+<li>使用 <code>ON</code> 子句使查询语句更容易理解
+<div class="highlight"><pre><span></span><code>select ename, dname
+from emp join dept on emp.deptno=dept.deptno
+where emp.deptno = 30;
+</code></pre></div></li>
+</ul>
+<p>使用 <code>on</code> 子句创建 <strong>三表连接</strong></p>
+<p>检索雇员名字、所在单位、薪水等级</p>
+<ul>
+<li>这三个信息在三个表里面，所以只能用多表联结</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 检索雇员名字、所在单位、薪水等级
+select ename, dname, grade
+from emp
+join dept on emp.deptno=dept.deptno
+join salgrade on emp.sal between salgrade.losal and salgrade.hisal;
+</code></pre></div>
+
+<h4 id="left-outer-join">左外连接 <code>left outer join</code><a class="headerlink" href="#left-outer-join" title="Permanent link">&para;</a></h4>
+<ul>
+<li>左外连接 <code>LEFT OUTER JOIN</code> 会返回所有左边表中的行，即使在右边的表中没有可对应的列值。
+<div class="highlight"><pre><span></span><code>select e.ename,d.deptno, d.dname
+from dept d
+left outer join emp e
+on e.deptno=d.deptno;
+
+select e.ename, d.deptno, d.dname
+from emp e, dept d
+where d.deptno=e.deptno(+);
+</code></pre></div></li>
+</ul>
+<h4 id="right-outer-join">右外连接 <code>Right outer join</code><a class="headerlink" href="#right-outer-join" title="Permanent link">&para;</a></h4>
+<ul>
+<li>右外连接 <code>RIGHT OUTER JOIN</code> 会返回所有右边表中的行，即使在左边的表中没有可对应的列值。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>select e.ename, d.deptno, d.dname
+from emp e
+right outer join dept d
+on e.deptno=d.deptno;
+
+select e.ename,d.deptno,d.dname
+from emp e,dept d
+where e.deptno(+)=d.deptno;
+</code></pre></div>
+
+<h4 id="inner-join">默认内连接 <code>inner join</code><a class="headerlink" href="#inner-join" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>on</code> 连接表的条件</li>
+</ul>
+<div class="highlight"><pre><span></span><code>select * from emp e inner join dept d on e.deptno=d.deptno;
+
+select * from emp e join dept d on e.deptno=d.deptno;
+
+select * from emp e join dept d using (deptno);
+</code></pre></div>
+
+<h4 id="_28">最佳实践<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>-- 92的表连接语法有什么问题？？？？
+-- 在92语法中，多张表的连接条件会方法where子句中，同时where需要对表进行条件过滤
+-- 因此，相当于将过滤条件和连接条件揉到一起，太乱了，因此出现了99语法
+
+/* 99语法
+-- CROSS　JOIN
+-- NATURAL JOIN
+-- USING 子句
+-- ON子句
+-- LEFT OUTER JOIN
+-- RIGHT OUTER JOIN
+-- FULL OUTER JOIN
+-- Inner join
+*/
+-- cross join 等同于92语法中的笛卡儿积
+select * from emp cross join dept;
+
+-- natural join 相当于是等值连接，但是注意，不需要写连接条件，会从两张表中找到相同的列做连接
+-- 当两张表中不具有相同的列名的时候，会进行笛卡儿积操作,自然连接跟92语法的自连接没有任何关系
+-- 因此，使用 natural join 一定要确定具有相同的列来做连接。
+select * from emp e natural join dept d;
+
+select * from emp e natural join salgrade sg;
+
+-- on子句，可以添加任意的连接条件，
+-- 添加连接条件 相当于92语法中的等值连接
+select * from emp e join dept d on e.deptno = d.deptno;
+
+-- 相当于92语法中的非等值连接，
+select * from emp e join salgrade sg on e.sal between sg.losal and hisal;
+
+-- left outer join ,会把左表中的全部数据正常显示，右表没有对应的数据直接显示空即可
+select * from emp e left outer join dept d on e.deptno = d.deptno;
+
+-- right outer join ,会把右表中的全部数据正常显示，左表中没有对应的记录的话显示空即可
+select * from emp e right outer join dept d on e.deptno = d.deptno;
+
+-- full outer join ,相当于左外连接和右外连接的合集
+select * from emp e full outer join dept d on e.deptno = d.deptno;
+
+-- inner outer join，两张表的连接查询，只会查询出有匹配记录的数据
+select * from emp e inner join dept d on e.deptno = d.deptno; 
+
+-- using,除了可以使用on表示连接条件之外，也可以使用using作为连接条件,
+-- 此时连接条件的列不再归属于任何一张表, 作为独立的列而存在。
+select * from emp e join dept d using(deptno);
+
+select * from emp e join dept d on e.deptno = d.deptno;
+
+-- 总结:两种语法的SQL语句没有任何限制，在公司中可以随意使用，但是建议使用99语法，不要使用92语法，SQL显得清楚明了
+
+
+--------------------------------------------
+--检索雇员名字、所在单位、薪水等级
+
+select e.ename, d.dname, sg.grade from emp e, dept d, salgrade sg where e.deptno = d.deptno and (e.sal between sg.losal and sg.hisal);
+
+
+select e.ename, d.loc, sg.grade
+  from emp e
+  join dept d
+    on e.deptno = d.deptno
+  join salgrade sg
+    on e.sal between sg.losal and sg.hisal;
+</code></pre></div>
+
+<h3 id="sql_4"><code>SQL</code> 子查询<a class="headerlink" href="#sql_4" title="Permanent link">&para;</a></h3>
+<h4 id="_29">基本概念<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h4>
+<p>SQL允许多层嵌套。子查询，即嵌套在其他查询中的查询。理解子查询的关键在于把子查询当作一张表来看待。外层的语句可以把内嵌的子查询返回的结果当成一张表使用。</p>
+<div class="highlight"><pre><span></span><code>SELECT select_list
+FROM table
+WHERE expr operator
+  (SELECT select_list
+FROM table);
+</code></pre></div>
+
+<ul>
+<li>子查询要用括号括起来</li>
+<li>将子查询放在比较运算符的右边(增强可读性)</li>
+</ul>
+<h4 id="_30">子查询的种类<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h4>
+<p>按照子查询返回的记录数，子查询可以分为 <strong>单行子查询</strong> 和 <strong>多行子查询</strong></p>
+<h4 id="_31">单行子查询<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h4>
+<ul>
+<li>子查询返回一行记录</li>
+<li>使用单行记录比较运算符</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>=</code></td>
+<td>Equal to</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Greater than</td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Greater than or equal to</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Less than</td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Less than or equal to</td>
+</tr>
+<tr>
+<td><code>&lt;&gt;</code></td>
+<td>Not equal to</td>
+</tr>
+</tbody>
+</table>
+<p>案例：</p>
+<p><div class="highlight"><pre><span></span><code>-- 我们要查询有哪些人的薪水是在整个雇员的平均薪水之上的：
+
+-- 1. 首先求所有雇员的平均薪水
+
+select avg(sal+nvl(comm,0)) from emp;
+
+-- 2. 然后求：
+select ename,empno, sal, sal+nvl(comm,0)
+from emp
+where sal+nvl(comm,0)&gt;(select avg(sal+nvl(comm,0)) from emp);
+</code></pre></div>
+- 此处嵌套的子查询在外层查询处理之前执行</p>
+<h4 id="_32">多行子查询<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h4>
+<ul>
+<li>子查询结果返回多行记录</li>
+<li>使用集合比较运算符</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>IN</code></td>
+<td>等于列表中的任何值</td>
+</tr>
+<tr>
+<td align="center"><code>some</code></td>
+<td>将值与子查询返回的任意一个值进行比较</td>
+</tr>
+<tr>
+<td align="center"><code>ALL</code></td>
+<td>比较子查询返回的每一个值</td>
+</tr>
+</tbody>
+</table>
+<p>多行子查询中使用 <code>in</code></p>
+<ul>
+<li>查询在雇员中有哪些人是经理人，即：有哪些人的empno号在mgr这个字段中出现过</li>
+<li>应当首先查询mgr中有哪些号码，然后再看看有哪些人的雇员号码在此出现</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 查询在雇员中有哪些人是经理人
+select empno, ename
+from emp
+where empno in (
+select distinct mgr from emp
+);
+</code></pre></div>
+
+<p>多行子查询中使用 <code>some all</code></p>
+<ul>
+<li>找出部门编号为20的所有员工中收入最高的职员
+<div class="highlight"><pre><span></span><code>-- 找出部门编号为20的所有员工中收入最高的职员
+select * from emp
+where sal &gt;= all(
+select sal
+from emp
+where deptno = 20)
+and deptno = 20
+</code></pre></div></li>
+</ul>
+<p>在From子句中使用子查询</p>
+<ul>
+<li>
+<p>求每个部门平均薪水的等级，</p>
+</li>
+<li>
+<p>首先将每个部门的平均薪水求出来，</p>
+</li>
+<li>然后把结果当成一张表，</li>
+<li>再用这张结果表和salgrade表做连接，以此求得薪水等级。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 求每个部门平均薪水的等级
+-- 1. 先求出每个部门平均薪水的表t
+select deptno, avg(sal) &quot;avg_sal&quot; from emp group by deptno;
+
+-- 2. 将t和salgrade进行关联查询就可以了。
+select * 
+from salgrade s, 
+    (select deptno,avg(sal) avg_sal
+      from emp 
+      group by deptno
+    ) t
+where t.avg_sal between s.losal and s.hisal;
+</code></pre></div>
+
+<h4 id="_33">最佳实践<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>/* 子查询：
+    -- 嵌套再其他sql语句中的完整sql语句，可以称之为子查询
+分类：
+    单行子查询
+    多行子查询
+*/
+--有哪些人的薪水是在整个雇员的平均薪水之上的
+--1、先求平均薪水
+select avg(e.sal) from emp e;
+
+--2、把所有人的薪水与平均薪水比较
+select * from emp where sal &gt; (select avg(sal) from emp);
+
+--我们要查在雇员中有哪些人是经理人
+--1、查询所有的经理人编号
+select * from emp;
+select distinct e.mgr from emp e;
+
+--2、在雇员表中过滤这些编号即可
+select * from emp where empno in (select distinct mgr from emp);
+
+--每个部门平均薪水的等级
+--1、先求出部门的平均薪水
+select deptno, avg(sal) from emp e group by e.deptno;
+
+--2、跟薪水登记表做关联，求出平均薪水的等级
+select * from salgrade;
+
+select t.deptno, sg.grade
+  from salgrade sg
+  join (select deptno, avg(sal) vsal from emp e group by e.deptno) t
+    on t.vsal between sg.losal and hisal;
+
+--- 子查询练习-----
+-- 1、求平均薪水最高的部门的部门编号 -- 部门编号
+--求部门的平均薪水
+select e.deptno,avg(e.sal) vsal from emp e group by e.deptno;
+
+--求平均薪水最高的部门
+select max(vsal) from (select avg(e.sal) vsal from emp e group by e.deptno);
+
+--求部门编号
+select t.deptno
+  from (select e.deptno, avg(e.sal) vsal from emp e group by e.deptno) t
+ where t.vsal =
+       (select max(vsal)
+          from (select avg(e.sal) vsal from emp e group by e.deptno));
+
+--2、求部门平均薪水的等级
+-- 部门平均薪水
+select e.deptno, avg(e.sal) vsal from emp e group by e.deptno;
+
+-- 薪水等级
+select t.deptno, sg.grade from salgrade sg join (select e.deptno, avg(e.sal) vsal from emp e group by e.deptno) t on t.vsal between sg.losal and sg.hisal;
+
+--3、求部门平均的薪水等级
+-- 求部门每个人的薪水等级
+select * from emp;
+
+select e.deptno, sg.grade from emp e join salgrade sg on e.sal between sg.losal and sg.hisal;
+
+-- 按照部门求平均等级
+select t.deptno, avg(t.grade) from (select e.deptno, sg.grade from emp e join salgrade sg on e.sal between sg.losal and sg.hisal) t group by t.deptno;
+</code></pre></div>
+
+<h3 id="sql_5"><code>SQL</code> 分页<a class="headerlink" href="#sql_5" title="Permanent link">&para;</a></h3>
+<h4 id="mysql-limit"><code>MySQL</code> 的 <code>limit()</code> 函数<a class="headerlink" href="#mysql-limit" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>作用：限制输出</p>
+</li>
+<li>
+<p>但是，在前面过滤的时候依然会有大数量的操作，仍然会可能挂机</p>
+</li>
+</ul>
+<h4 id="oracle-limit"><code>Oracle</code> 不支持 <code>limit()</code> 函数<a class="headerlink" href="#oracle-limit" title="Permanent link">&para;</a></h4>
+<ul>
+<li>如果需要使用 <strong>限制输出和分页</strong> 的功能的话，必须要使用 <code>rownum</code></li>
+<li>但是，查询语句中，<code>rownum</code> 不能直接使用，需要嵌套使用。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 直接使用，毫无用处
+select emp.*, rownum from emp where rownum&gt;=5;
+
+-- 嵌套使用
+select * 
+from (select * from emp e order by e.sal desc) t1 
+where rownum&lt;=5;
+
+
+select *
+from (select rownum rn, t2.ename, t2.sal
+      from (select e.ename, e.sal from emp e order by e.sal desc) t2
+      where rownum &lt;= 10
+    ) t1
+where t1.rn &gt;= 6
+
+-- 分页
+select *
+from (select rownum rn, t2.ename, t2.sal
+      from (select e.ename, e.sal from emp e order by e.sal desc) t2
+     ) t1
+where t1.rn &gt;= 6
+and t1.rn &lt;= 10;
+</code></pre></div>
+
+<ul>
+<li><code>select * from t_user limit 0,10;</code></li>
+<li><code>limit startRow, pageSize</code></li>
+</ul>
+<h4 id="_34">最佳实践<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>-- 限制输出: limit 是 MySQL 用来做限制输出的，但是oracle中不是
+-- oracle中，如果需要使用限制输出和分页的功能的话，必须要使用rownum，
+-- 但是rownum不能直接使用，需要嵌套使用
+-- 求薪水最高的前5名雇员
+-- 按照薪水降序排序
+select * from emp e order by e.sal desc;
+
+select * from (select * from emp e order by e.sal desc) where rownum &lt;= 5;
+
+
+-- 求薪水最高的第6到10名雇员
+-- 查询 1-10 (这里也可以不限制， 仅添加rownum)
+select t.*, rownum rn from (select * from emp e order by e.sal desc) t where rownum &lt;=10;
+
+select t.*, rownum rn from (select * from emp e order by e.sal desc) t;
+
+-- 再次查询 6 - 10
+-- 使用rownum的时候必须要再外层添加嵌套，此时才能将rownum作为其中的一个列，然后再进行限制输出
+select * from (select t.*, rownum rn from (select * from emp e order by e.sal desc) t where rownum &lt;=10) where rn &gt;5 and rn &lt;= 10;
+</code></pre></div>
+
+<h3 id="_35">练习<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>-- 使用99语法更改相应作业：
+-- 1. 列出所有雇员的姓名及其上级的姓名。
+-- 2. 列出入职日期早亍其直接上级的所有雇员。
+-- 3. 列出所有部门名称及雇员
+-- 4. 列出所有 &#39;CLERK&#39;（办事员）的姓名及其部门名称。
+-- 5. 列出从事 &#39;SALES&#39;（销售）工作的雇员的姓名，假定丌知道销售部的部门编号。
+-- 6. 列出在每个部门工作的雇员的数量以及其他信息。
+-- 7. 列出所有雇员的雇员名称、部门名称和薪金。
+-- 8. 求出部门编号为20的雇员名、部门名、薪水等级
+</code></pre></div>
+
+<h2 id="oracle_7">Oracle 索引<a class="headerlink" href="#oracle_7" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 查看某个数据表包含的索引</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">user_indexes</span> <span class="k">where</span> <span class="k">table_name</span><span class="o">=</span><span class="k">upper</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">);</span>
+
+<span class="c1">-- 根据索引名查看索引包含的字段</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">user_ind_columns</span> <span class="k">where</span> <span class="n">index_name</span> <span class="o">=</span> <span class="s1">&#39;INDEXS_NAME&#39;</span><span class="p">;</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2643 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Database%20System/Oracle/Oracle%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Oracle 数据表设计 - Abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#oracle" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Oracle 数据表设计
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../AarWiki/" title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Python/Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      310 Learning English
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="310 Learning English" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        310 Learning English
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../310%20Learning%20Language/an-Overview%20of%20English%20Learning/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#oracle_1" class="md-nav__link">
+    Oracle 数据表类型
+  </a>
+  
+    <nav class="md-nav" aria-label="Oracle 数据表类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oracle_2" class="md-nav__link">
+    Oracle 数据类型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    数据库的对象
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    数据库对象的命名规则
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oracle_3" class="md-nav__link">
+    Oracle 常用数据类型
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oracle_4" class="md-nav__link">
+    Oracle 专有序列
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ddl" class="md-nav__link">
+    数据表的创建 DDL
+  </a>
+  
+    <nav class="md-nav" aria-label="数据表的创建 DDL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    标准的建表语法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    子查询建表语法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    表结构的修改
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraint" class="md-nav__link">
+    约束 constraint
+  </a>
+  
+    <nav class="md-nav" aria-label="约束 constraint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    约束简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    定义约束
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-null" class="md-nav__link">
+    NOT NULL 约束
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#primary-key" class="md-nav__link">
+    主键约束 PRIMARY KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unique" class="md-nav__link">
+    唯一性约束 UNIQUE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check" class="md-nav__link">
+    CHECK 约束
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#foreign-key" class="md-nav__link">
+    外键约束 FOREIGN KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    约束的添加和撤销
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-dml" class="md-nav__link">
+    SQL数据更新 DML
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL数据更新 DML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    Insert语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    DELETE 语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    UPDATE 语句
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view" class="md-nav__link">
+    视图 View
+  </a>
+  
+    <nav class="md-nav" aria-label="视图 View">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    视图的定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    创建视图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    使用视图
+  </a>
+  
+    <nav class="md-nav" aria-label="使用视图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    修改视图对应基表数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    删除数据
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    删除视图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    只读视图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    案例练习
+  </a>
+  
+    <nav class="md-nav" aria-label="案例练习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    题目分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    创建视图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    使用视图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    授权视图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction" class="md-nav__link">
+    事务 Transaction
+  </a>
+  
+    <nav class="md-nav" aria-label="事务 Transaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commit-rollback" class="md-nav__link">
+    Commit &amp; Rollback
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acid" class="md-nav__link">
+    事务的ACID属性
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index" class="md-nav__link">
+    索引 Index
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    用户管理
+  </a>
+  
+    <nav class="md-nav" aria-label="用户管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    账户锁定与解锁
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    创建用户
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    用户授权
+  </a>
+  
+    <nav class="md-nav" aria-label="用户授权">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    授权：连接权限
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    修改用户密码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    删除用户
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grant" class="md-nav__link">
+    GRANT 赋于权限
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revoke" class="md-nav__link">
+    REVOKE 回收权限
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    数据库设计范式
+  </a>
+  
+    <nav class="md-nav" aria-label="数据库设计范式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    数据库设计概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    第一范式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2nf" class="md-nav__link">
+    第二范式（2NF）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/AarWiki/edit/master/docs/250 Working Coding/Database System/Oracle/Oracle数据表设计.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="oracle">Oracle 数据表设计<a class="headerlink" href="#oracle" title="Permanent link">&para;</a></h1>
+<h2 id="oracle_1">Oracle 数据表类型<a class="headerlink" href="#oracle_1" title="Permanent link">&para;</a></h2>
+<h3 id="oracle_2">Oracle 数据类型<a class="headerlink" href="#oracle_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>number(x,y)</code></td>
+<td>数字类型，最长x位，y位小数。</td>
+</tr>
+<tr>
+<td><code>varchar2(maxlength)</code></td>
+<td>变长字符串，这个参数的上限是32767字节</td>
+</tr>
+<tr>
+<td><code>char(max_length)</code></td>
+<td>定长字符串，最大2000字节。</td>
+</tr>
+<tr>
+<td><code>DATE</code></td>
+<td>日期类型 (只能精确到秒。)</td>
+</tr>
+<tr>
+<td><code>TIMESTAMP</code></td>
+<td>时间戳 (精确到微秒)</td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td>长字符串，最长2GB</td>
+</tr>
+<tr>
+<td><code>CLOB</code></td>
+<td>最大长度4G。<br/>大对象很少使用：如果存在大对象，一般的解决方案存入文件地址（地址为程序所在应用服务器的相对路径）。 (了解类型)</td>
+</tr>
+<tr>
+<td><code>BLOB</code></td>
+<td>存二进制文件。(了解类型)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>varchar2(maxlength)</code>：声明方式为：<code>varchar2(L)</code>，其中，L为字符串长度，没有缺省值。</li>
+</ul>
+<h3 id="_1">数据库的对象<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="center">对象名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">表</td>
+<td>基本的数据存储对象，以行和列的形式存在，列也就是字段，行也就是记录</td>
+</tr>
+<tr>
+<td align="center">约束</td>
+<td>执行数据校验，保证了数据完整性的</td>
+</tr>
+<tr>
+<td align="center">视图</td>
+<td>一个或者多个表数据的逻辑显示</td>
+</tr>
+<tr>
+<td align="center">索引</td>
+<td>用于提高查询的性能</td>
+</tr>
+<tr>
+<td align="center">序列</td>
+<td>自增序列<code>Sequence</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">数据库对象的命名规则<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>必须以字母开头</li>
+<li>可包括数字和三个特殊字符<code>（# _ $）</code></li>
+<li>不能使用oracle的保留字</li>
+<li>同一用户下的对象不能同名</li>
+</ul>
+<h3 id="oracle_3">Oracle 常用数据类型<a class="headerlink" href="#oracle_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>varchar2(n)</code></td>
+<td>变长字符串，存储空间等与实际空间的数据大小，最大为4K，长度以字节为单位指定（注意中文字符）</td>
+</tr>
+<tr>
+<td><code>char(n)</code></td>
+<td>定长字符串，存储空间大小固定</td>
+</tr>
+<tr>
+<td><code>number(p,s)</code></td>
+<td>整数或小数，p是精度（所有数字位的个数，最大38），s是刻度范围（小数点右边的数字位个数，最大127）</td>
+</tr>
+<tr>
+<td><code>date/timestamp</code></td>
+<td>年、月、日、时、分、秒</td>
+</tr>
+</tbody>
+</table>
+<h2 id="oracle_4">Oracle 专有序列<a class="headerlink" href="#oracle_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>序列  <code>sequence</code> 是oracle专有的对象，它用来产生一个自动递增的数列</li>
+</ul>
+<p>创建序列的语法</p>
+<div class="highlight"><pre><span></span><code>create sequence seq_name
+increment by n
+start with n
+maxvalue n|nomaxvalue 10^27 or -1
+minvalue n|no minvalue
+cycle|nocycle
+cache n|nocache
+</code></pre></div>
+
+<p>序列的使用语法</p>
+<div class="highlight"><pre><span></span><code>create sequence 序列名称 start with 1 increment by 1;
+</code></pre></div>
+
+<ul>
+<li><code>序列.nextval</code>：序列下个值</li>
+<li><code>序列.currval</code>：序列当前值</li>
+</ul>
+<p>删除序列</p>
+<div class="highlight"><pre><span></span><code>drop sequence 序列名;
+</code></pre></div>
+
+<p>实际使用</p>
+<div class="highlight"><pre><span></span><code>-- 序列使用语法
+create sequence 序列名称 start with 1 increment by 1;
+
+-- 序列.nextval： 下个值
+select seq_score_id.nextval from dual;
+
+-- 序列.currval： 当前值
+-- 查看当前序列状态
+select seq_score_id.currval from dual;
+
+-- 删除序列
+drop sequence 序列名;
+
+-- 案例
+-- 
+create sequence seq_empcopy_id start with 1 increment by 1;
+
+insert into tb_course values(seq_course.nextval,&#39;dsaf&#39;,&#39;dsaf);
+</code></pre></div>
+
+<p>使用序列</p>
+<div class="highlight"><pre><span></span><code>-- 使用序列
+select seq_empcopy_id.nextval from dual
+
+insert into empcopy(empno, ename) values (seq_empcopy_id.nextval, ‘TEST’);
+
+-- 查看序列状态
+select seq_empcopy_id.currval from dual
+
+-- 删除序列
+drop sequence seq_empcopy_id;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>-- 序列： 
+-- 在Oracle中， 如果需要完成一个列的自增操作，则必须要使用序列
+-- 语法：
+/*
+create sequence seq_name
+  increment by n  每次增长几
+  start with n    从哪个值开始增长
+  maxvalue n|nomaxvalue 10^27 or -1  最大值
+  minvalue n|no minvalue  最小值
+  cycle|nocycle           是否有循环
+  cache n|nocache          是否有缓存
+*/
+create sequence my_sequence increment by 2 start with 1;
+
+
+-- How 如何使用？
+-- 注意:如果创建好序列之后，没有经过任何的使用，那么不能获取当前的值，必须要先执行 nextval 之后才能获取当前值
+-- dual是oracle中提供的一张虚拟表，不表示任何意义，在测试的时候可以随意使用
+
+-- 1/3. 首次运行必须运行一次 nextval ，获取序列的下一个值（初始值）
+select my_sequence.nextval from dual;
+
+-- 2. 查看当前序列的值
+select my_sequence.currval from dual;
+
+-- 1/3. 获取序列的下一个值
+select my_sequence.nextval from dual;
+
+-- 4. 使用：插入数据
+insert into emp(empno, ename) values(my_sequence.nextval, &#39;Hello Oracle&#39;);
+</code></pre></div>
+
+<h2 id="ddl">数据表的创建 <code>DDL</code><a class="headerlink" href="#ddl" title="Permanent link">&para;</a></h2>
+<h3 id="_3">标准的建表语法<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>CREATE TABLE [ schema .] table
+( column datatype [DEFAULT expr ] , …
+);
+</code></pre></div>
+
+<ul>
+<li>在创建新表时，指定的表名必须不存在，否则将出错。</li>
+<li>使用默认值：当插入行时如果不给出值，dbms将自动采用默认值。</li>
+<li>在用 <code>create语句</code> 创建基本表时，最初只是一个空的框架，用户可以使用 <code>insert命令</code> 把数据插入表中。</li>
+</ul>
+<p>案例</p>
+<ul>
+<li>建立一张用来存储学生信息的表，表中的字段包含了学生的学号、姓名、年龄、入学日期、年级、班级、email等信息，并且为grade指定了默认值为1，如果在插入数据时不指定grade得值，就代表是一年级的学生。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>create table stu
+(id number(6),
+name varchar2(20) not null unique,
+sex number(1) not null,
+age number(3),
+sdate date,
+grade number(2) default 1,
+class number(4),
+email varchar2(50)
+);
+</code></pre></div>
+
+<h3 id="_4">子查询建表语法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>CREATE TABLE table [ column (, column ...)]
+AS subquery ;
+</code></pre></div>
+
+<ul>
+<li>新表的字段列表必须与子查询中的字段列表匹配</li>
+<li>字段列表可以省略：<code>create table emp2 as select * from emp;</code></li>
+</ul>
+<h3 id="_5">表结构的修改<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>在基本表建立并使用一段时间后，可以根据实际需要对基本表的结构进行修改。</p>
+<p>1，增加新的列：<code>alter table … add …</code> 语句</p>
+<div class="highlight"><pre><span></span><code>alter table emp add address varchar(20)
+</code></pre></div>
+
+<ul>
+<li>新增加的类不能定义为“<code>not null</code>”, 基本表在增加一列后，原有元组在新增加的列上的值都定义为空值。</li>
+</ul>
+<p>2， 删除原有的列：<code>alter table 表名 drop column 列名</code></p>
+<div class="highlight"><pre><span></span><code>alter table emp drop column address
+</code></pre></div>
+
+<p>3， 修改字段：<code>alter table...modify...</code></p>
+<div class="highlight"><pre><span></span><code>alter table emp modify(job varchar(50))
+</code></pre></div>
+
+<p>4， 在基本表不需要时，可以使用“drop table”语句撤消。在一个基本表撤消后，所有的数据都丢弃。所有相关的索引被删除</p>
+<div class="highlight"><pre><span></span><code>drop table emp cascade constraints;
+</code></pre></div>
+
+<p>5， 可以使用 <code>RENAME语句</code> 改变表名（视图），要求必须是表（视图）的所有者</p>
+<div class="highlight"><pre><span></span><code>RENAME old_name TO new_name
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>/* 数据表创建语法
+--CREATE TABLE [schema.]table
+--  (column datatype [DEFAULT expr] , …
+--  );
+*/
+-- 设计要求：建立一张用来存储学生信息的表，表中的字段包含了学生的学号、姓名、年龄、入学日期、年级、班级、email等信息，
+-- 并且为grade指定了默认值为1，如果在插入数据时不指定grade得值，就代表是一年级的学生
+
+create table student
+(
+stu_id number(10),
+name varchar2(20),
+age number(3),
+hiredate date,
+grade varchar2(10),
+classes varchar2(10) default 1,
+email varchar2(50)
+);
+
+insert into student values(2020601, &#39;zhangsan&#39;, 22, to_date(&#39;20200101&#39;, &#39;YYYY-MM-DD&#39;), &#39;2&#39;, &#39;1&#39;, &#39;12334235@qq.com&#39;);
+
+select * from student;
+
+-- 正规的表结构设计需要使用第三方工具 powerdesigner
+-- 再添加表的列的时候，不能允许设置成not null
+alter table student add address varchar2(100);
+-- 删除字段
+alter table student drop column address;
+alter table student modify(email varchar2(100));
+
+--重新命名表
+rename student to stu;
+
+--删除表
+/*
+在删除表的时候，经常会遇到多个表关联的情况，多个表关联的时候不能随意删除，需要使用级联删除
+restrict: 
+cascade: 有A,B两张表，如果 A 中的某一个字段跟B表中的某一个字段做关联，那么再删除表A的时候，需要先将表B删除
+set null: 在删除的时候，把表的关联字段设置成空
+*/
+drop table stu;
+
+
+/* 创建表的时候可以给表中的数据添加数据校验规则，这些规则称之为约束
+ -- 约束分为五大类
+ -- not null: 非空约束，插入数据的时候某些列不允许为空
+ -- unique key: 唯一键约束，可以限定某一个列的值是唯一的，唯一键的列一般被用作索引列。
+ -- primary key: 主键：非空且唯一，任何一张表一般情况下最好有主键，用来唯一的标识一行记录，
+ -- foreign key: 外键，当多个表之间有关联关系（一个表的某个列的值依赖与另一张表的某个值）的时候，需要使用外键
+ -- check约束:可以根据用户自己的需求去限定某些列的值
+ */
+ -- 个人建议：再创建表的时候直接将各个表的约束条件添加好，如果包含外键约束的话，最好先把外键关联表的数据优先插入
+
+ create table student
+(
+stu_id number(10) primary key ,
+name varchar2(20) not null,
+age number(3) check(age&gt;0 and age &lt; 120),
+hiredate date,
+grade varchar2(10),
+classes varchar2(10) default 1,
+email varchar2(50) unique
+deptno number(2)
+);
+
+alter table student add constraint fk_0001 foreign key(deptno) reference dept(deptno);
+</code></pre></div>
+
+<h2 id="constraint">约束 <code>constraint</code><a class="headerlink" href="#constraint" title="Permanent link">&para;</a></h2>
+<h3 id="_6">约束简介<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>约束用于确保数据库数据满足特定的商业逻辑或者企业规则，如果定义了约束，并且数据不符合约束，那么DML操作（INSERT、UPDATE、DELETE）将不能成功执行。</p>
+<ul>
+<li>创建表时，指定插入数据的规则。</li>
+<li>约束是在表上强制执行的数据校验规则。</li>
+<li>
+<p>Oracle 支持下面五类完整性约束:</p>
+</li>
+<li>
+<p><code>NOT NULL</code> 非空</p>
+</li>
+<li><code>UNIQUE Key</code> 唯一键</li>
+<li><code>PRIMARY KEY</code> 主键</li>
+<li><code>FOREIGN KEY</code> 外键</li>
+<li>
+<p><code>CHECK</code> 自定义检查约束</p>
+</li>
+<li>
+<p>Oracle使用 <code>SYS_Cn</code>格式命名约束，也可以由用户命名。</p>
+</li>
+</ul>
+<p>创建约束的时机</p>
+<ul>
+<li>在建表的同时创建</li>
+<li>建表后创建</li>
+</ul>
+<p>约束从作用上分类，可以分成两大类：</p>
+<ul>
+<li>
+<p>表级约束：可以约束表中的任意一列或多列。可以定义除了Not Null以外的任何约束。</p>
+</li>
+<li>
+<p>列级约束：只能约束其所在的某一列。可以定义任何约束。</p>
+</li>
+</ul>
+<h3 id="_7">定义约束<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>-- 列级约束
+column [CONSTRAINT constraint_name] constraint_type
+
+-- 表级约束：
+column ,..., [CONSTRAINT constraint_name] constraint_type (column,...)
+</code></pre></div>
+
+<h3 id="not-null"><code>NOT NULL</code> 约束<a class="headerlink" href="#not-null" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>确保字段值不允许为空</p>
+</li>
+<li>
+<p><strong>只能在列级定义</strong>，不能在表级定义</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 定义列级 not null 约束
+CREATE TABLE emp01(
+    eno INT NOT NULL,
+    name VARCHAR2(10) CONSTRAINT nn_name2 NOT NULL,
+    salary NUMBER(6,2)
+);
+
+-- 
+CREATE TABLE employees(
+employee_id NUMBER(6),
+name VARCHAR2(25) NOT NULL,
+salary NUMBER(8,2),
+hire_date DATE CONSTRAINT emp_hire_date_nn NOT NULL
+);
+</code></pre></div>
+
+<p>列级约束和表级约束</p>
+<ul>
+<li>列级约束: 从形式上看，在每列字段定义完后马上定义的约束即是列级约束。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>create table parent(c1 number primary key );
+
+create table child(c number primary key, c2 number references parent(c1));
+</code></pre></div>
+
+<ul>
+<li>表级约束: 从形式上看，在每列字段定义后，再次补充附加的约束即是表级约束</li>
+</ul>
+<div class="highlight"><pre><span></span><code>create table child(c number, c2 number, primary key (c2), foreign key(c2) references parent(c1));
+</code></pre></div>
+
+<ul>
+<li>有些时候，列级约束无法实现某种约束的定义，比如 <strong>联合主键的定义</strong>，就要用到表级约束:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>create table test(id1 number , id2 number, primary key(id1, id2));
+</code></pre></div>
+
+<h3 id="primary-key">主键约束 <code>PRIMARY KEY</code><a class="headerlink" href="#primary-key" title="Permanent link">&para;</a></h3>
+<p>主键约束是数据库中最重要的一种约束。在关系中，主键值不可为空，也不允许出现重复，即关系要满足实体完整性规则。</p>
+<ul>
+<li>主键从功能上看相当于非空且唯一</li>
+<li>一个表中只允许一个主键</li>
+<li>主键是表中能够唯一确定一个行数据的字段</li>
+<li>主键字段可以是单字段或者是多字段的组合</li>
+<li>Oracle为主键创建对应的 <strong>唯一性索引</strong></li>
+</ul>
+<p>主键定义形式</p>
+<ol>
+<li>主键子句：在表的定义中加上如下子句： <code>primary key(列)</code></li>
+<li>主键短语：在主属性的定义之后加上 <code>primary key</code> 字样。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>create table t3(
+id number(4),
+constraint t3_pk primary key(id)
+);
+</code></pre></div>
+
+<ul>
+<li>
+<p>上述形式Oracle会 <strong>自动命名约束</strong>，可自己给约束起名</p>
+</li>
+<li>
+<p>约束建议命名</p>
+<ul>
+<li><code>约束_表名_字段</code> 可以保证唯一性。 如果太长，可用缩写。</li>
+<li>同一字段可以有多个约束，但是约束之间不要冲突</li>
+</ul>
+</li>
+</ul>
+<h3 id="unique">唯一性约束 <code>UNIQUE</code><a class="headerlink" href="#unique" title="Permanent link">&para;</a></h3>
+<ul>
+<li>唯一性约束条件确保所在的字段或者字段组合 <strong>不出现重复值</strong></li>
+<li>唯一性约束条件的字段 <strong>允许出现空值</strong></li>
+<li><strong>Oracle 将为唯一性约束条件创建对应的唯一性索引</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>CREATE TABLE employees(
+id NUMBER(6),
+name VARCHAR2(25) NOT NULL UNIQUE,
+email VARCHAR2(25),
+salary NUMBER(8,2),
+hire_date DATE NOT NULL,
+CONSTRAINT emp_email_uk UNIQUE(email)
+);
+</code></pre></div>
+
+<h3 id="check"><code>CHECK</code> 约束<a class="headerlink" href="#check" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Check约束用于对一个属性的值加以限制</li>
+<li>Check约束中定义检查的条件表达式，那么，数据就需要符合设置的条件</li>
+</ul>
+<div class="highlight"><pre><span></span><code>create table emp3
+(id number(4) primary key,
+age number(2) check(age &gt; 0 and age &lt; 100),
+salary number(7,2),
+sex char(1),
+constraint salary_check check(salary &gt; 0)
+);
+</code></pre></div>
+
+<ul>
+<li>在 Check 约束下，插入记录或修改记录时，系统要测试新的记录的值是否满足条件</li>
+</ul>
+<h3 id="foreign-key">外键约束 <code>FOREIGN KEY</code><a class="headerlink" href="#foreign-key" title="Permanent link">&para;</a></h3>
+<ul>
+<li>外键是表中的一个列，其值必须在另一表的主键或者唯一键中列出</li>
+<li>作为主键的表称为“主表”，作为外键的关系称为“依赖表”</li>
+<li>外键参照的是主表的主键或者唯一键</li>
+<li>
+<p>对于主表的删除和修改主键值的操作，会对依赖关系产生影响，以删除为例：当要删除主表的某个记录（即删除一个主键值，那么对依赖的影响可采取下列3种做法：</p>
+</li>
+<li>
+<p><code>RESTRICT</code>方式：只有当依赖表中没有一个外键值与要删除的主表中主键值相对应时，才可执行删除操作。</p>
+</li>
+<li><code>CASCADE</code>方式：将依赖表中所有外键值与主表中要删除的主键值相对应的记录一起删除</li>
+<li><code>SET NULL</code>方式：将依赖表中所有与主表中被删除的主键值相对应的外键值设为空值
+    FOREIGN KEY (DEPTNO) REFERENCES DEPT(DEPTNO)
+    [ON DELETE [CASCADE|SET NULL]] 如省略on短语，缺省为第一中处理方式。</li>
+</ul>
+<h3 id="_8">约束的添加和撤销<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>可增加或删除约束，但不能直接修改</p>
+<div class="highlight"><pre><span></span><code>-- 可增加或删除约束，但不能直接修改
+-- alter table tablename
+
+-- 增加
+add constraint con_name unique(col)
+
+-- 删除
+drop constraint com_name [cascade]
+</code></pre></div>
+
+<p>查询constraint</p>
+<div class="highlight"><pre><span></span><code>select constraint_name,constraint_type
+from user_constraints
+where table_name=upper(&#39;sxtstu05&#39;);
+-- 或者 where owner=‘SCOTT’ 大写
+
+
+select constraint_name,constraint_type
+from user_constraints
+where owner=&#39;SCOTT&#39;;
+
+select constraint_name,column_name from user_cons_columns
+where table_name=upper(‘tablename&#39;);
+</code></pre></div>
+
+<h2 id="sql-dml">SQL数据更新 <code>DML</code><a class="headerlink" href="#sql-dml" title="Permanent link">&para;</a></h2>
+<p>SQL的数据更新包括 <strong>数据插入</strong>， <strong>删除</strong> 和 <strong>修改</strong> 三个操作。</p>
+<h3 id="insert"><code>Insert</code>语句<a class="headerlink" href="#insert" title="Permanent link">&para;</a></h3>
+<p><code>insert语句</code> 是往表中插入数据的语句，方式有两种：一种是元组值的插入，一种是查询结果的插入。</p>
+<p>元组值的插入语法如下：</p>
+<div class="highlight"><pre><span></span><code>INSERT INTO table[( column [ , column... ])] VALUES (value [ , value... ]);
+</code></pre></div>
+
+<ul>
+<li>一次插入操作只插入一行</li>
+</ul>
+<div class="highlight"><pre><span></span><code>insert into emp (empno, ename, job, mgr, hiredate, sal, comm, deptno) values (1111,&#39;gao&#39;,&#39;clerk&#39;,7902,sysdate,10000,3000,40);
+</code></pre></div>
+
+<ul>
+<li>此处插入的元组中列的个数、顺序与emp的结构完全一致，因此表名之后的列名可以省略不写</li>
+</ul>
+<div class="highlight"><pre><span></span><code>insert into emp values(2222,&#39;gaohs&#39;,&#39;clerk&#39;,7902,sysdate,10000,3000,40)
+
+-- 可以只插入部分列
+insert into emp(empno, ename) values (3333,&#39;xiaozhang&#39;);
+</code></pre></div>
+
+<ul>
+<li>可以只插入部分列</li>
+</ul>
+<div class="highlight"><pre><span></span><code>insert into emp(empno, ename) values (3333,&#39;xiaozhang&#39;);
+</code></pre></div>
+
+<ul>
+<li>但要求省略的列必须满足下面的条件：</li>
+<li>该列定义为允许 <code>Null</code>值。</li>
+<li>
+<p>在表定义中给出默认值，这表示如果不给出值，将使用默认值。</p>
+</li>
+<li>
+<p>如果不符合上面两个条件，将会报错。不能成功插入。</p>
+</li>
+</ul>
+<p>可以用 <code>insert</code> 语句把一个 <code>select</code> 语句的查询结果插入到一个基本表中，语法如下：</p>
+<div class="highlight"><pre><span></span><code>Insert into tablename(column,...) select * from tablename2
+</code></pre></div>
+
+<p>案例</p>
+<div class="highlight"><pre><span></span><code>-- 创建一个临时表
+create table temp
+as
+select * from emp
+where 1 = 2;
+
+-- 执行插入
+insert into ss select * from emp;
+</code></pre></div>
+
+<p>例子</p>
+<div class="highlight"><pre><span></span><code>create table test02 
+as
+select * from emp where 1=2;
+
+create table test01 
+as
+select * from emp where 1=1
+
+insert into test02;
+
+select * from emp where emp.deptno=10;
+</code></pre></div>
+
+<h3 id="delete"><code>DELETE</code> 语句<a class="headerlink" href="#delete" title="Permanent link">&para;</a></h3>
+<p>SQL的删除操作是指从基本表中删除元组，语法如下：</p>
+<div class="highlight"><pre><span></span><code>DELETE [FROM] table [WHERE condition];
+</code></pre></div>
+
+<ul>
+<li>其语义是从基本表中删除满足条件表达式的元组</li>
+<li><code>Delete from table</code> 表示从表中删除一切元组</li>
+</ul>
+<p><code>truncate table</code> 删除所有行：</p>
+<ul>
+<li>如果想从表中删除所有的行，<strong>不要使用</strong>  <code>delete from table;</code></li>
+<li>可使用 <code>truncate table</code> 语句，完成相同的工作，但是 <strong>速度更快（没有事务）</strong>。</li>
+</ul>
+<h3 id="update"><code>UPDATE</code> 语句<a class="headerlink" href="#update" title="Permanent link">&para;</a></h3>
+<p>Update语句用于修改基本表中元组的某些列，其语法如下：</p>
+<div class="highlight"><pre><span></span><code>UPDATE table 
+SET column = value [, column = value ] …
+[WHERE condition ];
+</code></pre></div>
+
+<ul>
+<li>语义是：修改基本表中满足条件表达式的那些元组的列值，需修改的列值在set子句中指出。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>--DML：数据库操作语言
+--  增  --  删  --  改
+
+-- 在实际项目中，使用最多的是读取操作，但是插入数据和删除数据同等重要，而修改操作相对较少
+
+/*
+插入操作：
+  元组值的插入
+  查询结果的插入
+
+*/
+-- 最基本的插入方式 2 种：
+--向部分列插入数据的时候，不是想向哪个列插入就插入的，要遵循创建表的时候定义的规范(约束)
+
+--insert into tablename values(val1,val2,....) 如果表名之后没有列，那么只能将所有的列都插入
+insert into emp values(2222, &#39;Hello&#39;, &#39;Cleark&#39;, &#39;7902&#39;, to_date(&#39;2019-01-23&#39;, &#39;YYYY-MM-dd&#39;), 1002, 500, 10);
+
+--insert into tablename(col1,col2,...) values(val1,val2,...) 可以指定向哪些列中插入数据
+insert into emp(empno, ename) values(3333, &#39;Wangwu&#39;);
+
+-- check it
+select * from emp;
+
+
+-- 创建表的其他方式
+-- 复制表同时复制表数据，不会复制约束
+create table emp2 as select * from emp;
+
+--复制表结构但是不复制表数据，不会复制约束
+create table emp3 as select * from emp where 1=2;
+
+--如果有一个集合的数据，把集合中的所有数据都挨条插入的话，效率如何？一般在实际的操作中，很少一条条插入，更多的是批量插入
+
+/*
+删除操作：
+delete from tablename where condition
+
+*/
+--删除满足条件的数据
+delete from emp2 where deptno = 10;
+
+--把整张表的数据全部清空
+delete from emp2;
+
+--truncate: 跟delete有所不同，delete在进行删除的时候经过事务，而truncate不经过事务，一旦删除就是永久删除，不具备回滚的操作
+--效率比较高，但是容易发生误操作，所以不建议使用
+truncate table emp2;
+
+/*
+修改操作：
+   update tablename set col = val1,col2 = val2 where condition;
+   可以更新或者修改满足条件的一个列或者多个列
+*/
+--更新单列
+update emp set ename = &#39;HeiHei&#39; where ename = &#39;Hello&#39;;
+
+--更新多个列的值
+update emp set jobs=&#39;teacher&#39;, mgr=7902 where empno = 15;
+
+/*
+增删改是数据库的常用操作，在进行操作的时候都需要《事务》的保证， 也就是说每次在pl/sql中执行sql语句之后都需要完成commit的操作
+事务变得非常关键：
+    最主要的目的是为了数据一致性
+    如果同一份数据，在同一个时刻只能有一个人访问，就不会出现数据错乱的问题，但是在现在的项目中，更多的是并发访问
+    并发访问的同时带来的就是数据的不安全，也就是不一致
+    如果要保证数据的安全，最主要的方式就是加锁的方式，MVCC
+
+    事务的延申：
+        最基本的数据库事务
+        声明式事务
+        分布式事务
+
+    为了提高效率，有可能多个操作会在同一个事务中执行，那么就有可能部分成功，部分失败，基于这样的情况就需要事务的控制。
+    select * from emp where id = 7902 for update
+    select * from emp where id = 7902 lock in share mode.
+
+    如果不保证事务的话，会造成脏读，不可重复读，幻读。
+*/
+</code></pre></div>
+
+<h2 id="view">视图 <code>View</code><a class="headerlink" href="#view" title="Permanent link">&para;</a></h2>
+<h3 id="_9">视图的定义<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>视图(view)，也称 <strong>虚表</strong>，是从一个或多个存储在数据库中的实际表中获得地一种不占用物理空间的逻辑定义表。</p>
+<ul>
+<li>视图本身的定义语句存储在数据字典里的。每次使用的时候重新执行 <code>SQL</code>。而与此定义相关的数据并没有再存一份于数据库中。</li>
+<li>
+<p>用于产生视图的表叫做该视图的 <strong>基表</strong>。通过视图看到的数据存放在基表中。同时，一个视图也可以从另一个视图中产生。</p>
+</li>
+<li>
+<p>对视图的操作同物理表一样，当通过视图修改数据时，实际上是改变基表中的数据；同时，基表数据的修改也会自动反映在相关视图中。</p>
+</li>
+<li>最后，由于逻辑上的原因，有些 Oracle视图可以修改对应的基表，有些则不能（仅仅能查询）。</li>
+</ul>
+<h3 id="_10">创建视图<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>在 <code>CREATE VIEW</code> 语句后加入子查询</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 创建视图格式
+CREATE [OR REPLACE] VIEW view
+[(alias[, alias]...)]
+AS subquery
+[WITH READ ONLY];
+
+-- 案例1
+create or replace view v$_emp_dept
+as
+select emp.deptno,ename,dname from emp
+join dept on emp.deptno=dept.deptno
+with read only
+
+-- 案例2
+create or replace view v_test01
+as
+select * from emp;
+</code></pre></div>
+
+<h3 id="_11">使用视图<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li>查询时，直接从视图中查询的语句相应的结果即可。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>select * from v$_emp_dept;
+</code></pre></div>
+
+<p>查找用户视图</p>
+<div class="highlight"><pre><span></span><code>SELECT *
+FROM user_views
+WHERE view_name =&#39;V_TEST01&#39;;
+</code></pre></div>
+
+<p>修改视图里面的数据</p>
+<div class="highlight"><pre><span></span><code>insert into v_test01(ename, EMPNO, job, DEPTNO) values(&#39;cai30&#39;,9921,&#39;SALESMAN&#39;,10)
+</code></pre></div>
+
+<h4 id="_12">修改视图对应基表数据<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>update view_name set ...
+</code></pre></div>
+
+<ul>
+<li>若一个视图依赖于多个基本表, 则一次修改该视图只能修改一个基本表的数据.</li>
+</ul>
+<h4 id="_13">删除数据<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>delete from view_name where ...
+</code></pre></div>
+
+<ul>
+<li>当视图依赖多个基表时, 不能使用此语句来删除基表中的数据. 只能删除依赖一个基表的数据.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>insert into v_test01(ename, EMPNO, job, DEPTNO) values(&#39;cai30&#39;,9921,&#39;SALESMAN&#39;,10);
+
+delete from v_test01 where ename=&#39;cai30&#39;;
+
+update v_test01 set ename=&#39;cai10&#39; where ename=&#39;cai30&#39;;
+</code></pre></div>
+
+<h3 id="_14">删除视图<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>当视图不再需要的时候，用“drop view” 撤销。删掉视图不会导致数据的丢失，因为视图是基于数据库的表之上的一个查询定义。</p>
+<div class="highlight"><pre><span></span><code>drop view v$_emp_dept;
+
+drop view v_test01;
+</code></pre></div>
+
+<h3 id="_15">只读视图<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<ul>
+<li>创建视图</li>
+</ul>
+<div class="highlight"><pre><span></span><code>create or replace view v_test01 
+as 
+(select * from emp)
+with read only
+</code></pre></div>
+
+<ul>
+<li>测试插入数据</li>
+</ul>
+<div class="highlight"><pre><span></span><code>insert into v_test01(ename, EMPNO, job, DEPTNO)
+values(&#39;cai30&#39;,9921,&#39;SALESMAN&#39;,10);
+</code></pre></div>
+
+<h3 id="_16">案例练习<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p>求平均薪水的等级最低的部门的部门名称，要求完全使用子查询</p>
+<h4 id="_17">题目分析<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>select dname, grade 
+from
+  (select deptno, avg_sal, grade 
+   from (select deptno, avg(sal) avg_sal from emp group by deptno) t,
+    salgrade s
+   where
+    t.avg_sal between s.losal and s.hisal) t1,
+  dept
+where t1.deptno = dept.deptno and
+
+t1.grade =
+(select min(grade) 
+from 
+   (select deptno, avg_sal, grade 
+   from (select deptno, avg(sal) avg_sal from emp group by deptno) t,
+        salgrade s
+where
+t.avg_sal between s.losal and s.hisal);
+</code></pre></div>
+
+<h4 id="_18">创建视图<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>create view v$_temp as
+(select deptno, avg_sal, grade from
+(select deptno, avg(sal) avg_sal from emp group by
+deptno) t,
+salgrade s
+where
+t.avg_sal between s.losal and s.hisal );
+</code></pre></div>
+
+<h4 id="_19">使用视图<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>select dname from dept, v$_temp where
+v$_temp.deptno = dept.deptno
+and grade = (select min(grade) from v$_temp);
+</code></pre></div>
+
+<h3 id="_20">授权视图<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<ul>
+<li>使用 <code>system</code> 用户为 <code>scott</code> 增加权限：<code>grant create view, create table to scott;</code></li>
+<li>使用 <code>system</code> 用户为 <code>scott</code>解锁：<code>alter user scott account unlock;</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 使用 system 用户为 scott 增加权限
+grant create view, create table to scott;
+
+-- 使用 system 用户为 scott 解锁
+alter user scott account unlock;
+</code></pre></div>
+
+<h2 id="transaction">事务 <code>Transaction</code><a class="headerlink" href="#transaction" title="Permanent link">&para;</a></h2>
+<p>事务（Transaction）是一个操作序列。这些操作要么都做，要么都不做，是一个不可分割的工作单位，是数据库环境中的逻辑工作单位。</p>
+<ul>
+<li>事务是可保证数据库的完整性</li>
+<li>事务不能嵌套</li>
+</ul>
+<p>在oracle中，没有事务开始的语句。一个<code>Transaction</code>起始于一条DML(Insert、Update和Delete )语句，结束于以下的几种情况：</p>
+<ul>
+<li>
+<p>用户显式执行 <code>Commit</code> 语句提交操作或 <code>Rollback</code> 语句回退。</p>
+</li>
+<li>
+<p>当执行 <code>DDL(Create、Alter、Drop)</code> 语句事务自动提交。</p>
+</li>
+<li>
+<p>用户正常断开连接时，<code>Transaction</code> 自动提交。</p>
+</li>
+<li>
+<p>系统崩溃或断电时，事务自动回退 。</p>
+</li>
+</ul>
+<p><code>DDL</code> 语句执行自动提交事物</p>
+<div class="highlight"><pre><span></span><code>insert into test02;
+
+select * from emp where emp.deptno=10;
+
+create table test04 as select * from emp where 1=2;
+</code></pre></div>
+
+<h3 id="commit-rollback"><code>Commit</code> &amp; <code>Rollback</code><a class="headerlink" href="#commit-rollback" title="Permanent link">&para;</a></h3>
+<p><code>Commit</code> 表示事务成功地结束，此时告诉系统，数据库要进入一个新的正确状态，该事务对数据库的所有更新都以交付实施。每个Commit语句都可以看成是一个事务成功的结束，同时也是另一个事务的开始。</p>
+<p><code>Rollback</code>表示事务不成功的结束，此时告诉系统，已发生错误，数据库可能处在不正确的状态，该事务对数据库的更新必须被撤销，数据库应恢复该事务到初始
+状态。每个Rollback语句同时也是另一个事务的开始。</p>
+<ul>
+<li>一旦执行了commit语句，将目前对数据库的操作提交给数据库（实际写入DB），以后就不能用rollback进行撤销。</li>
+<li>执行一个 DDL/DCL语句或从 SQL*Plus 正常退出，都会自动执行 <code>commit</code> 命令。</li>
+</ul>
+<p><code>commit</code> &amp; <code>rollback</code> 语法：</p>
+<div class="highlight"><pre><span></span><code>-- 保存
+savepoint transaction_name;
+
+-- 回滚
+rollback to transaction_name;
+</code></pre></div>
+
+<p>事物测试案例</p>
+<div class="highlight"><pre><span></span><code>insert into test02(ename, empno, deptno ) values(&#39;cai10&#39;,1010,10);
+insert into test02(ename, empno, deptno ) values(&#39;cai20&#39;,1010,10);
+
+select * from test02;
+
+savepoint sp01
+
+insert into test02(ename,empno,deptno ) values(&#39;cai30&#39;,1010,10);
+insert into test02(ename,empno,deptno ) values(&#39;cai40&#39;,1010,10);
+select * from test02;
+rollback to sp01
+commit;
+</code></pre></div>
+
+<h3 id="acid">事务的ACID属性<a class="headerlink" href="#acid" title="Permanent link">&para;</a></h3>
+<p>事务有四大特征：<strong>原子性，一致性，隔离性和持久性</strong>。</p>
+<p>1， 原子性（Atomicity）</p>
+<ul>
+<li>一个原子事务要么完整执行，要么干脆不执行。这意味着，工作单元中的每项任务都必须正确执行。如果有任一任务执行失败，则整个工
+作单元或事务就会被终止。即此前对数据所作的任何修改都将被撤销。如果所有任务都被成功执行，事务就会被提交，即对数据所作的修改将
+会是永久性的。</li>
+</ul>
+<p>2， 一致性（Consistency）</p>
+<ul>
+<li>一致性代表了底层数据存储的完整性。它必须由事务系统和应用开发人员共同来保证。事务系统通过保证事务的原子性，隔离性和持久性
+来满足这一要求; 应用开发人员则需要保证数据库有适当的约束(主键，引用完整性等)，并且工作单元中所实现的业务逻辑不会导致数据的不
+一致(即，数据预期所表达的现实业务情况不相一致)。例如，在一次转账过程中，从某一账户中扣除的金额必须与另一账户中存入的金额相等。
+支付宝账号100 你读到余额要取，有人向你转100 但是事物没提交（这时候你读到的余额应该是100，而不是200） 这种就是一致性</li>
+</ul>
+<p>3， 隔离性（Isolation）</p>
+<ul>
+<li>隔离性意味着事务必须在不干扰其他进程或事务的前提下独立执行。换言之，在事务或工作单元执行完毕之前，其所访问的数据不能受系
+统其他部分的影响。</li>
+</ul>
+<p>4， 持久性（Durability）</p>
+<ul>
+<li>持久性表示在某个事务的执行过程中，对数据所作的所有改动都必须在事务成功结束前保存至某种物理存储设备。这样可以保证，所作的
+  修改在任何系统瘫痪时不至于丢失。</li>
+</ul>
+<p>提交或回滚前数据的状态</p>
+<ul>
+<li>以前的数据可恢复</li>
+<li>当前的用户可以看到DML操作的结果</li>
+<li>其他用户不能看到DML操作的结果</li>
+<li>被操作的数据被锁住,其他用户不能修改这些数据</li>
+</ul>
+<p>提交后数据的状态</p>
+<ul>
+<li>数据的修改被永久写在数据库中.</li>
+<li>数据以前的状态永久性丢失.</li>
+<li>所有的用户都能看到操作后的结果.</li>
+<li>记录锁被释放,其他用户可操作这些记录.</li>
+</ul>
+<p>回滚后数据的状态</p>
+<p>语句将放弃所有的数据修改</p>
+<ul>
+<li>修改的数据被回退.</li>
+<li>恢复数据以前的状态.</li>
+<li>行级锁被释放.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>--事务：表示操作集合，不可分割，要么全部成功，要么全部失败
+
+--事务的开始取决于一个DML (Detelete, Modification, )语句
+/*
+事务的结束
+  1、正常的commit（使数据修改生效）或者rollback（将数据恢复到上一个状态）
+  2、自动提交，但是一般情况下要将自动提交进行关闭，(每条语句提交)效率太低
+  3、用户关闭会话之后，会自动提交事务
+  4、系统崩溃或者断电的时候会回滚事务，也就是将数据恢复到上一个状态
+*/
+insert into emp2(empno, ename) values(3333, &#39;Zhangsan&#39;);
+insert into emp2(empno, ename) values(4444, &#39;Zhangsan&#39;)
+commit;
+--commit;
+--rollback;
+select * from emp2;
+
+
+--savepoint  保存点
+-- 当一个操作集合中包含多条SQL语句，但是只想让其中某部分成功，某部分失败，此时可以使用保存点
+-- 此时如果需要回滚到某一个状态的话使用 rollback to sp1;
+delete from emp2 where empno = 3333;
+delete from emp2 where empno = 4444;
+savepoint sp1;
+delet from emp2 where empno = 1234;
+rollback to sp1;
+
+/*
+事务的四个特性：ACID -- AID-C
+-- 原子性：表示不可分割，一个操作集合要么全部成功，要么全部失败，不可以从中间做切分
+-- 一致性：最终是为了保证数据的一致性，当经过N多个操作之后，数据的状态不会改变（转账）
+          从一个一致性状态到另一个一致性状态，也就是数据不可以发生错乱
+-- 隔离性：各个事务之间相关不会产生影响，（隔离级别）
+          严格的隔离性会导致效率降低，在某些情况下为了提高程序的执行效率，需要降低隔离的级别
+          隔离级别：
+            -- 读未提交
+            -- 读已提交
+            -- 可重复读
+            -- 序列化
+          数据不一致的问题：
+            -- 脏读
+            -- 不可重复读
+            -- 幻读
+-- 持久性：所有数据的修改都必须要持久化到存储介质中，不会因为应用程序的关闭而导致数据丢失
+
+  四个特性中，哪个是最关键的？
+     -- 所有的特性中都是为了保证数据的一致性，所以一致性是最终的追求
+     -- 事务中的一致性是通过原子性、隔离性、持久性来保证的
+
+     锁的机制：
+     为了解决在并发访问的时候，数据不一致的问题，需要给数据加锁
+     加锁的同时需要考虑《粒度》的问题：
+         操作的对象
+           -- 数据库
+           -- 表
+           -- 行
+     一般情况下，锁的粒度越小，效率越高，粒度越大，效率越低 
+            在实际的工作环境中，大部分的操作都是行级锁  
+
+*/
+</code></pre></div>
+
+<h2 id="index">索引 <code>Index</code><a class="headerlink" href="#index" title="Permanent link">&para;</a></h2>
+<p>索引是为了加快对数据的搜索速度而设立的。索引是方案（schema）中的一个数据库对象，与表独立存放.</p>
+<p>索引的作用</p>
+<ul>
+<li>在数据库中用来加速对表的查询,通过使用快速路径访问方法快速定位数据,减少了磁盘的I/O操作</li>
+</ul>
+<p>非显示索引</p>
+<ul>
+<li>SQL中的索引是非显示索引</li>
+<li>在索引创建以后，在用户撤销它之前，不会再用到该索引的名字，但是索引在用户查询时会自动起作用。</li>
+</ul>
+<p>索引的创建有两种情况</p>
+<ol>
+<li>自动: 当在表上定义一个<code>PRIMARY KEY</code> 或者 <code>UNIQUE</code> 约束条件时,Oracle数据库自动创建一个对应的唯一索引.</li>
+<li>手动: 用户可以创建索引以加速查询</li>
+</ol>
+<p>开发中使用索引的要点：</p>
+<ol>
+<li>
+<p>索引改善检索操作的性能，<strong>但降低数据插入、修改和删除的性能</strong>。在执行这些操作时，DBMS必须动态地更新索引。</p>
+</li>
+<li>
+<p>索引数据可能 <strong>要占用大量的存储空间</strong>。</p>
+</li>
+<li>
+<p>并非所有的数据都适合于索引。<strong>唯一性不好的数据（如省）</strong> 使用索引到的好处不比具有更多可能值的数据（如姓名）从索引得到的好处多。</p>
+</li>
+<li>
+<p>索引用于 <strong>数据过滤和数据排序</strong>。如果你经常以某种特定的顺序排序数据，则该数据可能是索引的备选。</p>
+</li>
+<li>
+<p>可以 <strong>在索引中定义多个列（如省加城市）</strong>，这样的索引只在以省加城市的顺序排序时有用。如果想按城市排序，则这种索引没有用处。</p>
+</li>
+</ol>
+<p>索引的使用</p>
+<ul>
+<li>在一列或者多列上 <strong>创建索引</strong>：<code>CREATE INDEX index ON table ( column [, column ]...);</code></li>
+<li><strong>删掉索引</strong>：<code>DROP INDEX index_name</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 在一列或者多列上创建索引
+CREATE INDEX index ON table ( column [, column ]...);
+
+-- 建立 EMP 表对 ename 字段的索引，有助与对该字段的查询速度
+-- 下面的索引将会提高对EMP表基于 ENAME 字段的查询速度
+CREATE INDEX emp_last_name_idx ON emp (ename);
+
+-- 通过DROP INDEX 命令删掉一个索引
+DROP INDEX index ;
+
+-- 删掉 UPPER_LAST_NAME_IDX 索引
+DROP INDEX upper_last_name_idx;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>--索引：加快数据的检索
+--创建索引
+create index i_ename on emp(ename);
+
+--删除索引
+drop index i_ename;
+
+select * from emp where ename = &#39;SMITH&#39;;
+
+-- 局部性原理：
+-- 磁盘预读：
+
+-- 回表： 走两次索引， 首先走 ename 索引，而后依据 ID 索引查询字段
+-- 覆盖索引
+-- 组合索引
+-- 最左匹配
+</code></pre></div>
+
+<h2 id="_21">用户管理<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<h3 id="_22">账户锁定与解锁<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<p>使用 <code>scott</code> 用户登录，第一次登录的时候会显示账户锁定，需要将账户解锁：</p>
+<ol>
+<li>
+<p>运行命令行工具，使用DBA登录</p>
+<div class="highlight"><pre><span></span><code><span class="n">sqlplus</span> <span class="o">/</span><span class="n">nolog</span><span class="p">;</span>
+
+<span class="n">conn</span> <span class="n">sys</span><span class="cm">/*****@orcl as sysdba;</span>
+</code></pre></div>
+
+<ul>
+<li><code>sys</code>：系统管理员账户</li>
+<li><code>*****</code> ：这里表示系统管理员密码</li>
+<li><code>orcl</code>：全局数据库实例名称</li>
+</ul>
+</li>
+<li>
+<p>解锁命令：</p>
+<div class="highlight"><pre><span></span><code><span class="k">alter</span> <span class="k">user</span> <span class="n">scott</span> <span class="n">account</span> <span class="n">unlock</span><span class="o">|</span><span class="k">lock</span><span class="p">;</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>测试：</p>
+<div class="highlight"><pre><span></span><code><span class="n">conn</span> <span class="n">scott</span><span class="cm">/****@orcl;</span>
+</code></pre></div>
+
+<ul>
+<li><code>xxxx</code>：为对应用户的密码。</li>
+</ul>
+<p>​    </p>
+</li>
+<li>
+<p>设置用户密码登录后失效，并要求修改密码</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>$ alter user 用户名 password expire<span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>要求重新输入密码，确认你自己的密码即可</li>
+</ul>
+<h3 id="_23">创建用户<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 管理员账户登录</span>
+$ sqlplus /nolog<span class="p">;</span>
+
+$ conn sys/xxxx@orcl as sysdba<span class="p">;</span>
+
+<span class="c1"># 创建用户语法</span>
+$ create user username identified by password<span class="p">;</span>
+
+$ create user aaron identified by xxxx<span class="p">;</span>
+
+<span class="c1"># 查看用户是否创建</span>
+$ <span class="k">select</span> username from dba_users<span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>必须使用管理员账号 <code>sys</code> 或者 <code>system</code> 才能创建用户</li>
+</ul>
+<h3 id="_24">用户授权<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 管理员账户登录</span>
+$ sqlplus /nolog<span class="p">;</span>
+$ conn sys/xxxx@orcl as sysdba<span class="p">;</span>
+
+<span class="c1"># 账户授权语法</span>
+$ grant privileges <span class="o">[</span>ON object_name<span class="o">]</span> to username<span class="p">;</span>
+
+<span class="c1"># 将权限privileges授予用户username</span>
+$ grant create session to aaron<span class="p">;</span>
+</code></pre></div>
+
+<h4 id="_25">授权：连接权限<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 用户登录：</span>
+$ conn aaron/xxxx@test<span class="p">;</span>
+
+<span class="c1"># 将scott用户的emp表所有权限授予 aaron</span>
+$ grant all on scott.emp to aaron<span class="p">;</span>
+
+<span class="c1"># 查询数据表</span>
+$ <span class="k">select</span> * from scott.emp
+
+<span class="c1"># 收回授予用户 Aaron 的scott用户表emp的所有权限</span>
+$ revoke all on scott.emp from aaron<span class="p">;</span>
+</code></pre></div>
+
+<h4 id="_26">总结<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 管理员账户登录</span>
+$ sqlplus /nolog<span class="p">;</span>
+$ conn sys/xxxx@orcl as sysdba<span class="p">;</span>
+
+<span class="c1"># 创建用户</span>
+$ Create user 用户名 identified by 密码
+
+<span class="c1"># 链接登录</span>
+$ Grant create session to 用户名
+
+<span class="c1"># 授予表的权限</span>
+$ Grant all on scott.emp to 用户名
+
+<span class="c1"># 收回权限</span>
+$ Revoke all on scott.emp from 用户名
+</code></pre></div>
+
+<h4 id="_27">修改用户密码<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 将 aaron 用户的口令修改为 newpsw</span>
+$ alter user John identified by newpsw<span class="p">;</span>
+</code></pre></div>
+
+<h4 id="_28">删除用户<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h4>
+<ol>
+<li>使用 <code>drop user</code>删除用户，关键字 <code>cascade</code> 删除用户模式中包含的数据对象。</li>
+<li>删除用户aaron，并同时删除aaron拥有的所有表、索引等对象。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># 切换为system账户登录</span>
+$ conn system/xxx@orcl<span class="p">;</span>
+
+<span class="c1"># 删除 aaron 操作</span>
+$ drop user aaron cascade<span class="p">;</span>
+
+<span class="c1"># 测试 aaron 是否存在</span>
+<span class="nv">$SQL</span>&gt; conn aaron/newpsw@orctl<span class="p">;</span>
+
+<span class="c1"># 查看自己的权限</span>
+<span class="nv">$SQL</span>&gt; <span class="k">select</span> * from user_sys_privs<span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li><code>xxx</code>：为系统管理员账户密码</li>
+</ul>
+<h3 id="grant"><code>GRANT</code> 赋于权限<a class="headerlink" href="#grant" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>常用的系统权限集合有以下三个:</p>
+<ul>
+<li><code>CONNECT</code> (基本的连接)</li>
+<li><code>RESOURCE</code> (程序开发)</li>
+<li><code>DBA</code> (数据库管理)</li>
+</ul>
+</li>
+<li>
+<p>常用的数据对象权限有以下五个:</p>
+<ul>
+<li><code>ALL ON</code> 数据对象名</li>
+<li><code>SELECT ON</code> 数据对象名</li>
+<li><code>UPDATE ON</code> 数据对象名</li>
+<li><code>DELETE ON</code> 数据对象名</li>
+<li><code>INSERT ON</code> 数据对象名</li>
+<li><code>ALTER ON</code> 数据对象名</li>
+</ul>
+</li>
+<li>
+<p>语法规则</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>GRANT CONNECT, RESOURCE TO 用户名<span class="p">;</span>
+GRANT SELECT ON 表名 TO 用户名<span class="p">;</span>
+GRANT SELECT, INSERT, DELETE ON表名 TO 用户名1, 用户名2<span class="p">;</span>
+</code></pre></div>
+
+<h3 id="revoke"><code>REVOKE</code> 回收权限<a class="headerlink" href="#revoke" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>$ REVOKE CONNECT, RESOURCE FROM 用户名<span class="p">;</span>
+
+$ REVOKE SELECT ON 表名 FROM 用户名<span class="p">;</span>
+
+$ REVOKE SELECT, INSERT, DELETE ON 表名 FROM 用户名1, 用户名2<span class="p">;</span>
+</code></pre></div>
+
+<h2 id="_29">数据库设计范式<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h2>
+<h3 id="_30">数据库设计概述<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
+<p>在设计和数据库有关的系统时，数据库表的设计至关重要，这些设计关系整个系统的架构，需要精心的仔细考虑。</p>
+<ul>
+<li>数据库的设计主要包含 <strong>设计表结构和表之间的联系</strong></li>
+<li>范式：在数据库设计的过程中，需要遵循的规则（默认规则）</li>
+</ul>
+<h3 id="_31">第一范式<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
+<p>数据库设计第一范式：<strong>确保每列保持原子性</strong>。</p>
+<ul>
+<li>第一范式是最基本的范式。如果数据库表中的所有字段值都是不可分解的原子值，就说明该数据库表满足了第一范式。</li>
+<li>第一范式的合理遵循需要根据系统的实际需求来定。比如某些数据库系统中需要用到“地址”这个属性，本来直接将“地址”属性设计成一个数据库表的字段就行。但是如果系统经常会访问“地址”属性中的“城市”部分，那么就非要将“地址”这个属性重新拆分为省份、城市、详细地址等多个部分进行存储，这样在对地址中某一部分操作的时候将非常方便。这样设计才算满足了数据库的第一范式，如下表所示。</li>
+</ul>
+<p>关系数据库的几种设计范式</p>
+<p>1、第一范式（1NF）</p>
+<ul>
+<li>在任何一个关系数据库中，第一范式（1NF）是对关系模式的基本要求，不满足第一范式（1NF）的数据库就不是关系数据库。</li>
+<li>所谓第一范式（1NF）是指数据库表的每一列都是不可分割的基本数据项，同一列中不能有多个值，即实体中的某个属性不能有多个值或者不能有重复的属性。如果出现重复的属性，就可能需要定义一个新的实体，新的实体由重复的属性构成，新实体与原实体之间为一对多关系。在第一范式（1NF）中表的每一行只包含一个实例的信息。例如，对于图3-2中的员工信息表，不能将员工信息都放在一列中显示，也不能将其中的两列或多列在一列中显示；员工信息表的每一行只表示一个员工的信息，一个员工的信息在表中只出现一次。简而言之，第一范式就是无重复的列。</li>
+</ul>
+<p>上表所示的用户信息遵循了第一范式的要求，这样在对用户使用城市进行分类的时候就非常方便，也提高了数据库的性能。</p>
+<ul>
+<li>第一范式（1NF）是指数据库表的每一列都是不可分割的基本数据项，同一列中不能有多个值，即实体中的某个属性不能有多个值或者不
+能有重复的属性。如果出现重复的属性，就可能需要定义一个新的实体，新的实体由重复的属性构成，新实体与原实体之间为一对多关系。在第
+一范式（1NF）中表的每一行只包含一个实例的信息。</li>
+<li>在任何一个关系数据库中，第一范式（1NF）是对关系模式的基本要求，不满足第一范式（1NF）的数据库就不是关系数据库。</li>
+<li>列不可分。</li>
+</ul>
+<h3 id="2nf">第二范式（2NF）<a class="headerlink" href="#2nf" title="Permanent link">&para;</a></h3>
+<ul>
+<li>第二范式(确保表中的每列都和主键相关)</li>
+<li>第二范式在第一范式的基础之上更进一层。第二范式需要确保数据库表中的每一列都和主键相关，而不能只与主键的某一部分相关（主要针对联合主键而言）。也就是说在一个数据库表中，一个表中只能保存一种数据，不可以把多种数据保存在同一张数据库表中。</li>
+</ul>
+<p>第二范式（2NF）
+- 第二范式（2NF）是在第一范式（1NF）的基础上建立起来的，即满足第二范式（2NF）必须先满足第一范式（1NF）。第二范式（2NF）要求数据库表中的每个实例或行必须可以被唯一地区分。为实现区分通常需要为表加上一个列，以存储各个实例的唯一标识。如图3-2员工信息表中加上了员工编号（emp_id）列，因为每个员工的员工编号是唯一的，因此每个员工可以被唯一区分。这个唯一属性列被称为主关键字或主键、主码。
+- 第二范式（2NF）要求实体的属性完全依赖于主关键字。所谓完全依赖是指不能存在仅依赖主关键字一部分的属性，如果存在，那么这个属性和主关键字的这一部分应该分离出来形成一个新的实体，新实体与原实体之间是一对多的关系。为实现区分通常需要为表加上一个列，以存储各个实例的唯一标识。简而言之，第二范式就是非主属性非部分依赖于主关键字</p>
+<p>第二范式
+学号 学生姓名 教师编号 教师姓名
+023145 张三 988010 张老师
+023146 李四 988010 张老师
+023147 王五 988011 李老师
+023145 张三 988011 李老师
+023258 赵六 988010 张老师
+◼ 存在多对多关系时只有一个字段作为主键是不够的。
+◼ 这张表中的主键是学号和教师编号的组合
+◼ 部分依赖，会产生冗余数据，需要分解表</p>
+<p>第二范式
+学号(主键) 学生姓名
+023145 张三
+023146 李四
+023147 王五
+023258 赵六
+教师编号(主键) 教师姓名
+988010 张老师
+988011 李老师
+学号(主键) 教师编号(主键)
+023145 988010
+023146 988010
+023147 988011
+023145 988011
+023258 988010
+数据不存在部分依赖的情况，我们就称之为符合第二范式</p>
+<p>第二范式
+- 第二范式（2NF）是在第一范式（1NF）的基础上建立起来的，即满足第二范式（2NF）必须先满足第一范式（1NF）。第二范
+式（2NF）要求数据库表中的每个实例或行必须可以被惟一的区分。为实现区分通常需要为表加上一个列，以存储各个实例的惟
+一标识。要求实体的属性完全依赖于主关键字。
+- 不能部分依赖。即：一张表存在组合主键时，其他非主键字段不能部分依赖。</p>
+<p>第三范式</p>
+<ul>
+<li>满足第三范式（3NF）必须先满足第二范式（2NF）。简而言之，第三范式（3NF）要求一个数据库表中不包含已在其它表中已包含的非主关键字信息。例如，存在一个部门信息表，其中每个部门有部门编号（dept_id）、部门名称、部门简介等信息。那么员工信息表中列出部门编号后就不能再将部门名称、部门简介等与部门有关的信息再加入员工信息表中。如果不存在部门信息表，则根据第三范式（3NF）也应该构建它，否则就会有大量的数据冗余。简而言之，第三范式就是属性不依赖于其它非主属性</li>
+</ul>
+<p>第三范式</p>
+<ul>
+<li>第三范式需要确保数据表中的每一列数据都和主键直接相关，而不能间接相关。</li>
+<li>比如在设计一个订单数据表的时候，可以将客户编号作为一个外键和订单表建立相应的关系。而不可以在订单表中添加关于客户
+其它信息（比如姓名、所属公司等）的字段。如下面这两个表所示的设计就是一个满足第三范式的数据库表。
+第三范式
+学号(主键) 学生姓名 班级编号 班级名称 班级信息
+023145 张三 987654 3班 特招班
+023146 李四 987231 3班 特招班
+023147 王五 987654 4班 普通班
+…
+023258 赵六 987654 3班 特招班
+班级名称和班级信息这一组值没有必要的重复出现，这些值并不直接依赖于学号（主键），而是依赖于班级号，也就是时说表中出现了 传递依赖
+解决这个问题的办法是把这些和学号（主键）没有直接联系的信息记录的新的表里面，即班级表</li>
+</ul>
+<p>第三范式（3NF)
+- 满足第三范式（3NF）必须先满足第二范式（2NF）。简而言之，第三范式（3NF）要求一个数据库表中不包含已在其它表中已包
+含的非主关键字信息。
+- 在第二范式的基础上，数据表中如果不存在非关键字段对任一候选关键字段的传递函数依赖则符合第三范式。
+- 不能存在传递依赖。即：除主键外，其他字段必须依赖主键。</p>
+<p>总结
+- 第一范式
+– 列不可分
+- 第二范式
+– 列必须直接依赖主键
+- 第三范式
+– 传递依赖
+- 表里面的列不能出现其它表的非主键字段</p>
+<p>表依赖关系
+- 一对一
+- 一对多
+- 多对多</p>
+<hr />
+<ul>
+<li>用户表</li>
+<li>角色表</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

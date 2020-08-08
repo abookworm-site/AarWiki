@@ -1,0 +1,2263 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding/Computer%20System/Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Shell 脚本编程 - Abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#shell" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Shell 脚本编程
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../AarWiki/" title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Database%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Database%20System/MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Database%20System/Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Database%20System/Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Database%20System/MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../250%20Working%20Coding%20Python/Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../260%20Working%20Operating%20System/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      310 Learning English
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="310 Learning English" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        310 Learning English
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../310%20Learning%20Language/an-Overview%20of%20English%20Learning/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-shell" class="md-nav__link">
+    1. Shell 简介
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Shell 简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-shell" class="md-nav__link">
+    1.1. Shell 环境
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-shell" class="md-nav__link">
+    1.2. 第一个shell脚本
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-shell" class="md-nav__link">
+    2. Shell 基础
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Shell 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-shell" class="md-nav__link">
+    2.1. Shell 执行方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-shell" class="md-nav__link">
+    2.2. Shell 注释
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    2.3. 开发规范
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 变量
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 变量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1. 变量的分类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2. 变量的定义
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 变量的定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    3.2.1. 普通变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    3.2.2. 命令变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323" class="md-nav__link">
+    3.2.3. 全局变量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3. 变量的使用
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3. 变量的使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331" class="md-nav__link">
+    3.3.1. 查看变量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4. 取消变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-shell" class="md-nav__link">
+    3.5. Shell 内置变量
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5. Shell 内置变量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351" class="md-nav__link">
+    3.5.1. 脚本相关
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-shell" class="md-nav__link">
+    4. Shell 进阶
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Shell 进阶">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1. 测试语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2. 条件表达式
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2. 条件表达式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421" class="md-nav__link">
+    4.2.1. 逻辑表达式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422" class="md-nav__link">
+    4.2.2. 文件表达式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423" class="md-nav__link">
+    4.2.3. 数值操作符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#424" class="md-nav__link">
+    4.2.4. 字符串比较
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#425" class="md-nav__link">
+    4.2.5. 计算表达式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-linux" class="md-nav__link">
+    4.3. 脚本常见 Linux 符号
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3. 脚本常见 Linux 符号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431" class="md-nav__link">
+    4.3.1. 重定向符号：&gt; &amp; &gt;&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432" class="md-nav__link">
+    4.3.2. 管道符 |
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433" class="md-nav__link">
+    4.3.3. 后台展示符号 &amp;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#434-21" class="md-nav__link">
+    4.3.4. 全部信息符号 2&gt;&amp;1
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-linux" class="md-nav__link">
+    4.4. 脚本常见 Linux 命令
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4. 脚本常见 Linux 命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-grep" class="md-nav__link">
+    4.4.1. 文本搜索命令 grep
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-sed" class="md-nav__link">
+    4.4.2. 行文件编辑工具 sed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-awk" class="md-nav__link">
+    4.4.3. 文档编辑工具 awk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-find" class="md-nav__link">
+    4.4.4. 查找命令 find
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-shell" class="md-nav__link">
+    5. Shell 流程控制
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Shell 流程控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    5.1. 简单流程控制
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1. 简单流程控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-if" class="md-nav__link">
+    5.1.1. 单分支 if 语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-if" class="md-nav__link">
+    5.1.2. 双分支 if 语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513-if" class="md-nav__link">
+    5.1.3. 多分支 if 语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-case" class="md-nav__link">
+    5.1.4. case 分支语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515-for" class="md-nav__link">
+    5.1.5. for 循环语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#516-while" class="md-nav__link">
+    5.1.6. while 循环语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#517-until" class="md-nav__link">
+    5.1.7. until 循环语句
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    5.2. 复杂流程控制
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2. 复杂流程控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521" class="md-nav__link">
+    5.2.1. 函数基础
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 综合案例
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 综合案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    6.1. 需求
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    6.2. 分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    6.3. 实现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/AarWiki/edit/master/docs/250 Working Coding/Computer System/Shell脚本编程.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="shell">Shell 脚本编程<a class="headerlink" href="#shell" title="Permanent link">&para;</a></h1>
+<h2 id="1-shell">1. Shell 简介<a class="headerlink" href="#1-shell" title="Permanent link">&para;</a></h2>
+<h3 id="11-shell">1.1. Shell 环境<a class="headerlink" href="#11-shell" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>运维工作必备技能</p>
+</li>
+<li>
+<p>种类众多，这里主要采用 <code>Bash</code>，也就是 <code>Bourne Again Shell</code></p>
+</li>
+</ol>
+<h3 id="12-shell">1.2. 第一个shell脚本<a class="headerlink" href="#12-shell" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>hello_world.sh</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 输出</span>
+<span class="nb">echo</span> <span class="s2">&quot;Hello, bash world!&quot;</span>
+</code></pre></div>
+- <code>#!/bin/bash</code>：告诉系统其后路径所指定的程序 <code>/bin/bash</code>, 即是解释此脚本文件的 Shell 程序
+- 文件扩展名为 <code>sh</code>（代表 <code>shell</code>）
+    - 这里的扩展名并不影响脚本执行，见名知意就好
+    - 例如：若用 <code>php</code> 编写 Shell脚本，那么用 <code>php</code> 就好。</p>
+<h2 id="2-shell">2. Shell 基础<a class="headerlink" href="#2-shell" title="Permanent link">&para;</a></h2>
+<h3 id="21-shell">2.1. Shell 执行方式<a class="headerlink" href="#21-shell" title="Permanent link">&para;</a></h3>
+<p>1、作为可执行程序
+<div class="highlight"><pre><span></span><code><span class="c1"># 使脚本具有执行权限</span>
+chmod +x ./hello_world.sh
+<span class="c1"># 执行脚本</span>
+./hello_world.sh
+</code></pre></div></p>
+<p>2、作为解释器参数</p>
+<div class="highlight"><pre><span></span><code>/bin/sh test.sh
+</code></pre></div>
+
+<h3 id="22-shell">2.2. Shell 注释<a class="headerlink" href="#22-shell" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 这里是单行注释</span>
+
+:<span class="s">&lt;&lt;a</span>
+<span class="s">这里是多行注释：第一行</span>
+<span class="s">这里是多行注释：第二行</span>
+<span class="s">这里是多行注释：第三行</span>
+<span class="s">a</span>
+</code></pre></div>
+
+<h3 id="23">2.3. 开发规范<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<ol>
+<li>脚本命名</li>
+<li>首行必须写脚本解释器</li>
+<li>
+<p>编写脚本基本信息</p>
+<ul>
+<li>文件中尽量使用英文注释，防止本机或切换系统环境后中文乱码</li>
+<li>常见的注释信息：名称，功能描述，版本，作者，日期</li>
+</ul>
+</li>
+<li>
+<p>优秀书写习惯</p>
+<ol>
+<li>成对编写</li>
+<li>空格留白</li>
+</ol>
+</li>
+<li>
+<p>编写脚本时，务必记住：脚本执行从上到下，依次执行。</p>
+</li>
+<li>代码书写优秀习惯：<ul>
+<li>成对书写内容，防止遗漏。如：<code>()/{}/[]/''/""</code></li>
+<li><code>[]</code> 中括号两端都要有空格。即书写时便预留空格，再退格书写内容。</li>
+<li>流程控制语句一次性书写完，再后退添加内容。</li>
+<li>通过缩进让代码易读<ul>
+<li>实际上，缩进没有任何语法意义</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="3">3. 变量<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1. 变量的分类<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>变量主要分为三类：</p>
+<ol>
+<li>本地变量<ul>
+<li>普通变量</li>
+<li>命令变量</li>
+</ul>
+</li>
+<li>
+<p>全局变量</p>
+</li>
+<li>
+<p>Shell 内置变量</p>
+</li>
+</ol>
+<h3 id="32">3.2. 变量的定义<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<h4 id="321">3.2.1. 普通变量<a class="headerlink" href="#321" title="Permanent link">&para;</a></h4>
+<p>1， 显式赋值
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 方式一：</span>
+<span class="c1"># 变量值必须是一个整体，中间没有特殊字符</span>
+<span class="nv">my_str1</span><span class="o">=</span>/user
+
+<span class="c1"># 方式二：</span>
+<span class="nv">my_str2</span><span class="o">=</span><span class="s1">&#39;/user&#39;</span>
+<span class="c1"># 可以输出空格等特殊字符，但是，若变量值有可解析变量，那么会原值输出</span>
+<span class="nv">my_str2</span><span class="o">=</span><span class="s1">&#39;dan $my_str1&#39;</span>
+
+<span class="c1"># 方式三：</span>
+<span class="nv">my_str3</span><span class="o">=</span><span class="s2">&quot;/user&quot;</span>
+<span class="c1"># 可输出空格等特殊字符，同时，如果变量值范围内有可解析变量，那么解析后再输出</span>
+<span class="nv">my_str3</span><span class="o">=</span><span class="s2">&quot;shuang </span><span class="nv">$my_str1</span><span class="s2">&quot;</span>
+</code></pre></div>
+- 变量名和等号之间不能有空格
+- 变量名的命名须遵循如下规则：
+    - 命名只能使用英文字母，数字和下划线，首个字符不能以数字开头
+    - 中间不能有空格，可以使用下划线 <code>_</code>
+    - 不能使用标点符号
+    - 不能使用bash里的关键字（可用help命令查看保留关键字）</p>
+<p>2， 语句赋值</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 将 /etc 目录下的文件名循环导出</span>
+<span class="k">for</span> list in <span class="k">$(</span>ls /etc<span class="k">)</span>
+</code></pre></div>
+
+<h4 id="322">3.2.2. 命令变量<a class="headerlink" href="#322" title="Permanent link">&para;</a></h4>
+<p>显式赋值
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 方式一：</span>
+<span class="c1"># 采用反引号引用 Linux 系统命令</span>
+<span class="nv">dir</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
+
+<span class="c1"># 方式二：</span>
+<span class="c1"># 利用 $ + 小括号</span>
+<span class="nv">dir</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+</code></pre></div>
+- 命令变量的执行流程为：先执行系统命令，再赋值。</p>
+<h4 id="323">3.2.3. 全局变量<a class="headerlink" href="#323" title="Permanent link">&para;</a></h4>
+<p>查看全局变量值
+<div class="highlight"><pre><span></span><code><span class="c1"># 查看当前系统所有全局变量命令</span>
+env
+
+<span class="c1"># 精确查看某全局变量</span>
+env <span class="p">|</span> grep SHELL
+
+<span class="c1"># 当然，也可以直接查看变量值</span>
+<span class="nv">$SHELL</span>
+</code></pre></div></p>
+<p>定义全局变量
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 方式一：先赋值变量，再使用 export 定义全局变量</span>
+<span class="nv">aar</span><span class="o">=</span><span class="s1">&#39;/home/aaron&#39;</span>
+<span class="nb">export</span> aar
+
+<span class="c1"># 方式二：export 变量=值</span>
+<span class="nb">export</span> <span class="nv">aar</span><span class="o">=</span><span class="s1">&#39;/home/aaron&#39;</span>
+</code></pre></div></p>
+<h3 id="33">3.3. 变量的使用<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>使用一个定义过的变量，只要 <strong>在变量名前面加美元符号</strong> 即可
+- 填加 **花括号 ** 可以帮助解释器识别变量的边界</p>
+<h4 id="331">3.3.1. 查看变量<a class="headerlink" href="#331" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 方式一：</span>
+<span class="nv">$var_name</span>
+
+<span class="c1"># 方式二：</span>
+<span class="s2">&quot;</span><span class="nv">$var_name</span><span class="s2">&quot;</span>
+
+<span class="c1"># 方式三：使用频率较高</span>
+<span class="si">${</span><span class="nv">var_name</span><span class="si">}</span>
+
+<span class="c1"># 常见使用场景</span>
+<span class="nb">echo</span> <span class="s2">&quot;Here is a commond using other var </span><span class="si">${</span><span class="nv">var_name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># 方式四：标准使用方式</span>
+<span class="s2">&quot;</span><span class="si">${</span><span class="nv">var_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<h3 id="34">3.4. 取消变量<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 取消变量</span>
+uset var_name
+</code></pre></div>
+
+<h3 id="35-shell">3.5. Shell 内置变量<a class="headerlink" href="#35-shell" title="Permanent link">&para;</a></h3>
+<h4 id="351">3.5.1. 脚本相关<a class="headerlink" href="#351" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>s0</code></td>
+<td>获取当前执行的she11脚本文件名，包括脚本路径</td>
+</tr>
+<tr>
+<td><code>sn</code></td>
+<td>获取当前执行的she11脚本的第n个参数值，n=1..9，当n为0时表示脚本的文件名，如果n大于9就要用大括号括起来{10}</td>
+</tr>
+<tr>
+<td><code>s#</code></td>
+<td>获取当前she11命令行中参数的总个数</td>
+</tr>
+<tr>
+<td><code>s?</code></td>
+<td>获取执行上一个指令的返回值（0为成功，非0为失败）</td>
+</tr>
+</tbody>
+</table>
+<p>验证</p>
+<p><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 验证与查看：获取脚本文件名命令：$0</span>
+<span class="nb">echo</span> <span class="s2">&quot;我的脚本名称：</span><span class="nv">$0</span><span class="s2">&quot;</span>
+
+<span class="c1"># 验证与查看：获取命令行参数命令 $n</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;命令行第一个参数为：</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;命令行第二个参数为：</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;命令行第三个参数为：</span><span class="nv">$3</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;命令行第零个参数为：</span><span class="nv">$0</span><span class="s2">&quot;</span>
+
+<span class="c1"># 验证与查看：获取当前脚本传入参数的数量命令：$#</span>
+<span class="nb">echo</span> <span class="s2">&quot;当前脚本传入参数数量为：</span><span class="nv">$#</span><span class="s2">&quot;</span>
+
+<span class="c1"># 验证与查看：获取执行上一个指令的返回值命令：$?</span>
+<span class="nb">echo</span> <span class="s2">&quot;上一条指令是否执行成功：</span><span class="nv">$?</span><span class="s2">&quot;</span>
+</code></pre></div>
+- <code>$?</code>：仅仅查看执行上一个指令的状态：成功 or 失败。</p>
+<h2 id="4-shell">4. Shell 进阶<a class="headerlink" href="#4-shell" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1. 测试语句<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p>测试语句格式：
+1. <code>test 条件表达式</code>
+2. <code>[ 条件表达式 ]</code>
+    - 这里的条件表达式前后都需要 <strong>空格</strong> 隔开</p>
+<p>测试语句状态：
+- 条件成立，返回状态值：0
+- 不成立，返回状态值：1</p>
+<h3 id="42">4.2. 条件表达式<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<h4 id="421">4.2.1. 逻辑表达式<a class="headerlink" href="#421" title="Permanent link">&para;</a></h4>
+<p>1， 逻辑表达式  <code>&amp;&amp;</code></p>
+<p><code>命令1 &amp;&amp; 命令2</code>
+- 命令1执行成功，才执行命令2
+- 执行不成功，命令2也不执行。</p>
+<p>2，逻辑表达式 <code>||</code></p>
+<p><code>命令|| 命令2</code>
+- 命令1执行成功，命令2不再执行
+- 命令1执行不成功，命令2再执行</p>
+<h4 id="422">4.2.2. 文件表达式<a class="headerlink" href="#422" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>判断输入内容是否是一个文件</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td>判断输入内容是否是一个目录</td>
+</tr>
+<tr>
+<td><code>-x</code></td>
+<td>判断输入内容是否可执行</td>
+</tr>
+</tbody>
+</table>
+<h4 id="423">4.2.3. 数值操作符<a class="headerlink" href="#423" title="Permanent link">&para;</a></h4>
+<p>比较两个数之间的关系</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n1 -eq n2</code></td>
+<td>等于</td>
+</tr>
+<tr>
+<td><code>n1 -gt n2</code></td>
+<td>大于</td>
+</tr>
+<tr>
+<td><code>n1 -lt n2</code></td>
+<td>小于</td>
+</tr>
+<tr>
+<td><code>n1 -ne n2</code></td>
+<td>不等于</td>
+</tr>
+</tbody>
+</table>
+<h4 id="424">4.2.4. 字符串比较<a class="headerlink" href="#424" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str1 == str2</code></td>
+<td>str1 与 str2 内容一致</td>
+</tr>
+<tr>
+<td><code>str1 != str2</code></td>
+<td>str1 与 str2 内容不一致</td>
+</tr>
+</tbody>
+</table>
+<h4 id="425">4.2.5. 计算表达式<a class="headerlink" href="#425" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>表达式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>格式1</td>
+<td><code>$((计算表达式))</code></td>
+<td>只能用 <code>+</code> <code>-</code> <code>*</code> <code>/</code> 和 <code>()</code> 等操作符</td>
+</tr>
+<tr>
+<td>格式2</td>
+<td><code>let 计算表达式</code></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-linux">4.3. 脚本常见 Linux 符号<a class="headerlink" href="#43-linux" title="Permanent link">&para;</a></h3>
+<h4 id="431">4.3.1. 重定向符号：<code>&gt;</code> &amp; <code>&gt;&gt;</code><a class="headerlink" href="#431" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&gt;</code></td>
+<td>将符号 <strong>左测</strong> 内容，以 <strong>覆盖</strong> 方式输入到 <strong>右侧</strong> 文件中</td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>将符号 <strong>左测</strong> 内容，以 <strong>追加</strong> 方式输入到 <strong>右侧</strong> 文件末尾中</td>
+</tr>
+</tbody>
+</table>
+<h4 id="432">4.3.2. 管道符 <code>|</code><a class="headerlink" href="#432" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>命令1 | 命令2</code></td>
+<td>将符号 <strong>左测</strong> 命令1执行结果，传递给管道符 <strong>右侧</strong> 命令2中</td>
+</tr>
+</tbody>
+</table>
+<h4 id="433">4.3.3. 后台展示符号 <code>&amp;</code><a class="headerlink" href="#433" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>命令 &amp;</code></td>
+<td>将一个命令从前台转到后台执行</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># 终端前台休眠 10s</span>
+sleep <span class="m">10</span>
+
+<span class="c1"># 转入后台执行</span>
+sleep <span class="m">10</span> <span class="p">&amp;</span>
+<span class="c1"># 查看后台进程</span>
+ps aux <span class="p">|</span> grep sleep
+</code></pre></div>
+
+<h4 id="434-21">4.3.4. 全部信息符号 <code>2&gt;&amp;1</code><a class="headerlink" href="#434-21" title="Permanent link">&para;</a></h4>
+<p>符号说明：
+- <code>1</code>：表示正确输出的信息
+- <code>2</code>：表示错误输出的信息
+- <code>2&gt;&amp;1</code>：代表所有输出的信息</p>
+<p>测试说明：
+1. 添加文件 <code>all_info.sh</code>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 测试：全部信息符号 2&gt;&amp;1</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;这一条是正确命令&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;下一条是错误命令&quot;</span>
+sdflakj
+</code></pre></div></p>
+<ol>
+<li>执行测试命令</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># 命令1</span>
+$ bash all_info.sh <span class="m">1</span>&gt;&gt; right_info <span class="m">2</span>&gt;&gt; err_info
+
+<span class="c1"># 命令2</span>
+$ bash all_info.sh &gt;&gt; all_info <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</code></pre></div>
+
+<p>Linux 系统垃圾桶 <code>/dev/null</code>
+- <code>/dev/null</code> 是Linux 下的一个设备文件
+- 该文件类似一个垃圾桶，容量无限大，也无需删除
+- 因此，可以利用此特点执行测试命令</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 常用命令</span>
+$ bash bash_files.sh &gt;&gt; /dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</code></pre></div>
+
+<h3 id="44-linux">4.4. 脚本常见 Linux 命令<a class="headerlink" href="#44-linux" title="Permanent link">&para;</a></h3>
+<h4 id="441-grep">4.4.1. 文本搜索命令 <code>grep</code><a class="headerlink" href="#441-grep" title="Permanent link">&para;</a></h4>
+<p><strong>命令格式</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># 命令格式：</span>
+$ grep <span class="o">[</span>参数<span class="o">]</span> <span class="o">[</span>关键字<span class="o">]</span> &lt;file_name&gt;<span class="sb">`</span>
+
+<span class="c1"># 与管道结合时，不用添加&lt;file_name&gt;</span>
+$ ls <span class="p">|</span> grep file_name
+
+<span class="c1"># 查看帮助</span>
+$ grep --help
+</code></pre></div>
+- <code>-c</code>：只输出匹配行的计数。
+- <code>-n</code>：显示匹配行及行号。
+- <code>-v</code>：显示不包含匹配文本的所有行。</p>
+<p><strong>应用实例</strong>
+1，编写文件 <code>find.txt</code>
+<div class="highlight"><pre><span></span><code>Hello world, aar
+Hello world, bbr
+Hello world, ccr
+Hello world, aar
+</code></pre></div></p>
+<p>2，参数应用
+<div class="highlight"><pre><span></span><code><span class="c1"># 查找</span>
+$ grep aar find.txt
+Hello world, aar
+Hello world, aar
+
+$ grep -c aar find.txt
+<span class="m">2</span>
+
+<span class="c1"># 显示匹配内容行号</span>
+grep -n aar find.txt
+
+<span class="c1"># 显示不匹配内容</span>
+grep -v aar find.txt
+</code></pre></div></p>
+<p><strong>小技巧</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># 精确定位错误代码：</span>
+<span class="c1"># 将会显示&lt;file_name&gt;&lt;行号&gt;&lt;错误关键字行内容&gt;</span>
+$ grep -nr <span class="o">[</span>错误关键字<span class="o">]</span> *
+</code></pre></div></p>
+<h4 id="442-sed">4.4.2. 行文件编辑工具 <code>sed</code><a class="headerlink" href="#442-sed" title="Permanent link">&para;</a></h4>
+<p><code>sed</code> 命令以行为单位进行文件编辑</p>
+<p><strong>命令格式</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># 命令格式</span>
+$ sed <span class="o">[</span>参数<span class="o">]</span> <span class="s1">&#39;&lt;匹配条件&gt;[动作]&#39;</span> <span class="o">[</span>文件名<span class="o">]</span>
+
+<span class="c1"># 查看帮助</span>
+$ sed --help
+</code></pre></div></p>
+<p><strong>参数含义：</strong>
+- <code>参数为空</code>：表示 <code>sed</code> 操作效果不对文件进行编辑。
+- <code>-i</code>：表示对文件进行编辑
+    - <code>MAC</code> 版本的bash中使用 <code>-i</code> 参数，必须在后面单独加参数：<code>-i ''</code></p>
+<p><strong>匹配条件：</strong>
+匹配条件分为两种：数字行号或者关键字匹配</p>
+<ol>
+<li>
+<p>数字行号：关于数字行号的匹配内容分三类</p>
+<ul>
+<li>行号</li>
+<li>列号</li>
+<li>全体</li>
+</ul>
+</li>
+<li>
+<p>关键字匹配的格式：<code>'/关键字/'</code></p>
+<ul>
+<li>这里的隔离符号 <code>/</code> 可以更换成 <code>、#、！</code> 等符号</li>
+<li>根据情况使用，如果关键字和隔离符号有冲突，就更换成其他的符号即可。</li>
+</ul>
+</li>
+</ol>
+<p><strong>匹配动作</strong>
+这里的匹配动作都在参数 <code>-i</code> 的条件下生效。同时又分为各自不同的命令。
+- <code>a</code>：在匹配到的内容下一行增加内容
+- <code>i</code>：在匹配到的内容上一行增加内容
+- <code>d</code>：删除匹配到的内容
+- <code>s</code>：替换匹配到的内容</p>
+<ol>
+<li>
+<p><strong>替换命令 <code>s</code></strong></p>
+</li>
+<li>
+<p>命令格式：<code>sed -i [替换格式] [文件名]</code></p>
+</li>
+<li>替换格式的写法：<ul>
+<li><code>'行号s###列号' -——&gt;</code>'行号s#原内容##列号'<code>——&gt;</code>'行号s#原内容#替换后内容#列号'`</li>
+<li><code>行号</code>： 为替换文件的 <strong>第几行</strong>, 默认不写为 <strong>所有行</strong></li>
+<li><code>列号</code>： 为一行中匹配到的 <strong>第几个</strong> 匹配内容，另外，有参数 <code>g</code> 表示全部匹配。</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># 匹配首行内容的首个内容</span>
+$ sed -i <span class="s1">&#39;1s#原内容#替换后内容#&#39;</span> seed.txt
+
+<span class="c1"># 匹配第二行内容的首个内容</span>
+$ sed -i <span class="s1">&#39;2s#原内容#替换后内容#&#39;</span> seed.txt
+
+<span class="c1"># 匹配所有行内容的首个内容</span>
+$ sed -i <span class="s1">&#39;s#原内容#替换后内容#&#39;</span> seed.txt
+
+<span class="c1"># 匹配第一行的第二个内容</span>
+$ sed -i <span class="s1">&#39;1s#原内容#替换后内容#2&#39;</span> seed.txt
+
+<span class="c1"># 匹配所有行的第二个内容</span>
+$ sed -i <span class="s1">&#39;s#原内容#替换后内容#2&#39;</span> seed.txt
+
+<span class="c1"># 匹配所有行，查找到得全部匹配</span>
+$ sed -i <span class="s1">&#39;s#原内容#替换后内容#g&#39;</span> seed.txt
+
+<span class="c1"># 指定行号和列号匹配内容</span>
+$ sed -i <span class="s1">&#39;行号s#原内容#替换后内容#列号&#39;</span> seed.txt
+</code></pre></div>
+
+<ol>
+<li><strong>增加到下一行命令 <code>a</code></strong></li>
+<li>作用：在指定行号的 <strong>下一行</strong> 增加内容</li>
+<li>
+<p>格式：<code>sed -i '行号a\增加的内容' &lt;文件名&gt;</code></p>
+<ul>
+<li>如果增加多行，可以在行号位置写个范围值，彼此间使用 <strong>逗号</strong> 隔开，例如: <code>sed -i '1，3a\增加内容' &lt;文件名&gt;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>增加到当行命令 <code>i</code></strong></p>
+</li>
+<li>作用：在指定行号的 <strong>当行</strong> 增加内容</li>
+<li>
+<p>格式：<code>sed -i '行号i\增加的内容' &lt;文件名&gt;</code></p>
+<ul>
+<li>如果增加多行，可以在行号位置写个范围值，彼此间使用 <strong>逗号</strong> 隔开，例如: <code>sed -i '1，3i\增加内容' &lt;文件名&gt;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>删除命令 <code>d</code></strong></p>
+</li>
+<li>作用：指定行号删除</li>
+<li>格式：<code>sed -i '行号d' &lt;文件名&gt;</code><ul>
+<li>如果删除多行，可以在行号位置多写几个行号，彼此间使用逗号隔开，例如:<code>sed -i '1，3d' &lt;文件名&gt;</code></li>
+</ul>
+</li>
+</ol>
+<p><strong>应用实例</strong>
+1，编写文件 <code>seed.txt</code>
+<div class="highlight"><pre><span></span><code>Hello seed, seed, seed of aar
+Hello seed, seed, seed of bbr
+Hello seed, seed, seed of ccr
+Hello seed, seed, seed of aar
+</code></pre></div></p>
+<p>2，参数应用
+<div class="highlight"><pre><span></span><code>
+</code></pre></div></p>
+<h4 id="443-awk">4.4.3. 文档编辑工具 <code>awk</code><a class="headerlink" href="#443-awk" title="Permanent link">&para;</a></h4>
+<p>awk是一个功能非常强大的文档编辑工具，它不仅能以行为单位还能以列为单位处理文件。</p>
+<p><strong>命令格式</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># 命令格式</span>
+$ awk <span class="o">[</span>参数<span class="o">]</span> <span class="s1">&#39;[动作]&#39;</span> <span class="o">[</span>文件名<span class="o">]</span>
+</code></pre></div></p>
+<p><strong>常见参数：</strong>
+- <code>-F</code>：指定行的分隔符</p>
+<p><strong>常见动作：</strong>
+- <code>print</code>：显示两容
+- <code>$0</code>：显示当前行所有内容
+- <code>sn</code>：显示当前行的第n列内容，如果存在多个sn，它们之间使用逗号（，）隔开</p>
+<p><strong>常见内置变量</strong>
+- <code>FILENAME</code>：当前输入文件的文件名，该变量是只读的NR指定显示行的行号
+- <code>NE</code>：输出最后一列的内容
+- <code>OFS</code>：输出格式的列分隔符，缺省是空格
+- <code>FS</code>：输入文件的列分融符，缺省是连续的空格和Tab</p>
+<p><strong>应用实例</strong>
+1，编写文件 
+- <code>awk.txt</code>
+<div class="highlight"><pre><span></span><code>Hello awk awk awk of aar
+Hello awk awk awk of bbr
+Hello awk awk awk of ccr
+Hello awk awk awk of aar
+</code></pre></div></p>
+<ul>
+<li><code>awk2.txt</code>
+<div class="highlight"><pre><span></span><code>Hello：awk：awk：awk:of:aar
+Hello:awk：awk：awk:of:bbr
+Hello:awk：awk：awk:of:ccr
+Hello:awk：awk：awk:of:aar
+</code></pre></div></li>
+</ul>
+<p>2，参数应用
+<div class="highlight"><pre><span></span><code><span class="c1"># 查看文本内容</span>
+cat awk.txt
+
+<span class="c1"># 显示第一、三行内容</span>
+$ awk <span class="s1">&#39;{print $1, $3}&#39;</span> awk.txt
+
+<span class="c1"># 显示</span>
+$ awk <span class="s1">&#39;{print NR, $1, $3}&#39;</span> awk.txt
+
+<span class="c1"># 设置文本分隔符显示内容</span>
+$ awk -F <span class="s1">&#39;:&#39;</span> <span class="s1">&#39;{print $2, $4}&#39;</span> awk2.txt
+
+<span class="c1"># 设置显示分隔符显示内容</span>
+$ awk -F <span class="s1">&#39;:&#39;</span> <span class="s1">&#39;BEGIN{OFS=&#39;</span>：<span class="s1">&#39;} {print NR, $0}&#39;</span> awk.txt
+</code></pre></div></p>
+<h4 id="444-find">4.4.4. 查找命令 <code>find</code><a class="headerlink" href="#444-find" title="Permanent link">&para;</a></h4>
+<p><strong>命令格式</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># 命令格式</span>
+$ find <span class="o">[</span>路径<span class="o">]</span> <span class="o">[</span>参数<span class="o">]</span> <span class="o">[</span>关键字<span class="o">]</span>
+
+<span class="c1"># 查看帮助</span>
+$ find --help
+</code></pre></div></p>
+<p><strong>参数详解</strong>
+- <code>-name</code>：按照文件名查找文件。
+- <code>-perm</code>：按照文件权限来查找文件。
+- <code>-user</code>：按照文件属主来查找文件。
+- <code>-group</code>：按照文件所属的组来查找文件。
+- <code>-type</code>：查找某一类型的文件，诸如：
+    - <code>b</code>：块设备文件
+    - <code>d</code>：目录
+    - <code>c</code>：字符设备文件
+    - <code>p</code>：管道文件
+    - <code>l</code>：符号链接文件
+    - <code>f</code>：普通文件
+- <code>-size n[c]</code>：查找文件长度为n块的文件，<strong>带有 <code>c</code> 时</strong> 表示文件长度以字节计。
+- <code>-depth</code>：在查找文件时，首先查找当前目录中的文件，然后再在其子目录中查找。
+- <code>-mindepth n</code>：在查找文件时，查找当前目录中的第n层目录的文件，然后再在其子目录中查找。
+- <code>!</code>：表示取反</p>
+<p><strong>应用实例</strong>
+1，编写文件 <code>awk.txt</code>
+<div class="highlight"><pre><span></span><code>Hello awk, awk, awk of aar
+Hello awk, awk, awk of bbr
+Hello awk, awk, awk of ccr
+Hello awk, awk, awk of aar
+</code></pre></div></p>
+<p>2，参数应用
+<div class="highlight"><pre><span></span><code><span class="c1"># 查看文件 file_name</span>
+$ find /root -name <span class="s2">&quot;file_name&quot;</span>
+
+<span class="c1"># 查看目录</span>
+$ find /root -type d
+</code></pre></div></p>
+<h2 id="5-shell">5. Shell 流程控制<a class="headerlink" href="#5-shell" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1. 简单流程控制<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<h4 id="511-if">5.1.1. 单分支 if 语句<a class="headerlink" href="#511-if" title="Permanent link">&para;</a></h4>
+<p><strong>语法格式</strong>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> 条件 <span class="o">]</span>
+<span class="k">then</span>
+    指令
+<span class="k">fi</span>
+</code></pre></div></p>
+<p><strong>实例</strong>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 验证单分支 if 语句</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;nan&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;本次脚本执行未传递参数！&quot;</span>
+<span class="k">fi</span>
+</code></pre></div></p>
+<h4 id="512-if">5.1.2. 双分支 if 语句<a class="headerlink" href="#512-if" title="Permanent link">&para;</a></h4>
+<p><strong>语法格式</strong>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[]</span>
+<span class="k">then</span>
+    指令1
+<span class="k">else</span>
+    指令2
+<span class="k">fi</span>
+</code></pre></div></p>
+<h4 id="513-if">5.1.3. 多分支 if 语句<a class="headerlink" href="#513-if" title="Permanent link">&para;</a></h4>
+<p><strong>语法格式</strong>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> 条件 <span class="o">]</span>
+<span class="k">then</span>
+    指令1
+<span class="k">elif</span> <span class="o">[</span> 条件2 <span class="o">]</span>
+<span class="k">then</span>
+    指令2
+<span class="k">else</span>
+    指令3
+<span class="k">fi</span>
+</code></pre></div></p>
+<p><strong>案例：脚本执行参数</strong></p>
+<p>需求：
+- 要求脚本执行需要有参数，通过传入参数来实现不同的功能
+- 参数和功能详情如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>执行效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>服务启动中..</td>
+</tr>
+<tr>
+<td>stop</td>
+<td>服务关闭中..</td>
+</tr>
+<tr>
+<td>restart</td>
+<td>服务重启中..</td>
+</tr>
+<tr>
+<td>*</td>
+<td>脚本x.sh使用方式 <code>x.sh [start|stop|restart]</code></td>
+</tr>
+</tbody>
+</table>
+<p>编写：</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;start&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;服务启动中...&quot;</span>
+<span class="k">elif</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;stop&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;服务关闭中...&quot;</span>
+<span class="k">elif</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;restart&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;服务重启中...&quot;</span>
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;脚本 </span><span class="nv">$0</span><span class="s2"> 的使用方式： </span><span class="nv">$0</span><span class="s2"> [ start|stop|restart ]&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h4 id="514-case">5.1.4. case 分支语句<a class="headerlink" href="#514-case" title="Permanent link">&para;</a></h4>
+<p><strong>语法格式</strong>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="k">case</span> 变量名 in
+    值1<span class="o">)</span>
+        指令1
+        <span class="p">;;</span>
+    值2<span class="o">)</span>
+        指令2
+        <span class="p">;;</span>
+    值3<span class="o">)</span>
+        指令3
+        <span class="p">;;</span>
+    <span class="k">esac</span>
+</code></pre></div>
+- 首行关键字是 <code>case</code>，末行关键字 <code>esac</code>
+- 每个选择项后面都有 <code>)</code>
+- 每个选择执行语句结尾都有两个分号 <code>;;</code></p>
+<p><strong>改写：脚本执行参数</strong>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="k">case</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">&quot;</span> in
+    <span class="s2">&quot;start&quot;</span><span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;服务启动中..&quot;</span>
+        <span class="p">;;</span>
+    <span class="s2">&quot;stop&quot;</span><span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;服务关闭中..&quot;</span>
+        <span class="p">;;</span>
+    <span class="s2">&quot;restart&quot;</span><span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;服务重启中..&quot;</span>
+        <span class="p">;;</span>
+    <span class="s2">&quot;*&quot;</span><span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;脚本 </span><span class="nv">$0</span><span class="s2"> 使用方式： </span><span class="nv">$0</span><span class="s2"> [start|stop|restart]&quot;</span>
+        <span class="p">;;</span>
+    <span class="k">esac</span>
+</code></pre></div></p>
+<h4 id="515-for">5.1.5. for 循环语句<a class="headerlink" href="#515-for" title="Permanent link">&para;</a></h4>
+<p><strong>语法格式</strong>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="k">for</span> 值 in 列表
+<span class="k">do</span>
+    执行语句
+<span class="k">done</span>
+</code></pre></div>
+- <code>for</code> 循环总是接收 <code>in</code> 语句之后的某种类型的字列表
+-  执行次数和 <code>list</code> 列表中常数或字符串的个数相同，当循环的数量足够了，就自动退出</p>
+<p><strong>案例：遍历文件</strong>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># for 循环语句验证</span>
+<span class="k">for</span> i in <span class="k">$(</span>ls /root<span class="k">)</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;/root 目录下有文件： </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</code></pre></div></p>
+<h4 id="516-while">5.1.6. while 循环语句<a class="headerlink" href="#516-while" title="Permanent link">&para;</a></h4>
+<p><strong>语法格式</strong>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="k">while</span> 条件
+<span class="k">do</span>
+    执行语句
+<span class="k">done</span>
+</code></pre></div></p>
+<p>实例
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># while 语法演示</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="m">1</span>
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">&quot;</span> -lt <span class="m">5</span> <span class="o">]</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nv">a</span><span class="o">=</span><span class="k">$((</span>a+1<span class="k">))</span>
+<span class="k">done</span>
+</code></pre></div></p>
+<h4 id="517-until">5.1.7. until 循环语句<a class="headerlink" href="#517-until" title="Permanent link">&para;</a></h4>
+<p><strong>语法格式</strong>
+<div class="highlight"><pre><span></span><code><span class="k">until</span> 条件
+<span class="k">do</span>
+    执行语句
+<span class="k">done</span>
+</code></pre></div>
+- 条件类型：<code>命令</code>/ <code>[[ 字符串表达式 ]]</code>/<code>(( 数字表达式 ))</code></p>
+<p>实例
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># until 语法演示</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="m">1</span>
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">&quot;</span> -ne <span class="m">5</span> <span class="o">]</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nv">a</span><span class="o">=</span><span class="k">$((</span>a+1<span class="k">))</span>
+<span class="k">done</span>
+</code></pre></div></p>
+<h3 id="52">5.2. 复杂流程控制<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<h4 id="521">5.2.1. 函数基础<a class="headerlink" href="#521" title="Permanent link">&para;</a></h4>
+<p>简单函数
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 函数定义</span>
+函数名<span class="o">(){</span>
+    函数体
+<span class="o">}</span>
+
+<span class="c1"># 调用函数</span>
+函数名
+</code></pre></div></p>
+<p>传参函数
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 函数定义</span>
+函数名<span class="o">(){</span>
+    函数体 <span class="si">${</span><span class="nv">n</span><span class="si">}</span>
+<span class="o">}</span>
+
+<span class="c1"># 直接调用函数</span>
+函数名 参数
+
+<span class="c1"># 执行脚本传参</span>
+函数名 <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+</code></pre></div>
+- 注意：这里的参数类似于Shell内置变量中的位置参数</p>
+<h2 id="6">6. 综合案例<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1. 需求<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<ol>
+<li>脚本采用传递一个参数才能执行，没有或者多余参数将会提示脚本的帮助信息</li>
+<li>脚本通过传入参数来实现不同的功能，具体参数和功能详情如下：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>执行效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>服务启动中..</td>
+</tr>
+<tr>
+<td>stop</td>
+<td>服务关闭中..</td>
+</tr>
+<tr>
+<td>restart</td>
+<td>服务重启中..</td>
+</tr>
+<tr>
+<td>*</td>
+<td>脚本帮助信息</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>帮助信息部分使用函数来实现，信息内容如下：</li>
+<li>脚本x.sh使用方式 <code>x.sh [start|stop|restart]</code></li>
+</ol>
+<h3 id="62">6.2. 分析<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<ol>
+<li>脚本执行需要传递参数才能执行<ul>
+<li>脚本传参</li>
+<li>case 语句</li>
+</ul>
+</li>
+<li>脚本所传递的参数有限制：only one<ul>
+<li>条件表达式的参数数量判断</li>
+<li>if 语句</li>
+</ul>
+</li>
+<li>帮助信息使用函数来实现<ul>
+<li>函数定义</li>
+<li>函数调用</li>
+</ul>
+</li>
+<li>if 语句和 case 语句的嵌套使用</li>
+</ol>
+<h3 id="63">6.3. 实现<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># Bash 综合案例</span>
+
+<span class="nv">file_name</span><span class="o">=</span><span class="nv">$0</span>
+
+help<span class="o">(){</span>
+
+    <span class="nb">echo</span> <span class="s2">&quot;脚本 &#39;</span><span class="si">${</span><span class="nv">file_name</span><span class="si">}</span><span class="s2">&#39; 使用方式：&#39;</span><span class="si">${</span><span class="nv">file_name</span><span class="si">}</span><span class="s2">&#39; [start|stop|restart]&quot;</span>
+
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$#</span><span class="s2">&quot;</span> -ne <span class="m">1</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">help</span> file_name
+<span class="k">else</span>
+    <span class="nv">arg</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+    <span class="k">case</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">&quot;</span> in
+        <span class="s2">&quot;start&quot;</span><span class="o">)</span>
+            <span class="nb">echo</span> <span class="s2">&quot;服务启动中..&quot;</span>
+            <span class="p">;;</span>
+        <span class="s2">&quot;stop&quot;</span><span class="o">)</span>
+            <span class="nb">echo</span> <span class="s2">&quot;服务关闭中..&quot;</span>
+            <span class="p">;;</span>
+        <span class="s2">&quot;restart&quot;</span><span class="o">)</span>
+            <span class="nb">echo</span> <span class="s2">&quot;服务重启中..&quot;</span>
+            <span class="p">;;</span>
+        <span class="s2">&quot;*&quot;</span><span class="o">)</span>
+            <span class="nb">help</span> file_name
+            <span class="p">;;</span>
+        <span class="k">esac</span>
+<span class="k">fi</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
