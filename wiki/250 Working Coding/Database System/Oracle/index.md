@@ -16,25 +16,23 @@
 
 ### 2. [Oracle 基础入门](Oracle基础入门.md)
 
+- 基本介绍
+- 基本操作
+- 函数调用
+- 关联查询
 
 
 
 
 
 
-oracle SQL
-oracle函数和多表连接
-oracle的join语法及行专列
 oracle视图、用户管理、序列、DML
 
 
 
-- [Oracle数据库练习](Oracle数据库练习.md)
+## [数据表设计](Oracle数据表设计.md)
 
-
-
-
-## 数据库事务
+### 数据库事务
 
 
 
@@ -42,13 +40,13 @@ oracle视图、用户管理、序列、DML
 
 
 
-## 数据库索引
+### 数据库索引
 
 
 
 
 
-## 数据库设计范式
+### 数据库设计范式
 
 
 
@@ -59,9 +57,21 @@ oracle视图、用户管理、序列、DML
 
 
 
+
+
+
+
+- [Oracle数据库练习](Oracle数据库练习.md)
+
+
+
+## SQL 数据优化
+
+
+
+
+
 ## 数据库外部连接
-
-
 
 
 
@@ -76,8 +86,6 @@ Oracle Interaction with Java
 - 数据库连接池（druid、hikariCP）
 
 Oracle Interaction with Python
-
-
 
 
 
