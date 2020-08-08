@@ -190,7 +190,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../AarWiki/" title="AarWiki Home" class="md-nav__link">
+    <a href="../../../.." title="AarWiki Home" class="md-nav__link">
       AarWiki Home
     </a>
   </li>
@@ -736,6 +736,18 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../message/" title="读者信箱" class="md-nav__link">
+      读者信箱
+    </a>
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -1187,8 +1199,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_31" class="md-nav__link">
-    第一范式
+  <a href="#1nf" class="md-nav__link">
+    第一范式（1NF）
   </a>
   
 </li>
@@ -1196,6 +1208,27 @@
           <li class="md-nav__item">
   <a href="#2nf" class="md-nav__link">
     第二范式（2NF）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3nf" class="md-nav__link">
+    第三范式（3NF)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    数据库设计范式总结
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    表依赖关系
   </a>
   
 </li>
@@ -1307,7 +1340,7 @@
 <h3 id="_2">数据库对象的命名规则<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>必须以字母开头</li>
-<li>可包括数字和三个特殊字符<code>（# _ $）</code></li>
+<li>可包括数字和三个特殊字符<code>（#/_/$）</code></li>
 <li>不能使用oracle的保留字</li>
 <li>同一用户下的对象不能同名</li>
 </ul>
@@ -1342,18 +1375,31 @@
 <ul>
 <li>序列  <code>sequence</code> 是oracle专有的对象，它用来产生一个自动递增的数列</li>
 </ul>
-<p>创建序列的语法</p>
+<p>序列创建语法</p>
 <div class="highlight"><pre><span></span><code>create sequence seq_name
-increment by n
-start with n
-maxvalue n|nomaxvalue 10^27 or -1
-minvalue n|no minvalue
-cycle|nocycle
-cache n|nocache
+    increment by n                          -- 每次增长几
+    start with n                            -- 从哪个值开始增长
+    maxvalue n|nomaxvalue 10^27 or -1       -- 最大值
+    minvalue n|no minvalue                  -- 最小值
+    cycle|nocycle                           -- 是否有循环
+    cache n|nocache                         -- 是否有缓存
 </code></pre></div>
 
-<p>序列的使用语法</p>
-<div class="highlight"><pre><span></span><code>create sequence 序列名称 start with 1 increment by 1;
+<p>序列使用</p>
+<ul>
+<li>创建好序列之后，没有经过任何的使用，那么不能获取当前的值，必须要 <strong>先执行 <code>nextval</code> 之后</strong> 才能获取当前值</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-- 1. 首次运行必须运行一次 nextval ，获取序列的下一个值（初始值）
+select my_sequence.nextval from dual;
+
+-- 2. 查看当前序列的值，若首次直接查看，那么SQL会报错
+select my_sequence.currval from dual;
+
+-- 此处，报错
+select seq.currval from dual;
+
+-- 3. 获取序列的下一个值
+select my_sequence.nextval from dual;
 </code></pre></div>
 
 <ul>
@@ -1379,7 +1425,6 @@ select seq_score_id.currval from dual;
 drop sequence 序列名;
 
 -- 案例
--- 
 create sequence seq_empcopy_id start with 1 increment by 1;
 
 insert into tb_course values(seq_course.nextval,&#39;dsaf&#39;,&#39;dsaf);
@@ -1387,7 +1432,7 @@ insert into tb_course values(seq_course.nextval,&#39;dsaf&#39;,&#39;dsaf);
 
 <p>使用序列</p>
 <div class="highlight"><pre><span></span><code>-- 使用序列
-select seq_empcopy_id.nextval from dual
+select seq_empcopy_id.nextval from dual;
 
 insert into empcopy(empno, ename) values (seq_empcopy_id.nextval, ‘TEST’);
 
@@ -1398,36 +1443,48 @@ select seq_empcopy_id.currval from dual
 drop sequence seq_empcopy_id;
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>-- 序列： 
+<p>最佳实践</p>
+<div class="highlight"><pre><span></span><code>/* 序列： 
 -- 在Oracle中， 如果需要完成一个列的自增操作，则必须要使用序列
 -- 语法：
-/*
-create sequence seq_name
-  increment by n  每次增长几
-  start with n    从哪个值开始增长
-  maxvalue n|nomaxvalue 10^27 or -1  最大值
-  minvalue n|no minvalue  最小值
-  cycle|nocycle           是否有循环
-  cache n|nocache          是否有缓存
+-- create sequence seq_name
+--   increment by n  每次增长几
+--   start with n    从哪个值开始增长
+--   maxvalue n|nomaxvalue 10^27 or -1  最大值
+--   minvalue n|no minvalue  最小值
+--   cycle|nocycle           是否有循环
+--   cache n|nocache          是否有缓存
 */
+-- 创建序列
 create sequence my_sequence increment by 2 start with 1;
 
+create sequence seq increment by 2 start with 1;
 
--- How 如何使用？
--- 注意:如果创建好序列之后，没有经过任何的使用，那么不能获取当前的值，必须要先执行 nextval 之后才能获取当前值
--- dual是oracle中提供的一张虚拟表，不表示任何意义，在测试的时候可以随意使用
 
--- 1/3. 首次运行必须运行一次 nextval ，获取序列的下一个值（初始值）
+-- 如何使用？
+-- 注意: 如果创建好序列之后，没有经过任何的使用，那么不能获取当前的值，必须要先执行 nextval 之后才能获取当前值
+
+
+-- 1. 首次运行必须运行一次 nextval ，获取序列的下一个值（初始值）
 select my_sequence.nextval from dual;
 
--- 2. 查看当前序列的值
+-- 2. 查看当前序列的值，若首次直接查看，那么SQL会报错
 select my_sequence.currval from dual;
 
--- 1/3. 获取序列的下一个值
+-- 此处，报错
+select seq.currval from dual;
+
+-- 3. 获取序列的下一个值
 select my_sequence.nextval from dual;
 
 -- 4. 使用：插入数据
-insert into emp(empno, ename) values(my_sequence.nextval, &#39;Hello Oracle&#39;);
+select * from psn;
+
+-- 插入数据时，需要直接使用seq.nextval
+insert into psn(id, name) values(seq.nextval, 1);
+
+-- 删除序列
+drop sequence my_sequence;
 </code></pre></div>
 
 <h2 id="ddl">数据表的创建 <code>DDL</code><a class="headerlink" href="#ddl" title="Permanent link">&para;</a></h2>
@@ -1492,6 +1549,7 @@ AS subquery ;
 <div class="highlight"><pre><span></span><code>RENAME old_name TO new_name
 </code></pre></div>
 
+<p>最佳实践</p>
 <div class="highlight"><pre><span></span><code>/* 数据表创建语法
 --CREATE TABLE [schema.]table
 --  (column datatype [DEFAULT expr] , …
@@ -2494,105 +2552,360 @@ $ REVOKE SELECT, INSERT, DELETE ON 表名 FROM 用户名1, 用户名2<span class
 <li>数据库的设计主要包含 <strong>设计表结构和表之间的联系</strong></li>
 <li>范式：在数据库设计的过程中，需要遵循的规则（默认规则）</li>
 </ul>
-<h3 id="_31">第一范式<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
-<p>数据库设计第一范式：<strong>确保每列保持原子性</strong>。</p>
+<h3 id="1nf">第一范式（1NF）<a class="headerlink" href="#1nf" title="Permanent link">&para;</a></h3>
+<p>数据库设计第一范式：<strong>确保每列保持原子性，列不可再分</strong>。</p>
 <ul>
-<li>第一范式是最基本的范式。如果数据库表中的所有字段值都是不可分解的原子值，就说明该数据库表满足了第一范式。</li>
-<li>第一范式的合理遵循需要根据系统的实际需求来定。比如某些数据库系统中需要用到“地址”这个属性，本来直接将“地址”属性设计成一个数据库表的字段就行。但是如果系统经常会访问“地址”属性中的“城市”部分，那么就非要将“地址”这个属性重新拆分为省份、城市、详细地址等多个部分进行存储，这样在对地址中某一部分操作的时候将非常方便。这样设计才算满足了数据库的第一范式，如下表所示。</li>
-</ul>
-<p>关系数据库的几种设计范式</p>
-<p>1、第一范式（1NF）</p>
+<li>
+<p>如果数据库表中的所有字段值都是不可分解的原子值，就说明该数据库表满足了第一范式。</p>
+</li>
+<li>
+<p>第一范式是最基本的范式。</p>
 <ul>
 <li>在任何一个关系数据库中，第一范式（1NF）是对关系模式的基本要求，不满足第一范式（1NF）的数据库就不是关系数据库。</li>
+</ul>
+</li>
 <li>所谓第一范式（1NF）是指数据库表的每一列都是不可分割的基本数据项，同一列中不能有多个值，即实体中的某个属性不能有多个值或者不能有重复的属性。如果出现重复的属性，就可能需要定义一个新的实体，新的实体由重复的属性构成，新实体与原实体之间为一对多关系。在第一范式（1NF）中表的每一行只包含一个实例的信息。例如，对于图3-2中的员工信息表，不能将员工信息都放在一列中显示，也不能将其中的两列或多列在一列中显示；员工信息表的每一行只表示一个员工的信息，一个员工的信息在表中只出现一次。简而言之，第一范式就是无重复的列。</li>
+<li>第一范式的合理遵循需要根据系统的实际需求来定。比如某些数据库系统中需要用到“地址”这个属性，本来直接将“地址”属性设计成一个数据库表的字段就行。但是如果系统经常会访问“地址”属性中的“城市”部分，那么就非要将“地址”这个属性重新拆分为省份、城市、详细地址等多个部分进行存储，这样在对地址中某一部分操作的时候将非常方便。这样设计才算满足了数据库的第一范式。</li>
 </ul>
-<p>上表所示的用户信息遵循了第一范式的要求，这样在对用户使用城市进行分类的时候就非常方便，也提高了数据库的性能。</p>
+<p>用户信息表</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>姓名</th>
+<th>性别</th>
+<th>年龄</th>
+<th>联系电话</th>
+<th>省份城市详细地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>张红欣</td>
+<td>男</td>
+<td>26</td>
+<td>0378-23459876</td>
+<td>河南</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四平</td>
+<td>女</td>
+<td>32</td>
+<td>0751-65432584</td>
+<td>广州</td>
+</tr>
+<tr>
+<td>3</td>
+<td>刘志国</td>
+<td>男</td>
+<td>21</td>
+<td>0371-87659852</td>
+<td>河南</td>
+</tr>
+<tr>
+<td>4</td>
+<td>郭小明</td>
+<td>女</td>
+<td>27</td>
+<td>0371-62556789</td>
+<td>河南</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>第一范式（1NF）是指数据库表的每一列都是不可分割的基本数据项，同一列中不能有多个值，即实体中的某个属性不能有多个值或者不
-能有重复的属性。如果出现重复的属性，就可能需要定义一个新的实体，新的实体由重复的属性构成，新实体与原实体之间为一对多关系。在第
-一范式（1NF）中表的每一行只包含一个实例的信息。</li>
-<li>在任何一个关系数据库中，第一范式（1NF）是对关系模式的基本要求，不满足第一范式（1NF）的数据库就不是关系数据库。</li>
-<li>列不可分。</li>
+<li>上表所示的用户信息遵循了第一范式的要求，这样在对用户使用城市进行分类的时候就非常方便，也提高了数据库的性能。</li>
 </ul>
 <h3 id="2nf">第二范式（2NF）<a class="headerlink" href="#2nf" title="Permanent link">&para;</a></h3>
+<p>第二范式：<strong>确保表中的每列都和主键相关</strong>。</p>
 <ul>
-<li>第二范式(确保表中的每列都和主键相关)</li>
-<li>第二范式在第一范式的基础之上更进一层。第二范式需要确保数据库表中的每一列都和主键相关，而不能只与主键的某一部分相关（主要针对联合主键而言）。也就是说在一个数据库表中，一个表中只能保存一种数据，不可以把多种数据保存在同一张数据库表中。</li>
+<li>
+<p>第二范式在 <strong>第一范式的基础之上更进一层</strong>。</p>
+<ul>
+<li>第二范式是在第一范式的基础上建立起来的，即满足第二范式（2NF）必须先满足第一范式（1NF）。</li>
 </ul>
-<p>第二范式（2NF）
-- 第二范式（2NF）是在第一范式（1NF）的基础上建立起来的，即满足第二范式（2NF）必须先满足第一范式（1NF）。第二范式（2NF）要求数据库表中的每个实例或行必须可以被唯一地区分。为实现区分通常需要为表加上一个列，以存储各个实例的唯一标识。如图3-2员工信息表中加上了员工编号（emp_id）列，因为每个员工的员工编号是唯一的，因此每个员工可以被唯一区分。这个唯一属性列被称为主关键字或主键、主码。
-- 第二范式（2NF）要求实体的属性完全依赖于主关键字。所谓完全依赖是指不能存在仅依赖主关键字一部分的属性，如果存在，那么这个属性和主关键字的这一部分应该分离出来形成一个新的实体，新实体与原实体之间是一对多的关系。为实现区分通常需要为表加上一个列，以存储各个实例的唯一标识。简而言之，第二范式就是非主属性非部分依赖于主关键字</p>
-<p>第二范式
-学号 学生姓名 教师编号 教师姓名
-023145 张三 988010 张老师
-023146 李四 988010 张老师
-023147 王五 988011 李老师
-023145 张三 988011 李老师
-023258 赵六 988010 张老师
-◼ 存在多对多关系时只有一个字段作为主键是不够的。
-◼ 这张表中的主键是学号和教师编号的组合
-◼ 部分依赖，会产生冗余数据，需要分解表</p>
-<p>第二范式
-学号(主键) 学生姓名
-023145 张三
-023146 李四
-023147 王五
-023258 赵六
-教师编号(主键) 教师姓名
-988010 张老师
-988011 李老师
-学号(主键) 教师编号(主键)
-023145 988010
-023146 988010
-023147 988011
-023145 988011
-023258 988010
-数据不存在部分依赖的情况，我们就称之为符合第二范式</p>
-<p>第二范式
-- 第二范式（2NF）是在第一范式（1NF）的基础上建立起来的，即满足第二范式（2NF）必须先满足第一范式（1NF）。第二范
-式（2NF）要求数据库表中的每个实例或行必须可以被惟一的区分。为实现区分通常需要为表加上一个列，以存储各个实例的惟
-一标识。要求实体的属性完全依赖于主关键字。
-- 不能部分依赖。即：一张表存在组合主键时，其他非主键字段不能部分依赖。</p>
-<p>第三范式</p>
-<ul>
-<li>满足第三范式（3NF）必须先满足第二范式（2NF）。简而言之，第三范式（3NF）要求一个数据库表中不包含已在其它表中已包含的非主关键字信息。例如，存在一个部门信息表，其中每个部门有部门编号（dept_id）、部门名称、部门简介等信息。那么员工信息表中列出部门编号后就不能再将部门名称、部门简介等与部门有关的信息再加入员工信息表中。如果不存在部门信息表，则根据第三范式（3NF）也应该构建它，否则就会有大量的数据冗余。简而言之，第三范式就是属性不依赖于其它非主属性</li>
+</li>
+<li>
+<p>第二范式需要确保数据库表中的每一列都和主键相关，而不能只与主键的某一部分相关（主要针对联合主键而言）。也就是说在一个数据库表中，一个表中只能保存一种数据，不可以把多种数据保存在同一张数据库表中。</p>
+</li>
+<li>
+<p>第二范式要求数据库表中的每个实例或行必须可以被唯一地区分。为实现区分通常需要为表加上一个列，以存储各个实例的唯一标识。如图3-2员工信息表中加上了员工编号（emp_id）列，因为每个员工的员工编号是唯一的，因此每个员工可以被唯一区分。这个唯一属性列被称为主关键字或主键、主码。</p>
+</li>
+<li>要求实体的属性完全依赖于主关键字。不能部分依赖。即：一张表存在组合主键时，其他非主键字段不能部分依赖。</li>
+<li>第二范式要求实体的属性完全依赖于主关键字。所谓完全依赖是指不能存在仅依赖主关键字一部分的属性，如果存在，那么这个属性和主关键字的这一部分应该分离出来形成一个新的实体，新实体与原实体之间是一对多的关系。为实现区分通常需要为表加上一个列，以存储各个实例的唯一标识。简而言之，第二范式就是 <strong>非主属性非部分依赖于主关键字</strong>。</li>
 </ul>
-<p>第三范式</p>
+<p>案例：</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>学生姓名</th>
+<th>教师编号</th>
+<th>教师姓名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>023145</td>
+<td>张三</td>
+<td>988010</td>
+<td>张老师</td>
+</tr>
+<tr>
+<td>023146</td>
+<td>李四</td>
+<td>988010</td>
+<td>张老师</td>
+</tr>
+<tr>
+<td>023147</td>
+<td>王五</td>
+<td>988011</td>
+<td>李老师</td>
+</tr>
+<tr>
+<td>023145</td>
+<td>张三</td>
+<td>988011</td>
+<td>李老师</td>
+</tr>
+<tr>
+<td>023258</td>
+<td>赵六</td>
+<td>988010</td>
+<td>张老师</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>第三范式需要确保数据表中的每一列数据都和主键直接相关，而不能间接相关。</li>
-<li>比如在设计一个订单数据表的时候，可以将客户编号作为一个外键和订单表建立相应的关系。而不可以在订单表中添加关于客户
-其它信息（比如姓名、所属公司等）的字段。如下面这两个表所示的设计就是一个满足第三范式的数据库表。
-第三范式
-学号(主键) 学生姓名 班级编号 班级名称 班级信息
-023145 张三 987654 3班 特招班
-023146 李四 987231 3班 特招班
-023147 王五 987654 4班 普通班
-…
-023258 赵六 987654 3班 特招班
-班级名称和班级信息这一组值没有必要的重复出现，这些值并不直接依赖于学号（主键），而是依赖于班级号，也就是时说表中出现了 传递依赖
-解决这个问题的办法是把这些和学号（主键）没有直接联系的信息记录的新的表里面，即班级表</li>
+<li>存在多对多关系时只有一个字段作为主键是不够的。</li>
+<li>这张表中的主键是学号和教师编号的组合</li>
+<li><strong>部分依赖，会产生冗余数据</strong>，需要分解表</li>
 </ul>
-<p>第三范式（3NF)
-- 满足第三范式（3NF）必须先满足第二范式（2NF）。简而言之，第三范式（3NF）要求一个数据库表中不包含已在其它表中已包
-含的非主关键字信息。
-- 在第二范式的基础上，数据表中如果不存在非关键字段对任一候选关键字段的传递函数依赖则符合第三范式。
-- 不能存在传递依赖。即：除主键外，其他字段必须依赖主键。</p>
-<p>总结
-- 第一范式
-– 列不可分
-- 第二范式
-– 列必须直接依赖主键
-- 第三范式
-– 传递依赖
-- 表里面的列不能出现其它表的非主键字段</p>
-<p>表依赖关系
-- 一对一
-- 一对多
-- 多对多</p>
-<hr />
+<p>拆分后：</p>
+<p>拆分过后，数据不存在部分依赖的情况，我们就称之为符合第二范式</p>
+<p>表一：学生表</p>
+<table>
+<thead>
+<tr>
+<th>学号(主键)</th>
+<th>学生姓名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>023145</td>
+<td>张三</td>
+</tr>
+<tr>
+<td>023146</td>
+<td>李四</td>
+</tr>
+<tr>
+<td>023147</td>
+<td>王五</td>
+</tr>
+<tr>
+<td>023258</td>
+<td>赵六</td>
+</tr>
+</tbody>
+</table>
+<p>表二：教师表</p>
+<table>
+<thead>
+<tr>
+<th>教师编号(主键)</th>
+<th>教师姓名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>988010</td>
+<td>张老师</td>
+</tr>
+<tr>
+<td>988011</td>
+<td>李老师</td>
+</tr>
+</tbody>
+</table>
+<p>表三：学生教师表</p>
+<table>
+<thead>
+<tr>
+<th>学号(主键)</th>
+<th>教师编号(主键)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>023145</td>
+<td>988010</td>
+</tr>
+<tr>
+<td>023146</td>
+<td>988010</td>
+</tr>
+<tr>
+<td>023147</td>
+<td>988011</td>
+</tr>
+<tr>
+<td>023145</td>
+<td>988011</td>
+</tr>
+<tr>
+<td>023258</td>
+<td>988010</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3nf">第三范式（3NF)<a class="headerlink" href="#3nf" title="Permanent link">&para;</a></h3>
+<ol>
+<li>满足第三范式（3NF）必须先满足第二范式（2NF）。简而言之，第三范式（3NF）要求一个数据库表中不包含已在其它表中已包含的非主关键字信息。</li>
+</ol>
+<p>例如，存在一个部门信息表，其中每个部门有部门编号（dept_id）、部门名称、部门简介等信息。那么员工信息表中列出部门编号后就不能再将部门名称、部门简介等与部门有关的信息再加入员工信息表中。如果不存在部门信息表，则根据第三范式（3NF）也应该构建它，否则就会有大量的数据冗余。简而言之，第三范式就是 <strong>属性不依赖于其它非主属性</strong>。</p>
+<ol>
+<li>
+<p>第三范式需要确保数据表中的每一列数据都和主键直接相关，而不能间接相关。</p>
+</li>
+<li>
+<p>比如在设计一个订单数据表的时候，可以将客户编号作为一个外键和订单表建立相应的关系。而不可以在订单表中添加关于客户其它信息（比如姓名、所属公司等）的字段。如下面这两个表所示的设计就是一个满足第三范式的数据库表。</p>
+</li>
+</ol>
+<p>表1：订单信息表</p>
+<table>
+<thead>
+<tr>
+<th>订单编号</th>
+<th>订单项目</th>
+<th>负责人</th>
+<th>业务员</th>
+<th>订单教量</th>
+<th>客户编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>挖掘机</td>
+<td>刘明</td>
+<td>李东明</td>
+<td>1台</td>
+<td>1</td>
+</tr>
+<tr>
+<td>002</td>
+<td>冲击钻</td>
+<td>李刚</td>
+<td>霍新峰</td>
+<td>8个</td>
+<td>2</td>
+</tr>
+<tr>
+<td>003</td>
+<td>铲车</td>
+<td>郭新一</td>
+<td>艾美丽</td>
+<td>2辆</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>表2：客户信息表</p>
+<table>
+<thead>
+<tr>
+<th>客户编号</th>
+<th>客户名称</th>
+<th>所属公司</th>
+<th>联系方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>李聪</td>
+<td>五一建设</td>
+<td>13253661015</td>
+</tr>
+<tr>
+<td>2</td>
+<td>刘新明</td>
+<td>个体经营</td>
+<td>13285746958</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>在第二范式的基础上，数据表中如果不存在非关键字段对任一候选关键字段的传递函数依赖则符合第三范式。不能存在传递依赖。即：除主键外，其他字段必须依赖主键。</li>
+</ol>
+<p>案例：学生信息</p>
+<table>
+<thead>
+<tr>
+<th>学号(主键)</th>
+<th>学生姓名</th>
+<th>班级编号</th>
+<th>班级名称</th>
+<th>班级信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>023145</td>
+<td>张三</td>
+<td>987654</td>
+<td>3班</td>
+<td>特招班</td>
+</tr>
+<tr>
+<td>023146</td>
+<td>李四</td>
+<td>987231</td>
+<td>3班</td>
+<td>特招班</td>
+</tr>
+<tr>
+<td>023147</td>
+<td>王五</td>
+<td>987654</td>
+<td>4班</td>
+<td>普通班</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>023258</td>
+<td>赵六</td>
+<td>987654</td>
+<td>3班</td>
+<td>特招班</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>用户表</li>
-<li>角色表</li>
+<li>班级名称和班级信息这一组值没有必要的重复出现，这些值并不直接依赖于学号（主键），而是依赖于班级号，也就是时说表中出现了 <strong>传递依赖</strong>。</li>
+<li>解决这个问题的办法是：把这些和学号（主键）没有直接联系的信息记录的新的表里面，即 <strong>新建班级表</strong></li>
+</ul>
+<h3 id="_31">数据库设计范式总结<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
+<ul>
+<li>第一范式：列不可分</li>
+<li>第二范式：列必须直接依赖主键</li>
+<li>第三范式：传递依赖，表里面的列不能出现其它表的非主键字段</li>
+</ul>
+<h3 id="_32">表依赖关系<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
+<ul>
+<li>一对一</li>
+<li>一对多</li>
+<li>多对多</li>
 </ul>
                 
               

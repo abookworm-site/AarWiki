@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
-     <loc>https://wiki.abookworm.site/AarWiki/</loc>
+     <loc>https://wiki.abookworm.site/</loc>
      <lastmod>2020-08-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
@@ -101,6 +101,10 @@
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://wiki.abookworm.site/310%20Learning%20Language/an-Overview%20of%20English%20Learning/</loc>
+     <lastmod>2020-08-08</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://wiki.abookworm.site/message/</loc>
      <lastmod>2020-08-08</lastmod>
      <changefreq>daily</changefreq>
     </url>

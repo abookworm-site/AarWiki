@@ -1,7 +1,9 @@
-/* 数据表创建语法
---CREATE TABLE [schema.]table
---  (column datatype [DEFAULT expr] , …
---  );
+/*
+
+CREATE TABLE [schema.]table
+  (column datatype [DEFAULT expr] , …
+  );
+
 */
 
 -- 设计要求：建立一张用来存储学生信息的表，表中的字段包含了学生的学号、姓名、年龄、入学日期、年级、班级、email等信息，
