@@ -14,7 +14,6 @@
 
 - [第01课 理念混乱](English training by Cando-Bear\第01课 理念混乱.md)
 - [第02课 积累词汇](English training by Cando-Bear\第02课 积累词汇.md)
-- [第02课 答疑总结](English training by Cando-Bear\第02课 答疑总结.md)
 - [第03课 理解词汇](English training by Cando-Bear\第03课 理解词汇.md)
 - [第04课 搭建句子树](English training by Cando-Bear\第04课 搭建句子树.md)
 - [第05课 语法顽疾](English training by Cando-Bear\第05课 语法顽疾.md)

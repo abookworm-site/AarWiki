@@ -72,7 +72,7 @@ markdown_extensions:
 
 # Site Nav
 nav:
-- AarWiki Home: 'AarWiki.md'
+- AarWiki Home: 'index.md'
 
 - 100 WorkSpace: '100 WorkSpace\index.md'
 
@@ -119,3 +119,5 @@ nav:
 
 - 310 Learning English:
   - an-Overview: '310 Learning Language\an-Overview of English Learning.md'
+
+- 读者信箱: 'message.md'
