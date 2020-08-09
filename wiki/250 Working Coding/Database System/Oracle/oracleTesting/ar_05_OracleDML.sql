@@ -9,15 +9,19 @@
 
 -- 最基本的插入方式 2 种：
 -- 向部分列插入数据的时候，不是想向哪个列插入就插入的，要遵循创建表的时候定义的规范(约束)
-
+-- 第一种：完全插入
 -- insert into tablename values(val1,val2,....) 如果表名之后没有列，那么只能将所有的列都插入
 
+-- before insert
+select * from emp;
 
+insert into student values();
+-- 第二种：部分插入
 -- insert into tablename(col1,col2,...) values(val1,val2,...) 可以指定向哪些列中插入数据
+insert into student(std_id, name) values();
 
-
--- check it
-
+-- after insert
+select * from emp;
 
 
 -- 创建表的其他方式
