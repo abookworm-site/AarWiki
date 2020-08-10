@@ -19,7 +19,7 @@
 
 select * from emp where deptno = 30;
 
-create view v$_dno30 as select * from emp where deptno = 30;
+create VIEW dno as select * from emp where deptno = 30;
 
 
 -- 视图的使用

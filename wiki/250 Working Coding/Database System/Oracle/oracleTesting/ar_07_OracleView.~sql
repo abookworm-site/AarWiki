@@ -19,7 +19,14 @@
 
 select * from emp where deptno = 30;
 
-create view v$_dno30 as select * from emp where deptno = 30;
+create VIEW dno as select * from emp where deptno = 30;
+
+  CREATE VIEW dept_sum_vw(name,minsal,maxsal,avgsal)
+     AS SELECT d.dname,min(e.sal),max(e.sal),avg(e.sal)
+        FROM    emp e,dept d
+        WHERE e.deptno=d.deptno
+        GROUP BY d.dname;
+
 
 
 -- 视图的使用

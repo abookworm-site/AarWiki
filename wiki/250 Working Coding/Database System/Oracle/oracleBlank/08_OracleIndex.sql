@@ -3,12 +3,12 @@
 */
 
 -- 创建索引, 若该字段已经有了索引，则会创建失败。
-select * from emp;
 
-create index emp_name on emp(ename);
+
+
 
 -- 删除索引
-drop index emp_name;
+
 
 -- 索引原理：
 ---- 局部性原理：
