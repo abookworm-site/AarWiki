@@ -64,13 +64,13 @@ $ mkdocs gh-deploy --clean --force
 
 ### Ongoing List
 
-- 每次都需要手工强制部署
+- 每次都需要手工强制部署：
 
 
 
 ### To-do List
 
-- 自动构建目录
+- 自动构建目录：编写Shell脚本，自动2级文件目录
 
     
 

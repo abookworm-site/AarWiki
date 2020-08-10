@@ -236,7 +236,7 @@
 
 ### Wiki文章存储
 
-**Wiki** 使用`Mkdocs`进行搭建，存储平台为Github，仓库地址为：https://github.com/abookworm-site/WikiPage
+**Wiki** 使用`Mkdocs`进行搭建，存储平台为Github，仓库地址为：https://github.com/abookworm-site/AarWiki
 
 故此，所有文章均位于项目的 `wiki` 文件夹 内。
 
@@ -276,9 +276,9 @@ Wiki文章中包含的许多资源文件，特别是图片文件，都依照Mark
 
 
 
-## Donate | 捐赠
+## Support | 支持
 
-**如果您想要对本站或者作者表示支持，可通过以下方式进行捐赠，亦或者在[读者信箱](message.md)免费留言。谢谢~~**
+**如果您想对本站/笔者表示支持，可通过以下方式进行捐赠，亦或在[个人博客](http://www.abookworm.site)免费留言。谢谢~~**
 
 <table class="no-class">
     <tr>
