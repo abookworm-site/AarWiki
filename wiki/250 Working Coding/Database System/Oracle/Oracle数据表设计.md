@@ -591,31 +591,37 @@ SQL的数据更新包括 **数据插入**， **删除** 和 **修改** 三个操
 
 
 
-### `Insert`语句
+### `Insert`语句 - 插入
 
  `insert语句` 是往表中插入数据的语句，方式有两种：一种是元组值的插入，一种是查询结果的插入。
 
 
 
-元组值的插入语法如下：
+元组值的插入语法：
 
 ```plsql
 INSERT INTO table[( column [ , column... ])] VALUES (value [ , value... ]);
 ```
 
-- 一次插入操作只插入一行
 
 
+一次插入操作只插入一行，分两种情况插入：
+
+1. 插入全部列
+2. 只插入部分列，但此处中 **省略的列** 必须满足以下条件：
+    - 该列定义为允许 `Null`值。
+    - 在表定义中给出默认值，这表示如果不给出值，将使用默认值。
+    - 如果不符合上面两个条件，将会报错。不能成功插入。
+
+
+
+案例：
 
 ```plsql
+-- 一次性插入全部列
 insert into emp (empno, ename, job, mgr, hiredate, sal, comm, deptno) values (1111,'gao','clerk',7902,sysdate,10000,3000,40);
-```
 
-- 此处插入的元组中列的个数、顺序与emp的结构完全一致，因此表名之后的列名可以省略不写
-
-
-
-```plsql
+-- 当插入的元组中列的个数、顺序与 emp 结构完全一致时，表名之后的列名可以省略不写
 insert into emp values(2222,'gaohs','clerk',7902,sysdate,10000,3000,40)
 
 -- 可以只插入部分列
@@ -624,45 +630,34 @@ insert into emp(empno, ename) values (3333,'xiaozhang');
 
 
 
-- 可以只插入部分列
+另外，可以用 `insert` 语句把一个 `select` 语句的查询结果插入到一个基本表中，语法如下：
 
 ```plsql
-insert into emp(empno, ename) values (3333,'xiaozhang');
+Insert into tablename(column,...) [as] select * from tablename2
 ```
 
-
-
-- 但要求省略的列必须满足下面的条件：
-1. 该列定义为允许 `Null`值。
-2. 在表定义中给出默认值，这表示如果不给出值，将使用默认值。
-
-- 如果不符合上面两个条件，将会报错。不能成功插入。
-
-
-
-可以用 `insert` 语句把一个 `select` 语句的查询结果插入到一个基本表中，语法如下：
-
-```plsql
-Insert into tablename(column,...) select * from tablename2
-```
+- 此语法依据后续是否添加 `where` 语句分为两种情况：
+    - 复制表同时复制表数据，不会复制约束：`create table emp2 as select * from emp;`
+    - 复制表结构但是不复制表数据，不会复制约束：`create table emp3 as select * from emp where 1=2;`
 
 
 
 案例
 
 ```plsql
--- 创建一个临时表
+-- 复制表结构但是不复制表数据，不会复制约束
 create table temp
 as
 select * from emp
 where 1 = 2;
 
--- 执行插入
+-- 复制表同时复制表数据，不会复制约束
 insert into ss select * from emp;
 ```
 
 
-例子
+
+复习
 
 ```plsql
 create table test02 
@@ -673,14 +668,12 @@ create table test01
 as
 select * from emp where 1=1
 
-insert into test02;
-
-select * from emp where emp.deptno=10;
+insert into test02 select * from emp where emp.deptno=10;
 ```
 
 
 
-### `DELETE` 语句
+### `DELETE` 语句 - 删除
 
 SQL的删除操作是指从基本表中删除元组，语法如下：
 
@@ -697,10 +690,11 @@ DELETE [FROM] table [WHERE condition];
 
 - 如果想从表中删除所有的行，**不要使用**  `delete from table;`
 - 可使用 `truncate table` 语句，完成相同的工作，但是 **速度更快（没有事务）**。
+- 使用 `truncate` 语法删除行，效率高，但是容易发生误操作
 
 
 
-### `UPDATE` 语句
+### `UPDATE` 语句 - 更新
 
 Update语句用于修改基本表中元组的某些列，其语法如下：
 
@@ -714,69 +708,249 @@ SET column = value [, column = value ] …
 
 
 
+### 最佳实践
+
 ```plsql
---DML：数据库操作语言
---  增  --  删  --  改
-
+/* DML：数据库操作语言： 增、删、改
 -- 在实际项目中，使用最多的是读取操作，但是插入数据和删除数据同等重要，而修改操作相对较少
-
-/*
-插入操作：
-  元组值的插入
-  查询结果的插入
-
 */
--- 最基本的插入方式 2 种：
---向部分列插入数据的时候，不是想向哪个列插入就插入的，要遵循创建表的时候定义的规范(约束)
 
---insert into tablename values(val1,val2,....) 如果表名之后没有列，那么只能将所有的列都插入
+/* 插入操作：
+---- 元组值的插入
+---- 查询结果的插入
+*/
+
+-- 最基本的插入方式 2 种：
+-- 1. 向部分列插入数据的时候，不是想向哪个列插入就插入的，要遵循创建表的时候定义的规范(约束)
+---- insert into tablename values(val1,val2,....) 如果表名之后没有列，那么只能将所有的列都插入
 insert into emp values(2222, 'Hello', 'Cleark', '7902', to_date('2019-01-23', 'YYYY-MM-dd'), 1002, 500, 10);
 
---insert into tablename(col1,col2,...) values(val1,val2,...) 可以指定向哪些列中插入数据
+---- insert into tablename(col1,col2,...) values(val1,val2,...) 可以指定向哪些列中插入数据
 insert into emp(empno, ename) values(3333, 'Wangwu');
 
--- check it
+-- before and after this to check the table
 select * from emp;
-
 
 -- 创建表的其他方式
 -- 复制表同时复制表数据，不会复制约束
 create table emp2 as select * from emp;
 
---复制表结构但是不复制表数据，不会复制约束
+-- 复制表结构但是不复制表数据，不会复制约束
 create table emp3 as select * from emp where 1=2;
 
---如果有一个集合的数据，把集合中的所有数据都挨条插入的话，效率如何？一般在实际的操作中，很少一条条插入，更多的是批量插入
+-- 一般在实际的操作中，很少一条条插入，更多的是批量插入
 
-/*
-删除操作：
-delete from tablename where condition
-
+/* 删除操作：
+-- delete from tablename where condition
 */
---删除满足条件的数据
+
+-- 删除满足条件的数据
 delete from emp2 where deptno = 10;
 
---把整张表的数据全部清空
+-- 把整张表的数据全部清空
 delete from emp2;
 
---truncate: 跟delete有所不同，delete在进行删除的时候经过事务，而truncate不经过事务，一旦删除就是永久删除，不具备回滚的操作
---效率比较高，但是容易发生误操作，所以不建议使用
+-- truncate: 跟delete有所不同，delete在进行删除的时候经过事务，而truncate不经过事务，一旦删除就是永久删除，不具备回滚的操作
+-- 效率比较高，但是容易发生误操作，所以不建议使用
 truncate table emp2;
 
-/*
-修改操作：
-   update tablename set col = val1,col2 = val2 where condition;
-   可以更新或者修改满足条件的一个列或者多个列
+/* 修改操作：
+--   update tablename set col = val1,col2 = val2 where condition;
+--   可以更新或者修改满足条件的一个列或者多个列
 */
---更新单列
+-- 更新单列
 update emp set ename = 'HeiHei' where ename = 'Hello';
 
---更新多个列的值
+-- 更新多个列的值
 update emp set jobs='teacher', mgr=7902 where empno = 15;
+```
 
-/*
-增删改是数据库的常用操作，在进行操作的时候都需要《事务》的保证， 也就是说每次在pl/sql中执行sql语句之后都需要完成commit的操作
-事务变得非常关键：
+
+
+### 总结
+
+增删改是数据库的常用操作，在进行操作的时候都需要 “事务” 的保证， 也就是说每次在`pl/sql` 中执行SQL语句之后都需要完成commit的操作。因此，事务非常关键。
+
+
+
+## 事务 `Transaction`
+
+事务（Transaction）是一个操作序列。这些操作要么都做，要么都不做，是一个不可分割的工作单位，是数据库环境中的逻辑工作单位。
+
+- 事务是可保证数据库的完整性
+- 事务不能嵌套
+
+
+
+事务最主要的目的是为了 **数据一致性，解决并发访问问题**。
+
+- 如果同一份数据，在同一个时刻只能有一个人访问，就不会出现数据错乱的问题。但是在现在的项目中，更多的是 **并发访问**
+- 并发访问的同时带来的就是数据的不安全，也就是不一致
+- 如果要保证数据的安全，最主要的方式就是加锁的方式，MVCC
+
+
+
+事务的延申：
+
+- 最基本的数据库事务
+- 声明式事务
+- 分布式事务
+
+
+
+为了提高效率，有可能多个操作会在同一个事务中执行，那么就有可能部分成功，部分失败，基于这样的情况就需要事务的控制。
+
+```plsql
+select * from emp where id = 7902 for update;
+
+select * from emp where id = 7902 lock in share mode;
+```
+
+如果不保证事务的话，会造成脏读，不可重复读，幻读。
+
+
+
+
+
+在oracle中，没有事务开始的语句。一个`Transaction`起始于一条DML(Insert、Update和Delete )语句，结束于以下的几种情况：
+
+- 用户显式执行 `Commit` 语句提交操作或 `Rollback` 语句回退。
+
+- 当执行 `DDL(Create、Alter、Drop)` 语句事务自动提交。
+
+- 用户正常断开连接时，`Transaction` 自动提交。
+
+- 系统崩溃或断电时，事务自动回退 。
+
+  
+
+`DDL` 语句执行自动提交事物
+
+```plsql
+insert into test02;
+
+select * from emp where emp.deptno=10;
+
+create table test04 as select * from emp where 1=2;
+```
+
+
+
+### `Commit` & `Rollback`
+
+`Commit` 表示事务成功地结束，此时告诉系统，数据库要进入一个新的正确状态，该事务对数据库的所有更新都以交付实施。每个Commit语句都可以看成是一个事务成功的结束，同时也是另一个事务的开始。
+
+`Rollback`表示事务不成功的结束，此时告诉系统，已发生错误，数据库可能处在不正确的状态，该事务对数据库的更新必须被撤销，数据库应恢复该事务到初始
+状态。每个Rollback语句同时也是另一个事务的开始。
+
+- 一旦执行了commit语句，将目前对数据库的操作提交给数据库（实际写入DB），以后就不能用rollback进行撤销。
+- 执行一个 DDL/DCL语句或从 SQL*Plus 正常退出，都会自动执行 `commit` 命令。
+
+
+
+`commit` & `rollback` 语法：
+
+```plsql
+-- 保存
+savepoint transaction_name;
+
+-- 回滚
+rollback to transaction_name;
+```
+
+
+
+事物测试案例
+
+```plsql
+insert into test02(ename, empno, deptno ) values('cai10',1010,10);
+insert into test02(ename, empno, deptno ) values('cai20',1010,10);
+
+select * from test02;
+
+savepoint sp01
+
+insert into test02(ename,empno,deptno ) values('cai30',1010,10);
+insert into test02(ename,empno,deptno ) values('cai40',1010,10);
+select * from test02;
+rollback to sp01
+commit;
+```
+
+
+
+### 事务的ACID属性
+
+事务有四大特征：**原子性，一致性，隔离性和持久性**。
+
+
+
+1， 原子性（Atomicity）
+
+- 一个原子事务要么完整执行，要么干脆不执行。这意味着，工作单元中的每项任务都必须正确执行。如果有任一任务执行失败，则整个工
+作单元或事务就会被终止。即此前对数据所作的任何修改都将被撤销。如果所有任务都被成功执行，事务就会被提交，即对数据所作的修改将
+会是永久性的。
+
+
+
+2， 一致性（Consistency）
+
+- 一致性代表了底层数据存储的完整性。它必须由事务系统和应用开发人员共同来保证。事务系统通过保证事务的原子性，隔离性和持久性
+来满足这一要求; 应用开发人员则需要保证数据库有适当的约束(主键，引用完整性等)，并且工作单元中所实现的业务逻辑不会导致数据的不
+一致(即，数据预期所表达的现实业务情况不相一致)。例如，在一次转账过程中，从某一账户中扣除的金额必须与另一账户中存入的金额相等。
+支付宝账号100 你读到余额要取，有人向你转100 但是事物没提交（这时候你读到的余额应该是100，而不是200） 这种就是一致性
+
+
+
+3， 隔离性（Isolation）
+
+- 隔离性意味着事务必须在不干扰其他进程或事务的前提下独立执行。换言之，在事务或工作单元执行完毕之前，其所访问的数据不能受系
+统其他部分的影响。
+
+
+
+4， 持久性（Durability）
+
+- 持久性表示在某个事务的执行过程中，对数据所作的所有改动都必须在事务成功结束前保存至某种物理存储设备。这样可以保证，所作的
+  修改在任何系统瘫痪时不至于丢失。
+
+  
+
+提交或回滚前数据的状态
+
+- 以前的数据可恢复
+- 当前的用户可以看到DML操作的结果
+- 其他用户不能看到DML操作的结果
+- 被操作的数据被锁住,其他用户不能修改这些数据
+
+
+
+提交后数据的状态
+
+- 数据的修改被永久写在数据库中.
+- 数据以前的状态永久性丢失.
+- 所有的用户都能看到操作后的结果.
+- 记录锁被释放,其他用户可操作这些记录.
+
+
+
+回滚后数据的状态
+
+语句将放弃所有的数据修改
+
+- 修改的数据被回退.
+- 恢复数据以前的状态.
+- 行级锁被释放.
+
+
+
+### 最佳实践
+
+```plsql
+--事务：表示操作集合，不可分割，要么全部成功，要么全部失败
+
+
+/* 事务变得非常关键：
     最主要的目的是为了数据一致性
     如果同一份数据，在同一个时刻只能有一个人访问，就不会出现数据错乱的问题，但是在现在的项目中，更多的是并发访问
     并发访问的同时带来的就是数据的不安全，也就是不一致
@@ -793,13 +967,69 @@ update emp set jobs='teacher', mgr=7902 where empno = 15;
     
     如果不保证事务的话，会造成脏读，不可重复读，幻读。
 */
+
+
+
+--事务的开始取决于一个DML (Detelete, Modification, )语句
+/*
+事务的结束
+  1、正常的commit（使数据修改生效）或者rollback（将数据恢复到上一个状态）
+  2、自动提交，但是一般情况下要将自动提交进行关闭，(每条语句提交)效率太低
+  3、用户关闭会话之后，会自动提交事务
+  4、系统崩溃或者断电的时候会回滚事务，也就是将数据恢复到上一个状态
+*/
+insert into emp2(empno, ename) values(3333, 'Zhangsan');
+insert into emp2(empno, ename) values(4444, 'Zhangsan')
+commit;
+--commit;
+--rollback;
+select * from emp2;
+
+
+--savepoint  保存点
+-- 当一个操作集合中包含多条SQL语句，但是只想让其中某部分成功，某部分失败，此时可以使用保存点
+-- 此时如果需要回滚到某一个状态的话使用 rollback to sp1;
+delete from emp2 where empno = 3333;
+delete from emp2 where empno = 4444;
+savepoint sp1;
+delet from emp2 where empno = 1234;
+rollback to sp1;
+
+/*
+事务的四个特性：ACID -- AID-C
+-- 原子性：表示不可分割，一个操作集合要么全部成功，要么全部失败，不可以从中间做切分
+-- 一致性：最终是为了保证数据的一致性，当经过N多个操作之后，数据的状态不会改变（转账）
+          从一个一致性状态到另一个一致性状态，也就是数据不可以发生错乱
+-- 隔离性：各个事务之间相关不会产生影响，（隔离级别）
+          严格的隔离性会导致效率降低，在某些情况下为了提高程序的执行效率，需要降低隔离的级别
+          隔离级别：
+            -- 读未提交
+            -- 读已提交
+            -- 可重复读
+            -- 序列化
+          数据不一致的问题：
+            -- 脏读
+            -- 不可重复读
+            -- 幻读
+-- 持久性：所有数据的修改都必须要持久化到存储介质中，不会因为应用程序的关闭而导致数据丢失
+
+  四个特性中，哪个是最关键的？
+     -- 所有的特性中都是为了保证数据的一致性，所以一致性是最终的追求
+     -- 事务中的一致性是通过原子性、隔离性、持久性来保证的
+
+     锁的机制：
+     为了解决在并发访问的时候，数据不一致的问题，需要给数据加锁
+     加锁的同时需要考虑《粒度》的问题：
+         操作的对象
+           -- 数据库
+           -- 表
+           -- 行
+     一般情况下，锁的粒度越小，效率越高，粒度越大，效率越低 
+            在实际的工作环境中，大部分的操作都是行级锁  
+
+*/
+
 ```
-
-
-
-
-
-
 
 
 
@@ -842,6 +1072,8 @@ create or replace view v_test01
 as
 select * from emp;
 ```
+
+
 
 
 
@@ -999,239 +1231,6 @@ grant create view, create table to scott;
 -- 使用 system 用户为 scott 解锁
 alter user scott account unlock;
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 事务 `Transaction`
-
-事务（Transaction）是一个操作序列。这些操作要么都做，要么都不做，是一个不可分割的工作单位，是数据库环境中的逻辑工作单位。
-
-- 事务是可保证数据库的完整性
-- 事务不能嵌套
-
-
-
-在oracle中，没有事务开始的语句。一个`Transaction`起始于一条DML(Insert、Update和Delete )语句，结束于以下的几种情况：
-
-- 用户显式执行 `Commit` 语句提交操作或 `Rollback` 语句回退。
-
-- 当执行 `DDL(Create、Alter、Drop)` 语句事务自动提交。
-
-- 用户正常断开连接时，`Transaction` 自动提交。
-
-- 系统崩溃或断电时，事务自动回退 。
-
-  
-
-`DDL` 语句执行自动提交事物
-
-```plsql
-insert into test02;
-
-select * from emp where emp.deptno=10;
-
-create table test04 as select * from emp where 1=2;
-```
-
-
-
-### `Commit` & `Rollback`
-
-`Commit` 表示事务成功地结束，此时告诉系统，数据库要进入一个新的正确状态，该事务对数据库的所有更新都以交付实施。每个Commit语句都可以看成是一个事务成功的结束，同时也是另一个事务的开始。
-
-`Rollback`表示事务不成功的结束，此时告诉系统，已发生错误，数据库可能处在不正确的状态，该事务对数据库的更新必须被撤销，数据库应恢复该事务到初始
-状态。每个Rollback语句同时也是另一个事务的开始。
-
-- 一旦执行了commit语句，将目前对数据库的操作提交给数据库（实际写入DB），以后就不能用rollback进行撤销。
-- 执行一个 DDL/DCL语句或从 SQL*Plus 正常退出，都会自动执行 `commit` 命令。
-
-
-
-`commit` & `rollback` 语法：
-
-```plsql
--- 保存
-savepoint transaction_name;
-
--- 回滚
-rollback to transaction_name;
-```
-
-
-
-事物测试案例
-
-```plsql
-insert into test02(ename, empno, deptno ) values('cai10',1010,10);
-insert into test02(ename, empno, deptno ) values('cai20',1010,10);
-
-select * from test02;
-
-savepoint sp01
-
-insert into test02(ename,empno,deptno ) values('cai30',1010,10);
-insert into test02(ename,empno,deptno ) values('cai40',1010,10);
-select * from test02;
-rollback to sp01
-commit;
-```
-
-
-
-### 事务的ACID属性
-
-事务有四大特征：**原子性，一致性，隔离性和持久性**。
-
-
-
-1， 原子性（Atomicity）
-
-- 一个原子事务要么完整执行，要么干脆不执行。这意味着，工作单元中的每项任务都必须正确执行。如果有任一任务执行失败，则整个工
-作单元或事务就会被终止。即此前对数据所作的任何修改都将被撤销。如果所有任务都被成功执行，事务就会被提交，即对数据所作的修改将
-会是永久性的。
-
-
-
-2， 一致性（Consistency）
-
-- 一致性代表了底层数据存储的完整性。它必须由事务系统和应用开发人员共同来保证。事务系统通过保证事务的原子性，隔离性和持久性
-来满足这一要求; 应用开发人员则需要保证数据库有适当的约束(主键，引用完整性等)，并且工作单元中所实现的业务逻辑不会导致数据的不
-一致(即，数据预期所表达的现实业务情况不相一致)。例如，在一次转账过程中，从某一账户中扣除的金额必须与另一账户中存入的金额相等。
-支付宝账号100 你读到余额要取，有人向你转100 但是事物没提交（这时候你读到的余额应该是100，而不是200） 这种就是一致性
-
-
-
-3， 隔离性（Isolation）
-
-- 隔离性意味着事务必须在不干扰其他进程或事务的前提下独立执行。换言之，在事务或工作单元执行完毕之前，其所访问的数据不能受系
-统其他部分的影响。
-
-
-
-4， 持久性（Durability）
-
-- 持久性表示在某个事务的执行过程中，对数据所作的所有改动都必须在事务成功结束前保存至某种物理存储设备。这样可以保证，所作的
-  修改在任何系统瘫痪时不至于丢失。
-
-  
-
-提交或回滚前数据的状态
-
-- 以前的数据可恢复
-- 当前的用户可以看到DML操作的结果
-- 其他用户不能看到DML操作的结果
-- 被操作的数据被锁住,其他用户不能修改这些数据
-
-
-
-提交后数据的状态
-
-- 数据的修改被永久写在数据库中.
-- 数据以前的状态永久性丢失.
-- 所有的用户都能看到操作后的结果.
-- 记录锁被释放,其他用户可操作这些记录.
-
-
-
-回滚后数据的状态
-
-语句将放弃所有的数据修改
-
-- 修改的数据被回退.
-- 恢复数据以前的状态.
-- 行级锁被释放.
-
-
-
-
-
-```plsql
---事务：表示操作集合，不可分割，要么全部成功，要么全部失败
-
---事务的开始取决于一个DML (Detelete, Modification, )语句
-/*
-事务的结束
-  1、正常的commit（使数据修改生效）或者rollback（将数据恢复到上一个状态）
-  2、自动提交，但是一般情况下要将自动提交进行关闭，(每条语句提交)效率太低
-  3、用户关闭会话之后，会自动提交事务
-  4、系统崩溃或者断电的时候会回滚事务，也就是将数据恢复到上一个状态
-*/
-insert into emp2(empno, ename) values(3333, 'Zhangsan');
-insert into emp2(empno, ename) values(4444, 'Zhangsan')
-commit;
---commit;
---rollback;
-select * from emp2;
-
-
---savepoint  保存点
--- 当一个操作集合中包含多条SQL语句，但是只想让其中某部分成功，某部分失败，此时可以使用保存点
--- 此时如果需要回滚到某一个状态的话使用 rollback to sp1;
-delete from emp2 where empno = 3333;
-delete from emp2 where empno = 4444;
-savepoint sp1;
-delet from emp2 where empno = 1234;
-rollback to sp1;
-
-/*
-事务的四个特性：ACID -- AID-C
--- 原子性：表示不可分割，一个操作集合要么全部成功，要么全部失败，不可以从中间做切分
--- 一致性：最终是为了保证数据的一致性，当经过N多个操作之后，数据的状态不会改变（转账）
-          从一个一致性状态到另一个一致性状态，也就是数据不可以发生错乱
--- 隔离性：各个事务之间相关不会产生影响，（隔离级别）
-          严格的隔离性会导致效率降低，在某些情况下为了提高程序的执行效率，需要降低隔离的级别
-          隔离级别：
-            -- 读未提交
-            -- 读已提交
-            -- 可重复读
-            -- 序列化
-          数据不一致的问题：
-            -- 脏读
-            -- 不可重复读
-            -- 幻读
--- 持久性：所有数据的修改都必须要持久化到存储介质中，不会因为应用程序的关闭而导致数据丢失
-
-  四个特性中，哪个是最关键的？
-     -- 所有的特性中都是为了保证数据的一致性，所以一致性是最终的追求
-     -- 事务中的一致性是通过原子性、隔离性、持久性来保证的
-
-     锁的机制：
-     为了解决在并发访问的时候，数据不一致的问题，需要给数据加锁
-     加锁的同时需要考虑《粒度》的问题：
-         操作的对象
-           -- 数据库
-           -- 表
-           -- 行
-     一般情况下，锁的粒度越小，效率越高，粒度越大，效率越低 
-            在实际的工作环境中，大部分的操作都是行级锁  
-
-*/
-
-```
-
-
-
-
-
-
-
-
 
 
 
