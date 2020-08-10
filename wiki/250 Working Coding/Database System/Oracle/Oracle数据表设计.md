@@ -287,9 +287,9 @@ drop table emp cascade constraints;
 
 ```plsql
 /* 数据表创建语法
---CREATE TABLE [schema.]table
---  (column datatype [DEFAULT expr] , …
---  );
+-- CREATE TABLE [schema.]table
+--   (column datatype [DEFAULT expr] , …
+--   );
 */
 -- 设计要求：建立一张用来存储学生信息的表，表中的字段包含了学生的学号、姓名、年龄、入学日期、年级、班级、email等信息，
 -- 并且为grade指定了默认值为1，如果在插入数据时不指定grade得值，就代表是一年级的学生
@@ -336,38 +336,25 @@ drop table stu;
 
 约束用于确保数据库数据满足特定的商业逻辑或者企业规则，如果定义了约束，并且数据不符合约束，那么DML操作（INSERT、UPDATE、DELETE）将不能成功执行。
 
-- 创建表时，指定插入数据的规则。
 - 约束是在表上强制执行的数据校验规则。
+- 创建表时指定插入数据的规则，或者建表后再追加约束
+- Oracle 使用 `SYS_Cn`格式命名约束，也可以由用户命名。
 - Oracle 支持下面五类完整性约束:
-
-1. `NOT NULL` 非空
-2. `UNIQUE Key` 唯一键
-3. `PRIMARY KEY` 主键
-4. `FOREIGN KEY` 外键
-5. `CHECK` 自定义检查约束
-
-
-
-- Oracle使用 `SYS_Cn`格式命名约束，也可以由用户命名。
+    1. `NOT NULL` 非空
+    2. `UNIQUE Key` 唯一键
+    3. `PRIMARY KEY` 主键
+    4. `FOREIGN KEY` 外键
+    5. `CHECK` 自定义检查约束
 
 
 
-创建约束的时机
-
-- 在建表的同时创建
-- 建表后创建
-
-
+### 约束分类
 
 约束从作用上分类，可以分成两大类：
 
 - 表级约束：可以约束表中的任意一列或多列。可以定义除了 `Not Null` 以外的任何约束。
 
 - 列级约束：只能约束其所在的某一列。可以定义任何约束。
-
-
-
-### 定义约束
 
 ```plsql
 -- 列级约束
@@ -379,7 +366,7 @@ column ,..., [CONSTRAINT constraint_name] constraint_type (column,...)
 
 
 
-### `NOT NULL` 约束
+### 非空约束 `NOT NULL` 
 
 - 确保字段值不允许为空
 
@@ -483,10 +470,10 @@ CONSTRAINT emp_email_uk UNIQUE(email)
 
 
 
-### `CHECK` 约束
+### 校验约束 `CHECK` 
 
-- Check约束用于对一个属性的值加以限制
-- Check约束中定义检查的条件表达式，那么，数据就需要符合设置的条件
+- Check 约束用于对一个属性的值加以限制
+- Check 约束中定义检查的条件表达式，那么，数据就需要符合设置的条件
 
 ```plsql
 create table emp3
@@ -512,8 +499,17 @@ constraint salary_check check(salary > 0)
 1. `RESTRICT`方式：只有当依赖表中没有一个外键值与要删除的主表中主键值相对应时，才可执行删除操作。
 2. `CASCADE`方式：将依赖表中所有外键值与主表中要删除的主键值相对应的记录一起删除
 3. `SET NULL`方式：将依赖表中所有与主表中被删除的主键值相对应的外键值设为空值
-    FOREIGN KEY (DEPTNO) REFERENCES DEPT(DEPTNO)
-    [ON DELETE [CASCADE|SET NULL]] 如省略on短语，缺省为第一中处理方式。
+
+
+
+外键添加格式
+
+```plsql
+FOREIGN KEY (DEPTNO) REFERENCES DEPT(DEPTNO);
+[ON DELETE [CASCADE|SET NULL]] 
+```
+
+- 如省略on短语，缺省为第一中处理方式。
 
 
 
@@ -593,11 +589,16 @@ SQL的数据更新包括 **数据插入**， **删除** 和 **修改** 三个操
 
 ### `Insert`语句 - 插入
 
- `insert语句` 是往表中插入数据的语句，方式有两种：一种是元组值的插入，一种是查询结果的插入。
+ `insert语句` 是往表中插入数据的语句，方式有两种：
+
+- 一种是元组值的插入
+- 一种是查询结果的插入
 
 
 
-元组值的插入语法：
+**元组值的插入**
+
+语法：
 
 ```plsql
 INSERT INTO table[( column [ , column... ])] VALUES (value [ , value... ]);
@@ -630,6 +631,8 @@ insert into emp(empno, ename) values (3333,'xiaozhang');
 
 
 
+**查询结果的插入**
+
 另外，可以用 `insert` 语句把一个 `select` 语句的查询结果插入到一个基本表中，语法如下：
 
 ```plsql
@@ -657,7 +660,7 @@ insert into ss select * from emp;
 
 
 
-复习
+**复习**
 
 ```plsql
 create table test02 
@@ -755,7 +758,7 @@ delete from emp2;
 truncate table emp2;
 
 /* 修改操作：
---   update tablename set col = val1,col2 = val2 where condition;
+--   update tablename set col = val1, col2 = val2 where condition;
 --   可以更新或者修改满足条件的一个列或者多个列
 */
 -- 更新单列
@@ -807,8 +810,6 @@ select * from emp where id = 7902 lock in share mode;
 ```
 
 如果不保证事务的话，会造成脏读，不可重复读，幻读。
-
-
 
 
 

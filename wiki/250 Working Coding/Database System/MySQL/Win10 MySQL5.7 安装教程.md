@@ -23,14 +23,14 @@
 
 ### 01 Setting windows firewall exception for the port
 
-![01 Setting windows firewall exception for the port](_resource/MySQL5.7%20installation%20guide%20on%20Win10/01%20Setting%20windows%20firewall%20exception%20for%20the%20port.png)
+![01 Setting windows firewall exception for the port](_resource/Win10%20MySQL5.7%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/01%20Setting%20windows%20firewall%20exception%20for%20the%20port.png)
 
 ### 02 Setting utf8 character set
-![02 Setting utf8 character set](_resource/MySQL5.7%20installation%20guide%20on%20Win10/02%20Setting%20utf8%20character%20set.png)
+![02 Setting utf8 character set](_resource/Win10%20MySQL5.7%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/02%20Setting%20utf8%20character%20set.png)
 
 ### 03 Add Win path
-![03 Add Win path](_resource/MySQL5.7%20installation%20guide%20on%20Win10/03%20Add%20Win%20path.png)
+![03 Add Win path](_resource/Win10%20MySQL5.7%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/03%20Add%20Win%20path.png)
 
 ### 04 Setting PW & Enable root access from remote machines
-![04 Setting PW & Enable root access from remote machines](_resource/MySQL5.7%20installation%20guide%20on%20Win10/04%20Setting%20PW%20&%20Enable%20root%20access%20from%20remote%20machines.png)
+![04 Setting PW & Enable root access from remote machines](_resource/Win10%20MySQL5.7%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/04%20Setting%20PW%20&%20Enable%20root%20access%20from%20remote%20machines.png)
 

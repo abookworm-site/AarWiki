@@ -22,7 +22,7 @@
 
 ### MySQL on Win
 
-- [Win 10 MySQL5.7 安装教程](MySQL5.7 installation guide on Win10.md)
+- [Win 10 MySQL5.7 安装教程](Win10 MySQL5.7 安装教程.md)
 - 图形化界面客户端Navicat
 
 
