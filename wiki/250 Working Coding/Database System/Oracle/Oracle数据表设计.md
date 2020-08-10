@@ -778,9 +778,11 @@ update emp set jobs='teacher', mgr=7902 where empno = 15;
 
 ## 事务 `Transaction`
 
+### 基本概念
+
 事务（Transaction）是一个操作序列。这些操作要么都做，要么都不做，是一个不可分割的工作单位，是数据库环境中的逻辑工作单位。
 
-- 事务是可保证数据库的完整性
+- 事务保证数据库的完整性
 - 事务不能嵌套
 
 
@@ -789,31 +791,23 @@ update emp set jobs='teacher', mgr=7902 where empno = 15;
 
 - 如果同一份数据，在同一个时刻只能有一个人访问，就不会出现数据错乱的问题。但是在现在的项目中，更多的是 **并发访问**
 - 并发访问的同时带来的就是数据的不安全，也就是不一致
-- 如果要保证数据的安全，最主要的方式就是加锁的方式，MVCC
+- 如果要保证数据的安全，最主要的方式就是加锁的方式：MVCC
 
 
 
-事务的延申：
+### 事务的延申
 
-- 最基本的数据库事务
-- 声明式事务
-- 分布式事务
+事务有三大类别如下，这里所说的事务基本指第一类：**最基本的数据库事务**
 
-
-
-为了提高效率，有可能多个操作会在同一个事务中执行，那么就有可能部分成功，部分失败，基于这样的情况就需要事务的控制。
-
-```plsql
-select * from emp where id = 7902 for update;
-
-select * from emp where id = 7902 lock in share mode;
-```
-
-如果不保证事务的话，会造成脏读，不可重复读，幻读。
+1. 最基本的数据库事务
+2. 声明式事务
+3. 分布式事务
 
 
 
-在oracle中，没有事务开始的语句。一个`Transaction`起始于一条DML(Insert、Update和Delete )语句，结束于以下的几种情况：
+### 事务开始于 `DML`
+
+在Oracle中，**没有事务开始的语句**。一个`Transaction`起始于一条 `DML(Insert、Update和Delete)` 语句，结束于以下的几种情况：
 
 - 用户显式执行 `Commit` 语句提交操作或 `Rollback` 语句回退。
 
@@ -825,7 +819,7 @@ select * from emp where id = 7902 lock in share mode;
 
   
 
-`DDL` 语句执行自动提交事物
+`DDL` 语句执行自动提交事务
 
 ```plsql
 insert into test02;
@@ -841,41 +835,87 @@ create table test04 as select * from emp where 1=2;
 
 `Commit` 表示事务成功地结束，此时告诉系统，数据库要进入一个新的正确状态，该事务对数据库的所有更新都以交付实施。每个Commit语句都可以看成是一个事务成功的结束，同时也是另一个事务的开始。
 
+- `DML` 语句均可自动提交事务
+- 自动提交的事务可以回滚操作，而手工提交的事务则不再执行回滚操作
+- 执行一个 DDL/DCL语句或从 SQL*Plus 正常退出，都会自动执行 `commit` 命令。
+
+
+
 `Rollback`表示事务不成功的结束，此时告诉系统，已发生错误，数据库可能处在不正确的状态，该事务对数据库的更新必须被撤销，数据库应恢复该事务到初始
 状态。每个Rollback语句同时也是另一个事务的开始。
 
-- 一旦执行了commit语句，将目前对数据库的操作提交给数据库（实际写入DB），以后就不能用rollback进行撤销。
-- 执行一个 DDL/DCL语句或从 SQL*Plus 正常退出，都会自动执行 `commit` 命令。
+- 一旦执行了 `commit` 语句，将目前对数据库的操作提交给数据库（实际写入DB），以后就不能用 `rollback` 进行撤销。
+
+- 当一个操作集合中包含多条SQL语句，但是只想让其中某部分成功，某部分失败，此时可以使用保存点：`savepoint transaction_name;`
+- 如果需要回滚到某一个状态的话使用 `rollback to transaction_name;`
 
 
 
 `commit` & `rollback` 语法：
 
 ```plsql
--- 保存
+-- 手工提交
+commit;
+
+-- 保存保存点
 savepoint transaction_name;
 
--- 回滚
+-- 回滚上一个自动提交
+rollback;
+
+-- 回滚到保存点
 rollback to transaction_name;
 ```
 
 
 
-事物测试案例
+测试案例
 
 ```plsql
-insert into test02(ename, empno, deptno ) values('cai10',1010,10);
-insert into test02(ename, empno, deptno ) values('cai20',1010,10);
+-- commit:
+-- 默认提交：正常配置的oracle 默认一条语句一个事务自动提交
+select * from emp2;
 
-select * from test02;
+insert into emp2(empno, ename) values(1111, 'sanzhang');
 
-savepoint sp01
+select * from emp2;
 
-insert into test02(ename,empno,deptno ) values('cai30',1010,10);
-insert into test02(ename,empno,deptno ) values('cai40',1010,10);
-select * from test02;
-rollback to sp01
+-- 可以通过配置设置手工提交事务
+insert into emp2(empno, ename) values(2222, 'sili');
+
+select * from emp2;
+
 commit;
+
+-- rollback：
+-- 回滚自动提交，但是手工提交过后不能再回滚
+select * from emp2;
+
+insert into emp2(empno, ename) values(3333, 'sanzhang');
+
+rollback;
+
+-- 回滚成功
+select * from emp2;
+
+insert into emp2(empno, ename) values(3333, 'sanzhang');
+
+commit;
+rollback;
+
+-- 回滚失败
+select * from emp2;
+
+-- savepoint  保存点
+-- 当一个操作集合中包含多条SQL语句，但是只想让其中某部分成功，某部分失败，此时可以使用保存点
+-- 此时如果需要回滚到某一个状态的话使用 rollback to sp1;
+delete from emp2 where empno = 1111;
+
+savepoint sp1;
+
+delete from emp2 where empno = 4444;
+
+rollback to sp1;
 ```
 
 
@@ -891,6 +931,7 @@ commit;
 - 一个原子事务要么完整执行，要么干脆不执行。这意味着，工作单元中的每项任务都必须正确执行。如果有任一任务执行失败，则整个工
 作单元或事务就会被终止。即此前对数据所作的任何修改都将被撤销。如果所有任务都被成功执行，事务就会被提交，即对数据所作的修改将
 会是永久性的。
+- 表示不可分割，一个操作集合要么全部成功，要么全部失败，不可以从中间做切分
 
 
 
@@ -901,12 +942,16 @@ commit;
 一致(即，数据预期所表达的现实业务情况不相一致)。例如，在一次转账过程中，从某一账户中扣除的金额必须与另一账户中存入的金额相等。
 支付宝账号100 你读到余额要取，有人向你转100 但是事物没提交（这时候你读到的余额应该是100，而不是200） 这种就是一致性
 
+- 最终是为了保证数据的一致性，当经过N多个操作之后，数据的状态不会改变（转账）。从一个一致性状态到另一个一致性状态，也就是数据不可以发生错乱。
+
 
 
 3， 隔离性（Isolation）
 
 - 隔离性意味着事务必须在不干扰其他进程或事务的前提下独立执行。换言之，在事务或工作单元执行完毕之前，其所访问的数据不能受系
 统其他部分的影响。
+- 各个事务之间相关不会产生影响程度，隔离级别
+- 严格的隔离性会导致效率降低，在某些情况下为了提高程序的执行效率，需要降低隔离的级别
 
 
 
@@ -915,7 +960,9 @@ commit;
 - 持久性表示在某个事务的执行过程中，对数据所作的所有改动都必须在事务成功结束前保存至某种物理存储设备。这样可以保证，所作的
   修改在任何系统瘫痪时不至于丢失。
 
+- 所有数据的修改都必须要持久化到存储介质中，不会因为应用程序的关闭而导致数据丢失
   
+
 
 提交或回滚前数据的状态
 
@@ -945,59 +992,129 @@ commit;
 
 
 
+四个特性中，哪个是最关键的？
+
+- 所有的特性中都是为了保证数据的一致性，所以一致性是最终的追求
+
+- 事务中的一致性是通过原子性、隔离性、持久性来保证的
+
+
+
+### 事务的隔离等级
+
+为了提高效率，有可能多个操作会在同一个事务中执行，那么就有可能部分成功，部分失败，基于这样的情况就需要事务的控制。
+
+```plsql
+select * from emp where id = 7902 for update;
+
+select * from emp where id = 7902 lock in share mode;
+```
+
+- 如果不保证事务的话，会造成脏读，不可重复读，幻读。
+
+- 此部分将会在 MySQL 中详细解释。
+
+
+
+ 隔离级别主要包括下面四类：
+
+   - 读未提交
+- 读已提交
+- 可重复读
+- 序列化
+
+
+
+而随之产生的数据不一致的问题：
+
+- 脏读
+
+- 不可重复读
+- 幻读
+
+
+
+### 锁的机制
+
+为了解决在并发访问的时候，数据不一致的问题，需要给数据加锁。此时，需要考虑 **粒度** 的问题。而按照操作的对象的不同可分下面三种粒度：
+
+- 数据库
+
+- 表
+
+- 行
+
+一般情况下，锁的粒度越小，效率越高，粒度越大，效率越低。而在实际的工作环境中，大部分的操作都是 **行级锁**
+
+
+
 ### 最佳实践
 
 ```plsql
---事务：表示操作集合，不可分割，要么全部成功，要么全部失败
+/* 事务
 
+-- 定义：表示操作集合，不可分割，要么全部成功，要么全部失败
 
-/* 事务变得非常关键：
-    最主要的目的是为了数据一致性
-    如果同一份数据，在同一个时刻只能有一个人访问，就不会出现数据错乱的问题，但是在现在的项目中，更多的是并发访问
-    并发访问的同时带来的就是数据的不安全，也就是不一致
-    如果要保证数据的安全，最主要的方式就是加锁的方式，MVCC
-    
-    事务的延申：
-        最基本的数据库事务
-        声明式事务
-        分布式事务
-    
-    为了提高效率，有可能多个操作会在同一个事务中执行，那么就有可能部分成功，部分失败，基于这样的情况就需要事务的控制。
-    select * from emp where id = 7902 for update
-    select * from emp where id = 7902 lock in share mode.
-    
-    如果不保证事务的话，会造成脏读，不可重复读，幻读。
-*/
+-- 事务的最主要的目的是 为了数据一致性
+-- 如果同一份数据，在同一个时刻只能有一个人访问，就不会出现数据错乱的问题，但是在现在的项目中，更多的是并发访问
+-- 并发访问的同时带来的就是数据的不安全，也就是不一致
+-- 如果要保证数据的安全，最主要的方式就是加锁的方式：MVCC
 
-
-
---事务的开始取决于一个DML (Detelete, Modification, )语句
-/*
-事务的结束
-  1、正常的commit（使数据修改生效）或者rollback（将数据恢复到上一个状态）
+-- 事务的开始取决于一个 DML (Detelete, Modification, )语句
+-- 事务的结束
+  1、正常的 commit（使数据修改生效）或者 rollback（将数据恢复到上一个状态）
   2、自动提交，但是一般情况下要将自动提交进行关闭，(每条语句提交)效率太低
   3、用户关闭会话之后，会自动提交事务
   4、系统崩溃或者断电的时候会回滚事务，也就是将数据恢复到上一个状态
 */
-insert into emp2(empno, ename) values(3333, 'Zhangsan');
-insert into emp2(empno, ename) values(4444, 'Zhangsan')
-commit;
---commit;
---rollback;
+-- commit:
+-- 默认提交：正常配置的oracle 默认一条语句一个事务自动提交
+select * from emp2;
+
+insert into emp2(empno, ename) values(1111, 'sanzhang');
+
 select * from emp2;
 
 
---savepoint  保存点
+-- 可以通过配置设置手工提交事务
+insert into emp2(empno, ename) values(2222, 'sili');
+
+select * from emp2;
+
+commit;
+
+-- rollback：
+-- 回滚自动提交，但是手工提交过后不能再回滚
+select * from emp2;
+
+insert into emp2(empno, ename) values(3333, 'sanzhang');
+
+rollback;
+
+-- 回滚成功
+select * from emp2;
+
+insert into emp2(empno, ename) values(3333, 'sanzhang');
+
+commit;
+rollback;
+
+-- 回滚失败
+select * from emp2;
+
+
+-- savepoint  保存点
 -- 当一个操作集合中包含多条SQL语句，但是只想让其中某部分成功，某部分失败，此时可以使用保存点
 -- 此时如果需要回滚到某一个状态的话使用 rollback to sp1;
-delete from emp2 where empno = 3333;
-delete from emp2 where empno = 4444;
+delete from emp2 where empno = 1111;
+
 savepoint sp1;
-delet from emp2 where empno = 1234;
+
+delete from emp2 where empno = 4444;
+
 rollback to sp1;
 
-/*
-事务的四个特性：ACID -- AID-C
+/* 事务的四个特性：ACID -- AID-C
 -- 原子性：表示不可分割，一个操作集合要么全部成功，要么全部失败，不可以从中间做切分
 -- 一致性：最终是为了保证数据的一致性，当经过N多个操作之后，数据的状态不会改变（转账）
           从一个一致性状态到另一个一致性状态，也就是数据不可以发生错乱
@@ -1029,10 +1146,7 @@ rollback to sp1;
             在实际的工作环境中，大部分的操作都是行级锁  
 
 */
-
 ```
-
-
 
 
 
