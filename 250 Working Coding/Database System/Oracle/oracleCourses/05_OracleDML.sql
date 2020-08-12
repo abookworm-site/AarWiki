@@ -1,21 +1,19 @@
---DML：数据库操作语言
---  增  --  删  --  改
+/* DML：数据库操作语言： 增、删、改
 
 -- 在实际项目中，使用最多的是读取操作，但是插入数据和删除数据同等重要，而修改操作相对较少
 
-/*
-插入操作：
-  元组值的插入
-  查询结果的插入
-
+-- 插入操作：
+---- 元组值的插入
+---- 查询结果的插入
 */
--- 最基本的插入方式 2 种：
---向部分列插入数据的时候，不是想向哪个列插入就插入的，要遵循创建表的时候定义的规范(约束)
 
---insert into tablename values(val1,val2,....) 如果表名之后没有列，那么只能将所有的列都插入
+-- 最基本的插入方式 2 种：
+-- 向部分列插入数据的时候，不是想向哪个列插入就插入的，要遵循创建表的时候定义的规范(约束)
+
+-- insert into tablename values(val1,val2,....) 如果表名之后没有列，那么只能将所有的列都插入
 insert into emp values(2222, 'Hello', 'Cleark', '7902', to_date('2019-01-23', 'YYYY-MM-dd'), 1002, 500, 10);
 
---insert into tablename(col1,col2,...) values(val1,val2,...) 可以指定向哪些列中插入数据
+-- insert into tablename(col1,col2,...) values(val1,val2,...) 可以指定向哪些列中插入数据
 insert into emp(empno, ename) values(3333, 'Wangwu');
 
 -- check it

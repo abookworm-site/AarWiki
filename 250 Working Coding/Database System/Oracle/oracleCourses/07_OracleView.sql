@@ -1,4 +1,6 @@
-/*
+/* 视图
+
+-- 创建语法
 CREATE [OR REPLACE] VIEW view
 [(alias[, alias]...)]
 AS subquery

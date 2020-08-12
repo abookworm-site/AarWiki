@@ -1,0 +1,1382 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://wiki.abookworm.site/250%20Working%20Coding%20Python/Data%20Analysis/Matplotlib/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/">
+      
+      
+        <meta name="author" content="Aaron Loong">
+      
+      <link rel="shortcut icon" href="/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.3">
+    
+    
+      
+        <title>Matplotlib 基本入门 - Abookworm's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a46bcfb3.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#03a9f4">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#matplotlib" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-header-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Abookworm's Wiki
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Matplotlib 基本入门
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://wiki.abookworm.site" title="Abookworm's Wiki" class="md-nav__button md-logo" aria-label="Abookworm's Wiki">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Abookworm's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/abookworm-site/AarWiki/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abookworm-site/AarWiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="AarWiki Home" class="md-nav__link">
+      AarWiki Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../100%20WorkSpace/" title="100 WorkSpace" class="md-nav__link">
+      100 WorkSpace
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      250 Working Coding
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="250 Working Coding" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        250 Working Coding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Computer%20System/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E7%9F%A5%E8%AF%86/" title="操作系统底层" class="md-nav__link">
+      操作系统底层
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      数据库操作系统
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数据库操作系统" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数据库操作系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/Oracle/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/Redis/" title="Redis" class="md-nav__link">
+      Redis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Database%20System/MongoDB/" title="MongoDB" class="md-nav__link">
+      MongoDB
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      工作环境配置
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="工作环境配置" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        工作环境配置
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Environment%20Settings/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Git%20%26%20Github%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/Git%20%26%20Github/" title="Git & Github 代码管理" class="md-nav__link">
+      Git & Github 代码管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Docker 与 K8s 容器技术
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker 与 K8s 容器技术" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker 与 K8s 容器技术
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker 最佳实践" class="md-nav__link">
+      Docker 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Docker%20%26%20K8s%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes%28K8s%29%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes(K8s) 最佳实践" class="md-nav__link">
+      Kubernetes(K8s) 最佳实践
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding/Front-end%20Programming/" title="前端编程" class="md-nav__link">
+      前端编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20C/" title="------ Working Coding C" class="md-nav__link">
+      ------ Working Coding C
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../250%20Working%20Coding%20Java/" title="------ Working Coding Java" class="md-nav__link">
+      ------ Working Coding Java
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      ------ Working Coding Python
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="------ Working Coding Python" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        ------ Working Coding Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Python%20Basics/" title="语言基础" class="md-nav__link">
+      语言基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Network%20Programming/" title="网络编程" class="md-nav__link">
+      网络编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Database%20Interaction/" title="数据库交互" class="md-nav__link">
+      数据库交互
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6-5" type="checkbox" id="nav-6-5">
+    
+    <label class="md-nav__link" for="nav-6-5">
+      各开发框架
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="各开发框架" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        各开发框架
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Framework/Django/" title="Django" class="md-nav__link">
+      Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Framework/Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      260 Working Operating System
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="260 Working Operating System" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        260 Working Operating System
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../260%20Working%20Operating%20System/Linux%20System/Linux%20Overall/" title="Linux System" class="md-nav__link">
+      Linux System
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      310 Learning English
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="310 Learning English" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        310 Learning English
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../310%20Learning%20Language/an-Overview%20of%20English%20Learning/" title="an-Overview" class="md-nav__link">
+      an-Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../message/" title="Moreover" class="md-nav__link">
+      Moreover
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    图形绘制
+  </a>
+  
+    <nav class="md-nav" aria-label="图形绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    绘制简单图形
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    案例：绘制折线图观测每分钟气温变化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    设置中文显示
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    显示多个图形及相应图例
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    折线图绘制
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    条形图绘制
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    绘制直方图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    多图形绘制
+  </a>
+  
+    <nav class="md-nav" aria-label="多图形绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    普通多图形绘制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    推荐方式创建多个图表
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    矩阵绘图
+  </a>
+  
+    <nav class="md-nav" aria-label="矩阵绘图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    案例
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    刻度、标签、图例
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/abookworm-site/AarWiki/edit/master/docs/250 Working Coding Python/Data Analysis/Matplotlib/Matplotlib基本入门.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="matplotlib">Matplotlib 基本入门<a class="headerlink" href="#matplotlib" title="Permanent link">&para;</a></h1>
+<h2 id="_1">图形绘制<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">绘制简单图形<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+
+<span class="c1"># figure: 我们画的图</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;./sig_size.png&quot;</span><span class="p">)</span>
+
+<span class="c1"># 设置步长</span>
+<span class="c1"># plt.xticks(x)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)[::</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="01绘制简单图形" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/01%E7%BB%98%E5%88%B6%E7%AE%80%E5%8D%95%E5%9B%BE%E5%BD%A2.png" /></p>
+<h3 id="_3">案例：绘制折线图观测每分钟气温变化<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+
+<span class="c1"># Python 需要设置随机种子，让每次随机的结构都是一样的。</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">120</span><span class="p">)]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># 设置刻度规则</span>
+<span class="n">_x_ticks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;10:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">60</span><span class="p">]</span>
+<span class="n">_x_ticks</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;11:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">60</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">60</span><span class="p">]</span>
+
+<span class="c1"># 按照规则进行绘图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">x</span><span class="p">[::</span><span class="mi">5</span><span class="p">],</span> <span class="n">_x_ticks</span><span class="p">[::</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;./tempary.png&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="02绘制折线图观测每分钟气温变化" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/02%E7%BB%98%E5%88%B6%E6%8A%98%E7%BA%BF%E5%9B%BE%E8%A7%82%E6%B5%8B%E6%AF%8F%E5%88%86%E9%92%9F%E6%B0%94%E6%B8%A9%E5%8F%98%E5%8C%96.png" /></p>
+<h3 id="_4">设置中文显示<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># coding=utf-8</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+
+<span class="c1"># Python 需要设置随机种子，让每次随机的结构都是一样的。</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">35</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">120</span><span class="p">)]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># 设置字体</span>
+<span class="n">font</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;family&quot;</span><span class="p">:</span> <span class="s2">&quot;MicroSoft Yahei&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+<span class="c1">#     &quot;size&quot;: &quot;larger&quot;</span>
+<span class="p">}</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">font</span><span class="p">)</span>
+
+
+<span class="c1"># 设置刻度规则</span>
+<span class="n">_x_ticks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;10点</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">60</span><span class="p">]</span>
+<span class="n">_x_ticks</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;11点</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">60</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">60</span><span class="p">]</span>
+
+<span class="c1"># 按照规则进行绘图</span>
+<span class="c1"># plt.xticks(x[::5], _x_ticks[::5], rotation=90, fontproperties=my_font)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">x</span><span class="p">[::</span><span class="mi">5</span><span class="p">],</span> <span class="n">_x_ticks</span><span class="p">[::</span><span class="mi">5</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Tempara&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;The Temparary every minutes from 10 to 12 o&#39;clock&quot;</span><span class="p">)</span>
+
+<span class="c1"># plt.savefig(&quot;./tempary.png&quot;)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="03绘制折线图观测每分钟气温变化+中文" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/03%E7%BB%98%E5%88%B6%E6%8A%98%E7%BA%BF%E5%9B%BE%E8%A7%82%E6%B5%8B%E6%AF%8F%E5%88%86%E9%92%9F%E6%B0%94%E6%B8%A9%E5%8F%98%E5%8C%96%2B%E4%B8%AD%E6%96%87.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 统计11岁到30岁每年交的女朋友数量</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+
+<span class="n">y1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">x</span><span class="p">[::</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;The age of mine&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Numbers of my girfriend&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;The girfriend of mine from 11 to 30&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="04统计11岁到30岁每年交的女朋友数量" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/04%E7%BB%9F%E8%AE%A111%E5%B2%81%E5%88%B030%E5%B2%81%E6%AF%8F%E5%B9%B4%E4%BA%A4%E7%9A%84%E5%A5%B3%E6%9C%8B%E5%8F%8B%E6%95%B0%E9%87%8F.png" /></p>
+<h3 id="_5">显示多个图形及相应图例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>案例：统计11岁到30岁每年交的女朋友数量</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 统计11岁到30岁每年交的女朋友数量</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+
+<span class="n">y1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">x</span><span class="p">[::</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># plt.plot(x, y1)</span>
+<span class="c1"># plt.plot(x, y2)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Mine&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;My classmates&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;The age of mine&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Numbers of my girfriend&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;The girfriend of mine from 11 to 30&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="05统计11岁到30岁每年交的女朋友数量+图例" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/05%E7%BB%9F%E8%AE%A111%E5%B2%81%E5%88%B030%E5%B2%81%E6%AF%8F%E5%B9%B4%E4%BA%A4%E7%9A%84%E5%A5%B3%E6%9C%8B%E5%8F%8B%E6%95%B0%E9%87%8F%2B%E5%9B%BE%E4%BE%8B.png" /></p>
+<h2 id="_6">折线图绘制<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>不同条件(维度)之间的内在关联关系</li>
+<li>观察数据的离散聚合程度</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># 显示温度</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+
+<span class="c1"># 设置图形大小</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+
+<span class="n">x1</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">82</span><span class="p">)</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">26</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># 设置X轴刻度</span>
+<span class="n">_x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+<span class="n">_x_ticks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Mar</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x1</span><span class="p">]</span>
+<span class="n">_x_ticks</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;Oct</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x2</span><span class="p">]</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">_x</span><span class="p">,</span> <span class="n">_x_ticks</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temparary&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;The temp range on Mar &amp; Oct&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="06折线图" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/06%E6%8A%98%E7%BA%BF%E5%9B%BE.png" /></p>
+<h2 id="_7">条形图绘制<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>数量统计</li>
+<li>频率统计（市场饱和度）</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;战狼2&quot;</span><span class="p">,</span><span class="s2">&quot;速度与激情8&quot;</span><span class="p">,</span><span class="s2">&quot;功夫瑜伽&quot;</span><span class="p">,</span><span class="s2">&quot;西游伏妖篇&quot;</span><span class="p">,</span><span class="s2">&quot;变形金刚5：最后的骑士&quot;</span><span class="p">,</span><span class="s2">&quot;摔跤吧！爸爸&quot;</span><span class="p">,</span><span class="s2">&quot;加勒比海盗5：死无对证&quot;</span><span class="p">,</span><span class="s2">&quot;金刚：骷髅岛&quot;</span><span class="p">,</span><span class="s2">&quot;极限特工：终极回归&quot;</span><span class="p">,</span><span class="s2">&quot;生化危机6：终章&quot;</span><span class="p">,</span><span class="s2">&quot;乘风破浪&quot;</span><span class="p">,</span><span class="s2">&quot;神偷奶爸3&quot;</span><span class="p">,</span><span class="s2">&quot;智取威虎山&quot;</span><span class="p">,</span><span class="s2">&quot;大闹天竺&quot;</span><span class="p">,</span><span class="s2">&quot;金刚狼3：殊死一战&quot;</span><span class="p">,</span><span class="s2">&quot;蜘蛛侠：英雄归来&quot;</span><span class="p">,</span><span class="s2">&quot;悟空传&quot;</span><span class="p">,</span><span class="s2">&quot;银河护卫队2&quot;</span><span class="p">,</span><span class="s2">&quot;情圣&quot;</span><span class="p">,</span><span class="s2">&quot;新木乃伊&quot;</span><span class="p">,]</span>
+
+<span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mf">56.01</span><span class="p">,</span><span class="mf">26.94</span><span class="p">,</span><span class="mf">17.53</span><span class="p">,</span><span class="mf">16.49</span><span class="p">,</span><span class="mf">15.45</span><span class="p">,</span><span class="mf">12.96</span><span class="p">,</span><span class="mf">11.8</span><span class="p">,</span><span class="mf">11.61</span><span class="p">,</span><span class="mf">11.28</span><span class="p">,</span><span class="mf">11.12</span><span class="p">,</span><span class="mf">10.49</span><span class="p">,</span><span class="mf">10.3</span><span class="p">,</span><span class="mf">8.75</span><span class="p">,</span><span class="mf">7.55</span><span class="p">,</span><span class="mf">7.32</span><span class="p">,</span><span class="mf">6.99</span><span class="p">,</span><span class="mf">6.88</span><span class="p">,</span><span class="mf">6.86</span><span class="p">,</span><span class="mf">6.58</span><span class="p">,</span><span class="mf">6.23</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span> <span class="n">b</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span> <span class="n">a</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="07条形图绘制" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/07%E6%9D%A1%E5%BD%A2%E5%9B%BE%E7%BB%98%E5%88%B6.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;猩球崛起3：终极之战&quot;</span><span class="p">,</span><span class="s2">&quot;敦刻尔克&quot;</span><span class="p">,</span><span class="s2">&quot;蜘蛛侠：英雄归来&quot;</span><span class="p">,</span><span class="s2">&quot;战狼2&quot;</span><span class="p">]</span>
+<span class="n">b_16</span> <span class="o">=</span> <span class="p">[</span><span class="mi">15746</span><span class="p">,</span><span class="mi">312</span><span class="p">,</span><span class="mi">4497</span><span class="p">,</span><span class="mi">319</span><span class="p">]</span>
+<span class="n">b_15</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12357</span><span class="p">,</span><span class="mi">156</span><span class="p">,</span><span class="mi">2045</span><span class="p">,</span><span class="mi">168</span><span class="p">]</span>
+<span class="n">b_14</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2358</span><span class="p">,</span><span class="mi">399</span><span class="p">,</span><span class="mi">2358</span><span class="p">,</span><span class="mi">362</span><span class="p">]</span>
+
+<span class="n">_bar_width</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="n">_x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">_x</span><span class="p">,</span> <span class="n">b_14</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">_bar_width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="n">i</span> <span class="o">+</span> <span class="n">_bar_width</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_x</span><span class="p">],</span> <span class="n">b_15</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">_bar_width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Sep 15&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="n">i</span> <span class="o">+</span> <span class="n">_bar_width</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_x</span><span class="p">],</span> <span class="n">b_16</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">_bar_width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Sep 16&quot;</span><span class="p">)</span>
+
+<span class="n">_x_ticks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">_bar_width</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_x</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">_x_ticks</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="08条形图绘制02" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/08%E6%9D%A1%E5%BD%A2%E5%9B%BE%E7%BB%98%E5%88%B602.png" /></p>
+<h2 id="_8">绘制直方图<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>用户的年龄分布状态</li>
+<li>一段时间内用户点击次数的分布状态</li>
+<li>用户活跃时间的分布状态</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+
+<span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">131</span><span class="p">,</span>  <span class="mi">98</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">142</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span>  <span class="mi">99</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">126</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span>  <span class="mi">86</span><span class="p">,</span>  <span class="mi">95</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">126</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span><span class="mi">126</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">126</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span>  <span class="mi">86</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span>  <span class="mi">99</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span><span class="mi">123</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">129</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span><span class="mi">156</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span>  <span class="mi">83</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span><span class="mi">123</span><span class="p">,</span><span class="mi">107</span><span class="p">,</span> <span class="mi">143</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span><span class="mi">112</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span><span class="mi">115</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span>  <span class="mi">83</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span><span class="mi">136</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">129</span><span class="p">,</span> <span class="mi">126</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">141</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">126</span><span class="p">,</span><span class="mi">114</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">141</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span>  <span class="mi">92</span><span class="p">,</span><span class="mi">121</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span>  <span class="mi">97</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span>  <span class="mi">98</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span>  <span class="mi">81</span><span class="p">,</span>  <span class="mi">97</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span><span class="mi">134</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">117</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span> <span class="mi">129</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span>  <span class="mi">83</span><span class="p">,</span>  <span class="mi">94</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span><span class="mi">131</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span>  <span class="mi">84</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span><span class="mi">111</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">150</span><span class="p">]</span>
+
+
+<span class="n">bin_width</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">num_bin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="o">/</span><span class="n">bin_width</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">num_bin</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="p">)))[::</span><span class="n">bin_width</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="09绘制直方图" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/09%E7%BB%98%E5%88%B6%E7%9B%B4%E6%96%B9%E5%9B%BE.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">quantity</span> <span class="o">=</span> <span class="p">[</span><span class="mi">836</span><span class="p">,</span><span class="mi">2737</span><span class="p">,</span><span class="mi">3723</span><span class="p">,</span><span class="mi">3926</span><span class="p">,</span><span class="mi">3596</span><span class="p">,</span><span class="mi">1438</span><span class="p">,</span><span class="mi">3273</span><span class="p">,</span><span class="mi">642</span><span class="p">,</span><span class="mi">824</span><span class="p">,</span><span class="mi">613</span><span class="p">,</span><span class="mi">215</span><span class="p">,</span><span class="mi">47</span><span class="p">]</span>
+
+
+<span class="c1"># bin_width = 3</span>
+
+<span class="c1"># num_bin = int((max(a)-min(a))/bin_width)</span>
+
+<span class="c1"># plt.hist(quantity, num_bin)</span>
+
+<span class="c1"># plt.xticks(list(range(min(a), max(a)))[::bin_width], rotation=45)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">quantity</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="10绘制直方图02" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/10%E7%BB%98%E5%88%B6%E7%9B%B4%E6%96%B9%E5%9B%BE02.png" /></p>
+<h2 id="_9">多图形绘制<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="_10">普通多图形绘制<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax4</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">random_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># print(random_arr)</span>
+
+<span class="c1"># plt.plot(random_arr)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">random_arr</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="11多图形绘制" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/11%E5%A4%9A%E5%9B%BE%E5%BD%A2%E7%BB%98%E5%88%B6.png" /></p>
+<h3 id="_11">推荐方式创建多个图表<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">subplot_arr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">subplot_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">subplot_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">subplot_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">subplot_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="12推荐多图" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/12%E6%8E%A8%E8%8D%90%E5%A4%9A%E5%9B%BE.png" /></p>
+<h2 id="_12">矩阵绘图<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>基本绘制</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ocean</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<h3 id="_13">案例<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<p><img alt="13矩阵绘图" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/13%E7%9F%A9%E9%98%B5%E7%BB%98%E5%9B%BE.png" /></p>
+<h2 id="_14">刻度、标签、图例<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<ol>
+<li>设置刻度范围 </li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(),</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">()</span>
+</code></pre></div>
+2. 设置显示的刻度
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(),</span> <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(),</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">()</span>
+</code></pre></div>
+3. 设置刻度标签
+<div class="highlight"><pre><span></span><code><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(),</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">()</span>
+</code></pre></div>
+4. 设置坐标轴标签
+<div class="highlight"><pre><span></span><code><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(),</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">()</span>
+</code></pre></div>
+5. 设置标题
+<div class="highlight"><pre><span></span><code><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">()</span>
+</code></pre></div>
+6. 图例
+<div class="highlight"><pre><span></span><code><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="err">‘</span><span class="n">legend</span><span class="err">’</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(),</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">loc</span><span class="o">=</span><span class="err">‘</span><span class="n">best</span><span class="err">’：</span><span class="n">自动选择放置图例最佳位置</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;line0&#39;</span><span class="p">)</span>
+
+<span class="c1"># 设置刻度</span>
+<span class="c1">#plt.xlim([0,500])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">])</span>
+
+<span class="c1"># 设置显示的刻度</span>
+<span class="c1">#plt.xticks([0,500])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+
+<span class="c1"># 设置刻度标签</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s1">&#39;Jan&#39;</span><span class="p">,</span> <span class="s1">&#39;Feb&#39;</span><span class="p">,</span> <span class="s1">&#39;Mar&#39;</span><span class="p">])</span>
+
+<span class="c1"># 设置坐标轴标签</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Number&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Month&#39;</span><span class="p">)</span>
+
+<span class="c1"># 设置标题</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Example&#39;</span><span class="p">)</span>
+
+<span class="c1"># 图例</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;line1&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;line2&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="c1">#plt.legend()</span>
+</code></pre></div>
+
+<p><img alt="14刻度、标签、图例" src="../_resource/Matplotlib%E5%9F%BA%E6%9C%AC%E5%85%A5%E9%97%A8/14%E5%88%BB%E5%BA%A6%E3%80%81%E6%A0%87%E7%AD%BE%E3%80%81%E5%9B%BE%E4%BE%8B.png" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.4a5ba8d6.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9b3611bd.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
