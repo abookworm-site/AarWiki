@@ -15,8 +15,11 @@
 5. 调用视图函数，获取响应数据后，把数据传入HTML模板文件中，模板引擎负责渲染响应数据，然后由Flask返回响应数据给浏览器，最后浏览器处理返回的结果显示给客户端。
 
 
+
 ## 1.	HTTP通信与Web框架
-1.1 流程
+
+### 1.1 流程
+
 客户端将请求打包成HTTP的请求报文（HTTP协议格式的请求数据）
 采用TCP传输发送给服务器端
 服务器接收到请求报文后按照HTTP协议进行解析
@@ -25,29 +28,37 @@
 采用刚才的TCP连接将响应报文发送给客户端
 客户端按照HTTP协议解析响应报文获取结果数据
 
-1.2 细节
+### 1.2 细节
+
 客户端不一定是浏览器，也可以是PC软件、手机APP、程序
 根据服务器端的工作，将其分为两部分：
 服务器：与客户端进行tcp通信，接收、解析、打包、发送http格式数据
 业务程序：根据解析后的请求数据执行逻辑处理，形成要返回的数据交给服务器
 服务器与Python业务程序的配合使用WSGI协议
 
-1.3 Web框架
+### 1.3 Web框架
+
 能够被服务器调用起来，根据客户端的不同请求执行不同的逻辑处理形成要返回的数据的 程序
 
 核心：实现路由和视图（业务逻辑处理）
 
-1.4 框架的轻重
+### 1.4 框架的轻重
+
 重量级的框架：为方便业务程序的开发，提供了丰富的工具、组件，如Django
 
 轻量级的框架：只提供Web框架的核心功能，自由、灵活、高度定制，如Flask、Tornado
 
-1.5 明确Web开发的任务
+### 1.5 明确Web开发的任务
+
 视图开发：根据客户端请求实现业务逻辑（视图）编写
 模板、数据库等其他的都是为了帮助视图开发，不是必备的
 
-2.	认识Flask
-2.1 简介
+
+
+## 2. 认识Flask
+
+### 2.1 简介
+
 Flask诞生于2010年，是Armin ronacher（人名）用Python语言基于Werkzeug工具箱编写的轻量级Web开发框架。它主要面向需求简单的小应用。
 
 Flask本身相当于一个内核，其他几乎所有的功能都要用到扩展（邮件扩展Flask-Mail，用户认证Flask-Login），都需要用第三方的扩展来实现。比如可以用Flask-extension加入ORM、窗体验证工具，文件上传、身份验证等。Flask没有默认使用的数据库，你可以选择MySQL，也可以用NoSQL。其 WSGI 工具箱采用 Werkzeug（路由模块） ，模板引擎则使用 Jinja2 。
@@ -55,7 +66,9 @@ Flask本身相当于一个内核，其他几乎所有的功能都要用到扩展
 可以说Flask框架的核心就是Werkzeug和Jinja2。
 
 Python最出名的框架要数Django，此外还有Flask、Tornado等框架。虽然Flask不是最出名的框架，但是Flask应该算是最灵活的框架之一，这也是Flask受到广大开发者喜爱的原因。
-2.2 与Django对比
+
+### 2.2 与Django对比
+
 django提供了：
 django-admin快速创建项目工程目录
 manage.py 管理项目工程
@@ -67,7 +80,8 @@ admin后台管理站点
 
 而这些，flask都没有，都需要扩展包来提供
 
-2.3 Flask扩展包：
+### 2.3 Flask扩展包：
+
 - Flask-SQLalchemy：操作数据库；
 - Flask-migrate：管理迁移数据库；
 - Flask-Mail:邮件；
@@ -78,21 +92,29 @@ admin后台管理站点
 - Flask-Bootstrap：集成前端Twitter Bootstrap框架；
 - Flask-Moment：本地化日期和时间；
 
-2.4 Flask文档
+### 2.4 Flask文档
+
 - 中文文档： http://docs.jinkan.org/docs/flask/
 - 英文文档： http://flask.pocoo.org/docs/0.11/
 
-3.	创建虚拟环境
+
+
+## 3. 创建虚拟环境
+
 虚拟环境是一个互相隔离的目录
+
 1.	mkvirtualenv flask_py2
 2.	pip install flask==0.10.1
 
 pip freeze > requirements.txt
 pip install –r requirements.txt
-4.	Flask的Hello world程序
 
 
-4.1 Flask创建app对象
+
+## 4. Flask的Hello world程序
+
+### 4.1 Flask创建app对象
+
 4.1.1 初始化参数
 import_name: 导入路径，寻找静态模板与静态目录的路径
 static_url_path: 
@@ -107,7 +129,11 @@ app.config[“DEBUG”] = True
 app.config.get()  或者 current_app.config.get()
 4.1.4 app.run的参数
 app.run(host=”0.0.0.0”, port=5000, debug=True)
-4.2 路由
+
+
+
+### 4.2 路由
+
 4.2.1 app.url_map 查看所有路由
 Print(app.url_map)
  
@@ -126,7 +152,8 @@ Print(app.url_map)
 
 4.2.5 自定义转换器
 
-4.3 获取请求参数
+### 4.3 获取请求参数
+
 from flask import request
 
 就是 Flask 中表示当前请求的 request 对象，request对象中保存了一次HTTP请求的一切信息。
@@ -137,7 +164,8 @@ from flask import request
 
 如果你想知道上传前文件在客户端的文件名是什么，你可以访问 filename 属性。但请记住， 永远不要信任这个值，这个值是可以伪造的。如果你要把文件按客户端提供的文件名存储在服务器上，那么请把它传递给 Werkzeug 提供的 secure_filename() 函数:
 
-4.4 abort函数与自定义异常处理
+### 4.4 abort函数与自定义异常处理
+
 4.4.1 abort函数
 from flask import abort
 4.4.2 自定义异常处理
@@ -145,7 +173,8 @@ from flask import abort
 def error(e):
     return '您请求的页面不存在了，请确认后再次访问！%s'%e
 
-4.5 返回的响应数据 
+### 4.5 返回的响应数据 
+
 4.5.1 元组
 可以返回一个元组，这样的元组必须是 (response, status, headers) 的形式，且至少包含一个元素。 status 值会覆盖状态代码， headers 可以是一个列表或字典，作为额外的消息标头值。
 
@@ -161,7 +190,7 @@ resp.headers[“sample”] = “value”
 resp.status = “404 not found”
 ```
 
-4.6 使用jsonify返回json数据
+### 4.6 使用jsonify返回json数据
 
 - `dict -> json` : json.dumps(字典)
 - `str->dict` : json.loads(str)
@@ -185,13 +214,17 @@ make_response
 set_cookie(key, value=’’, max_age=None)
 
 delete_cookie(key)
-4.7 session
+
+### 4.7 session
+
 from flask import session
 
 需要设置secret_key
 
-4.8 请求上下文与应用上下文
+### 4.8 请求上下文与应用上下文
+
 全局变量request: 线程局部变量
+
 ```py
 Request = {
 	“线程A” : {
@@ -210,7 +243,8 @@ current_app和g都属于应用上下文对象。
 current_app:表示当前运行程序文件的程序实例。
 g:处理请求时，用于临时存储的对象，每次请求都会重设这个变量。
 
-4.9 请求钩子 hook
+### 4.9 请求钩子 hook
+
 请求钩子是通过装饰器的形式实现，Flask支持如下四种请求钩子：
 
 before_first_request：在处理第一个请求前运行。
@@ -240,23 +274,27 @@ If request.path in [url_for(), url_for(),…..]:
 	….
 
 
-5.	Flask-Script扩展命令行
+
+## 5. Flask-Script扩展命令行
 
 ```py
 pip install Flask-Script
 ```
 
-6.	Jinja2模板
 
-6.1 基本流程
+
+## 6. Jinja2模板
+
+### 6.1 基本流程
 
 使用flask 中的render_template渲染模板
 
-6.2 变量
+### 6.2 变量
 
-6.3 过滤器
+### 6.3 过滤器
 
 6.3.1 字符串过滤器
+
 ```
 safe：禁用转义；
   <p>{{ '<em>hello</em>' | safe }}</p>
@@ -315,7 +353,8 @@ sort：列表排序
 方式二：
 	通过装饰器  app.template_filter (模板中使用的装饰器名字)
 
-6.4 表单
+### 6.4 表单
+
 使用Flask-WTF表单扩展，可以帮助进行CSRF验证，帮助我们快速定义表单模板，而且可以帮助我们在视图中验证表的数据
 
 pip install Flask-WTF
@@ -329,8 +368,10 @@ pip install Flask-WTF
 
 视图函数
 
-6.5 控制语句
+### 6.5 控制语句
+
 6.5.1 if语句
+
 ```html
 {% if %} {% endif %}
 ```
@@ -339,10 +380,13 @@ pip install Flask-WTF
 {% for item in samples %} {% endfor %}
 ```
 
-## 6.6 宏
+
+
+### 6.6 宏
+
 类似于python中的函数，宏的作用就是在模板中重复利用代码，避免代码冗余。
 
-### 6.6.1 不带参数宏的定义与使用
+#### 6.6.1 不带参数宏的定义与使用
 定义：
 {% macro input() %}
   <input type="text"
@@ -354,7 +398,7 @@ pip install Flask-WTF
 使用
 {{ input() }}
 
-### 6.6.2 带参数宏的定义与使用
+#### 6.6.2 带参数宏的定义与使用
 
 1. 定义
 ```html
@@ -371,7 +415,7 @@ pip install Flask-WTF
 {{ input(value='name',type='password',size=40)}}
 ```
 
-### 6.6.3 将宏单独封装在html文件中
+#### 6.6.3 将宏单独封装在html文件中
 
 1. 文件名可以自定义 `macro.html`
 
@@ -392,25 +436,28 @@ pip install Flask-WTF
 {{ func.input() }}
 ```
 
-## 6.4 模板继承
+### 6.4 模板继承
 > html doc
 
 extend
 
 
-## 6.5 模板包含
+
+### 6.5 模板包含
+
 include
 
-## 6.6 flask在模板中使用特殊变量和方法
+### 6.6 flask在模板中使用特殊变量和方法
 
-### 6.6.1 config
+6.6.1 config
 
-### 6.6.2 request
+6.6.2 request
 
-### 6.6.3 url_for 
+6.6.3 url_for 
 
 
-# 数据库
+
+## 数据库
 
 
 数据库命名规范：
@@ -442,7 +489,7 @@ manager.add_command("db", MigrateCommand)
 
 ```
 
-## 操作命令
+### 操作命令
 ```
 # 初始化命令, 生成数据库迁移文件夹
 python main_file.py db init
@@ -465,7 +512,7 @@ python main_file.py db downgrade ee602d992e79
 
 
 
-# 件操作
+## 文件操作
 
 ```
 from flask import Flask
@@ -506,10 +553,11 @@ if __name__ == "__main__":
 ```
 
 
-# 蓝图
+
+## 蓝图
 
 
-## Python 基本解决
+### Python 基本解决
 
 Python 自身语法进行解析时会出现循环导入的问题：
 
@@ -519,7 +567,6 @@ Python 自身语法进行解析时会出现循环导入的问题：
 
 > goods.py
 ```py
-
 def get_goods():
 	return "Get goods page"
 ```
@@ -553,7 +600,7 @@ if __name__ == "__main__":
 	app.run(debug=True)
 ```
 
-## 蓝图解决
+### 蓝图解决
 
 > orders.py
 
@@ -604,7 +651,8 @@ if __name__ == "__main__":
 ```
 
 
-# 拆分目录之后
+
+### 拆分目录之后
 
 > `cart` - `__init__.py`
 ```py
@@ -627,11 +675,7 @@ from .views import get_cart
 
 
 
-
-
-
-
-## CSRF 验证机制
+### CSRF 验证机制
 
 
 同源策略：限制了不同源的网站不能相互操作资源。
