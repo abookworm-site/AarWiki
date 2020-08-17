@@ -14,7 +14,7 @@
 
 #### CentOS
 
-- [CentOS6.5 installation guide](Linux System\CentOS6.5 installation guide.md)
+- [CentOS6.5 安装教程](Linux System\CentOS6.5 安装教程.md)
 - [CentOS 静态IP配置](Linux System\CentOS 静态IP配置.md)
 - [CentOS 多节点配置及设置静态IP](Linux System\CentOS 多节点配置及设置静态IP.md)
 
