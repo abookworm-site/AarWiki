@@ -12,6 +12,8 @@
 - 采用刚才的TCP连接将响应报文 **回送** 给客户端
 - 客户端按照HTTP协议 **解析** 响应报文 **获取结果** 数据
 
+
+
 ### 1.2 细节
 
 - 客户端：不一定是浏览器，也可以是PC软件、手机APP、程序
@@ -19,6 +21,8 @@
     - 服务器：与客户端进行 `TCP` 通信，接收、解析、打包、发送 `HTTP` 格式数据
     - 业务程序：根据解析后的请求数据执行逻辑处理，形成要返回的数据交给服务器
     - 服务器与Python业务程序 `如Django/Flask/Tornado等` 的配合使用 `WSGI`协议
+
+
 
 ### 1.3 Web框架
 
@@ -236,117 +240,693 @@ $ from flask import Flask
 
 
 
-## 4. Flask的Hello world程序
+## 4. 视图开发**
+
+我们这里新建一个 `Hello world`的项目，以便于代码演示。
+
+```python
+# coding:utf-8
+
+from flask import Flask
+
+
+# 创建 flask 实例
+# app 接受一个参数 `__name__`，即当前模块的名称。
+# app = Flask("__main__")
+app = Flask(__name__)
+
+# 使用装饰器将路由映射到视图函数index
+@app.route('/')
+def index():
+    """定义主页视图函数"""
+    return "Hello world"
+
+if __name__ == "__main__":
+    # Flask 应用程序实例的 run() 方法启动 Web 服务器
+    app.run()
+```
+
+- `app = Flask(__name__)` ：
+    - app 接受一个参数 `__name__`，即 `__main__`
+    - app 接受参数 `__name__`后，Flask 就以此模块所在的目录为总目录。
+    - 默认配置下，此目录下的 `static` 目录为 **静态目录**，`templates` 目录为模板目录
+
+
 
 ### 4.1 Flask创建APP对象
 
-4.1.1 初始化参数
-import_name: 导入路径，寻找静态模板与静态目录的路径
-static_url_path: 
-static_folder: 默认‘static’
-template_folder: 默认‘templates’
-4.1.2 配置参数
-app.config.from_pyfile(“yourconfig.cfg”) 或
-app.config.from_object(类名)
+#### 4.1.1 初始化参数
 
-app.config[“DEBUG”] = True
-4.1.3 在视图读取配置参数
-app.config.get()  或者 current_app.config.get()
-4.1.4 app.run的参数
-app.run(host=”0.0.0.0”, port=5000, debug=True)
+```python
+app = Flask(__name__, static_url_path='/python', static_folder='static', template_folder='templates')
+```
+
+- 参数`import_name` ： `__name__` 
+    -  功能：导入路径，寻找静态模板与静态目录的路径
+    - app 接受一个默认参数 `__name__`，即 `__main__`。即使传入未找到的其他未知参数，也以此为默认参数。
+    - app 接受参数 `__name__`后，Flask 就以此模块所在的目录为总目录。
+    - 此时，默认配置下目录下的 `static` 目录为 **静态目录**，`templates` 目录为模板目录
+
+- 参数 `static_url_path`
+    - 设置优先访问静态资源的 url 前缀
+    - 默认：`static`
+- 参数 `static_folder`
+    - 设置静态文件目录
+    - 默认：`static`
+- 参数 `template_folder`
+    - 设置模板文件目录
+    - 默认：`templates`
+
+
+
+#### 4.1.2 配置参数
+
+**第一种：使用配置文件**
+
+> config.cfg
+
+```python
+DEBUG = True
+```
+
+```python
+# 指定一个配置文件
+app.config.from_pyfile("config.cfg")
+```
+
+
+
+**第二种：从类中继承**，项目运用较多。
+
+> Config 类
+
+```python
+class Config(object):
+    """配置类"""
+	Debug = True
+```
+
+```python
+# 从类中继承类
+app.config.from_object(class_name)
+```
+
+
+
+**第三种：直接操作 `Config` 实例对象**
+
+```python
+app.config["DEBUG"] = True
+```
+
+
+
+#### 4.1.3 在视图读取配置参数
+
+```python
+# 在视图函数中使用配置参数
+# 可以直接获取 app 对象时
+value = app.config.get("Key")
+
+# 无法获得 app 对象
+# 操作app代名词：current_app 获取
+from flask import current_app
+
+
+value2 = current_app.config.get("Key")
+```
+
+
+
+#### 4.1.4 `app.run` 参数
+
+```python
+app.run(host='0.0.0.0', port=5000, debug=True)
+```
+
+- `host='0.0.0.0'` ：本机网关都可以访问到
+- `debug=True`：此处仅仅该配置参数可以在这里配置
 
 
 
 ### 4.2 路由
 
-4.2.1 app.url_map 查看所有路由
-Print(app.url_map)
- 
+#### 4.2.1 查看视图函数中所有路由
+
+```python
+# 程序中直接打印 url_map
+print(app.url_map)
+```
 
 
-4.2.2 同一路由装饰多个视图函数
 
-4.2.3 同一视图多个路由装饰器
+使用 IPython 进行验证
 
-4.2.4 利用methods限制访问方式
+```python
+from hello import app
+# 获取视图函数的路由
+app.url_map
+```
+
+
+
+#### 4.2.2 `methods` 限制访问方式
+
+```python
 @app.route('/sample', methods=['GET', 'POST'])
-4.2.5 使用url_for进行反解析
-
-4.2.5 动态路由
+```
 
 
-4.2.5 自定义转换器
+
+#### 4.2.3 同一路由装饰多个视图函数
+
+```python
+@app.route('/hello', methods=["POST"])
+def hello():
+    return "Hello One"
+
+@app.route('/hello', methods=["GET"])
+def hello():
+    return "Hello Two"
+```
+
+
+
+#### 4.2.4 同一视图多个路由装饰器
+
+```python
+@app.route('/h1')
+@app.route('/h2')
+def hello():
+    return "Hello All"
+```
+
+
+
+#### 4.2.5 使用 `url_for` 进行反解析 & 重定向 `redirect`
+
+```python
+from flask import redirect, url_for
+
+
+# 使用装饰器将路由映射到视图函数index
+@app.route('/')
+def index():
+    """定义主页视图函数"""
+    return "Hello world"
+
+
+@app.route('/login')
+def login():
+    """登录页面视图函数"""
+	# 使用 url_for() 传入视图函数名称 找到视图对应的 url 路径
+    url = url_for("index")
+    
+    # 返回重定向 url 路径
+    return redirct(url)
+```
+
+- 特别推荐使用 `url_for()` 进行 url 路径反推
+
+
+
+#### 4.2.6 动态路由传参
+
+动态路由可匹配指定的URL，以达到限制访问，以及优化访问路径的目的。
+
+```python
+# coding:utf-8
+
+from flask import Flask
+
+
+# 创建 flask 实例
+app = Flask(__name__)
+
+# 使用装饰器将路由映射到视图函数index
+@app.route('/goods/<int:goods_id>')
+def goods_detail(goods_id):
+    """定义商品视图函数"""
+    return "Goods detail page： %s" % goods_id
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+- `<int:goods_id>` ：整个尖括号中的内容称为：转换器
+    - `<int:goods_id>` ：冒号前面的内容为参数匹配类型
+    - `<int:goods_id>`：冒号后面的内容是动态的，也是视图函数的传入参数
+    - `<goods_id>` ：若不指定参数类型，路由传递的参数默认当做 `string` 处理（除了 `/` 的字符）
+
+- 转换器提供的参数匹配类型
+    - `string` ：默认字符串类型（除了 `/` 的字符）
+    - `int` ：仅接受整数
+    - `float` ：同 `int`，但是接受浮点数
+    - `path` ：和默认的相似，但也接受斜线
+
+
+
+#### 4.2.7 自定义转换器
+
+**实现一个万能转换器**
+
+```python
+from werkzeug.routing import BaseConverter
+
+# 1. 定义自定义的转换器
+class RegexConverter(BaseConverter):
+    """自定义手机匹配转换器"""
+    # url_map 为默认参数，regex 为传入的正则表达式
+   	def __init__(self, url_map, regex):
+        # 调用父类的初始化方法
+        super(RegexConverter, self).__init__(url_map)
+        # 将正则表达式参数保存到对象属性，flask 会使用这个属性来进行路由的正则匹配
+        self.regex = regex
+
+# 2. 将自定义的转换器添加到 flask 应用中
+# 这里自定义该转换器的名称：re
+app.url_map.converters["re"] = RegexConverter
+
+# 3. 使用自定义的转换器的名称 re 匹配动态参数
+# 1270.0.1/5000/send/18612345678
+@app.route("/send/<re(r'1[34578]\d{9}'):mobile>")
+def send_sms(mobile):
+    """定义发送短信的视图函数"""
+    return "Send sms to %s" % mobile
+```
+
+
+
+**实现一个仅仅手机号的正则表达式类**
+
+```python
+from werkzeug.routing import BaseConverter
+
+# 1. 定义自定义的转换器
+class MobileConverter(BaseConverter):
+    """自定义手机匹配转换器"""
+    # url_map 为默认参数，regex 为传入的正则表达式
+   	def __init__(self, url_map):
+        # 调用父类的初始化方法
+        super(RegexConverter, self).__init__(url_map)
+        # 将正则表达式参数保存到对象属性，flask 会使用这个属性来进行路由的正则匹配
+        self.regex = r'1[34578]\d{9}'
+
+# 2. 将自定义的转换器添加到 flask 应用中
+# 这里自定义该转换器的名称：mbl
+app.url_map.converters["mbl"] = MobileConverter
+
+# 3. 使用自定义的转换器的名称 re 匹配动态参数
+# 1270.0.1/5000/send/18612345678
+@app.route("/send/<mbl:mobile>")
+def send_sms(mobile):
+    """定义发送短信的视图函数"""
+    return "Send sms to %s" % mobile
+```
+
+
+
+**自定义转换器中的钩子函数**
+
+```python
+from werkzeug.routing import BaseConverter
+
+# 1. 定义自定义的转换器
+class RegexConverter(BaseConverter):
+    """自定义手机匹配转换器"""
+    # url_map 为默认参数，regex 为传入的正则表达式
+   	def __init__(self, url_map, regex):
+        # 调用父类的初始化方法
+        super(RegexConverter, self).__init__(url_map)
+        # 将正则表达式参数保存到对象属性，flask 会使用这个属性来进行路由的正则匹配
+        self.regex = regex
+    
+    def to_python(self, value):
+        """
+        @value: 在路径进行正则匹配后提取的参数
+        @return: 默认直接返回 value
+        """
+        print("to_python() 被调用")
+        return value
+        
+    def to_url(self, value):
+        """url_for() 方法时调用"""
+        print("to_url() 被调用")
+        return value
+
+# 2. 将自定义的转换器添加到 flask 应用中
+# 这里自定义该转换器的名称：re
+app.url_map.converters["re"] = RegexConverter
+
+# 3. 使用自定义的转换器的名称 re 匹配动态参数
+# 1270.0.1/5000/send/18612345678
+@app.route("/send/<re(r'1[34578]\d{9}'):mobile>")
+def send_sms(mobile):
+    """定义发送短信的视图函数"""
+    return "Send sms to %s" % mobile
+
+@app.route('/login/')
+def login():
+    url = url_for("send_sms", mobile = "18911111111")
+    return redirect(url)
+```
+
+- `to_python()` 方法：钩子函数，即在 url 路由访问时，调用转换器处理后，最后将调用 `to_python()` 方法，该方法的返回值（即正则/钩子处理过后的数据内容）将再传入到视图函数的参数。
+- `to_url()` 方法：钩子函数。即在调用 url_for() 方法时，将传入的参数传入路径对应视图函数后，调用转换器处理后，最后会调用 `to_url()` 方法，该方法的返回值（即正则/钩子处理过后的数据内容）将传入路径跳转后的视图函数中进行匹配，之后重定向后的 url 路径返回。
+
+
 
 ### 4.3 获取请求参数
 
+#### 4.3.1 导入全局请求对象 `request`
+
+```python
+from flask import Flask
+# 导入请求对象
 from flask import request
 
-就是 Flask 中表示当前请求的 request 对象，request对象中保存了一次HTTP请求的一切信息。
 
-4.3.1 上传文件
-已上传的文件存储在内存或是文件系统中一个临时的位置。你可以通过请求对象的 files 属性访问它们。每个上传的文件都会存储在这个字典里。它表现近乎为一个标准的 Python file 对象，但它还有一个 save() 方法，这个方法允许你把文件保存到服务器的文件系统上。这里是一个用它保存文件的例子:
+app = Flask(__name__)
 
 
-如果你想知道上传前文件在客户端的文件名是什么，你可以访问 filename 属性。但请记住， 永远不要信任这个值，这个值是可以伪造的。如果你要把文件按客户端提供的文件名存储在服务器上，那么请把它传递给 Werkzeug 提供的 secure_filename() 函数:
+@app.route('/index', methods=["GET", "POST"])
+def index():
+    """主页视图函数"""
+    # requet.form 可以直接提取请求体中的表单格式的数据，是一个类字典的对象
+    name = request.form.get("name")
+    age = requetst.form.get("age")
+    
+    print(request.data)
+    
+    city = request.args.get("city")
+   
+    return "Hello %s, your ages are %s" % (name, age)
 
-### 4.4 abort函数与自定义异常处理
+if __name__ == "__main__":
+    app.run(debug=True)
+```
 
-4.4.1 abort函数
-from flask import abort
-4.4.2 自定义异常处理
+-  `request`： Flask 中表示当前请求的对象
+    - `request` 对象中保存了一次HTTP请求的一切信息。
+- `get()` ：`get()` 方法只能拿到多个同名参数的第一个
+- `getlist()`：可以拿到多个参数列表
+
+
+
+#### 4.3.2 对象 `request` 常用属性
+
+| 属性 | 说明 | 类型 |
+| ---- | ---- | ---- |
+|data|记录请求体的数据，并转换为字符串，但是除了表单数据之外的数据|*|
+|form|记录请求中的表单数据|MultiDict|
+|args|记录请求中的查询参数（查询字符串中的请求）|MultiDict|
+|cookies|记录请求中的cookie信息|Dict|
+|headers|记录请求中的报文头|EnvironHeaders|
+|method|记录请求使用的HTTP方法|GET/POST|
+|url|记录请求的URL地址|string|
+|files|记录请求上传的文件|*|
+
+**`request.form.get("Key")`**
+
+若请求数据为表单格式，那么存在于 `request.form.get("Key")` 中
+
+- 表单格式数据：`name=xxx&age=xxx&gender=xxx`
+
+
+
+**`request.data`**
+
+若请求数据为字符串，那么存在于 `request.data` 中
+
+- 字符串格式数据：Json数据
+
+- `method` 参数：区分不同访问方式进行不同的业务逻辑。
+
+
+
+**`request.files.get("col_name")`**
+
+1. 已上传的文件存储在内存或是文件系统中一个临时的位置。
+2. 可通过请求对象的 `files` 属性访问
+3. 每个上传的文件都会存储在这个字典里。其表现近乎为一个标准的 Python file 对象。即：`file_name：file_obj`
+4. 该对象提供一个  `save()` 方法，允许把文件直接保存到服务器的文件系统上
+
+```python
+from flask import request
+
+
+@app.route("/upload", methods=["POST"])
+def upload():
+    """文件上传视图函数"""
+    # 获取图片
+    file_obj = request.files.get("pic")
+    
+    # 验证
+    if file_obj is None:
+        return "未上传文件"
+    
+    # 处理：保存本地
+    file_obj.save('./image.png')
+    
+    # 返回
+    return "上传成功"
+```
+
+
+
+获取上传前文件在客户端的文件名，那么可访问 `filename` 属性
+
+- 注意：请不要信任这个属性值，这个值是可以伪造的。
+
+
+
+将文件按客户端提供的文件名存储在服务器上，实现：把它传递给 Werkzeug 提供的 `secure_filename()` 函数:
+
+```python
+from flask import Flask
+from werkzeug import secure filename
+
+
+@app.route('/upload', methods=["GET", "POST"])
+def upload_file():
+    if request.method = "POST":
+        f = request.files['the_file']
+        f.save('/uploads/' + secure_filename(f.filename))
+```
+
+
+
+### 4.4 `abort()` 函数与自定义异常处理
+
+#### 4.4.1 abort函数
+
+若视图函数执行过程中，出现异常错误，则使用 `abort()` 函数立即终止视图函数的执行。
+
+通过 `abort()` 函数，可以向前端返回一个http标准中存在的 **错误状态码**，或者表示出现的 **错误信息**。
+
+- 不要使用 `abort`抛出一个http标准中 **不存在的自定义的状态码**，没有实际意义。
+- 如果 `abort()` 函数被触发，其后面的语句将不会执行。类似于python中 `raise`。
+
+```python
+from flask import Flask, abort
+
+
+@app.route('/')
+def hello():
+    # 使用abort函数立即终止视图函数的执行，并可返回
+    # 1. 传递状态码信息，且必须为 HTTP 标准状态码
+    abort(404)
+    
+    # 2. 传递响应信息
+    resp = Response("login failed")
+    abort(resp)
+    return 'Hello Python',999
+```
+
+
+
+#### 4.4.2 自定义异常处理
+
+在Flask中通过装饰器来实现捕获异常，`errorhandler()` 接收的参数为异常状态码。
+
+而自定义视图函数的参数为程序默认返回的错误信息。返回值将为前端用户看到的最终效果。
+
+```python
 @app.errorhandler(404)
-def error(e):
-    return '您请求的页面不存在了，请确认后再次访问！%s'%e
+def error(err):
+    """自定义的错误处理方法"""
+    # 该函数返回值将会在前端用户看到最终效果
+    return '您请求的页面不存在了，请确认后再次访问！%s' % err
+```
+
+
 
 ### 4.5 返回的响应数据 
 
-4.5.1 元组
-可以返回一个元组，这样的元组必须是 (response, status, headers) 的形式，且至少包含一个元素。 status 值会覆盖状态代码， headers 可以是一个列表或字典，作为额外的消息标头值。
+#### 4.5.1 直接返回自定义元组
 
-4.5.2 make_response
+响应信息可以返回一个元组，元组必须是 `(response, status, headers)` 的形式，且至少包含一个元素。 
 
-```py
-From flask import make_response
-resp = make_response()
+- `response` 响应体：必须
+- `status` 状态码：该值有可能会覆盖状态代码
+    - 该值可以自主定义状态码，即使这个状态码不存在。
+    - 当客户端的请求已经处理完成，由视图函数决定返回给客户端一个状态码，告知客户端这次请求的处理结果。
+    - 格式：`404`  or `666 my status`
+- `headers` 响应头：可以是一个列表或字典，作为额外的消息标头值。
+    - 格式：`[("Name", "Python"), ("City", "ShenZhen")]`
 
-# 设置响应头
-resp.headers[“sample”] = “value”
-# 设置状态码
-resp.status = “404 not found”
+```python
+from flask import Flask
+
+@app.route('/')
+def hello():
+    """主页视图函数"""
+    return 'Hello Python', "999 my status", [("Name", "Python"), ("City", "ShenZhen")]
+    return 'Hello Python', 200, [("Name", "Python"), ("City", "ShenZhen")]
 ```
 
-### 4.6 使用jsonify返回json数据
 
-- `dict -> json` : json.dumps(字典)
-- `str->dict` : json.loads(str)
 
-```py
+#### 4.5.2  使用 `make_response()` 构造信息
+
+```python
+from flask import Flask, make_response
+
+@app.route('/')
+def hello():
+    """主页视图函数"""
+    # 参数：响应体，可省
+    resp = make_response("Index page")
+
+	# 设置响应头
+	resp.headers["sample"] = "value"
+    resp.headers["City"] = "ShenZhen"
+	
+    # 设置状态码
+	resp.status = “404 not found”
+
+    return resp
+```
+
+
+
+#### 4.5.3 使用 `jsonify`返回json数据
+
+- `json.dumps(字典)`：将字典转换为 json 数据
+- `json.loads(str)`：将字符串转换为 字典 数据
+
+```python
 from flask import jsonify
-data = {
-	“name”: “python”,
-	“age”: 24
-}
 
-# 帮助转换为jsonify，
-return jsonify(data)
+@app.route("/index")
+def index():
+    """主页视图"""
+	data = {
+		“name”: “python”,
+		“age”: 24
+	}
+
+	# 将 json 转换为字符串
+    # json_str = json.dumps(data)
+    # 返回响应体
+	# return json_str, 200, {"Content-Type": "application/json"}
+    
+    # jsonify() 将数据转换为 json 数据，将响应头改变为 application/json
+    return jsonify(data)
 ```
-4.5 重定向
-from flask import redirect
 
-4.6 设置和读取cookie
-make_response
 
-set_cookie(key, value=’’, max_age=None)
+### 4.6 设置和读取cookie
 
-delete_cookie(key)
+```python
+from flask import Flask, make_response, request
 
-### 4.7 session
+# 设置 cookie
+@app.route('/set_cookie')
+def set_cookie():
+    """设置 cookie 视图函数"""
+    # 设置cookie， 默认有限期是临时cookie, 浏览器关闭是失效
+    resp = make_response('this is to set cookie')
+    # max_age 设置有限期，单位：秒
+    resp.set_cookie('username', 'python')
+    resp.set_cookie("City", "ShenZhen", max_age=3600)
+    
+    # 操作 cookie 即是在响应头里面设置 Set-Cookie 的值
+    resp.headers["Set-Cookie"] = "Name=Python"
+    return resp
 
-from flask import session
 
-需要设置secret_key
+@app.route("/get_cookie")
+def get_cookie():
+    """获取 cookie 视图函数"""
+    re = request.cookie.get("username")
+    return re
+
+
+@app.route("/dele_cookie")
+def delete_cookie():
+    """删除 cookie 视图函数"""
+    resp = make_response("del succes")
+    # 删除 cookie
+    resp.delete_cookie("username")
+    
+    return resp
+```
+
+- 操作 Cookie 即是在响应头里面设置：`Set-Cookie` 的值
+
+
+
+### 4.7 设置和获取session
+
+```python
+from flask import Flask, session
+
+
+app = Flask(__name__)
+
+# 设置密钥字符串
+app.configp["SECRET_KEY"] = "asdlfkjla;sdp9wejro;ig"
+
+
+@app.route("/login")
+def login():
+    """登录视图函数"""
+	# 设置 session 数据
+    session['name'] = "python"
+    session['mobile'] = "15622221111"
+    return "login success"
+
+
+@app.route("/index")
+def index():
+    """主页视图函数"""
+	# 获取 session 数据
+    name = session.get("name")
+    return "Hello %s" % name
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+- Session 跨服务器问题
+    - Session 保存的位置有许多：数据库，Redis，文件，程序内存中。
+    - 保存在程序内存中时，将会存在跨服务器问题。当然，也可用IP地域进行解决
+- 不使用 Cookie 保存 Session_id
+    - 保存在 url 路径中。此时，无法设置有效期
+
+
 
 ### 4.8 请求上下文与应用上下文
+
+Flask中有两种上下文，请求上下文和应用上下文。
+
+- 上下文：相当于一个容器，保存了Flask程序运行过程中的相关信息。
+
+
+
+
 
 全局变量request: 线程局部变量
 
@@ -367,6 +947,59 @@ current_app和g都属于应用上下文对象。
 -	一次请求之内的，再次请求就清空
 current_app:表示当前运行程序文件的程序实例。
 g:处理请求时，用于临时存储的对象，每次请求都会重设这个变量。
+
+
+
+
+
+
+
+#### 请求上下文(request context)
+
+
+
+request和session都属于请求上下文对象。
+
+request：封装了HTTP请求的内容，针对的是http请求。举例：user = request.args.get('user')，获取的是get请求的参数。
+
+session：用来记录请求会话中的信息，针对的是用户信息。
+
+
+
+
+
+
+
+
+
+#### 应用上下文(application context)
+
+
+
+current_app和g都属于应用上下文对象。
+
+
+
+current_app:表示当前运行程序文件的程序实例。
+
+- 可通过 `current_app.name` 获取当前应用程序实例名称
+
+
+
+g:处理请求时，用于临时存储的对象，每次请求都会重设这个变量。
+
+以获取一些临时请求的用户信息。
+
+- 当调用app = Flask(_*name_*)的时候，创建了程序应用对象app；
+- request 在每次http请求发生时，WSGI server调用Flask.call()；然后在Flask内部创建的request对象；
+- app的生命周期大于request和g，一个app存活期间，可能发生多次http请求，所以就会有多个request和g。
+- 最终传入视图函数，通过return、redirect或render_template生成response对象，返回给客户端。
+
+**区别：** 请求上下文：保存了客户端和服务器交互的数据。 应用上下文：在flask程序运行过程中，保存的一些配置信息，比如程序文件名、数据库的连接、用户信息等。
+
+
+
+
 
 
 
@@ -402,7 +1035,43 @@ If request.path in [url_for(), url_for(),…..]:
 
 
 
-## 5. Flask-Script扩展命令行
+
+
+#### 请求钩子
+
+在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。
+
+请求钩子是通过装饰器的形式实现，Flask支持如下四种请求钩子：
+
+before_first_request：在处理第一个请求前运行。
+
+before_request：在每次请求前运行。
+
+after_request：如果没有未处理的异常抛出，在每次请求后运行。
+
+teardown_request：在每次请求后运行，即使有未处理的异常抛出。
+
+
+
+### 5.0 Flask装饰器路由的实现
+
+Flask有两大核心：Werkzeug和Jinja2。Werkzeug实现路由、调试和Web服务器网关接口。Jinja2实现了模板。
+
+Werkzeug是一个遵循WSGI协议的python函数库。其内部实现了很多Web框架底层的东西，比如request和response对象；与WSGI规范的兼容；支持Unicode；支持基本的会话管理和签名Cookie；集成URL请求路由等。
+
+Werkzeug库的routing模块负责实现URL解析。不同的URL对应不同的视图函数，routing模块会对请求信息的URL进行解析，匹配到URL对应的视图函数，以此生成一个响应信息。
+
+routing模块内部有Rule类（用来构造不同的URL模式的对象）、Map类（存储所有的URL规则）、MapAdapter类（负责具体URL匹配的工作）；
+
+
+
+
+
+
+
+### 5.1 `Flask-Script` 扩展命令行
+
+扩展安装
 
 ```py
 pip install Flask-Script
@@ -410,7 +1079,88 @@ pip install Flask-Script
 
 
 
-## 6. `Jinja2` 模板
+目的&用途
+
+使得Flask服务器以命令行的方式启动，此处可以传入相应的参数。
+
+- 不再仅仅通过 `app.run()` 方式传参
+
+
+
+默认格式
+
+```bash
+# 设置运行时网络监听
+$ python hello.py runserver --host ip
+
+# 查看相应参数
+python hello.py runserver --help
+```
+
+- 默认情况下，服务器只监听来自服务器所在计算机发起的连接，即`localhost` 连接。
+
+```python
+from flask import Flask
+from flask-script import Manager
+
+# 创建 flask 应用
+app = Flask(__name__)
+
+# 创建 flask-script 实例
+manager = Manager(app)
+
+# 定义视图函数
+@app.route('/')
+def index():
+    """定义主页面视图"""
+    return "天若有情天亦老，人间正道是沧桑。"
+
+# 启动
+if __name__ == "__main__":
+    manager.run()
+```
+
+
+
+
+
+## 5. `Jinja2` 模板
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 6.1 基本流程
 
@@ -584,7 +1334,7 @@ include
 
 
 
-## 数据库
+## 6. 数据库
 
 
 数据库命名规范：
