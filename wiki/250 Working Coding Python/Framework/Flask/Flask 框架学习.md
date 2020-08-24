@@ -1399,29 +1399,37 @@ if __name__ == "__main__":
 
 ## 蓝图
 
+### 蓝图的引入
 
-### Python 基本解决
+#### 循环导包问题
 
-Python 自身语法进行解析时会出现循环导入的问题：
+在将各个子应用拆分时，由于装饰器在使用时需要导入主程序文件而导致子应用和主程序循环导入问题。
 
-1. 推迟一方的导入，让另一方先完成。
 
-2. 将装饰器后补充，视图函数中只定义相应的函数定义。
 
 > goods.py
-```py
+
+```python
+from main import app
+
+@app.route("/get_goods")
 def get_goods():
 	return "Get goods page"
 ```
 
 > user.py
-```py
+
+```python
+from main import app
+
+@app.route("/register")
 def register():
 	return "User register page"
 ```
 
 > main.py
-```
+
+```python
 from flask import Flask
 from goods import get_goods
 from users import register
@@ -1429,9 +1437,58 @@ from users import register
 
 app = Flask(__name__)
 
-# 补充视图函数的装饰器
+
+@app.route("/")
+def index():
+	# 方法一：推迟子应用的引用
+	# from goods import get_goods
+	# from users import register
+	return "index page"
+
+
+if __name__ == "__main__":
+	print(app.url_map)
+	app.run(debug=True)
+```
+
+
+
+
+#### Python 基本解决
+
+Python 自身语法进行解析时会出现循环导入的问题：
+
+1. 推迟一方的导入，让另一方先完成。
+
+2. 将装饰器后补充，视图函数中只定义相应的函数定义。
+
+    
+
+> goods.py
+```python
+def get_goods():
+	return "Get goods page"
+```
+
+> user.py
+```python
+def register():
+	return "User register page"
+```
+
+> main.py
+```python
+from flask import Flask
+from goods import get_goods
+from users import register
+
+
+app = Flask(__name__)
+
+# 方法二：补充视图函数的装饰器
 app.route("/get_goods")(get_goods)
 app.route("/register")(register)
+
 
 @app.route("/")
 def index():
@@ -1443,27 +1500,26 @@ if __name__ == "__main__":
 	app.run(debug=True)
 ```
 
-### 蓝图解决
+
+
+#### 使用蓝图解决
 
 > orders.py
 
-```py
-
+```python
 from flask import Blueprint
 
-# 创建蓝图，一个小模块的抽象概念
+# 1. 创建蓝图，一个小模块的抽象概念
 app_orders = Blueprint("app_orders", __name__, template_folder="templates")
-
 
 @app_orders.route("/get_orders")
 def get_orders():
-	return "order Page"
-	
+	return "order Page"	
 ```
 
 
 > main.py
-```py
+```python
 from flask import Flask
 from goods import get_goods
 from users import register
@@ -1473,15 +1529,12 @@ from orders import app_orders
 
 app = Flask(__name__)
 
-# 补充视图函数的装饰器
-app.route("/get_goods")(get_goods)
-app.route("/register")(register)
-
-# 注册蓝图
+# 2. 注册蓝图
 app.register_blueprint(app_orders)
 
-# 注册蓝图时，可以添加前缀
+# 2. 注册蓝图时，可以添加前缀
 app.register_blueprint("/orders")
+
 
 @app.route("/")
 def index():
@@ -1495,11 +1548,11 @@ if __name__ == "__main__":
 
 
 
-### 拆分目录之后
+### 应用拆分目录
 
-> `cart` - `__init__.py`
-```py
-#coding=utf-8
+> `cart/__init__.py`
+```python
+# coding=utf-8
 
 
 from flask import Blueprint
@@ -1514,6 +1567,37 @@ app_cart = Blueprint("app_cart", __name__, template_folder="template", static_fo
 # 在此文件被执行的时候，将视图加载进来，让蓝图和应用程序明晰视图的存在
 from .views import get_cart
 ```
+
+
+
+> `cart/views.py`
+
+```python
+# coding:utf-8
+
+
+from flask import render_template
+from . import app_cart
+
+
+@app_cart.route("/get_cart")
+def get_cart():
+    return render_template("cart.html")
+```
+
+> `cart/cart.html`
+
+```html
+...
+```
+
+
+
+## 单元测试
+
+
+
+
 
 
 
