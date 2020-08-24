@@ -1,57 +1,46 @@
 # Flask 框架学习
 
-## Flask程序运行过程：
-1. 所有Flask程序必须有一个程序实例。
-
-2. Flask调用视图函数后，会将视图函数的返回值作为响应的内容，返回给客户端。一般情况下，响应内容主要是字符串和状态码。
-当客户端想要获取资源时，一般会通过浏览器发起HTTP请求。此时，Web服务器使用WSGI（Web Server Gateway Interface）协议，把来自客户端的所有请求都交给Flask程序实例。
-	- WSGI是为 Python 语言定义的Web服务器和Web应用程序之间的一种简单而通用的接口，
-	- 它封装了接受HTTP请求、解析HTTP请求、发送HTTP，响应等等的这些底层的代码和操作，使开发者可以高效的编写Web应用。
-
-3. 程序实例使用Werkzeug来做路由分发（URL请求和视图函数之间的对应关系）。根据每个URL请求，找到具体的视图函数。 
-
-4. 在Flask程序中，路由的实现一般是通过程序实例的route装饰器实现。route装饰器内部会调用add_url_route()方法实现路由注册。
-
-5. 调用视图函数，获取响应数据后，把数据传入HTML模板文件中，模板引擎负责渲染响应数据，然后由Flask返回响应数据给浏览器，最后浏览器处理返回的结果显示给客户端。
-
-
-
-## 1.	HTTP通信与Web框架
+## 1. HTTP通信与Web框架
 
 ### 1.1 流程
 
-客户端将请求打包成HTTP的请求报文（HTTP协议格式的请求数据）
-采用TCP传输发送给服务器端
-服务器接收到请求报文后按照HTTP协议进行解析
-服务器根据解析后获知的客户端请求进行逻辑执行
-服务器将执行后的结果封装成HTTP的响应报文（HTTP协议格式的响应数据）
-采用刚才的TCP连接将响应报文发送给客户端
-客户端按照HTTP协议解析响应报文获取结果数据
+- 客户端将请求打包成 **HTTP** 的 **请求** 报文（HTTP协议格式的请求数据）
+- 采用 `TCP` 传输 **发送** 给服务器端
+- 服务器接收到请求报文后按照HTTP协议进行 **解析**
+- 服务器根据解析后获知的客户端请求进行 **逻辑执行**
+- 服务器将执行后的 **结果封装** 成HTTP的响应报文（HTTP协议格式的响应数据）
+- 采用刚才的TCP连接将响应报文 **回送** 给客户端
+- 客户端按照HTTP协议 **解析** 响应报文 **获取结果** 数据
 
 ### 1.2 细节
 
-客户端不一定是浏览器，也可以是PC软件、手机APP、程序
-根据服务器端的工作，将其分为两部分：
-服务器：与客户端进行tcp通信，接收、解析、打包、发送http格式数据
-业务程序：根据解析后的请求数据执行逻辑处理，形成要返回的数据交给服务器
-服务器与Python业务程序的配合使用WSGI协议
+- 客户端：不一定是浏览器，也可以是PC软件、手机APP、程序
+- 根据服务器端的工作，将其分为两部分：
+    - 服务器：与客户端进行 `TCP` 通信，接收、解析、打包、发送 `HTTP` 格式数据
+    - 业务程序：根据解析后的请求数据执行逻辑处理，形成要返回的数据交给服务器
+    - 服务器与Python业务程序 `如Django/Flask/Tornado等` 的配合使用 `WSGI`协议
 
 ### 1.3 Web框架
 
-能够被服务器调用起来，根据客户端的不同请求执行不同的逻辑处理形成要返回的数据的 程序
+Why：避免重复造轮子
+
+定义：能够被服务器调用起来，根据客户端的不同请求执行不同的逻辑处理形成要返回的数据的程序
 
 核心：实现路由和视图（业务逻辑处理）
 
+
+
 ### 1.4 框架的轻重
 
-重量级的框架：为方便业务程序的开发，提供了丰富的工具、组件，如Django
+- 重量级的框架：为方便业务程序的开发，提供了丰富的工具、组件，如 `Django`
 
-轻量级的框架：只提供Web框架的核心功能，自由、灵活、高度定制，如Flask、Tornado
+- 轻量级的框架：只提供Web框架的核心功能，自由、灵活、高度定制，如 `Flask`、`Tornado`
+
+
 
 ### 1.5 明确Web开发的任务
 
-视图开发：根据客户端请求实现业务逻辑（视图）编写
-模板、数据库等其他的都是为了帮助视图开发，不是必备的
+Web 开发的重点任务就是：**视图开发**，即：**根据客户端请求实现业务逻辑（视图）编写**。模板、数据库等其他的都是为了帮助视图开发，不是必备的。
 
 
 
@@ -59,32 +48,68 @@
 
 ### 2.1 简介
 
-Flask诞生于2010年，是Armin ronacher（人名）用Python语言基于Werkzeug工具箱编写的轻量级Web开发框架。它主要面向需求简单的小应用。
+Python 最出名的框架要数Django，此外还有Flask、Tornado等框架。虽然Flask不是最出名的框架，但是Flask应该算是最灵活的框架之一。
 
-Flask本身相当于一个内核，其他几乎所有的功能都要用到扩展（邮件扩展Flask-Mail，用户认证Flask-Login），都需要用第三方的扩展来实现。比如可以用Flask-extension加入ORM、窗体验证工具，文件上传、身份验证等。Flask没有默认使用的数据库，你可以选择MySQL，也可以用NoSQL。其 WSGI 工具箱采用 Werkzeug（路由模块） ，模板引擎则使用 Jinja2 。
+Flask诞生于2010年，是 Armin ronacher（人名）用 Python 语言基于Werkzeug工具箱编写的轻量级Web开发框架。它主要 **面向需求简单的小应用**。
 
-可以说Flask框架的核心就是Werkzeug和Jinja2。
+Flask本身相当于一个内核，其他几乎所有的功能都要用到 **扩展**（邮件扩展Flask-Mail，用户认证Flask-Login），都需要用第三方的扩展来实现。
 
-Python最出名的框架要数Django，此外还有Flask、Tornado等框架。虽然Flask不是最出名的框架，但是Flask应该算是最灵活的框架之一，这也是Flask受到广大开发者喜爱的原因。
+- 比如可以用 `Flask-extension` 加入ORM、窗体验证工具，文件上传、身份验证等。
+- Flask没有默认使用的数据库，你可以选择 `MySQL`，也可以用 `NoSQL`。
+- 其 WSGI 工具箱采用 Werkzeug（路由模块） 
+- 模板引擎则使用 Jinja2 。
 
-### 2.2 与Django对比
+可以说：Flask框架的核心就是 **Werkzeug** 和 **Jinja2**。
 
-django提供了：
-django-admin快速创建项目工程目录
-manage.py 管理项目工程
-orm模型（数据库抽象层）
-admin后台管理站点
-缓存机制
-文件存储系统
-用户认证系统
 
-而这些，flask都没有，都需要扩展包来提供
 
-### 2.3 Flask扩展包：
+### 2.2 Flask 程序运行过程
+
+1. 首先，所有 Flask 程序必须实现一个程序实例。
+2. 
+    当 **客户端** 想要获取资源时，一般会通过浏览器 **发起HTTP请求**。此时，**Web服务器** 使用WSGI（Web Server Gateway Interface）协议，把来自客户端的 **所有请求都交给Flask程序实例**。
+    - WSGI是为 Python 语言定义的Web服务器和Web应用程序之间的一种简单而通用的接口，
+    - 它封装了接受HTTP请求、解析HTTP请求、发送HTTP，响应等等的这些底层的代码和操作，使开发者可以高效的编写Web应用。
+3. Flask 程序实例使用 **Werkzeug** 来做路由分发（URL请求和视图函数之间的对应关系）。根据每个URL请求，找到具体的视图函数。 
+    - 在Flask程序中，路由的实现一般是通过程序实例的 `route` 装饰器实现。
+    - `route` 装饰器内部会调用 `add_url_route()` 方法实现路由注册。
+4. Flask 调用视图函数，获取响应数据后，把数据传入HTML模板文件中，模板引擎负责渲染响应数据，然后由Flask返回响应数据给浏览器，最后浏览器处理返回的结果显示给客户端。
+    - 一般情况下，响应内容主要是字符串和状态码。
+
+即：
+
+1. 服务器中的 Flask 程序运行后将会创建一个程序实例
+2. 当客户端想要获取服务器中资源时，将会发送 **HTTP请求** 到服务器，此处，服务器将会通过 WSGI 协议将此请求交给 Flask 程序实例。
+3. Flask 程序实例使用 `Werkzeug` 进行路由分发，依据每个URL请求找到具体的试图函数。
+4. Flask 调用试图函数，获取响应请求的数据，并将数据传入 HTML 模板文件中，模板引擎负责渲染响应数据。
+5. 然后，Flask 返回响应数据给浏览器
+6. 最后，浏览器处理返回的结果显示给客户端。
+
+
+
+### 2.3 与Django对比
+
+Django 框架本身提供了：
+
+- **django-admin** 快速创建项目工程目录
+- **manage.py** 管理项目工程
+- **orm** 模型（数据库抽象层）
+- **admin** 后台管理站点
+- 缓存机制
+- 文件存储系统
+- 用户认证系统
+
+而 Flask 则全部都需要程序员利用第三方扩展包来实现。
+
+即：Django 框架将模块大集成，以便程序员能够简单配置便可以快速部署产品上线，通过降低开发难度来提升开发效率，而 Flask 可定制性强，可扩展性强，灵活性高。需要程序员自身实现高度定制化的应用程序。
+
+
+
+### 2.4 Flask扩展包
 
 - Flask-SQLalchemy：操作数据库；
 - Flask-migrate：管理迁移数据库；
-- Flask-Mail:邮件；
+- Flask-Mail：邮件；
 - Flask-WTF：表单；
 - Flask-script：插入脚本；
 - Flask-Login：认证用户状态；
@@ -92,28 +117,128 @@ admin后台管理站点
 - Flask-Bootstrap：集成前端Twitter Bootstrap框架；
 - Flask-Moment：本地化日期和时间；
 
-### 2.4 Flask文档
+
+
+### 2.5 Flask文档
 
 - 中文文档： http://docs.jinkan.org/docs/flask/
 - 英文文档： http://flask.pocoo.org/docs/0.11/
 
 
 
-## 3. 创建虚拟环境
+## 3. 配置运行环境
 
-虚拟环境是一个互相隔离的目录
+### 3.1 创建虚拟环境
 
-1.	mkvirtualenv flask_py2
-2.	pip install flask==0.10.1
+这里的虚拟环境使用 `virtualenv` 创建虚拟环境。
 
-pip freeze > requirements.txt
-pip install –r requirements.txt
+
+
+**查看系统是否安装了`virtualenv`：**
+
+```bash
+$ virtualenv --version
+```
+
+
+
+**安装虚拟环境(须在联网状态下)**
+
+```bash
+$ sudo pip install virtualenv
+$ sudo pip install virtualenvwrapper
+```
+
+
+
+**安装完虚拟环境后，如果提示找不到 `mkvirtualenv` 命令，须配置环境变量：**
+
+```bash
+# 1、创建目录用来存放虚拟环境
+mkdir $HOME/.virtualenvs
+
+# 2、打开~/.bashrc文件，并添加如下：
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+# 3、运行
+source ~/.bashrc
+```
+
+
+
+**创建虚拟环境(ubuntu里须在联网状态下)**
+
+```bash
+$ mkvirtualenv Flask_py3
+```
+
+
+
+**进入虚拟环境**
+
+```bash
+$ workon Flask_py3
+```
+
+
+
+**退出虚拟环境**
+
+```bash
+$ deactivate Flask_py
+```
+
+- 如果所在环境为真实环境，会提示 `deactivate: 未找到命令`
+
+
+
+### 3.2 安装Flask
+
+```bash
+# 指定Flask版本安装
+$ pip install flask==0.10.1
+```
+
+
+
+### 3.3 安装Flask依赖包
+
+依赖包
+
+- 依赖就是开发以及程序运行需要使用的环境的集合，包括软件、插件等。
+- 可把需要使用的依赖给保存在一个文件中，命名为 `requirements` 的txt文件。
+- 如果需要在其它环境中运行此项目，可直接通过指令一次性安装所有依赖。
+
+
+
+安装依赖包（须在虚拟环境中）：
+
+```bash
+$ pip install -r requirements.txt
+```
+
+
+
+生成依赖包（须在虚拟环境中）：
+
+```bash
+$ pip freeze > requirements.txt
+```
+
+
+
+在 **IPython** 中测试安装是否成功？
+
+```bash
+$ from flask import Flask
+```
 
 
 
 ## 4. Flask的Hello world程序
 
-### 4.1 Flask创建app对象
+### 4.1 Flask创建APP对象
 
 4.1.1 初始化参数
 import_name: 导入路径，寻找静态模板与静态目录的路径
@@ -243,6 +368,8 @@ current_app和g都属于应用上下文对象。
 current_app:表示当前运行程序文件的程序实例。
 g:处理请求时，用于临时存储的对象，每次请求都会重设这个变量。
 
+
+
 ### 4.9 请求钩子 hook
 
 请求钩子是通过装饰器的形式实现，Flask支持如下四种请求钩子：
@@ -283,7 +410,7 @@ pip install Flask-Script
 
 
 
-## 6. Jinja2模板
+## 6. `Jinja2` 模板
 
 ### 6.1 基本流程
 
