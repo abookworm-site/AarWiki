@@ -926,146 +926,148 @@ Flask中有两种上下文，请求上下文和应用上下文。
 
 
 
+#### 4.8.1 请求上下文(request context)
+
+`request`和`session`都属于请求上下文对象。
+
+- `request`：封装了HTTP请求的内容，针对的是http请求。
+
+- `session`：用来记录请求会话中的信息，针对的是用户信息。
 
 
-全局变量request: 线程局部变量
 
-```py
-Request = {
+`request` 请求上下文实现
+
+将 **全局变量** `request` 设计为依据线程不同而不同的 **线程局部变量**
+
+```python
+request = {
 	“线程A” : {
-		Form: {“name”: “zhangsan”}
-		Args:…
+		Form: {“name”: “Zhangsan”}
+		data: ...
+		args: ...
+	}
+	“线程B” : {
+		Form: {“name”: “Lisi”}
+		data: ...
+		args: ...
 	}
 }
 ```
-请求上下文(request context)  
-request和session都属于请求上下文对象。
-
-应用上下文(application context)
-current_app和g都属于应用上下文对象。
--	G变量：可以添加属性，就是一个空容器
--	一次请求之内的，再次请求就清空
-current_app:表示当前运行程序文件的程序实例。
-g:处理请求时，用于临时存储的对象，每次请求都会重设这个变量。
 
 
 
+#### 4.8.2 应用上下文(application context)
 
+`current_app` 和 `g` 都属于应用上下文对象。
 
-
-
-#### 请求上下文(request context)
-
-
-
-request和session都属于请求上下文对象。
-
-request：封装了HTTP请求的内容，针对的是http请求。举例：user = request.args.get('user')，获取的是get请求的参数。
-
-session：用来记录请求会话中的信息，针对的是用户信息。
-
-
-
-
-
-
-
-
-
-#### 应用上下文(application context)
-
-
-
-current_app和g都属于应用上下文对象。
-
-
-
-current_app:表示当前运行程序文件的程序实例。
+`current_app`：表示当前运行程序文件的程序实例。
 
 - 可通过 `current_app.name` 获取当前应用程序实例名称
 
 
 
-g:处理请求时，用于临时存储的对象，每次请求都会重设这个变量。
+`g`：处理请求时，用于临时存储的对象，每次请求都会重设这个变量。
 
-以获取一些临时请求的用户信息。
+- 可以获取一些临时请求的用户信息。
 
-- 当调用app = Flask(_*name_*)的时候，创建了程序应用对象app；
-- request 在每次http请求发生时，WSGI server调用Flask.call()；然后在Flask内部创建的request对象；
-- app的生命周期大于request和g，一个app存活期间，可能发生多次http请求，所以就会有多个request和g。
+- G变量就是一个空容器，可以随意添加属性
+- G变量的属性一直保存在一次请求之内的，再次请求将被清空。即可在一次请求的多个函数之间传递参数。
+
+
+
+#### 4.8.3 `request` & `g`
+
+- 当调用 `app = Flask(__name__)` 的时候，创建了程序应用对象app；
+- request 在每次http请求发生时，WSGI server调用 `Flask.call()` ；然后在Flask内部创建的 `request` 对象；
+- app 的生命周期大于 `request`和 `g`，一个app存活期间，可能发生多次http请求，所以就会有多个request和g。
 - 最终传入视图函数，通过return、redirect或render_template生成response对象，返回给客户端。
 
-**区别：** 请求上下文：保存了客户端和服务器交互的数据。 应用上下文：在flask程序运行过程中，保存的一些配置信息，比如程序文件名、数据库的连接、用户信息等。
 
 
+#### 4.8.4 区别
 
-
+- 请求上下文：保存了客户端和服务器交互的数据。 
+- 应用上下文：在flask程序运行过程中，保存的一些配置信息，比如程序文件名、数据库的连接、用户信息等。
 
 
 
 ### 4.9 请求钩子 hook
 
-请求钩子是通过装饰器的形式实现，Flask支持如下四种请求钩子：
-
-before_first_request：在处理第一个请求前运行。
-
-@app.before_first_request
-Def handle_before_first_request():
-	…
-
-
-
-
-before_request：在每次请求前运行。
-
-after_request(response)：如果没有未处理的异常抛出，在每次请求后运行。
-
-teardown_request(response)：在每次请求后运行，即使有未处理的异常抛出。
--	无论有没有异常
--	需要有返回值，return response
--	其中,response是视图函数的返回值，打包为response.
-
-所有的钩子对所有的视图函数都会被执行，
-使用其内部的request.path，可以作为视图函数的区分
-
-
-
-If request.path in [url_for(), url_for(),…..]:
-	….
-
-
-
-
-
-#### 请求钩子
-
 在客户端和服务器交互的过程中，有些准备工作或扫尾工作需要处理，比如：在请求开始时，建立数据库连接；在请求结束时，指定数据的交互格式。为了让每个视图函数避免编写重复功能的代码，Flask提供了通用设施的功能，即请求钩子。
 
+- 所有的钩子对所有的视图函数都会被执行，使用其内部的 `request.path`，可以作为视图函数的区分
+
+
+
 请求钩子是通过装饰器的形式实现，Flask支持如下四种请求钩子：
 
-before_first_request：在处理第一个请求前运行。
+- `before_first_request`：在处理第一个请求前运行。
+- `before_request`：在每次请求前运行。
+- `after_request(response)`：如果没有未处理的异常抛出，在每次请求后运行。
+- `teardown_request(response)`：在每次请求后运行，即使有未处理的异常抛出。
+    - 无论有没有异常
+    - 需要有返回值，return response
+    - 其中,response是视图函数的返回值，打包为response.
 
-before_request：在每次请求前运行。
 
-after_request：如果没有未处理的异常抛出，在每次请求后运行。
 
-teardown_request：在每次请求后运行，即使有未处理的异常抛出。
+```python
+from flask import Flask
+
+
+@app.route("/index")
+def index():
+    return "index page"
+
+@app.before_first_request
+def handle_before_first_request():
+    """在第一次请求处理之前被执行"""
+    print("handle_before_first_request 被执行")
+
+@app.before_request
+def handle_before_request():
+    """在每次请求处理之前被执行"""
+    print("handle_before_request 被执行")
+
+@app.after_request
+def handle_after_request(response):
+    """在每次请求（视图函数）处理之后被执行，前提是视图函数没有出现异常"""
+    print("handle_after_request 被执行")
+    return response
+
+@app.teardown_request
+def handle_teardown_request(response):
+    """
+    当工作在非调试模式时，即：debug=False 时，
+    在每次请求（视图函数）处理之后被执行，无论视图函数是否出现异常，都会被执行
+    """
+    print("handle_teardown_request 被执行")
+    return response
+```
 
 
 
 ### 5.0 Flask装饰器路由的实现
 
-Flask有两大核心：Werkzeug和Jinja2。Werkzeug实现路由、调试和Web服务器网关接口。Jinja2实现了模板。
+Flask有两大核心：`Werkzeug`和 `Jinja2`。
 
-Werkzeug是一个遵循WSGI协议的python函数库。其内部实现了很多Web框架底层的东西，比如request和response对象；与WSGI规范的兼容；支持Unicode；支持基本的会话管理和签名Cookie；集成URL请求路由等。
+- `Werkzeug`实现路由、调试和Web服务器网关接口。
+- `Jinja2`实现了模板。
 
-Werkzeug库的routing模块负责实现URL解析。不同的URL对应不同的视图函数，routing模块会对请求信息的URL进行解析，匹配到URL对应的视图函数，以此生成一个响应信息。
+`Werkzeug`是一个遵循`WSGI`协议的python函数库。
 
-routing模块内部有Rule类（用来构造不同的URL模式的对象）、Map类（存储所有的URL规则）、MapAdapter类（负责具体URL匹配的工作）；
+- 其内部实现了很多Web框架底层的东西，比如request和response对象；
+- 与WSGI规范的兼容；
+- 支持Unicode；
+- 支持基本的会话管理和签名Cookie；
+- 集成URL请求路由等。
 
+`Werkzeug`库的routing模块负责实现URL解析。
 
+- 不同的URL对应不同的视图函数，routing模块会对请求信息的URL进行解析，匹配到URL对应的视图函数，以此生成一个响应信息。
 
-
+- routing模块内部有Rule类（用来构造不同的URL模式的对象）、Map类（存储所有的URL规则）、MapAdapter类（负责具体URL匹配的工作）；
 
 
 
@@ -1122,43 +1124,7 @@ if __name__ == "__main__":
 
 
 
-
-
 ## 5. `Jinja2` 模板
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
