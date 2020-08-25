@@ -1128,13 +1128,81 @@ if __name__ == "__main__":
 
 
 
-### 6.1 基本流程
+视图函数有两个作用：处理业务逻辑和返回响应内容。
+
+
+
+模板作用：承担视图函数的另一个作用，即返回响应内容。 
+
+
+
+模板其实是一个包含响应文本的文件，其中用占位符（变量）表示动态部分，告诉模板引擎其具体值需要从使用的数据中获取。使用真实值替换变量，再返回最终得到的字符串，这个过程称为“渲染”。
+
+
+
+Flask使用 `Jinja2` 这个模板引擎来渲染模板。`Jinja2` 能识别所有类型的变量，包括 `{}`。 Jinja2模板引擎，Flask提供的 `render_template()` 函数封装了该模板引擎，`render_template()` 函数的第一个参数是模板的文件名，后面的参数都是键值对，表示模板中变量对应的真实值。
+
+
+
+
+
+[Jinja2官方文档](http://docs.jinkan.org/docs/jinja2/)
+
+
+
+
+
+### 5.1 基本流程
+
+
 
 使用flask 中的render_template渲染模板
 
+
+
+
+
+```python
+from flask import Flask, render_template
+
+
+app = Flask(__name__)
+
+
+def index():
+    """主页视图函数"""
+    data = {
+        "name": "python",
+        "age": 18
+    }
+    
+    # return render_template("index.html", name="python", age=18)
+	return render_template("index.html", **data)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+
+
+
+
+
+
 ### 6.2 变量
 
+
+
+
+
+
+
+
+
 ### 6.3 过滤器
+
+
 
 6.3.1 字符串过滤器
 
@@ -1633,4 +1701,16 @@ CSRF验证：
 
 
 
+
+## 项目部署
+
+
+
+## 性能测试
+
+PV=page view
+TPS=transactions per second
+QPS=queries per second
+RPS=requests per second
+RPS=并发数/平均响应时间
 
